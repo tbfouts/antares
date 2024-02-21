@@ -16,6 +16,7 @@ add_subdirectory(asset_imports)
 
 target_link_libraries(QtMediaSwipeApp PRIVATE
     contentplugin
+    Dataplugin
     QtMediaSwipeplugin
     Quick3DAssets_GenericCarModelplugin
     Quick3DAssets_Lightsplugin

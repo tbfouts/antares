@@ -19,14 +19,14 @@ qt6_add_qml_module(QtMediaSwipe
     VERSION 1.0
     RESOURCE_PREFIX "/qt/qml"
     QML_FILES
-        DataStore.qml
-        EventListSimulator.qml
-        EventListModel.qml
-        JsonData.qml
         Constants.qml
+        DataStore.qml
         DirectoryFontLoader.qml
+        EventListModel.qml
+        EventListSimulator.qml
+        JsonData.qml
     RESOURCES
-        models.json
         data.json
+        models.json
 
 )

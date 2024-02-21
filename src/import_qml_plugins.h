@@ -6,6 +6,7 @@
 #include <QtQml/qqmlextensionplugin.h>
 
 Q_IMPORT_QML_PLUGIN(contentPlugin)
+Q_IMPORT_QML_PLUGIN(DataPlugin)
 Q_IMPORT_QML_PLUGIN(QtMediaSwipePlugin)
 Q_IMPORT_QML_PLUGIN(Quick3DAssets_GenericCarModelPlugin)
 Q_IMPORT_QML_PLUGIN(Quick3DAssets_LightsPlugin)
