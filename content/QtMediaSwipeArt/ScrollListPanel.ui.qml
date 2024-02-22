@@ -1,5 +1,6 @@
 import QtQuick
 import QtQuick.Controls
+import Data 1.0 as Data
 
 Item {
     id: scrollListPanel
@@ -12,7 +13,7 @@ Item {
         height: 506
         color: "#00ffffff"
         radius: 8
-        border.color: "#8c787878"
+        border.color: "#373737"
         border.width: 1
         anchors.left: parent.left
         anchors.top: parent.top

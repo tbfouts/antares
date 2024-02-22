@@ -10,8 +10,8 @@ Rectangle {
 
     Image {
         id: sideLTMediaPlayer1
-        x: -80
-        opacity: 0.937
+        x: -60
+        opacity: 1
         source: "assets/sideRTMediaPlayer1.png"
         rotation: 180
     }

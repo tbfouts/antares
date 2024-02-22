@@ -45,8 +45,8 @@ Item {
             PropertyChanges {
                 target: themes
                 themeColor1: "#ACE1CC"
-                themeColor2: "#1D406C"
-                themeColor3: "#0A1527"
+                themeColor2: "#395B85"
+                themeColor3: "#B793A3"
                 albumArt: "assets/lunaNova.png"
                 trackArtist: "Luna Nova"
                 trackTitle: "Midnight Serenade"
@@ -60,9 +60,9 @@ Item {
 
             PropertyChanges {
                 target: themes
-                themeColor1: "#F9E17F"
-                themeColor2: "#387179"
-                themeColor3: "#B5253A"
+                themeColor1: "#65A08F"
+                themeColor2: "#FD825F"
+                themeColor3: "#2F4C62"
                 albumArt: "assets/pixelPulse.png"
                 trackArtist: "Pixel Pulse"
                 trackTitle: "Digital Dreams"
@@ -156,9 +156,9 @@ Item {
 
             PropertyChanges {
                 target: themes
-                themeColor1: "#F9E17F"
-                themeColor2: "#387179"
-                themeColor3: "#B5253A"
+                themeColor1: "#DF5789"
+                themeColor2: "#79AA8D"
+                themeColor3: "#FAC674"
                 albumArt: "assets/gravityGroove.png"
                 trackArtist: "Gravity Groove"
                 trackTitle: "Gravitational Waves"
@@ -172,9 +172,9 @@ Item {
 
             PropertyChanges {
                 target: themes
-                themeColor1: "#F9E17F"
-                themeColor2: "#387179"
-                themeColor3: "#B5253A"
+                themeColor1: "#2F5163"
+                themeColor2: "#E78F54"
+                themeColor3: "#F2EFDB"
                 albumArt: "assets/zenZephyr.png"
                 trackArtist: "Zen Zephyr"
                 trackTitle: "Tranquil Torrent"
@@ -188,9 +188,9 @@ Item {
 
             PropertyChanges {
                 target: themes
-                themeColor1: "#F9E17F"
-                themeColor2: "#387179"
-                themeColor3: "#B5253A"
+                themeColor1: "#9443B2"
+                themeColor2: "#FC715A"
+                themeColor3: "#EA50B8"
                 albumArt: "assets/ultravioletUtopia.png"
                 trackArtist: "Ultraviolet Utopia"
                 trackTitle: "Vivid Vision"
@@ -204,9 +204,9 @@ Item {
 
             PropertyChanges {
                 target: themes
-                themeColor1: "#F9E17F"
-                themeColor2: "#387179"
-                themeColor3: "#B5253A"
+                themeColor1: "#D75666"
+                themeColor2: "#485557"
+                themeColor3: "#CBAA7B"
                 albumArt: "assets/velvetVoyager.png"
                 trackArtist: "Velvet Voyager"
                 trackTitle: "Velvet Vortex"

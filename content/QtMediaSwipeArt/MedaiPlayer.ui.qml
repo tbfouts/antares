@@ -16,9 +16,21 @@ Rectangle {
         height: 359
         opacity: 1
         visible: true
-        color: "#717171"
         radius: 16
-        border.color: "#d5d5d5"
+        border.color: Data.Themes.themeColor3
+        gradient: Gradient {
+            GradientStop {
+                position: 0
+                color: Data.Themes.themeColor2
+            }
+
+            GradientStop {
+                position: 1
+                color: "#000000"
+            }
+
+            orientation: Gradient.Vertical
+        }
     }
 
 
@@ -55,8 +67,8 @@ Rectangle {
 
 /*##^##
 Designer {
-    D{i:0;uuid:"ac35268a-fc2f-5686-8907-da40284cb91e"}D{i:2;uuid:"998c6d86-0ade-5b4f-a4c3-d9ebf7e76874"}
-D{i:3;uuid:"f0486293-3431-5fe4-bd11-bf0baf249f1a"}D{i:4;uuid:"e333522d-eb61-5b31-bcc0-f2960d8eb71f"}
+    D{i:0;uuid:"ac35268a-fc2f-5686-8907-da40284cb91e"}D{i:5;uuid:"998c6d86-0ade-5b4f-a4c3-d9ebf7e76874"}
+D{i:6;uuid:"f0486293-3431-5fe4-bd11-bf0baf249f1a"}
 }
 ##^##*/
 

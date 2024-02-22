@@ -44,61 +44,61 @@ Rectangle {
         rotation: -90
     }
 
-    Button {
-        id: buttonBase
-        x: 782
-        y: 84
-        width: 80
-        height: 49
-        text: qsTrId("Base")
+    // Button {
+    //     id: buttonBase
+    //     x: 782
+    //     y: 84
+    //     width: 80
+    //     height: 49
+    //     text: qsTrId("Base")
 
-        Connections {
-            target: buttonBase
-            onPressed: view3DCar.state = ""
-        }
-    }
+    //     Connections {
+    //         target: buttonBase
+    //         onPressed: view3DCar.state = ""
+    //     }
+    // }
 
-    Button {
-        id: buttonFront
-        x: 965
-        y: 84
-        width: 80
-        height: 49
-        text: qsTrId("Front")
+    // Button {
+    //     id: buttonFront
+    //     x: 965
+    //     y: 84
+    //     width: 80
+    //     height: 49
+    //     text: qsTrId("Front")
 
-        Connections {
-            target: buttonFront
-            onPressed: view3DCar.state = "front"
-        }
-    }
+    //     Connections {
+    //         target: buttonFront
+    //         onPressed: view3DCar.state = "front"
+    //     }
+    // }
 
-    Button {
-        id: buttonSide
-        x: 874
-        y: 84
-        width: 80
-        height: 49
-        text: qsTrId("Side")
+    // Button {
+    //     id: buttonSide
+    //     x: 874
+    //     y: 84
+    //     width: 80
+    //     height: 49
+    //     text: qsTrId("Side")
 
-        Connections {
-            target: buttonSide
-            onPressed: view3DCar.state = "side"
-        }
-    }
+    //     Connections {
+    //         target: buttonSide
+    //         onPressed: view3DCar.state = "side"
+    //     }
+    // }
 
-    Button {
-        id: buttonRear
-        x: 1059
-        y: 84
-        width: 80
-        height: 49
-        text: qsTrId("Rear")
+    // Button {
+    //     id: buttonRear
+    //     x: 1059
+    //     y: 84
+    //     width: 80
+    //     height: 49
+    //     text: qsTrId("Rear")
 
-        Connections {
-            target: buttonRear
-            onPressed: view3DCar.state = "rear"
-        }
-    }
+    //     Connections {
+    //         target: buttonRear
+    //         onPressed: view3DCar.state = "rear"
+    //     }
+    // }
 
     Item {
         id: __materialLibrary__
@@ -110,6 +110,57 @@ Rectangle {
         y: 72
         visible: false
         source: view3DCar
+    }
+
+    Row {
+        id: row3DViews
+        x: 782
+        y: 76
+        width: 364
+        height: 65
+        spacing: 0
+
+        Btn3DView {
+            id: btn3DViewBase
+            checked: true
+            txtViewText: "BASE"
+
+            Connections {
+                target: btn3DViewBase
+                onPressed: view3DCar.state = ""
+            }
+        }
+
+        Btn3DView {
+            id: btn3DViewSide
+            txtViewText: "SIDE"
+
+            Connections {
+                target: btn3DViewSide
+                onPressed: view3DCar.state = "side"
+            }
+        }
+
+        Btn3DView {
+            id: btn3DViewFront
+            txtViewText: "FRONT"
+
+            Connections {
+                id: connections
+                target: btn3DViewFront
+                onPressed: view3DCar.state = "front"
+            }
+        }
+
+        Btn3DView {
+            id: btn3DViewRear
+            txtViewText: "REAR"
+
+            Connections {
+                target: btn3DViewRear
+                onPressed: view3DCar.state = "rear"
+            }
+        }
     }
 
 

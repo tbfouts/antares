@@ -15,12 +15,14 @@ Rectangle {
     property alias txtDialValueText: txtDialValue.text
 
 
+
     Image {
         id: eqBarBlur
         x: 72
         y: -14
         width: 998
         height: 1053
+        opacity: 0.556
         source: "assets/eqBarBlur.png"
         fillMode: Image.PreserveAspectFit
     }
@@ -35,6 +37,7 @@ Rectangle {
         rotation: 180
         clip: true
     }
+
 
 
     EqBars {
