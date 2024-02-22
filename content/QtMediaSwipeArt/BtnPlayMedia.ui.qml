@@ -9,7 +9,7 @@ Button {
     width: 156
     height: 149
     checkable: true
-    state: "Play"
+    state: Data.Themes.animRunning ? "Playing" : "Paused"
     background: btnMediabkgrd
 
     ArcItem {
@@ -66,30 +66,17 @@ Button {
         antialiasing: true
     }
 
-
     Connections {
         target: btnPlayMedia
         onPressed: {
-            if (Data.Themes.animPaused === false)
-                Data.Themes.animPaused = true
-            else if (Data.Themes.animPaused === true)
-                Data.Themes.animPaused = false
+            Data.Themes.animPaused = !Data.Themes.animPaused
+            Data.Themes.animRunning = !Data.Themes.animRunning
         }
     }
 
-    Connections {
-        target: btnPlayMedia
-        onPressed: {
-             if (Data.Themes.animRunning === false)
-                 Data.Themes.animRunning = true
-             else if (Data.Themes.animRunning === true)
-                 Data.Themes.animRunning = false
-        }
-    }
     states: [
         State {
-            name: "Play"
-            when: btnPlayMedia.checked
+            name: "Paused"
 
             PropertyChanges {
                 target: btnPlay
@@ -102,8 +89,7 @@ Button {
             }
         },
         State {
-            name: "Pause"
-            when: !btnPlayMedia.checked
+            name: "Playing"
 
             PropertyChanges {
                 target: btnPlay

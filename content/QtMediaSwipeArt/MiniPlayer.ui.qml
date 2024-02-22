@@ -64,7 +64,6 @@ Rectangle {
         anchors.top: parent.top
         anchors.leftMargin: 92
         anchors.topMargin: 123
-        state: "state_Play"
         clip: true
     }
 
