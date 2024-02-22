@@ -13,10 +13,6 @@ Project {
         directory: "imports"
     }
 
-    QmlFiles {
-        directory: "backend"
-    }
-
     JavaScriptFiles {
         directory: "content"
     }
