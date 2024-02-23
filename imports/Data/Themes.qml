@@ -3,23 +3,51 @@ import QtQuick 2.12
 
 Item {
     id: themes
-      property string currentTheme: "pixel"
 
-      property color themeColor1: "#ACE1CC"
-      property color themeColor2: "#1D406C"
-      property color themeColor3: "#0A1527"
-      property color backgroundColor: "#000000"
+    property string currentTheme: "pixel"
 
-      property string albumArt: "assets/albumArt.png"
-      property string trackArtist: "Luna Nova"
-      property string trackTitle: "Midnight Serenade"
+    property color themeColor1: "#ACE1CC"
+    property color themeColor2: "#1D406C"
+    property color themeColor3: "#0A1527"
+    property color backgroundColor: "#000000"
 
-      property int trackSpeed: 1200
+    property string albumArt: "assets/albumArt.png"
+    property string trackArtist: "Luna Nova"
+    property string trackTitle: "Midnight Serenade"
 
-      property bool animRunning: true
-      property bool animPaused: false
-      // property bool listTrack1Checked: true
-      // property bool listTrack2Checked: false
+    property variant songs: ["stardust", "luna", "electric", "pixel", "crystal", "sonic", "ethereal", "mind", "gravity", "zen", "ultraviolet", "velvet"]
+
+    property int trackSpeed: 1200
+
+    property bool animRunning: true
+    property bool animPaused: false
+    // property bool listTrack1Checked: true
+    // property bool listTrack2Checked: false
+
+
+    function nextTrack()
+    {
+        var numSongs = songs.length
+        var nextTrackIndex = songs.indexOf(themes.state) + 1
+
+        if(nextTrackIndex === numSongs)
+            nextTrackIndex = 0
+
+        console.log("Current theme: " + themes.state + ", next track index: " + nextTrackIndex + ", new theme: " + songs[nextTrackIndex])
+        themes.state = songs[nextTrackIndex]
+    }
+
+    function previousTrack()
+    {
+        var prevTrackIndex = songs.indexOf(themes.state) - 1
+
+        if(prevTrackIndex < 0)
+            prevTrackIndex = songs.length - 1
+
+        console.log("Current theme: " + themes.state + ", prev track index: " + prevTrackIndex + ", new theme: " + songs[prevTrackIndex])
+
+        themes.state = songs[prevTrackIndex]
+    }
 
     states: [
         State {

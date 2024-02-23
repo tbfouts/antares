@@ -10,7 +10,10 @@ Button {
     background: artistTrackbkgrd
     property alias elementText: timeDuration.text
     property alias artistInfoText: albumInfo.text
+    property string theme: "stardust"
+    state: theme === Data.Themes.state ? "Playing" : "Default"
 
+    // onStateChanged: console.log(albumInfo.text)
     Rectangle {
         id: artistTrackbkgrd
         x: 16
@@ -21,7 +24,6 @@ Button {
         color: "#4d737373"
         radius: 14
         clip: true
-        state: "state_Playing"
     }
 
     Text {
@@ -70,12 +72,11 @@ Button {
         onReleased: Data.Themes.animRunning = true
     }
 
-
     states: [
         State {
             name: "Default"
-            when: !artistTrackBtn.checked
 
+            when: !artistTrackBtn.checked
             PropertyChanges {
                 target: timeDuration
                 color: "#C5C5C5"
@@ -95,8 +96,8 @@ Button {
         },
         State {
             name: "Playing"
-            when: artistTrackBtn.checked
 
+            when: artistTrackBtn.checked
             PropertyChanges {
                 target: timeDuration
                 color: "#ffffff"
@@ -117,7 +118,6 @@ Button {
         }
     ]
 }
-
 
 /*##^##
 Designer {

@@ -29,7 +29,7 @@ Rectangle {
         width: 1920
         height: 1080
         interactive: false
-        currentIndex: 1
+        currentIndex: 0
         focusPolicy: Qt.WheelFocus
 
         CarView3D {

@@ -7,7 +7,6 @@ Item {
     width: 730
     height: 500
 
-
     ArtistTrack {
         id: artistTrack
         width: 734
@@ -18,7 +17,8 @@ Item {
         anchors.topMargin: 5
         checked: Data.Themes.listTrack1Checked
         autoExclusive: true
-        state: "state_Default"
+        theme: "stardust"
+
         clip: false
 
         Connections {
@@ -37,7 +37,8 @@ Item {
         anchors.topMargin: 62
         checked: Data.Themes.listTrack2Checked
         autoExclusive: true
-        state: "state_Default"
+        theme: "luna"
+
         artistInfoText: "Luna Nova - \"Midnight Serenade\""
         elementText: "2:56"
         clip: false
@@ -46,7 +47,7 @@ Item {
             target: artistTrack1
             onPressed: {
                 Data.Themes.currentTheme = "luna"
-                }
+            }
         }
     }
 
@@ -59,7 +60,8 @@ Item {
         anchors.leftMargin: -2
         anchors.topMargin: 119
         autoExclusive: true
-        state: "state_Default"
+        theme: "electric"
+
         artistInfoText: "Electric Dreamscape - \"Neon Reverie\""
         elementText: "3:11"
         clip: false
@@ -80,7 +82,8 @@ Item {
         anchors.topMargin: 176
         checked: true
         autoExclusive: true
-        state: "state_Default"
+        theme: "pixel"
+
         artistInfoText: "Pixel Pulse - \"Digital Dreams\""
         elementText: "4:06"
         clip: false
@@ -100,7 +103,8 @@ Item {
         anchors.leftMargin: -2
         anchors.topMargin: 233
         autoExclusive: true
-        state: "state_Default"
+        theme: "crystal"
+
         artistInfoText: "Crystal Cascade - \"Iridescent Illusion\""
         elementText: "3:45"
         clip: false
@@ -120,10 +124,10 @@ Item {
         anchors.leftMargin: -2
         anchors.topMargin: 290
         autoExclusive: true
-        state: "state_Playing"
         artistInfoText: "Sonic Prism - \"Aurora Beats\""
         elementText: "3:48"
         clip: false
+        theme: "sonic"
 
         Connections {
             target: artistTrack5
@@ -140,7 +144,8 @@ Item {
         anchors.leftMargin: -2
         anchors.topMargin: 347
         autoExclusive: true
-        state: "state_Default"
+        theme: "ethereal"
+
         artistInfoText: "Ethereal Essence - \"Whispers of the Wind\""
         elementText: "4:38"
         clip: false
@@ -160,7 +165,8 @@ Item {
         anchors.leftMargin: -2
         anchors.topMargin: 404
         autoExclusive: true
-        state: "state_Default"
+        theme: "mind"
+
         artistInfoText: "Psychedelic Pulsar - \"Mind Warp\""
         elementText: "5:12"
         clip: false
@@ -180,7 +186,8 @@ Item {
         anchors.leftMargin: -2
         anchors.topMargin: 461
         autoExclusive: true
-        state: "state_Default"
+        theme: "gravity"
+
         artistInfoText: "Gravity Groove - \"Gravitational Waves\""
         elementText: "2:07"
         clip: false
@@ -200,7 +207,8 @@ Item {
         anchors.leftMargin: -2
         anchors.topMargin: 518
         autoExclusive: true
-        state: "state_Default"
+        theme: "zen"
+
         artistInfoText: "Zen Zephyr - \"Tranquil Torrent\""
         elementText: "8:08"
         clip: false
@@ -220,7 +228,8 @@ Item {
         anchors.leftMargin: -2
         anchors.topMargin: 575
         autoExclusive: true
-        state: "state_Default"
+        theme: "ultraviolet"
+
         artistInfoText: "Ultraviolet Utopia - \"Vivid Vision\""
         elementText: "3:42"
         clip: false
@@ -240,7 +249,8 @@ Item {
         anchors.leftMargin: -2
         anchors.topMargin: 632
         autoExclusive: true
-        state: "state_Default"
+        theme: "velvet"
+
         artistInfoText: "Velvet Voyager - \"Velvet Vortex\""
         elementText: "4:01"
         clip: false
