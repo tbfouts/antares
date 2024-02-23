@@ -14,6 +14,7 @@ qt6_add_qml_module(content
         QtMediaSwipeArt/AlbumArtComp.ui.qml
         QtMediaSwipeArt/ArtistTrack.ui.qml
         QtMediaSwipeArt/BottomBarSwipe.ui.qml
+        QtMediaSwipeArt/Btn3DView.ui.qml
         QtMediaSwipeArt/BtnMediaView.ui.qml
         QtMediaSwipeArt/BtnNavView.ui.qml
         QtMediaSwipeArt/BtnNext.ui.qml

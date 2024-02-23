@@ -1,7 +1,7 @@
 import QtQuick
 import QtQuick.Controls
 import QtQuick.Studio.Components 1.0
-import Data 1.0 as Data
+import Data 1.0
 
 Button {
     id: btnNext
@@ -60,11 +60,7 @@ Button {
     Connections {
         target: btnNext
         onReleased: {
-            if (Data.Themes.listTrack1Checked === true)
-                (Data.Themes.listTrack2Checked = false)
-
-
-
+            Themes.nextTrack()
         }
     }
     states: [

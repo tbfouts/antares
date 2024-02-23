@@ -29,6 +29,16 @@ Rectangle {
         anchors.top: parent.top
     }
 
+    // commenting this out for now because the TimelineAnimation emits finished when it is paused which erroneously triggers this(!)
+    // Connections {
+    //     target: songDurAnimation
+    //     onStopped: {
+    //         Data.Themes.nextTrack()
+    //         songDurAnimation.restart()
+    //     }
+
+    // }
+
     Timeline {
         id: timelineSongDuration
         animations: [
