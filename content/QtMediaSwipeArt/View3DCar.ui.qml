@@ -19,7 +19,7 @@ View3D {
         clearColor: "#000000"
         antialiasingQuality: SceneEnvironment.VeryHigh
         antialiasingMode: SceneEnvironment.SSAA
-        probeExposure: 7
+        probeExposure: 20
         aoEnabled: false
         backgroundMode: SceneEnvironment.Color
         lightProbe: basicLights3_4K
@@ -138,9 +138,9 @@ View3D {
             color: "#a1a1a1"
             ambientColor: "#ffffff"
             brightness: 0.2
-            eulerRotation.z: 57.63947
-            eulerRotation.y: -57.16124
-            eulerRotation.x: -46.91751
+            eulerRotation.z: 114.08686
+            eulerRotation.y: -128.0842
+            eulerRotation.x: -50.80216
             z: -618.60547
         }
 
