@@ -62,7 +62,7 @@ Rectangle {
         height: 149
         anchors.left: parent.left
         anchors.top: parent.top
-        anchors.leftMargin: 92
+        anchors.leftMargin: 98
         anchors.topMargin: 123
         clip: true
     }
@@ -74,7 +74,7 @@ Rectangle {
         height: 142
         anchors.left: parent.left
         anchors.top: parent.top
-        anchors.leftMargin: 211
+        anchors.leftMargin: 217
         anchors.topMargin: 130
         state: "state_Default"
         clip: true
@@ -86,7 +86,7 @@ Rectangle {
         height: 116
         anchors.left: parent.left
         anchors.top: parent.top
-        anchors.leftMargin: -21
+        anchors.leftMargin: -15
         anchors.topMargin: 139
         state: "state_Default"
         clip: true

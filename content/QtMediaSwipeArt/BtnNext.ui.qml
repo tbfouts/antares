@@ -1,7 +1,7 @@
 import QtQuick
 import QtQuick.Controls
 import QtQuick.Studio.Components 1.0
-import Data 1.0
+import Data 1.0 as Data
 
 Button {
     id: btnNext
@@ -60,7 +60,9 @@ Button {
     Connections {
         target: btnNext
         onReleased: {
-            Themes.nextTrack()
+            Data.Themes.nextTrack()
+            trackBar.state = "idle"
+          //  trackBar.songDurAnimation.restart()
         }
     }
     states: [

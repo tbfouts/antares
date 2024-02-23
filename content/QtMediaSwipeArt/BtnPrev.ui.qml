@@ -57,6 +57,7 @@ Button {
         target: btnPrev
         onReleased: {
             Themes.previousTrack()
+            trackBar.state = "idle"
         }
     }
     states: [

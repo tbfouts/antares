@@ -8,6 +8,7 @@ Rectangle {
     width: 323
     height: 6
     color: "transparent"
+    state: "playing"
 
     Rectangle {
         id: vecSongFullLength
@@ -36,7 +37,6 @@ Rectangle {
     //         Data.Themes.nextTrack()
     //         songDurAnimation.restart()
     //     }
-
     // }
 
     Timeline {
@@ -44,8 +44,9 @@ Rectangle {
         animations: [
             TimelineAnimation {
                 id: songDurAnimation
+                alwaysRunToEnd: false
                 paused: Data.Themes.animPaused
-                running: Data.Themes.animRunning
+                running: true
                 loops: 1
                 duration: 80000
                 to: 10000
@@ -54,7 +55,7 @@ Rectangle {
         ]
         startFrame: 0
         endFrame: 10000
-        enabled: true
+        enabled: false
 
         KeyframeGroup {
             target: vecSongplayed
@@ -70,6 +71,62 @@ Rectangle {
             }
         }
     }
+
+    Timeline {
+        id: timelineIdle
+        animations: [
+            TimelineAnimation {
+                id: timelineIdleAnimation
+                onFinished: trackBar.state = "playing"
+                running: true
+                loops: 1
+                duration: 1000
+                to: 1000
+                from: 0
+            }
+        ]
+        startFrame: 0
+        endFrame: 1000
+        enabled: false
+    }
+    states: [
+        State {
+            name: "idle"
+
+            PropertyChanges {
+                target: timelineSongDuration
+            }
+
+            PropertyChanges {
+                target: vecSongFullLength
+                width: 323
+            }
+
+            PropertyChanges {
+                target: vecSongplayed
+                width: 0
+            }
+
+            PropertyChanges {
+                target: timelineIdleAnimation
+                running: true
+            }
+        },
+        State {
+            name: "playing"
+
+            PropertyChanges {
+                target: timelineSongDuration
+                enabled: true
+            }
+
+            PropertyChanges {
+                target: songDurAnimation
+                running: true
+
+            }
+        }
+    ]
 }
 
 /*##^##

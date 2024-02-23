@@ -28,9 +28,9 @@ Rectangle {
         y: 0
         width: 1920
         height: 1080
-        interactive: false
-        currentIndex: 0
-        focusPolicy: Qt.WheelFocus
+        interactive: true
+        currentIndex: 1
+        focusPolicy: Qt.ClickFocus
 
         CarView3D {
             id: carView3D
