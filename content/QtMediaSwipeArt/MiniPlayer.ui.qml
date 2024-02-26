@@ -30,7 +30,7 @@ Rectangle {
         anchors.leftMargin: 14
         anchors.topMargin: 15
         font.letterSpacing: 0.281
-        font.pixelSize: 33
+        font.pixelSize: 30
         horizontalAlignment: Text.AlignLeft
         verticalAlignment: Text.AlignTop
         wrapMode: Text.Wrap
@@ -43,7 +43,7 @@ Rectangle {
         width: 232
         height: 32
         color: "#b6b6b6"
-        text: qsTrId("Stardust Mirage")
+        text: qsTr("Stardust Mirage")
         anchors.left: parent.left
         anchors.top: parent.top
         anchors.leftMargin: 22

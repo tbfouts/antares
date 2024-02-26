@@ -9,6 +9,7 @@ Window {
     height: mainScreen.height
     visible: true
     title: "Built with Qt"
+    visibility: Qt.platform.os === 'android' ? Window.FullScreen : Window.AutomaticVisibility
 
     Rectangle {
              id: bg
