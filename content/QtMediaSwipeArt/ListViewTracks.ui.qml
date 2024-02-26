@@ -15,7 +15,6 @@ Item {
         anchors.top: parent.top
         anchors.leftMargin: -2
         anchors.topMargin: 5
-        checked: Data.Themes.listTrack1Checked
         autoExclusive: true
         theme: "stardust"
 
@@ -35,7 +34,6 @@ Item {
         anchors.top: parent.top
         anchors.leftMargin: -2
         anchors.topMargin: 62
-        checked: Data.Themes.listTrack2Checked
         autoExclusive: true
         theme: "luna"
 

@@ -106,11 +106,7 @@ Rectangle {
         }
     }
 
-
     Item {
         id: __materialLibrary__
     }
-
-
-
 }

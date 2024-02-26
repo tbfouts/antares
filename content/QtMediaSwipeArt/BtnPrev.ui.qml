@@ -16,15 +16,13 @@ Button {
         color: "transparent"
         clip: true
         state: "state_Press"
+        anchors.centerIn: parent
 
         SvgPathItem {
             id: btnPreviousPress
             width: 20
             height: 20
-            anchors.left: parent.left
-            anchors.top: parent.top
-            anchors.leftMargin: 75
-            anchors.topMargin: 48
+            anchors.centerIn: parent
             strokeWidth: 1
             strokeStyle: 1
             strokeColor: "transparent"
@@ -39,10 +37,7 @@ Button {
             width: 27
             height: 27
             visible: false
-            anchors.left: parent.left
-            anchors.top: parent.top
-            anchors.leftMargin: 71
-            anchors.topMargin: 47
+            anchors.centerIn: parent
             strokeWidth: 1
             strokeStyle: 1
             strokeColor: "transparent"

@@ -40,7 +40,7 @@ Rectangle {
         id: eqBars
         x: 608
         y: 860
-        eQAnimationRunning: Data.Themes.animRunning
+        eQAnimationRunning: Data.Themes.mediaPlaying
         scale: 0.7
     }
 

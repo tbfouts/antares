@@ -39,7 +39,7 @@ Rectangle {
         y: 371
         opacity: 0.521
         visible: false
-        eQAnimationRunning: Data.Themes.animRunning
+        eQAnimationRunning: Data.Themes.mediaPlaying
         scale: 1.5
         rotation: -90
     }

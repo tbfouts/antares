@@ -14,8 +14,6 @@ Rectangle {
     property alias eqBarsTopEQAnimationRunning: eqBarsTop.eQAnimationRunning
     property alias txtDialValueText: txtDialValue.text
 
-
-
     Image {
         id: eqBarBlur
         x: 72
@@ -33,12 +31,10 @@ Rectangle {
         y: 558
         width: 700
         height: 399
-        eQAnimationRunning: Data.Themes.animRunning
+        eQAnimationRunning: Data.Themes.mediaPlaying
         rotation: 180
         clip: true
     }
-
-
 
     EqBars {
         id: eqBarsTop
@@ -48,10 +44,9 @@ Rectangle {
         anchors.top: parent.top
         anchors.leftMargin: 224
         anchors.topMargin: 43
-        eQAnimationRunning: Data.Themes.animRunning
+        eQAnimationRunning: Data.Themes.mediaPlaying
         clip: true
     }
-
 
     Image {
         id: knobVolumeBackground
@@ -61,10 +56,6 @@ Rectangle {
         anchors.topMargin: 126
         source: "assets/knobVolumeBackground_1.png"
     }
-
-
-
-
 
     ArcItem {
         id: knobVolumeIndicator
@@ -88,14 +79,6 @@ Rectangle {
         antialiasing: true
     }
 
-
-
-
-
-
-
-
-
     Dial {
         id: dial
         x: 218
@@ -103,6 +86,7 @@ Rectangle {
         width: 710
         height: 710
         value: -130
+        inputMode: Dial.Circular
         stepSize: 1
         handle: knobHandle
 
@@ -116,8 +100,6 @@ Rectangle {
         to: 130
         from: -130
     }
-
-
 
     Image {
         id: knobHandle
@@ -133,7 +115,7 @@ Rectangle {
         width: 331
         height: 161
         color: "#2e3c3c43"
-        text: dial.value + 130
+        text: Math.floor((dial.value + 130) / 10)
         anchors.left: parent.left
         anchors.top: parent.top
         anchors.leftMargin: 410
@@ -146,7 +128,6 @@ Rectangle {
         font.weight: Font.DemiBold
         font.family: "Oxanium"
     }
-
 }
 
 /*##^##

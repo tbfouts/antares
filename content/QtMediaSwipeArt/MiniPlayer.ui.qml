@@ -74,20 +74,20 @@ Rectangle {
         height: 142
         anchors.left: parent.left
         anchors.top: parent.top
-        anchors.leftMargin: 217
-        anchors.topMargin: 130
+        anchors.leftMargin: 227
+        anchors.topMargin: 127
         state: "state_Default"
         clip: true
     }
 
     BtnPrev {
         id: btnPrev
-        width: 169
-        height: 116
+        width: 129
+        height: 142
         anchors.left: parent.left
         anchors.top: parent.top
-        anchors.leftMargin: -15
-        anchors.topMargin: 139
+        anchors.leftMargin: -5
+        anchors.topMargin: 127
         state: "state_Default"
         clip: true
     }

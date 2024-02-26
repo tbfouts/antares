@@ -1,5 +1,6 @@
 pragma Singleton
 import QtQuick 2.12
+import QtMultimedia
 
 Item {
     id: themes
@@ -19,11 +20,33 @@ Item {
 
     property int trackSpeed: 1200
 
-    property bool animRunning: true
-    property bool animPaused: false
-    // property bool listTrack1Checked: true
-    // property bool listTrack2Checked: false
+    property bool mediaPlaying: mediaPlayer.playing
 
+    Component.onCompleted: mediaPlayer.play()
+
+    MediaPlayer {
+        id: mediaPlayer
+        source: "/sounds/" + themes.state + ".wav"
+        audioOutput: AudioOutput {}
+        loops: MediaPlayer.Infinite
+        onSourceChanged:
+        {
+            console.log("source: " + source)
+            mediaPlayer.play()
+        }
+    }
+
+    function playPause()
+    {
+        if(mediaPlayer.playing)
+        {
+            mediaPlayer.pause()
+        }
+        else
+        {
+            mediaPlayer.play()
+        }
+    }
 
     function nextTrack()
     {

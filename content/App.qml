@@ -3,6 +3,7 @@
 
 import QtQuick 6.5
 import QtMediaSwipe
+import QtMultimedia
 
 Window {
     width: mainScreen.width
@@ -30,6 +31,5 @@ Window {
             }
         }
     }
-
 }
 

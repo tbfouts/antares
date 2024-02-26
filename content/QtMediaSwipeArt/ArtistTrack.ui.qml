@@ -67,11 +67,6 @@ Button {
         font.family: "Monofonto"
     }
 
-    Connections {
-        target: artistTrackBtn
-        onReleased: Data.Themes.animRunning = true
-    }
-
     states: [
         State {
             name: "Default"

@@ -38,14 +38,13 @@ Rectangle {
     //         songDurAnimation.restart()
     //     }
     // }
-
     Timeline {
         id: timelineSongDuration
         animations: [
             TimelineAnimation {
                 id: songDurAnimation
                 alwaysRunToEnd: false
-                paused: Data.Themes.animPaused
+                paused: !Data.Themes.mediaPlaying
                 running: true
                 loops: 1
                 duration: 80000
@@ -123,7 +122,6 @@ Rectangle {
             PropertyChanges {
                 target: songDurAnimation
                 running: true
-
             }
         }
     ]

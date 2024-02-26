@@ -7,7 +7,7 @@ project(QtMediaSwipeApp LANGUAGES CXX)
 
 set(CMAKE_AUTOMOC ON)
 
-find_package(Qt6 6.2 REQUIRED COMPONENTS Core Gui Qml Quick)
+find_package(Qt6 6.2 REQUIRED COMPONENTS Core Gui Qml Quick Multimedia)
 
 if (Qt6_VERSION VERSION_GREATER_EQUAL 6.3)
     qt_standard_project_setup()
@@ -19,6 +19,18 @@ qt_add_resources(QtMediaSwipeApp "configuration"
     PREFIX "/"
     FILES
         qtquickcontrols2.conf
+        sounds/electric.wav
+        sounds/luna.wav
+        sounds/stardust.wav
+        sounds/pixel.wav
+        sounds/crystal.wav
+        sounds/sonic.wav
+        sounds/ethereal.wav
+        sounds/mind.wav
+        sounds/gravity.wav
+        sounds/zen.wav
+        sounds/ultraviolet.wav
+        sounds/velvet.wav
 )
 
 target_link_libraries(QtMediaSwipeApp PRIVATE
