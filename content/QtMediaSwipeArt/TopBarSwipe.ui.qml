@@ -78,7 +78,12 @@ Rectangle {
 
         Connections {
             target: btnSound
-         //   onPressed:  Data.Themes.mediaPlaying ? "pause" : "play"
+            onPressed:  {
+                if (Data.Themes.mediaSoundMute === true)
+                    Data.Themes.mediaSoundMute = false
+                else if (Data.Themes.mediaSoundMute === false)
+                    Data.Themes.mediaSoundMute = true
+            }
 
         }
 

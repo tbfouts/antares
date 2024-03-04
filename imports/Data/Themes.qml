@@ -21,13 +21,14 @@ Item {
     property int trackSpeed: 1200
 
     property bool mediaPlaying: mediaPlayer.playing
+    property bool mediaSoundMute: true
 
     Component.onCompleted: mediaPlayer.play()
 
     MediaPlayer {
         id: mediaPlayer
         source: "../../sounds/" + themes.state + ".wav"
-        audioOutput: AudioOutput {}
+        audioOutput: AudioOutput { muted: mediaSoundMute }
         loops: MediaPlayer.Infinite
         onSourceChanged:
         {

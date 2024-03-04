@@ -100,12 +100,6 @@ Rectangle {
             source: "assets/knobVolumeForeground_1.png"
         }
 
-        Connections {
-            target: dial
-            onValue: Data.Themes.trackSpeed = Math.max(0, Math.min(Data.Themes.trackSpeed + 10, 100))
-        }
-
-
         to: 130
         from: -130
     }
@@ -144,7 +138,7 @@ Designer {
     D{i:0;uuid:"ed0bfe73-4154-51de-a4ba-df60bcf60b59"}D{i:2;uuid:"5c397327-a83b-5d96-95da-6b23ac9aafad"}
 D{i:3;uuid:"069b976e-953a-5bd8-94f0-c8457df85573"}D{i:4;uuid:"61296e88-d414-53c8-9526-d5547be19bda"}
 D{i:5;uuid:"03a11cd5-af16-5612-9e67-187d8e9a7ee6"}D{i:7;uuid:"53b93181-3273-5f5e-8cfa-33475cf5abac"}
-D{i:10;uuid:"36be5267-7276-5f13-985d-68d63eaca3bf"}
+D{i:9;uuid:"36be5267-7276-5f13-985d-68d63eaca3bf"}
 }
 ##^##*/
 
