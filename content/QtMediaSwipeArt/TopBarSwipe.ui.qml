@@ -1,6 +1,7 @@
 import QtQuick
 import QtQuick.Controls
 import QtQuick.Studio.Components 1.0
+import Data 1.0 as Data
 
 Rectangle {
     id: topBarSwipe
@@ -74,6 +75,13 @@ Rectangle {
         id: btnSound
         x: 1858
         y: 10
+
+        Connections {
+            target: btnSound
+         //   onPressed:  Data.Themes.mediaPlaying ? "pause" : "play"
+
+        }
+
     }
 }
 

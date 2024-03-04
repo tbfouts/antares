@@ -48,6 +48,7 @@ Rectangle {
     TopBarSwipe {
         id: topBar
         visible: true
+        btnSoundChecked: true
     }
 
     TabBar {

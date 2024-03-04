@@ -217,7 +217,7 @@ Rectangle {
                 id: eQAnimation
                 running: true
                 loops: -1
-               // duration: dial.value = Math.max(600, Math.min(dial.value + 100, 1600))
+                duration: Data.Themes.trackSpeed
                 to: 1000
                 from: 0
             }
