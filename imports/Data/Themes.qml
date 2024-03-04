@@ -18,7 +18,7 @@ Item {
 
     property variant songs: ["stardust", "luna", "electric", "pixel", "crystal", "sonic", "ethereal", "mind", "gravity", "zen", "ultraviolet", "velvet"]
 
-    property int trackSpeed: 1200
+    //property int trackSpeed: 1200
 
     property bool mediaPlaying: mediaPlayer.playing
 
@@ -85,7 +85,7 @@ Item {
                 albumArt: "assets/stardustMirage.png"
                 trackArtist: "Stardust Mirage"
                 trackTitle: "Celestial Echoes"
-                trackspeed: 800
+               // trackspeed: 800
             }
         },
 
@@ -101,7 +101,7 @@ Item {
                 albumArt: "assets/lunaNova.png"
                 trackArtist: "Luna Nova"
                 trackTitle: "Midnight Serenade"
-                trackSpeed: 1200
+               // trackSpeed: 1200
             }
         },
 
@@ -117,7 +117,7 @@ Item {
                 albumArt: "assets/pixelPulse.png"
                 trackArtist: "Pixel Pulse"
                 trackTitle: "Digital Dreams"
-                trackSpeed: 1600
+               // trackSpeed: 1600
             }
         },
 
@@ -133,7 +133,7 @@ Item {
                 albumArt: "assets/electricDreamscape.png"
                 trackArtist: "Electric Dreamscape"
                 trackTitle: "Neon Reverie"
-                trackSpeed: 900
+               // trackSpeed: 900
             }
         },
 
@@ -149,7 +149,7 @@ Item {
                 albumArt: "assets/crystalCascade.png"
                 trackArtist: "Crystal Cascade"
                 trackTitle: "Iridescent Illusion"
-                trackSpeed: 1600
+               // trackSpeed: 1600
             }
         },
 
@@ -165,7 +165,7 @@ Item {
                 albumArt: "assets/sonicPrism.png"
                 trackArtist: "Sonic Prism"
                 trackTitle: "Aurora Beats"
-                trackSpeed: 1600
+               // trackSpeed: 1600
             }
         },
 
@@ -181,7 +181,7 @@ Item {
                 albumArt: "assets/etheral.png"
                 trackArtist: "Ethereal Essence"
                 trackTitle: "Whispers of the Wind"
-                trackSpeed: 1600
+               // trackSpeed: 1600
             }
         },
 
@@ -197,7 +197,7 @@ Item {
                 albumArt: "assets/mindWarp.png"
                 trackArtist: "Psychedelic Pulsar"
                 trackTitle: "Mind Warp"
-                trackSpeed: 1600
+              //  trackSpeed: 1600
             }
         },
 
@@ -213,7 +213,7 @@ Item {
                 albumArt: "assets/gravityGroove.png"
                 trackArtist: "Gravity Groove"
                 trackTitle: "Gravitational Waves"
-                trackSpeed: 1600
+               // trackSpeed: 1600
             }
         },
 
@@ -229,7 +229,7 @@ Item {
                 albumArt: "assets/zenZephyr.png"
                 trackArtist: "Zen Zephyr"
                 trackTitle: "Tranquil Torrent"
-                trackSpeed: 1600
+              //  trackSpeed: 1600
             }
         },
 
@@ -245,7 +245,7 @@ Item {
                 albumArt: "assets/ultravioletUtopia.png"
                 trackArtist: "Ultraviolet Utopia"
                 trackTitle: "Vivid Vision"
-                trackSpeed: 1600
+               // trackSpeed: 1600
             }
         },
 
@@ -261,7 +261,7 @@ Item {
                 albumArt: "assets/velvetVoyager.png"
                 trackArtist: "Velvet Voyager"
                 trackTitle: "Velvet Vortex"
-                trackSpeed: 1600
+               // trackSpeed: 1600
             }
         }
     ]

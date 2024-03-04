@@ -15,7 +15,6 @@ Rectangle {
         anchors.top: parent.top
         anchors.leftMargin: 808
         anchors.topMargin: 34
-        txtDialValueText: knobComponent.dialValue + 130
         dialValue: -101
     }
 

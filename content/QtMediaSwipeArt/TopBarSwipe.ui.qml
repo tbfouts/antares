@@ -7,6 +7,7 @@ Rectangle {
     width: 1920
     height: 60
     color: "transparent"
+    property alias btnSoundChecked: btnSound.checked
     property alias mediaSwipeText: mediaSwipe.text
 
     Rectangle {
@@ -67,6 +68,12 @@ Rectangle {
                     carView3D.debugViewVisible = true
             }
         }
+    }
+
+    BtnSound {
+        id: btnSound
+        x: 1858
+        y: 10
     }
 }
 

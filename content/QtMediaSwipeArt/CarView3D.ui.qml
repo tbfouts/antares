@@ -44,61 +44,6 @@ Rectangle {
         rotation: -90
     }
 
-    // Button {
-    //     id: buttonBase
-    //     x: 782
-    //     y: 84
-    //     width: 80
-    //     height: 49
-    //     text: qsTrId("Base")
-
-    //     Connections {
-    //         target: buttonBase
-    //         onPressed: view3DCar.state = ""
-    //     }
-    // }
-
-    // Button {
-    //     id: buttonFront
-    //     x: 965
-    //     y: 84
-    //     width: 80
-    //     height: 49
-    //     text: qsTrId("Front")
-
-    //     Connections {
-    //         target: buttonFront
-    //         onPressed: view3DCar.state = "front"
-    //     }
-    // }
-
-    // Button {
-    //     id: buttonSide
-    //     x: 874
-    //     y: 84
-    //     width: 80
-    //     height: 49
-    //     text: qsTrId("Side")
-
-    //     Connections {
-    //         target: buttonSide
-    //         onPressed: view3DCar.state = "side"
-    //     }
-    // }
-
-    // Button {
-    //     id: buttonRear
-    //     x: 1059
-    //     y: 84
-    //     width: 80
-    //     height: 49
-    //     text: qsTrId("Rear")
-
-    //     Connections {
-    //         target: buttonRear
-    //         onPressed: view3DCar.state = "rear"
-    //     }
-    // }
 
     Item {
         id: __materialLibrary__
@@ -122,7 +67,7 @@ Rectangle {
 
         Btn3DView {
             id: btn3DViewBase
-            checked: true
+            // checked: true
             txtViewText: "BASE"
 
             Connections {
@@ -170,9 +115,5 @@ Rectangle {
 
 }
 
-/*##^##
-Designer {
-    D{i:0;uuid:"828fdd3c-9baf-5cae-89b2-e7028487a7b1"}D{i:2;uuid:"62f406a7-b577-5fb3-9782-241e271307e3"}
-}
-##^##*/
+
 

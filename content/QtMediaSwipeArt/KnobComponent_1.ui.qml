@@ -97,6 +97,8 @@ Rectangle {
             visible: true
             source: "assets/knobVolumeForeground_1.png"
         }
+
+
         to: 130
         from: -130
     }
@@ -115,7 +117,7 @@ Rectangle {
         width: 331
         height: 161
         color: "#2e3c3c43"
-        text: Math.floor((dial.value + 130) / 10)
+        text: Math.floor((dial.value + 130) / 2.6)
         anchors.left: parent.left
         anchors.top: parent.top
         anchors.leftMargin: 410
