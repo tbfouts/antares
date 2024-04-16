@@ -55,9 +55,9 @@ View3D {
         temporalAAStrength: 2
         specularAAEnabled: false
         temporalAAEnabled: false
-        fxaaEnabled: false
-        antialiasingQuality: SceneEnvironment.Medium
-        antialiasingMode: SceneEnvironment.NoAA
+        fxaaEnabled: true
+        antialiasingQuality: SceneEnvironment.High
+        antialiasingMode: SceneEnvironment.MSAA
         backgroundMode: SceneEnvironment.Color
     }
 

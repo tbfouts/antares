@@ -67,6 +67,8 @@ Rectangle {
 
         Btn3DView {
             id: btn3DViewBase
+            autoExclusive: true
+            checked: true
             // checked: true
             txtViewText: "BASE"
 
@@ -78,6 +80,7 @@ Rectangle {
 
         Btn3DView {
             id: btn3DViewSide
+            autoExclusive: true
             txtViewText: "SIDE"
 
             Connections {
@@ -88,6 +91,7 @@ Rectangle {
 
         Btn3DView {
             id: btn3DViewFront
+            autoExclusive: true
             txtViewText: "FRONT"
 
             Connections {
@@ -99,6 +103,7 @@ Rectangle {
 
         Btn3DView {
             id: btn3DViewRear
+            autoExclusive: true
             txtViewText: "REAR"
 
             Connections {

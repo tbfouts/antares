@@ -118,7 +118,7 @@ Item {
                 albumArt: "assets/pixelPulse.png"
                 trackArtist: "Pixel Pulse"
                 trackTitle: "Digital Dreams"
-                trackSpeed: 200
+                trackSpeed: 500
             }
         },
 
@@ -166,7 +166,7 @@ Item {
                 albumArt: "assets/sonicPrism.png"
                 trackArtist: "Sonic Prism"
                 trackTitle: "Aurora Beats"
-                trackSpeed: 400
+                trackSpeed: 600
             }
         },
 
@@ -198,7 +198,7 @@ Item {
                 albumArt: "assets/mindWarp.png"
                 trackArtist: "Psychedelic Pulsar"
                 trackTitle: "Mind Warp"
-                trackSpeed: 400
+                trackSpeed: 600
             }
         },
 
@@ -230,7 +230,7 @@ Item {
                 albumArt: "assets/zenZephyr.png"
                 trackArtist: "Zen Zephyr"
                 trackTitle: "Tranquil Torrent"
-                trackSpeed: 400
+                trackSpeed: 500
             }
         },
 
@@ -262,7 +262,7 @@ Item {
                 albumArt: "assets/velvetVoyager.png"
                 trackArtist: "Velvet Voyager"
                 trackTitle: "Velvet Vortex"
-                trackSpeed: 400
+                trackSpeed: 700
             }
         }
     ]

@@ -1,14 +1,15 @@
 import QtQuick
 import QtQuick.Controls
 
-Rectangle {
+Button {
     id: btn3DView
     width: 100
     height: 60
-    color: "transparent"
+    checkable: true
     property alias txtViewText: txtView.text
     clip: true
     state: "state_Checked"
+    background: btn3DViewBkgrd
 
     Rectangle {
         id: btn3DViewBkgrd
@@ -54,6 +55,7 @@ Rectangle {
     states: [
         State {
             name: "state_Default"
+            when: !btn3DView.checked
 
             PropertyChanges {
                 target: btn3DViewBorder
@@ -62,9 +64,12 @@ Rectangle {
         },
         State {
             name: "state_Checked"
+            when: btn3DView.checked
 
             PropertyChanges {
                 target: btn3DViewBorder
+                width: 80
+                height: 45
                 visible: true
             }
         }
@@ -74,7 +79,6 @@ Rectangle {
 /*##^##
 Designer {
     D{i:0;uuid:"f8412e6a-c647-51b0-8fbb-2f56a4633ad3"}D{i:1;uuid:"a60d04f1-0654-58e3-b03d-b53ca88d533d"}
-D{i:2;uuid:"caa524ed-8541-5835-ac1e-d90bc81140dc"}D{i:3;uuid:"0167cc1d-a692-5d5d-b7b8-9e3072000ee4"}
 }
 ##^##*/
 
