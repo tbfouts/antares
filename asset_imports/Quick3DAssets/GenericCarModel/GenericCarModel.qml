@@ -541,12 +541,17 @@ Node {
             scale.y: 0.001
             scale.z: 0.001
             source: "meshes/hood_mesh.mesh"
+            receivesReflections: true
+            castsReflections: true
+            receivesShadows: true
+            castsShadows: true
             materials: [
                 carPaint_material,
                 plasticBlack_material,
                 chrome_material,
                 glassLightsIllum_material,
                 rubber_material
+
             ]
         }
         Model {
@@ -559,8 +564,8 @@ Node {
             scale.z: 0.001
             source: "meshes/hoodEngineCover_mesh.mesh"
             materials: [
-                plasticBlack_material,
-                intCarpet_material
+               plasticBlack_material,
+               intCarpet_material
             ]
         }
         Model {
@@ -915,14 +920,15 @@ Node {
 
         PrincipledMaterial {
             id: carPaint_material
+            lighting: PrincipledMaterial.FragmentLighting
             objectName: "CarPaint"
             baseColor: "#ffb10000"
-            metalnessMap: _0_texture
-            roughnessMap: _0_texture
+           metalnessMap: _0_texture
+           roughnessMap: _0_texture
             metalness: 1
             roughness: 0.3875647783279419
             cullMode: PrincipledMaterial.NoCulling
-            alphaMode: PrincipledMaterial.Opaque
+            alphaMode: PrincipledMaterial.Default
             clearcoatAmount: 1
         }
 
@@ -930,12 +936,12 @@ Node {
             id: carPaintBlackBump_material
             objectName: "CarPaintBlackBump"
             baseColor: "#ff010101"
-            baseColorMap: _1_texture
-            metalnessMap: _0_texture
-            roughnessMap: _0_texture
-            metalness: 1
-            roughness: 0.4559585452079773
-            normalMap: _2_texture
+           baseColorMap: _1_texture
+           metalnessMap: _0_texture
+           roughnessMap: _0_texture
+           metalness: 1
+           roughness: 0.4559585452079773
+           normalMap: _2_texture
             cullMode: PrincipledMaterial.NoCulling
             alphaMode: PrincipledMaterial.Blend
         }

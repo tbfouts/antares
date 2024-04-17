@@ -21,7 +21,10 @@ Rectangle {
 
     View3DCar {
         id: view3DCar
+        lightsVisible: false
     }
+
+
 
     SideLTMediaPlayer {
         id: sideLTMediaPlayer
@@ -59,24 +62,24 @@ Rectangle {
 
     Row {
         id: row3DViews
-        x: 782
-        y: 76
+        x: 812
+        y: 82
         width: 364
         height: 65
         spacing: 0
 
-        Btn3DView {
-            id: btn3DViewBase
-            autoExclusive: true
-            checked: true
-            // checked: true
-            txtViewText: "BASE"
+        // Btn3DView {
+        //     id: btn3DViewBase
+        //     autoExclusive: true
+        //     checked: true
+        //     // checked: true
+        //     txtViewText: "BASE"
 
-            Connections {
-                target: btn3DViewBase
-                onPressed: view3DCar.state = ""
-            }
-        }
+        //     Connections {
+        //         target: btn3DViewBase
+        //         onPressed: view3DCar.state = "base"
+        //     }
+        // }
 
         Btn3DView {
             id: btn3DViewSide
@@ -112,6 +115,48 @@ Rectangle {
             }
         }
     }
+
+
+    Switch {
+        id: headlightSwitch
+        x: 812
+        y: 159
+        width: 153
+        height: 33
+        text: qsTrId("HEADLAMPS")
+        font.pointSize: 16
+        font.family: "Oxanium"
+
+        Connections {
+            target: headlightSwitch
+            onToggled: {
+                if (view3DCar.lightsVisible === true)
+                    view3DCar.lightsVisible = false
+                else if (view3DCar.lightsVisible === false)
+                    view3DCar.lightsVisible = true
+            }
+        }
+    }
+
+    Switch {
+        id: doorSwitch
+        x: 987
+        y: 161
+        text: qsTrId("DOORS")
+        font.pointSize: 16
+        font.family: "Oxanium"
+
+        Connections {
+            target: doorSwitch
+            onToggled: {
+                if (view3DCar.genericCarModelDoorsOpen === true)
+                    view3DCar.genericCarModelDoorsOpen = false
+                else if (view3DCar.genericCarModelDoorsOpen === false)
+                    view3DCar.genericCarModelDoorsOpen = true
+            }
+        }
+    }
+
 
 
 

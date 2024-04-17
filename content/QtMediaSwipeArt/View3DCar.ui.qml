@@ -10,6 +10,9 @@ import Data 1.0 as Data
 View3D {
     id: view3DCar
     anchors.fill: parent
+    state: "base"
+    property alias genericCarModelDoorsOpen: genericCarModel.doorsOpen
+    property alias lightsVisible: lights.visible
     environment: extendedSceneEnvironment
     camera: perspectiveCamera
 
@@ -73,7 +76,6 @@ View3D {
             wheelCaliper_materialBaseColor: Data.Themes.themeColor1
             wheelRimColor_materialBaseColor: Data.Themes.themeColor2
             carPaint_materialBaseColor: Data.Themes.themeColor1
-            doorsOpen: true
             scale.z: 100
             scale.y: 100
             scale.x: 100
@@ -84,7 +86,7 @@ View3D {
         Model {
             id: groundPlane
             x: -0.908
-            y: -7.374
+            y: 0.083
             opacity: 1
             visible: true
             source: "#Rectangle"
@@ -94,7 +96,7 @@ View3D {
             castsShadows: false
             castsReflections: false
             receivesReflections: true
-            scale.z: 9
+            scale.z: 7
             scale.y: 5
             scale.x: 6
             eulerRotation.z: 90
@@ -123,6 +125,7 @@ View3D {
 
         Lights {
             id: lights
+            visible: true
             lightOn: true
             scale.z: 100
             scale.y: 100
@@ -161,6 +164,7 @@ View3D {
 
         Model {
             id: camNull
+            y: 3.118
             source: "#Sphere"
             castsReflections: false
             receivesShadows: false
@@ -172,20 +176,32 @@ View3D {
             PerspectiveCamera {
                 id: perspectiveCamera
                 eulerRotation.z: 0
-                eulerRotation.y: 10
+                eulerRotation.y: 7
                 eulerRotation.x: 3
-                fieldOfView: 45
+                fieldOfView: 50
                 z: 472
             }
         }
+
     }
+
+    OrbitCameraController {
+        id: orbitCameraController
+        panEnabled: false
+        yInvert: true
+        camera: perspectiveCamera
+        origin: camNull
+    }
+
 
     Item {
         id: __materialLibrary__
 
         PrincipledMaterial {
             id: shadowMaterial
-            metalness: 0.42756
+            opacity: 1
+            opacityChannel: Material.A
+            metalness: 0
             baseColorMap: floorOpacity
             lighting: PrincipledMaterial.NoLighting
             opacityMap: floorOpacity
@@ -213,13 +229,8 @@ View3D {
 
             Texture {
                 id: customeqFloor
-                generateMipmaps: true
-                mappingMode: Texture.UV
+                generateMipmaps: false
                 sourceItem: eqBars
-                flipU: false
-                flipV: false
-                scaleV: 1
-                scaleU: 1
             }
         }
 
@@ -230,7 +241,12 @@ View3D {
     }
 
 
+
     states: [
+        State {
+            name: "base"
+        },
+
         State {
             name: "side"
 
@@ -246,12 +262,6 @@ View3D {
                 eulerRotation.z: -1
                 eulerRotation.x: 6
                 eulerRotation.y: 7
-                fieldOfView: 47
-            }
-
-            PropertyChanges {
-                target: genericCarModel
-                doorsOpen: false
             }
 
 
@@ -272,12 +282,6 @@ View3D {
                 target: perspectiveCamera
                 eulerRotation.y: 5
                 eulerRotation.x: 3
-                fieldOfView: 40
-            }
-
-            PropertyChanges {
-                target: genericCarModel
-                doorsOpen: false
             }
         },
         State {
@@ -301,13 +305,7 @@ View3D {
                 eulerRotation.x: 6
                 eulerRotation.y: 3
             }
-
-            PropertyChanges {
-                target: genericCarModel
-                doorsOpen: true
-            }
-        }
-    ]
+        }    ]
     transitions: [
         Transition {
             id: transition

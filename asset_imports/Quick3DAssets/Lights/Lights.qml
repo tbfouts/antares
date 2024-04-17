@@ -45,11 +45,8 @@ Node {
             id: rearLight_material
             lighting: PrincipledMaterial.NoLighting
             objectName: "RearLight"
-            baseColor: "#ff2b00"
+            baseColor: "#000000"
             roughness: 1
-            emissiveFactor.x: 0.95503
-            emissiveFactor.y: 0.0385343
-            emissiveFactor.z: 0.020586
             cullMode: PrincipledMaterial.NoCulling
             alphaMode: PrincipledMaterial.Default
         }
