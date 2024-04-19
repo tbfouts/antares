@@ -28,7 +28,7 @@ Rectangle {
         y: 0
         width: 1920
         height: 1080
-        interactive: true
+        interactive: false
         currentIndex: 1
         focusPolicy: Qt.ClickFocus
 
@@ -53,12 +53,12 @@ Rectangle {
 
     TabBar {
         id: tabBar
+        x: 600
         y: 993
         width: 742
         height: 87
         position: TabBar.Header
         hoverEnabled: false
-        anchors.horizontalCenter: parent.horizontalCenter
         currentIndex: swipeView.currentIndex
 
         BtnVehicleView {

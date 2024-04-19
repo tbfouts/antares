@@ -25,7 +25,8 @@ Node {
     property url textureData133: "maps/textureData133.jpg"
     property url textureData80: "maps/textureData80.jpg"
     property alias _4_texture: _4_texture
-    property bool doorsOpen: false
+    property bool doorsOpenLeft: false
+    property bool doorsOpenRight: false
     property alias carPaint_materialBaseColor: carPaint_material.baseColor
     property alias wheelRimColor_materialBaseColor: wheelRimColor_material.baseColor
     property alias wheelCaliper_materialBaseColor: wheelCaliper_material.baseColor
@@ -1317,16 +1318,13 @@ Node {
     states: [
         State {
             name: "closed"
-            when: !doorsOpen
-
-            PropertyChanges {
-                target: wheelTireBump_material
-                specularTint: "#030303"
-            }
+            when: !doorsOpenLeft && !doorsOpenRight
         },
+
         State {
             name: "open"
-            when: doorsOpen
+            when: doorsOpenLeft && doorsOpenRight
+
 
             PropertyChanges {
                 target: doorLeft
@@ -1334,6 +1332,36 @@ Node {
                 eulerRotation.y: -16.51705
                 eulerRotation.x: 25.9818
             }
+
+            PropertyChanges {
+                target: doorRight
+                eulerRotation.z: -33.71838
+                eulerRotation.y: 16.65269
+                eulerRotation.x: 25.12239
+            }
+        },
+
+        State {
+            name: "openLeft"
+            when: doorsOpenLeft
+
+            PropertyChanges {
+                target: doorLeft
+                eulerRotation.z: 34.22798
+                eulerRotation.y: -16.51705
+                eulerRotation.x: 25.9818
+            }
+
+            PropertyChanges {
+                target: car
+                scale.z: 1
+                scale.y: 1
+                scale.x: 1
+            }
+        },
+        State {
+            name: "openRight"
+            when: doorsOpenRight
 
             PropertyChanges {
                 target: doorRight
@@ -1360,9 +1388,48 @@ Node {
                     }
 
                     PropertyAnimation {
+                        target: car
+                        property: "scale.x"
+                        duration: 150
+                    }
+                }
+
+                SequentialAnimation {
+                    PauseAnimation {
+                        duration: 50
+                    }
+
+                    PropertyAnimation {
+                        target: car
+                        property: "scale.y"
+                        duration: 150
+                    }
+                }
+
+                SequentialAnimation {
+                    PauseAnimation {
+                        duration: 50
+                    }
+
+                    PropertyAnimation {
+                        target: car
+                        property: "scale.z"
+                        duration: 150
+                    }
+                }
+            }
+
+            ParallelAnimation {
+                SequentialAnimation {
+                    PauseAnimation {
+                        duration: 50
+                    }
+
+                    PropertyAnimation {
                         target: doorRight
                         property: "eulerRotation.x"
-                        duration: 1950
+                        easing.bezierCurve: [0.455,0.03,0.515,0.955,1,1]
+                        duration: 1852
                     }
                 }
 
@@ -1374,7 +1441,8 @@ Node {
                     PropertyAnimation {
                         target: doorRight
                         property: "eulerRotation.y"
-                        duration: 1950
+                        easing.bezierCurve: [0.455,0.03,0.515,0.955,1,1]
+                        duration: 1852
                     }
                 }
 
@@ -1386,7 +1454,8 @@ Node {
                     PropertyAnimation {
                         target: doorRight
                         property: "eulerRotation.z"
-                        duration: 1950
+                        easing.bezierCurve: [0.455,0.03,0.515,0.955,1,1]
+                        duration: 1852
                     }
                 }
             }
@@ -1400,7 +1469,8 @@ Node {
                     PropertyAnimation {
                         target: doorLeft
                         property: "eulerRotation.x"
-                        duration: 1950
+                        easing.bezierCurve: [0.455,0.03,0.515,0.955,1,1]
+                        duration: 1851
                     }
                 }
 
@@ -1412,7 +1482,8 @@ Node {
                     PropertyAnimation {
                         target: doorLeft
                         property: "eulerRotation.y"
-                        duration: 1950
+                        easing.bezierCurve: [0.455,0.03,0.515,0.955,1,1]
+                        duration: 1851
                     }
                 }
 
@@ -1424,7 +1495,8 @@ Node {
                     PropertyAnimation {
                         target: doorLeft
                         property: "eulerRotation.z"
-                        duration: 1950
+                        easing.bezierCurve: [0.455,0.03,0.515,0.955,1,1]
+                        duration: 1851
                     }
                 }
             }
@@ -1432,12 +1504,12 @@ Node {
             from: "*"
         }
     ]
-
-    // Animations:
 }
+
+
 
 /*##^##
 Designer {
-    D{i:0}D{i:114;transitionDuration:2000}
+    D{i:0}D{i:36}D{i:37}D{i:118;transitionDuration:2000}
 }
 ##^##*/

@@ -7,191 +7,246 @@ import Quick3DAssets.Lights
 import QtQuick3D.Helpers 6.5
 import Data 1.0 as Data
 
+// Rectangle {
+//     id: car
+//     width: 1920
+//     height: 1080
+
 View3D {
     id: view3DCar
     anchors.fill: parent
-    state: "base"
-    property alias genericCarModelDoorsOpen: genericCarModel.doorsOpen
-    property alias lightsVisible: lights.visible
-    environment: extendedSceneEnvironment
-    camera: perspectiveCamera
-
-
-    SceneEnvironment {
-        id: sceneEnvironment
-        clearColor: "#000000"
-        antialiasingQuality: SceneEnvironment.VeryHigh
-        antialiasingMode: SceneEnvironment.SSAA
-        probeExposure: 20
-        aoEnabled: false
-        backgroundMode: SceneEnvironment.Color
-        lightProbe: basicLights3_4K
-    }
-
-
-    ExtendedSceneEnvironment {
-        id: extendedSceneEnvironment
-        probeHorizon: 0.1
-        tonemapMode: SceneEnvironment.TonemapModeLinear
-        glowUseBicubicUpscale: true
-        glowLevel: ExtendedSceneEnvironment.GlowLevel.One
-                   | ExtendedSceneEnvironment.GlowLevel.Two
-                   | ExtendedSceneEnvironment.GlowLevel.Three
-                   | ExtendedSceneEnvironment.GlowLevel.Four
-                   | ExtendedSceneEnvironment.GlowLevel.Six
-        glowBlendMode: ExtendedSceneEnvironment.GlowBlendMode.Additive
-        depthOfFieldEnabled: false
-        aoEnabled: true
-        glowHDRMaximumValue: 13.4
-        glowHDRScale: 1.31
-        probeExposure: 6
-        glowHDRMinimumValue: 0
-        glowBloom: 0.09
-        glowQualityHigh: true
-        glowIntensity: 1.34
-        glowStrength: 1.15
-        lensFlareEnabled: false
-        glowEnabled: true
-        ditheringEnabled: false
-        exposure: 1.3
-        lightProbe: basicLights3_4K
-        temporalAAStrength: 2
-        specularAAEnabled: false
-        temporalAAEnabled: false
-        fxaaEnabled: true
-        antialiasingQuality: SceneEnvironment.High
-        antialiasingMode: SceneEnvironment.MSAA
-        backgroundMode: SceneEnvironment.Color
-    }
-
-
-
-    Node {
-        id: scene
-
-
-        GenericCarModel {
-            id: genericCarModel
-            opacity: 1
-            wheelCaliper_materialBaseColor: Data.Themes.themeColor1
-            wheelRimColor_materialBaseColor: Data.Themes.themeColor2
-            carPaint_materialBaseColor: Data.Themes.themeColor1
-            scale.z: 100
-            scale.y: 100
-            scale.x: 100
-        }
-
-
-
-        Model {
-            id: groundPlane
-            x: -0.908
-            y: 0.083
-            opacity: 1
-            visible: true
-            source: "#Rectangle"
-            usedInBakedLighting: false
-            receivesShadows: true
-            z: 0.00008
-            castsShadows: false
-            castsReflections: false
-            receivesReflections: true
-            scale.z: 7
-            scale.y: 5
-            scale.x: 6
-            eulerRotation.z: 90
-            eulerRotation.y: 180.00005
-            eulerRotation.x: -90
-            materials: eqFloorMat
-        }
-
-        Model {
-            id: shadowPlane
-            y: 1
-            visible: true
-            source: "#Rectangle"
-            receivesReflections: true
-            eulerRotation.z: 90
-            eulerRotation.x: -90
-            eulerRotation.y: 180
-            materials: shadowMaterial
-            castsReflections: false
-            receivesShadows: true
-            castsShadows: false
-            scale.y: 3.2
-            scale.x: 6.5
-        }
-
-
-        Lights {
-            id: lights
-            visible: true
-            lightOn: true
-            scale.z: 100
-            scale.y: 100
-            scale.x: 100
-        }
-
-
-        DirectionalLight {
-            id: directionalLight
-            x: -0
-            y: 454.668
-            visible: true
-            color: "#a1a1a1"
-            ambientColor: "#ffffff"
-            brightness: 0.2
-            eulerRotation.z: 114.08686
-            eulerRotation.y: -128.0842
-            eulerRotation.x: -50.80216
-            z: -618.60547
-        }
-
-
-        ReflectionProbe {
-            id: reflectionProbe
-            x: 0
-            y: -993.322
-            clearColor: "#00000000"
-            z: 0
-            quality: ReflectionProbe.High
-            parallaxCorrection: true
-            debugView: false
-            boxSize.z: 2000
-            boxSize.y: 2000
-            boxSize.x: 2000
-        }
-
-        Model {
-            id: camNull
-            y: 3.118
-            source: "#Sphere"
-            castsReflections: false
-            receivesShadows: false
-            castsShadows: false
-            eulerRotation.z: 0
-            eulerRotation.x: -20
-            eulerRotation.y: 37
-
-            PerspectiveCamera {
-                id: perspectiveCamera
-                eulerRotation.z: 0
-                eulerRotation.y: 7
-                eulerRotation.x: 3
-                fieldOfView: 50
-                z: 472
-            }
-        }
-
-    }
-
-    OrbitCameraController {
-        id: orbitCameraController
-        panEnabled: false
-        yInvert: true
+    property alias doorL: genericCarModel.doorsOpenLeft
+    property alias doorR: genericCarModel.doorsOpenRight
+        state: "base"
+        environment: extendedSceneEnvironment
         camera: perspectiveCamera
-        origin: camNull
-    }
+        property alias lightsVisible: lights.visible
+
+
+        SceneEnvironment {
+            id: sceneEnvironment
+            clearColor: "#000000"
+            antialiasingQuality: SceneEnvironment.VeryHigh
+            antialiasingMode: SceneEnvironment.SSAA
+            probeExposure: 20
+            aoEnabled: false
+            backgroundMode: SceneEnvironment.Color
+            lightProbe: basicLights3_4K
+        }
+
+
+
+        ExtendedSceneEnvironment {
+            id: extendedSceneEnvironment
+            skyboxBlurAmount: 0.35753
+            probeHorizon: 0.1
+            tonemapMode: SceneEnvironment.TonemapModeLinear
+            glowUseBicubicUpscale: true
+            glowLevel: ExtendedSceneEnvironment.GlowLevel.One
+                       | ExtendedSceneEnvironment.GlowLevel.Two
+                       | ExtendedSceneEnvironment.GlowLevel.Three
+                       | ExtendedSceneEnvironment.GlowLevel.Four
+                       | ExtendedSceneEnvironment.GlowLevel.Six
+            glowBlendMode: ExtendedSceneEnvironment.GlowBlendMode.Additive
+            depthOfFieldEnabled: false
+            aoEnabled: true
+            glowHDRMaximumValue: 13.4
+            glowHDRScale: 1.31
+            probeExposure: 6
+            glowHDRMinimumValue: 0
+            glowBloom: 0.09
+            glowQualityHigh: true
+            glowIntensity: 1.34
+            glowStrength: 1.15
+            lensFlareEnabled: false
+            glowEnabled: true
+            ditheringEnabled: false
+            exposure: 1.3
+            lightProbe: basicLights3_4K
+            temporalAAStrength: 2
+            specularAAEnabled: false
+            temporalAAEnabled: false
+            fxaaEnabled: true
+            antialiasingQuality: SceneEnvironment.High
+            antialiasingMode: SceneEnvironment.MSAA
+            backgroundMode: SceneEnvironment.Color
+        }
+
+
+        Node {
+            id: scene
+
+
+
+            GenericCarModel {
+                id: genericCarModel
+                opacity: 1
+                visible: true
+                doorsOpenLeft: false
+                doorsOpenRight: false
+                //doorsOpen: false
+                wheelCaliper_materialBaseColor: Data.Themes.themeColor1
+                wheelRimColor_materialBaseColor: Data.Themes.themeColor2
+                carPaint_materialBaseColor: Data.Themes.themeColor1
+                scale.z: 100
+                scale.y: 100
+                scale.x: 100
+            }
+
+
+
+
+            Model {
+                id: groundPlaneA
+                x: 0
+                y: 0
+                opacity: 1
+                visible: true
+                source: "#Rectangle"
+                z: -0.00007
+                usedInBakedLighting: false
+                scale.z: 7
+                scale.y: 4
+                scale.x: 5
+                receivesShadows: true
+                receivesReflections: true
+                materials: eqFloorMat
+                eulerRotation.z: 90
+                eulerRotation.y: 0
+                eulerRotation.x: -90
+                castsShadows: false
+                castsReflections: false
+            }
+
+
+            Model {
+                id: shadowPlane
+                y: 3
+                opacity: 0.978
+                visible: true
+                source: "#Rectangle"
+                receivesReflections: true
+                eulerRotation.z: 90
+                eulerRotation.x: -90
+                eulerRotation.y: 180
+                materials: shadowMaterial
+                castsReflections: false
+                receivesShadows: true
+                castsShadows: false
+                scale.y: 3.5
+                scale.x: 7
+            }
+
+
+
+
+            Lights {
+                id: lights
+                visible: true
+                lightOn: true
+                scale.z: 100
+                scale.y: 100
+                scale.x: 100
+            }
+
+
+
+
+            DirectionalLight {
+                id: directionalLight
+                x: -0
+                y: 454.668
+                visible: true
+                color: "#a1a1a1"
+                ambientColor: "#ffffff"
+                brightness: 0.2
+                eulerRotation.z: 114.08686
+                eulerRotation.y: -128.0842
+                eulerRotation.x: -50.80216
+                z: -618.60547
+            }
+
+
+
+
+            ReflectionProbe {
+                id: reflectionProbe
+                x: 0
+                y: -993.322
+                clearColor: "#00000000"
+                z: 0
+                quality: ReflectionProbe.High
+                parallaxCorrection: true
+                debugView: false
+                boxSize.z: 2000
+                boxSize.y: 2000
+                boxSize.x: 2000
+            }
+
+
+
+            Model {
+                id: camNull
+                y: 3.118
+                source: "#Sphere"
+                castsReflections: false
+                receivesShadows: false
+                castsShadows: false
+                eulerRotation.z: 0
+                eulerRotation.x: -20
+                eulerRotation.y: 37
+
+                PerspectiveCamera {
+                    id: perspectiveCamera
+                    eulerRotation.z: 0
+                    eulerRotation.y: 7
+                    eulerRotation.x: 3
+                    fieldOfView: 50
+                    z: 472
+                }
+            }
+
+
+
+
+            // Model {
+            //     visible: false
+            //     eulerRotation.y: 90
+            //     pickable: true
+
+            //     Node {
+            //       position: Qt.vector3d(0, 60, 120)
+            //       scale.y: 0.6
+            //       scale.x: 0.5
+
+            //         Switch {
+            //             id: danceSwitch3
+            //             opacity: 1
+            //             visible: false
+            //             anchors.centerIn: parent
+            //             //checked: false
+
+            //                 Connections {
+            //                     target: danceSwitch3
+            //                     onToggled: {
+            //                         if (view3DCar.genericCarModelDoorsOpen === true)
+            //                             view3DCar.genericCarModelDoorsOpen = false
+            //                         else if (view3DCar.genericCarModelDoorsOpen === false)
+            //                             view3DCar.genericCarModelDoorsOpen = true
+            //                     }
+            //                 }
+            //         }
+
+
+            //     }
+            // }
+        }
+ //   }
+
+
+
+
+
 
 
     Item {
@@ -200,8 +255,8 @@ View3D {
         PrincipledMaterial {
             id: shadowMaterial
             opacity: 1
+            alphaMode: PrincipledMaterial.Opaque
             opacityChannel: Material.A
-            metalness: 0
             baseColorMap: floorOpacity
             lighting: PrincipledMaterial.NoLighting
             opacityMap: floorOpacity
@@ -211,6 +266,8 @@ View3D {
             Texture {
                 id: floorOpacity
                 source: "../images/floorOpacity.png"
+                positionU: 0.01
+                positionV: 0
             }
         }
 
@@ -229,6 +286,14 @@ View3D {
 
             Texture {
                 id: customeqFloor
+                positionV: -2
+                scaleV: 2
+                scaleU: 1
+                flipU: true
+                flipV: false
+                tilingModeHorizontal: Texture.MirroredRepeat
+                tilingModeVertical: Texture.MirroredRepeat
+                autoOrientation: false
                 generateMipmaps: false
                 sourceItem: eqBars
             }
@@ -238,9 +303,43 @@ View3D {
             id: basicLights3_4K
             source: "../images/BasicLights3_4K.hdr"
         }
+
+        PrincipledMaterial {
+            id: doorsOpen
+            opacity: 0.578
+            baseColorMap: doowSwitchTxtre
+            lighting: PrincipledMaterial.NoLighting
+            roughness: 1
+            baseColor: "#343434"
+            blendMode: PrincipledMaterial.Screen
+            objectName: "doorsOpen"
+
+            Texture {
+                id: doowSwitchTxtre
+                sourceItem: doorSwitch
+            }
+        }
+
+        DefaultMaterial {
+            id: switchMat
+            diffuseColor: "#ffffff"
+            objectName: "switchMat"
+
+        }
     }
 
-
+    OrbitCameraController {
+        id: orbitCameraController
+        x: 378
+        y: 242
+        width: 1534
+        height: 830
+        visible: true
+        panEnabled: false
+        yInvert: true
+        camera: perspectiveCamera
+        origin: camNull
+    }
 
     states: [
         State {
@@ -273,8 +372,8 @@ View3D {
                 target: camNull
                 opacity: 0
                 eulerRotation.z: 0.00001
-                eulerRotation.y: 0
-                eulerRotation.x: -10
+                eulerRotation.y: 23
+                eulerRotation.x: -24
                 materials: shadowMaterial
             }
 
@@ -482,12 +581,11 @@ View3D {
             from: "*"
         }
     ]
-
-
 }
+
 
 /*##^##
 Designer {
-    D{i:0}D{i:33;transitionDuration:2000}
+    D{i:0}D{i:36;transitionDuration:2000}
 }
 ##^##*/

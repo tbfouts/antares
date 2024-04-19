@@ -21,6 +21,8 @@ Rectangle {
 
     View3DCar {
         id: view3DCar
+        doorL: false
+        doorR: false
         lightsVisible: false
     }
 
@@ -119,8 +121,8 @@ Rectangle {
 
     Switch {
         id: headlightSwitch
-        x: 812
-        y: 159
+        x: 739
+        y: 163
         width: 153
         height: 33
         text: qsTrId("HEADLAMPS")
@@ -139,24 +141,42 @@ Rectangle {
     }
 
     Switch {
-        id: doorSwitch
-        x: 987
-        y: 161
-        text: qsTrId("DOORS")
+        id: doorLeft
+        x: 911
+        y: 166
+        text: qsTrId("DOOR L")
         font.pointSize: 16
         font.family: "Oxanium"
 
         Connections {
-            target: doorSwitch
+            target: doorLeft
             onToggled: {
-                if (view3DCar.genericCarModelDoorsOpen === true)
-                    view3DCar.genericCarModelDoorsOpen = false
-                else if (view3DCar.genericCarModelDoorsOpen === false)
-                    view3DCar.genericCarModelDoorsOpen = true
+                if (view3DCar.doorL === true)
+                    view3DCar.doorL = false
+                else if (view3DCar.doorL === false)
+                    view3DCar.doorL = true
             }
         }
     }
 
+    Switch {
+        id: doorRight
+        x: 1043
+        y: 166
+        text: qsTrId("DOOR R")
+        font.pointSize: 16
+        font.family: "Oxanium"
+
+        Connections {
+            target: doorRight
+            onToggled: {
+                if (view3DCar.doorR === true)
+                    view3DCar.doorR = false
+                else if (view3DCar.doorR === false)
+                    view3DCar.doorR = true
+            }
+        }
+    }
 
 
 

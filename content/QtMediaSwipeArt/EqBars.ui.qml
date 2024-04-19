@@ -13,9 +13,9 @@ Rectangle {
     Rectangle {
         id: bar20
         x: 658
-        y: 159
+        y: 91
         width: 30
-        height: 229
+        height: 356
         color: Data.Themes.themeColor3
         radius: 4
     }
@@ -23,9 +23,9 @@ Rectangle {
     Rectangle {
         id: bar19
         x: 624
-        y: 203
+        y: 108
         width: 30
-        height: 185
+        height: 313
         color: Data.Themes.themeColor3
         radius: 4
     }
@@ -33,9 +33,9 @@ Rectangle {
     Rectangle {
         id: bar18
         x: 590
-        y: 131
+        y: 113
         width: 30
-        height: 257
+        height: 317
         color: Data.Themes.themeColor3
         radius: 4
     }
@@ -53,9 +53,9 @@ Rectangle {
     Rectangle {
         id: bar16
         x: 522
-        y: 99
+        y: 91
         width: 30
-        height: 289
+        height: 320
         color: Data.Themes.themeColor2
         radius: 4
     }
@@ -73,9 +73,9 @@ Rectangle {
     Rectangle {
         id: bar14
         x: 454
-        y: 73
+        y: 49
         width: 30
-        height: 315
+        height: 356
         color: Data.Themes.themeColor2
         radius: 4
     }
@@ -83,9 +83,9 @@ Rectangle {
     Rectangle {
         id: bar13
         x: 420
-        y: 83
+        y: 80
         width: 30
-        height: 305
+        height: 325
         color: Data.Themes.themeColor1
         radius: 4
     }
@@ -105,7 +105,7 @@ Rectangle {
         x: 352
         y: 33
         width: 30
-        height: 355
+        height: 372
         color: Data.Themes.themeColor1
         radius: 4
     }
@@ -115,7 +115,7 @@ Rectangle {
         x: 318
         y: 6
         width: 30
-        height: 355
+        height: 399
         color: Data.Themes.themeColor1
         radius: 4
     }
@@ -123,9 +123,9 @@ Rectangle {
     Rectangle {
         id: bar9
         x: 284
-        y: 61
+        y: 66
         width: 30
-        height: 322
+        height: 355
         color: Data.Themes.themeColor1
         radius: 4
     }
@@ -143,9 +143,9 @@ Rectangle {
     Rectangle {
         id: bar7
         x: 216
-        y: 72
+        y: 49
         width: 30
-        height: 339
+        height: 356
         color: Data.Themes.themeColor2
         radius: 4
     }
@@ -153,9 +153,9 @@ Rectangle {
     Rectangle {
         id: bar6
         x: 182
-        y: 47
+        y: 75
         width: 30
-        height: 273
+        height: 330
         color: Data.Themes.themeColor2
         radius: 4
     }
@@ -163,9 +163,9 @@ Rectangle {
     Rectangle {
         id: bar5
         x: 148
-        y: 55
+        y: 91
         width: 30
-        height: 297
+        height: 314
         color: Data.Themes.themeColor2
         radius: 4
     }
@@ -183,9 +183,9 @@ Rectangle {
     Rectangle {
         id: bar3
         x: 80
-        y: 124
+        y: 113
         width: 30
-        height: 195
+        height: 298
         color: Data.Themes.themeColor3
         radius: 4
     }
@@ -193,9 +193,9 @@ Rectangle {
     Rectangle {
         id: bar2
         x: 46
-        y: 205
+        y: 108
         width: 30
-        height: 225
+        height: 303
         color: Data.Themes.themeColor3
         radius: 4
     }
@@ -203,9 +203,9 @@ Rectangle {
     Rectangle {
         id: bar1
         x: 12
-        y: 230
+        y: 85
         width: 30
-        height: 278
+        height: 336
         color: Data.Themes.themeColor3
         radius: 4
     }
