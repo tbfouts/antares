@@ -1,0 +1,4 @@
+module GLO
+singleton Constants 1.0 Constants.qml
+singleton JsonData 1.0 JsonData.qml
+singleton Themes 1.0 Themes.qml
