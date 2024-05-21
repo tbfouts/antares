@@ -19,7 +19,7 @@ qt6_add_qml_module(Data
     VERSION 1.0
     RESOURCE_PREFIX "/qt/qml"
     QML_FILES
-        Themes.qml
         Values.qml
+        Themes.qml
 
 )
