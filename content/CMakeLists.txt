@@ -9,66 +9,74 @@ qt6_add_qml_module(content
     VERSION 1.0
     RESOURCE_PREFIX "/qt/qml"
     QML_FILES
-        App.qml
         Screen01.ui.qml
-        QtMediaSwipeArt/AlbumArtComp.ui.qml
+        App.qml
+        QtMediaSwipeArt/BtnNavView.ui.qml
+        QtMediaSwipeArt/MapNavigation.ui.qml
+        QtMediaSwipeArt/SideRTMediaPlayer.ui.qml
+        QtMediaSwipeArt/GpsMapView.ui.qml
+        QtMediaSwipeArt/KnobComponent_1.ui.qml
+        QtMediaSwipeArt/CarView3D.ui.qml
+        QtMediaSwipeArt/MiniPlayer.ui.qml
+        QtMediaSwipeArt/BtnSound.ui.qml
+        QtMediaSwipeArt/TopBarSwipe.ui.qml
+        QtMediaSwipeArt/BtnVehicleView.ui.qml
+        QtMediaSwipeArt/TrackBar.ui.qml
+        QtMediaSwipeArt/BtnPrev.ui.qml
+        QtMediaSwipeArt/ScrollListPanel.ui.qml
         QtMediaSwipeArt/ArtistTrack.ui.qml
         QtMediaSwipeArt/BottomBarSwipe.ui.qml
         QtMediaSwipeArt/Btn3DView.ui.qml
-        QtMediaSwipeArt/BtnMediaView.ui.qml
-        QtMediaSwipeArt/BtnNavView.ui.qml
-        QtMediaSwipeArt/BtnNext.ui.qml
-        QtMediaSwipeArt/BtnPlayMedia.ui.qml
-        QtMediaSwipeArt/BtnPrev.ui.qml
-        QtMediaSwipeArt/BtnVehicleView.ui.qml
-        QtMediaSwipeArt/CarView3D.ui.qml
-        QtMediaSwipeArt/EqBars.ui.qml
-        QtMediaSwipeArt/GpsMapView.ui.qml
-        QtMediaSwipeArt/KnobComponent_1.ui.qml
-        QtMediaSwipeArt/ListViewTracks.ui.qml
-        QtMediaSwipeArt/MapNavigation.ui.qml
-        QtMediaSwipeArt/MedaiPlayer.ui.qml
-        QtMediaSwipeArt/MediaPlayerLayout.ui.qml
-        QtMediaSwipeArt/MediaPlayerWindow.ui.qml
-        QtMediaSwipeArt/MiniPlayer.ui.qml
-        QtMediaSwipeArt/NavView.ui.qml
         QtMediaSwipeArt/RoutePerformance.ui.qml
-        QtMediaSwipeArt/ScrollListPanel.ui.qml
+        QtMediaSwipeArt/MediaPlayerWindow.ui.qml
+        QtMediaSwipeArt/BtnPlayMedia.ui.qml
+        QtMediaSwipeArt/EqBars.ui.qml
+        QtMediaSwipeArt/AlbumArtComp.ui.qml
+        QtMediaSwipeArt/BtnMediaView.ui.qml
+        QtMediaSwipeArt/MediaPlayerLayout.ui.qml
+        QtMediaSwipeArt/MedaiPlayer.ui.qml
         QtMediaSwipeArt/SideLTMediaPlayer.ui.qml
-        QtMediaSwipeArt/SideRTMediaPlayer.ui.qml
-        QtMediaSwipeArt/TopBarSwipe.ui.qml
-        QtMediaSwipeArt/TrackBar.ui.qml
         QtMediaSwipeArt/View3DCar.ui.qml
+        QtMediaSwipeArt/ListViewTracks.ui.qml
+        QtMediaSwipeArt/NavView.ui.qml
+        QtMediaSwipeArt/BtnNext.ui.qml
     RESOURCES
-        images/BasicLights3_4K.hdr
         images/floorOpacity.png
+        images/BasicLights3_4K.hdr
         images/WheelBMP.jpg
-        QtMediaSwipeArt/assets/arrowShadowVec.png
-        QtMediaSwipeArt/assets/crystalCascade.png
-        QtMediaSwipeArt/assets/desShadowVec.png
-        QtMediaSwipeArt/assets/destVec.png
-        QtMediaSwipeArt/assets/electricDreamscape.png
-        QtMediaSwipeArt/assets/eqBarBlur.png
         QtMediaSwipeArt/assets/etheral.png
-        QtMediaSwipeArt/assets/gravityGroove.png
-        QtMediaSwipeArt/assets/knobHandle_1.png
-        QtMediaSwipeArt/assets/knobVolumeBackground_1.png
-        QtMediaSwipeArt/assets/knobVolumeForeground_1.png
-        QtMediaSwipeArt/assets/lunaNova.png
-        QtMediaSwipeArt/assets/mapWBorder_merged_child.png
-        QtMediaSwipeArt/assets/map_436_62_436_62_1.png
-        QtMediaSwipeArt/assets/mindWarp.png
-        QtMediaSwipeArt/assets/nowPlayingBackground.png
-        QtMediaSwipeArt/assets/pixelPulse.png
-        QtMediaSwipeArt/assets/sideLTMediaPlayer1.png
-        QtMediaSwipeArt/assets/sideRTMediaPlayer1.png
-        QtMediaSwipeArt/assets/sonicPrism.png
-        QtMediaSwipeArt/assets/stardustMirage.png
-        QtMediaSwipeArt/assets/timeAddPanels.png
         QtMediaSwipeArt/assets/txtRoute.png
-        QtMediaSwipeArt/assets/ultravioletUtopia.png
-        QtMediaSwipeArt/assets/vecRoadBlur.png
+        QtMediaSwipeArt/assets/desShadowVec.png
         QtMediaSwipeArt/assets/velvetVoyager.png
+        QtMediaSwipeArt/assets/nowPlayingBackground.png
+        QtMediaSwipeArt/assets/map_436_62_436_62_1.png
+        QtMediaSwipeArt/assets/crystalCascade.png
         QtMediaSwipeArt/assets/zenZephyr.png
+        QtMediaSwipeArt/assets/sideLTMediaPlayer1.png
+        QtMediaSwipeArt/assets/ultravioletUtopia.png
+        QtMediaSwipeArt/assets/sideRTMediaPlayer1.png
+        QtMediaSwipeArt/assets/vecRoadBlur.png
+        QtMediaSwipeArt/assets/knobVolumeBackground_1.png
+        QtMediaSwipeArt/assets/pixelPulse.png
+        QtMediaSwipeArt/assets/destVec.png
+        QtMediaSwipeArt/assets/knobHandle_1.png
+        QtMediaSwipeArt/assets/soundBkgrd_state_Mute.png
+        QtMediaSwipeArt/assets/soundBkgrd_state_On.png
+        QtMediaSwipeArt/assets/mindWarp.png
+        QtMediaSwipeArt/assets/stardustMirage.png
+        QtMediaSwipeArt/assets/lunaNova.png
+        QtMediaSwipeArt/assets/gravityGroove.png
+        QtMediaSwipeArt/assets/soundOFF_state_Mute.png
+        QtMediaSwipeArt/assets/soundON_state_On.png
+        QtMediaSwipeArt/assets/mapWBorder_merged_child.png
+        QtMediaSwipeArt/assets/arrowShadowVec.png
+        QtMediaSwipeArt/assets/electricDreamscape.png
+        QtMediaSwipeArt/assets/sonicPrism.png
+        QtMediaSwipeArt/assets/timeAddPanels.png
+        QtMediaSwipeArt/assets/knobVolumeForeground_1.png
+        QtMediaSwipeArt/assets/eqBarBlur.png
+        fonts/Oxanium-Light.ttf
+        fonts/Oxanium-Bold.ttf
+        fonts/Oxanium-SemiBold.ttf
 
 )
