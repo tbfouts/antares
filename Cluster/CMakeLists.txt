@@ -16,7 +16,7 @@ set(QML_IMPORT_PATH ${QT_QML_OUTPUT_DIRECTORY}
     FORCE
 )
 
-find_package(Qt6 6.2 REQUIRED COMPONENTS Core Gui Qml Quick)
+find_package(Qt6 6.2 REQUIRED COMPONENTS Core Gui Qml Quick Multimedia)
 
 if (Qt6_VERSION VERSION_GREATER_EQUAL 6.3)
     qt_standard_project_setup()
