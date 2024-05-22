@@ -57,8 +57,8 @@ View3D {
             glowHDRMinimumValue: 0
             glowBloom: 0.09
             glowQualityHigh: true
-            glowIntensity: 1.3778
-            glowStrength: 1.02983
+            glowIntensity: 1.1
+            glowStrength: 1
             lensFlareEnabled: false
             glowEnabled: true
             ditheringEnabled: false
@@ -68,7 +68,7 @@ View3D {
             specularAAEnabled: false
             temporalAAEnabled: false
             fxaaEnabled: true
-            antialiasingQuality: SceneEnvironment.High
+            antialiasingQuality: SceneEnvironment.VeryHigh
             antialiasingMode: SceneEnvironment.MSAA
             backgroundMode: SceneEnvironment.Color
         }
