@@ -34,6 +34,7 @@ Item {
         anchors.top: parent.top
         anchors.leftMargin: -2
         anchors.topMargin: 62
+        checked: true
         autoExclusive: true
         theme: "luna"
 
@@ -78,7 +79,7 @@ Item {
         anchors.top: parent.top
         anchors.leftMargin: -2
         anchors.topMargin: 176
-        checked: true
+        checked: false
         autoExclusive: true
         theme: "pixel"
 
@@ -121,6 +122,7 @@ Item {
         anchors.top: parent.top
         anchors.leftMargin: -2
         anchors.topMargin: 290
+        checked: false
         autoExclusive: true
         artistInfoText: "Sonic Prism - \"Aurora Beats\""
         elementText: "3:48"

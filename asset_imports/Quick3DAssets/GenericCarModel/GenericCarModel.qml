@@ -537,6 +537,7 @@ Node {
             id: hood
             objectName: "Hood"
             y: 0.7891814708709717
+            visible: true
             z: 0.6023856401443481
             scale.x: 0.001
             scale.y: 0.001
@@ -559,6 +560,7 @@ Node {
             id: hoodEngineCover
             objectName: "HoodEngineCover"
             y: 0.5375130772590637
+            visible: true
             z: 1.4772337675094604
             scale.x: 0.001
             scale.y: 0.001
@@ -921,11 +923,11 @@ Node {
 
         PrincipledMaterial {
             id: carPaint_material
+            clearcoatFresnelPower: 0
+            vertexColorsEnabled: false
             lighting: PrincipledMaterial.FragmentLighting
             objectName: "CarPaint"
             baseColor: "#ffb10000"
-           metalnessMap: _0_texture
-           roughnessMap: _0_texture
             metalness: 1
             roughness: 0.3875647783279419
             cullMode: PrincipledMaterial.NoCulling
@@ -1510,6 +1512,6 @@ Node {
 
 /*##^##
 Designer {
-    D{i:0}D{i:36}D{i:37}D{i:118;transitionDuration:2000}
+    D{i:0;cameraSpeed3d:25;cameraSpeed3dMultiplier:1}D{i:118;transitionDuration:2000}
 }
 ##^##*/

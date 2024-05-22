@@ -23,7 +23,7 @@ Rectangle {
         id: view3DCar
         doorL: false
         doorR: false
-        lightsVisible: false
+        lightsVisible: true
     }
 
 
@@ -126,6 +126,7 @@ Rectangle {
         width: 153
         height: 33
         text: qsTrId("HEADLAMPS")
+        checked: true
         font.pointSize: 16
         font.family: "Oxanium"
 

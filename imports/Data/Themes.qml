@@ -5,7 +5,7 @@ import QtMultimedia
 Item {
     id: themes
 
-    property string currentTheme: "pixel"
+    property string currentTheme: "luna"
 
     property color themeColor1: "#ACE1CC"
     property color themeColor2: "#1D406C"

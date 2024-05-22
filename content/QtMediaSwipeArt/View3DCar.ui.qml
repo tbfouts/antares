@@ -38,6 +38,7 @@ View3D {
 
         ExtendedSceneEnvironment {
             id: extendedSceneEnvironment
+            vignetteEnabled: false
             skyboxBlurAmount: 0.35753
             probeHorizon: 0.1
             tonemapMode: SceneEnvironment.TonemapModeLinear
@@ -52,12 +53,12 @@ View3D {
             aoEnabled: true
             glowHDRMaximumValue: 13.4
             glowHDRScale: 1.31
-            probeExposure: 6
+            probeExposure: 2
             glowHDRMinimumValue: 0
             glowBloom: 0.09
             glowQualityHigh: true
-            glowIntensity: 1.34
-            glowStrength: 1.15
+            glowIntensity: 1.3778
+            glowStrength: 1.02983
             lensFlareEnabled: false
             glowEnabled: true
             ditheringEnabled: false
@@ -159,7 +160,7 @@ View3D {
                 visible: true
                 color: "#a1a1a1"
                 ambientColor: "#ffffff"
-                brightness: 0.2
+                brightness: 0.16
                 eulerRotation.z: 114.08686
                 eulerRotation.y: -128.0842
                 eulerRotation.x: -50.80216
@@ -206,9 +207,6 @@ View3D {
                 }
             }
 
-
-
-
             // Model {
             //     visible: false
             //     eulerRotation.y: 90
@@ -220,14 +218,14 @@ View3D {
             //       scale.x: 0.5
 
             //         Switch {
-            //             id: danceSwitch3
+            //             id: doorSwitch3D
             //             opacity: 1
             //             visible: false
             //             anchors.centerIn: parent
             //             //checked: false
 
             //                 Connections {
-            //                     target: danceSwitch3
+            //                     target: doorSwitch3D
             //                     onToggled: {
             //                         if (view3DCar.genericCarModelDoorsOpen === true)
             //                             view3DCar.genericCarModelDoorsOpen = false
@@ -236,15 +234,12 @@ View3D {
             //                     }
             //                 }
             //         }
-
-
             //     }
             // }
-        }
  //   }
 
 
-
+}
 
 
 
@@ -586,6 +581,6 @@ View3D {
 
 /*##^##
 Designer {
-    D{i:0}D{i:36;transitionDuration:2000}
+    D{i:0}D{i:3;cameraSpeed3d:25;cameraSpeed3dMultiplier:1}D{i:36;transitionDuration:2000}
 }
 ##^##*/
