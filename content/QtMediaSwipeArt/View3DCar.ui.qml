@@ -7,11 +7,6 @@ import Quick3DAssets.Lights
 import QtQuick3D.Helpers 6.5
 import Data 1.0 as Data
 
-// Rectangle {
-//     id: car
-//     width: 1920
-//     height: 1080
-
 View3D {
     id: view3DCar
     anchors.fill: parent
@@ -34,10 +29,9 @@ View3D {
             lightProbe: basicLights3_4K
         }
 
-
-
         ExtendedSceneEnvironment {
             id: extendedSceneEnvironment
+            clearColor: Data.Themes.backgroundColor
             vignetteEnabled: false
             skyboxBlurAmount: 0.35753
             probeHorizon: 0.1
@@ -73,11 +67,8 @@ View3D {
             backgroundMode: SceneEnvironment.Color
         }
 
-
         Node {
             id: scene
-
-
 
             GenericCarModel {
                 id: genericCarModel
@@ -85,7 +76,6 @@ View3D {
                 visible: true
                 doorsOpenLeft: false
                 doorsOpenRight: false
-                //doorsOpen: false
                 wheelCaliper_materialBaseColor: Data.Themes.themeColor1
                 wheelRimColor_materialBaseColor: Data.Themes.themeColor2
                 carPaint_materialBaseColor: Data.Themes.themeColor1
@@ -93,9 +83,6 @@ View3D {
                 scale.y: 100
                 scale.x: 100
             }
-
-
-
 
             Model {
                 id: groundPlaneA
@@ -119,7 +106,6 @@ View3D {
                 castsReflections: false
             }
 
-
             Model {
                 id: shadowPlane
                 y: 3
@@ -134,24 +120,18 @@ View3D {
                 castsReflections: false
                 receivesShadows: true
                 castsShadows: false
-                scale.y: 3.5
-                scale.x: 7
+                scale.y: 3.1
+                scale.x: 6.3
             }
-
-
-
 
             Lights {
                 id: lights
                 visible: true
-                lightOn: true
+                lightOn: Data.Values.lamps
                 scale.z: 100
                 scale.y: 100
                 scale.x: 100
             }
-
-
-
 
             DirectionalLight {
                 id: directionalLight
@@ -167,9 +147,6 @@ View3D {
                 z: -618.60547
             }
 
-
-
-
             ReflectionProbe {
                 id: reflectionProbe
                 x: 0
@@ -184,8 +161,6 @@ View3D {
                 boxSize.x: 2000
             }
 
-
-
             Model {
                 id: camNull
                 y: 3.118
@@ -194,11 +169,12 @@ View3D {
                 receivesShadows: false
                 castsShadows: false
                 eulerRotation.z: 0
-                eulerRotation.x: -20
+                eulerRotation.x: -19
                 eulerRotation.y: 37
 
                 PerspectiveCamera {
                     id: perspectiveCamera
+                    y: -17
                     eulerRotation.z: 0
                     eulerRotation.y: 7
                     eulerRotation.x: 3
@@ -207,42 +183,7 @@ View3D {
                 }
             }
 
-            // Model {
-            //     visible: false
-            //     eulerRotation.y: 90
-            //     pickable: true
-
-            //     Node {
-            //       position: Qt.vector3d(0, 60, 120)
-            //       scale.y: 0.6
-            //       scale.x: 0.5
-
-            //         Switch {
-            //             id: doorSwitch3D
-            //             opacity: 1
-            //             visible: false
-            //             anchors.centerIn: parent
-            //             //checked: false
-
-            //                 Connections {
-            //                     target: doorSwitch3D
-            //                     onToggled: {
-            //                         if (view3DCar.genericCarModelDoorsOpen === true)
-            //                             view3DCar.genericCarModelDoorsOpen = false
-            //                         else if (view3DCar.genericCarModelDoorsOpen === false)
-            //                             view3DCar.genericCarModelDoorsOpen = true
-            //                     }
-            //                 }
-            //         }
-            //     }
-            // }
- //   }
-
-
 }
-
-
-
 
     Item {
         id: __materialLibrary__
@@ -277,7 +218,7 @@ View3D {
             opacityMap: customeqFloor
             attenuationColor: "#ffffff"
             objectName: "New Material"
-            baseColor: "#b9b9b9"
+            baseColor: "#e5e5e5"
 
             Texture {
                 id: customeqFloor
@@ -366,16 +307,7 @@ View3D {
             PropertyChanges {
                 target: camNull
                 opacity: 0
-                eulerRotation.z: 0.00001
-                eulerRotation.y: 23
-                eulerRotation.x: -24
                 materials: shadowMaterial
-            }
-
-            PropertyChanges {
-                target: perspectiveCamera
-                eulerRotation.y: 5
-                eulerRotation.x: 3
             }
         },
         State {
@@ -581,6 +513,6 @@ View3D {
 
 /*##^##
 Designer {
-    D{i:0}D{i:3;cameraSpeed3d:25;cameraSpeed3dMultiplier:1}D{i:36;transitionDuration:2000}
+    D{i:0}D{i:3;cameraSpeed3d:25;cameraSpeed3dMultiplier:1}D{i:35;transitionDuration:2000}
 }
 ##^##*/

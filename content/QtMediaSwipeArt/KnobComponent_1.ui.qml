@@ -21,6 +21,7 @@ Rectangle {
         width: 998
         height: 1053
         opacity: 0.556
+        visible: false
         source: "assets/eqBarBlur.png"
         fillMode: Image.PreserveAspectFit
     }
@@ -52,6 +53,7 @@ Rectangle {
 
     Image {
         id: knobVolumeBackground
+        visible: true
         anchors.left: parent.left
         anchors.top: parent.top
         anchors.leftMargin: 185

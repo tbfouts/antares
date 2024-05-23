@@ -49,10 +49,11 @@ Rectangle {
         camera: sceneCamera
         environment: extendedSceneEnvironment
 
+
         ExtendedSceneEnvironment {
             id: extendedSceneEnvironment
             tonemapMode: SceneEnvironment.TonemapModeLinear
-            probeHorizon: 0
+            probeHorizon: 0.1
             lightProbe: the_sky_is_on_fire_4k
             glowUseBicubicUpscale: true
             glowLevel: ExtendedSceneEnvironment.GlowLevel.One
@@ -65,7 +66,7 @@ Rectangle {
             aoEnabled: true
             glowHDRMaximumValue: 79.64209
             glowHDRScale: 2.40928
-            probeExposure: 2
+            probeExposure: 1
             glowHDRMinimumValue: 0
             glowBloom: 0.36081
             glowQualityHigh: true
@@ -78,7 +79,7 @@ Rectangle {
             specularAAEnabled: false
             temporalAAEnabled: false
             fxaaEnabled: true
-            antialiasingQuality: SceneEnvironment.VeryHigh
+            antialiasingQuality: SceneEnvironment.High
             antialiasingMode: SceneEnvironment.MSAA
             backgroundMode: SceneEnvironment.Transparent
         }
@@ -96,7 +97,7 @@ Rectangle {
                 eulerRotation.x: -60
                 eulerRotation.y: 180
                 ambientColor: "#000000"
-                brightness: 22.35
+                brightness: 12
                 z: -790.60999
             }
 
@@ -323,6 +324,21 @@ Rectangle {
             baseColor: "#000000"
             objectName: "Headlamp Reflection"
         }
+
+        Texture {
+            id: basicLights2_4K
+            source: "../images/BasicLights2_4K.hdr"
+        }
+
+        Texture {
+            id: basicLights1_4K
+            source: "../images/BasicLights1_4K.hdr"
+        }
+
+        Texture {
+            id: basicLights3_4K
+            source: "../images/BasicLights3_4K.hdr"
+        }
     }
 
     Timeline {
@@ -374,6 +390,6 @@ Rectangle {
 
 /*##^##
 Designer {
-    D{i:0}D{i:2}D{i:4;cameraSpeed3d:25;cameraSpeed3dMultiplier:1}D{i:27}
+    D{i:0}D{i:4;cameraSpeed3d:25;cameraSpeed3dMultiplier:1}
 }
 ##^##*/

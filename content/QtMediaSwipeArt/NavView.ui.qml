@@ -5,7 +5,7 @@ Rectangle {
     id: navView
     width: 1920
     height: 1080
-    color: "transparent"
+    color: "#353535"
     border.color: "#00ffffff"
     border.width: 1
     clip: true

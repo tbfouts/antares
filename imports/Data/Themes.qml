@@ -10,7 +10,7 @@ Item {
     property color themeColor1: "#ACE1CC"
     property color themeColor2: "#1D406C"
     property color themeColor3: "#0A1527"
-    property color backgroundColor: "#000000"
+    property color backgroundColor: "#1e1e1e"
 
     property string albumArt: "assets/albumArt.png"
     property string trackArtist: "Luna Nova"

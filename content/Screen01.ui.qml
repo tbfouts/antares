@@ -19,8 +19,9 @@ Rectangle {
     width: Constants.width
     height: Constants.height
     visible: true
-    color: Data.Themes.backgroundColor
+    color: "#003d3d3d"
     border.color: "#00000000"
+    clip: true
 
     SwipeView {
         id: swipeView
@@ -34,6 +35,8 @@ Rectangle {
 
         CarView3D {
             id: carView3D
+            carDoorR: Data.Values.doorR
+            carDoorL: Data.Values.doorL
         }
 
         MediaPlayerLayout {
@@ -51,6 +54,41 @@ Rectangle {
         btnSoundChecked: true
     }
 
+    Rectangle {
+        id: bkgrdTabBar
+        x: 485
+        y: 1005
+        width: 949
+        height: 154
+        border.color: "#00000000"
+        gradient: Gradient {
+            GradientStop {
+                position: 0
+                color: "#00000000"
+            }
+
+            GradientStop {
+                position: 0.22617
+                color: "#1e1e1e"
+            }
+
+            GradientStop {
+                position: 0.76802
+                color: "#1e1e1e"
+            }
+
+            GradientStop {
+                position: 1
+                color: "#00000000"
+            }
+
+
+
+            orientation: Gradient.Horizontal
+        }
+        anchors.horizontalCenter: parent.horizontalCenter
+    }
+
     TabBar {
         id: tabBar
         x: 600
@@ -60,6 +98,7 @@ Rectangle {
         position: TabBar.Header
         hoverEnabled: false
         currentIndex: swipeView.currentIndex
+
 
         BtnVehicleView {
             id: btnVehicleView
@@ -110,4 +149,5 @@ Rectangle {
     Item {
         id: __materialLibrary__
     }
+
 }

@@ -4,8 +4,10 @@ import QtQuick 2.12
 QtObject {
     id: values
 
-    //speedometer dial and arc values
-    property int mph: 88
+
+    property bool doorL: false
+    property bool doorR: false
+    property bool lamps: true
 
 
 }

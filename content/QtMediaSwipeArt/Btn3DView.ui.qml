@@ -38,12 +38,13 @@ Button {
     Text {
         id: txtView
         width: 68
+        height: 35
         color: "#ffffff"
         text: qsTrId("BASE")
         anchors.left: parent.left
         anchors.top: parent.top
         anchors.leftMargin: 17
-        anchors.topMargin: 21
+        anchors.topMargin: 11
         font.letterSpacing: 0.281
         font.pixelSize: 16
         horizontalAlignment: Text.AlignHCenter
@@ -61,6 +62,11 @@ Button {
                 target: btn3DViewBorder
                 visible: false
             }
+
+            PropertyChanges {
+                target: txtView
+                font.weight: Font.Light
+            }
         },
         State {
             name: "state_Checked"
@@ -71,6 +77,11 @@ Button {
                 width: 80
                 height: 45
                 visible: true
+            }
+
+            PropertyChanges {
+                target: txtView
+                font.weight: Font.Light
             }
         }
     ]

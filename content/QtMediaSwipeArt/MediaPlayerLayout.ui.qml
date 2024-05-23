@@ -1,11 +1,12 @@
 import QtQuick
 import QtQuick.Controls
+import Data 1.0 as Data
 
 Rectangle {
     id: mediaPlayerLayout
     width: 1920
     height: 1080
-    color: "transparent"
+    color: "#353535"
 
     KnobComponent_1 {
         id: knobComponent

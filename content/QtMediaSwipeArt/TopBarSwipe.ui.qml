@@ -6,25 +6,17 @@ import Data 1.0 as Data
 Rectangle {
     id: topBarSwipe
     width: 1920
-    height: 60
-    color: "transparent"
+    height: 80
+    color: Data.Themes.backgroundColor
     property alias btnSoundChecked: btnSound.checked
     property alias mediaSwipeText: mediaSwipe.text
 
-    Rectangle {
-        id: topBarBkgrd
-        color: "#000000"
-        anchors.left: parent.left
-        anchors.right: parent.right
-        anchors.top: parent.top
-        anchors.bottom: parent.bottom
-    }
-
     SvgPathItem {
         id: qtVec
-        y: 8
+        y: 18
         width: 58
         height: 44
+        anchors.horizontalCenterOffset: 0
         anchors.horizontalCenter: parent.horizontalCenter
         strokeWidth: 1
         strokeStyle: 1
@@ -74,7 +66,7 @@ Rectangle {
     BtnSound {
         id: btnSound
         x: 1858
-        y: 10
+        y: 20
 
         Connections {
             target: btnSound
@@ -88,12 +80,90 @@ Rectangle {
         }
 
     }
+
+    Btn3DView {
+        id: btn3DViewLamps
+        x: 49
+        y: 12
+        checked: true
+        txtViewText: "LAMPS"
+
+        Connections {
+            target: btn3DViewLamps
+            onPressed:  {
+                if (Data.Values.lamps === true)
+                    Data.Values.lamps = false
+                else if (Data.Values.lamps === false)
+                    Data.Values.lamps = true
+            }
+        }
+    }
+
+    Btn3DView {
+        id: btn3DViewDRVR
+        x: 194
+        y: 12
+        txtViewText: "DRIVER DOOR"
+
+        Connections {
+            target: btn3DViewDRVR
+            onPressed: {
+                if (Data.Values.doorL === true)
+                    Data.Values.doorL = false
+                else if (Data.Values.doorL === false)
+                    Data.Values.doorL = true
+            }
+        }
+    }
+
+    Btn3DView {
+        id: btn3DViewPSGR
+        x: 342
+        y: 12
+        txtViewText: "SIDE DOOR"
+        checked: false
+
+        Connections {
+            target: btn3DViewPSGR
+            onPressed: {
+                if (Data.Values.doorR === true)
+                    Data.Values.doorR = false
+                else if (Data.Values.doorR === false)
+                    Data.Values.doorR = true
+            }
+        }
+    }
+
+    Image {
+        id: lamps
+        x: 17
+        y: 27
+        source: "assets/lamps.png"
+        fillMode: Image.PreserveAspectFit
+    }
+
+    Image {
+        id: carDoorL
+        x: 168
+        y: 19
+        source: "assets/carDoorL.png"
+        fillMode: Image.PreserveAspectFit
+    }
+
+    Image {
+        id: carDoorR
+        x: 317
+        y: 19
+        source: "assets/carDoorR.png"
+        fillMode: Image.PreserveAspectFit
+    }
+
 }
 
 /*##^##
 Designer {
-    D{i:0;uuid:"f1d29a34-1966-5fbb-b9d5-550da3aae6b8"}D{i:1;uuid:"46a05c75-3616-5c12-9050-83fa0890a7d3"}
-D{i:2;uuid:"fbf4d9c1-7d16-5947-b578-674145f3f7be"}D{i:3;uuid:"c976690e-9fc9-57f3-b5b0-c3465ef12556"}
+    D{i:0;uuid:"f1d29a34-1966-5fbb-b9d5-550da3aae6b8"}D{i:1;uuid:"fbf4d9c1-7d16-5947-b578-674145f3f7be"}
+D{i:2;uuid:"c976690e-9fc9-57f3-b5b0-c3465ef12556"}D{i:11}
 }
 ##^##*/
 
