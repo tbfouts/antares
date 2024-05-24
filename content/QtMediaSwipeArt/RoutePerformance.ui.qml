@@ -2,7 +2,7 @@ import QtQuick
 import QtQuick.Controls
 import QtQuick.Studio.Components 1.0
 import Data 1.0 as Data
-import QtQuick.Studio.DesignEffects
+// import QtQuick.Studio.DesignEffects
 
 Rectangle {
     id: routePerformance
@@ -210,12 +210,12 @@ Rectangle {
         antialiasing: true
     }
 
-    DesignEffect {
-        effects: [
-            DesignDropShadow {
-            }
-        ]
-    }
+    // DesignEffect {
+    //     effects: [
+    //         DesignDropShadow {
+    //         }
+    //     ]
+    // }
 }
 
 /*##^##

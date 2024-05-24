@@ -139,6 +139,7 @@ View3D {
                 y: 454.668
                 visible: true
                 color: "#a1a1a1"
+                scope: groundPlaneA
                 ambientColor: "#ffffff"
                 brightness: 0.16
                 eulerRotation.z: 114.08686

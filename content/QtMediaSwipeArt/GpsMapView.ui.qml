@@ -3,7 +3,7 @@ import QtQuick.Controls
 import Data 1.0 as Data
 import QtQuick.Studio.Components 1.0
 import QtQuick.Shapes 1.0
-import QtQuick.Studio.DesignEffects
+// import QtQuick.Studio.DesignEffects
 
 Rectangle {
     id: gpsMapView
@@ -118,15 +118,15 @@ Rectangle {
         joinStyle: 0
         antialiasing: true
 
-        DesignEffect {
-            effects: [
-                DesignDropShadow {
-                    color: "#f6f6f6"
-                    blur: 40
-                    offsetY: 0
-                }
-            ]
-        }
+        // DesignEffect {
+        //     effects: [
+        //         DesignDropShadow {
+        //             color: "#f6f6f6"
+        //             blur: 40
+        //             offsetY: 0
+        //         }
+        //     ]
+        // }
     }
 
     Image {

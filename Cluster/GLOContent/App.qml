@@ -8,24 +8,32 @@ Window {
     width: mainScreen.width
     height: mainScreen.height
 
+    visibility: Qt.platform.os === 'android' ? Window.FullScreen : Window.AutomaticVisibility
+
     visible: true
     title: "GLO"
 
-    Screen01 {
-        id: mainScreen
-    }
+    Rectangle
+    {
+        anchors.fill: parent
+        color: "black"
 
-    Window {
-        width: 1000
-        height: 400
-        visible: true
-        x: mainScreen.x + 1180
-        y: mainScreen.y + 1320
-
-        Screen02 {
-            id: controlPanel
+        Screen01 {
+            id: mainScreen
+            anchors.centerIn: parent
         }
     }
 
-}
+    // Window {
+    //     width: 1000
+    //     height: 400
+    //     visible: true
+    //     x: mainScreen.x + 1180
+    //     y: mainScreen.y + 1320
 
+    //     Screen02 {
+    //         id: controlPanel
+    //     }
+    // }
+
+}
