@@ -339,7 +339,7 @@ Rectangle {
 
         Texture {
             id: basicLights3_4K
-            source: "../images/BasicLights3_4K.hdr"
+            source: "images/BasicLights3_4K.hdr"
         }
     }
 
@@ -406,6 +406,6 @@ Rectangle {
 
 /*##^##
 Designer {
-    D{i:0}D{i:4;cameraSpeed3d:25;cameraSpeed3dMultiplier:1}D{i:6}
+    D{i:0}D{i:4;cameraSpeed3d:25;cameraSpeed3dMultiplier:1}
 }
 ##^##*/

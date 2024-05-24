@@ -24,9 +24,9 @@ qt6_add_qml_module(GLO
     VERSION 1.0
     RESOURCE_PREFIX "/qt/qml"
 	QML_FILES
+		"JsonData.qml"
 		"Themes.qml"
 		"Constants.qml"
-		"JsonData.qml"
 	RESOURCES
 		"data.json"
 )
