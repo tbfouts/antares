@@ -555,13 +555,17 @@ Node {
 
         PrincipledMaterial {
             id: carPaint_material
+            specularAmount: 0.99764
+            clearcoatFresnelPower: 0
+            clearcoatFresnelScale: 0
+            fresnelScale: 0
+            fresnelPower: 5
+            vertexColorsEnabled: false
             lighting: PrincipledMaterial.FragmentLighting
             objectName: "CarPaint"
             baseColor: "#ffb10000"
-           metalnessMap: _0_texture
-           roughnessMap: _0_texture
             metalness: 1
-            roughness: 0.3875647783279419
+            roughness: 0.30175
             cullMode: PrincipledMaterial.NoCulling
             alphaMode: PrincipledMaterial.Default
             clearcoatAmount: 1

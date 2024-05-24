@@ -54,7 +54,7 @@ Rectangle {
             id: extendedSceneEnvironment
             tonemapMode: SceneEnvironment.TonemapModeLinear
             probeHorizon: 0.1
-            lightProbe: the_sky_is_on_fire_4k
+            lightProbe: basicLights3_4K
             glowUseBicubicUpscale: true
             glowLevel: ExtendedSceneEnvironment.GlowLevel.One
                        | ExtendedSceneEnvironment.GlowLevel.Two
@@ -66,12 +66,12 @@ Rectangle {
             aoEnabled: true
             glowHDRMaximumValue: 79.64209
             glowHDRScale: 2.40928
-            probeExposure: 1
+            probeExposure: 40
             glowHDRMinimumValue: 0
             glowBloom: 0.36081
             glowQualityHigh: true
-            glowIntensity: 0.3377
-            glowStrength: 0.17627
+            glowIntensity: 0.28793
+            glowStrength: 0.93527
             lensFlareEnabled: false
             glowEnabled: true
             ditheringEnabled: true
@@ -93,12 +93,28 @@ Rectangle {
                 y: 454.668
                 visible: true
                 color: "#e6e6e6"
+                eulerRotation.z: 0.00003
                 scope: genericCarModel
-                eulerRotation.x: -60
-                eulerRotation.y: 180
-                ambientColor: "#000000"
-                brightness: 12
+                eulerRotation.x: -60.00002
+                eulerRotation.y: 179.99995
+                ambientColor: "#666666"
+                brightness: 1
                 z: -790.60999
+            }
+
+            DirectionalLight {
+                id: directionalLightLane
+                x: 0
+                y: 454.668
+                visible: true
+                color: "#e6e6e6"
+                z: 0
+                scope: lanePlane
+                eulerRotation.z: 179.99994
+                eulerRotation.y: 0.00005
+                eulerRotation.x: -64.99998
+                brightness: 5
+                ambientColor: "#666666"
             }
 
             PerspectiveCamera {
@@ -155,7 +171,7 @@ Rectangle {
                 castsReflections: false
                 receivesShadows: false
                 castsShadows: false
-                scale.y: 0.8736
+                scale.y: 1.5
                 scale.x: 3.3792
             }
 
@@ -166,10 +182,10 @@ Rectangle {
                 opacity: 0.978
                 visible: JsonData.lights
                 source: "#Rectangle"
-                z: -443.95938
+                z: -432.35562
                 usedInBakedLighting: true
                 scale.z: 1
-                scale.y: 0.8736
+                scale.y: 1.5
                 scale.x: 3.3792
                 receivesShadows: false
                 receivesReflections: true
@@ -205,16 +221,16 @@ Rectangle {
             Model {
                 id: lanePlane
                 x: -0
-                y: -184.127
+                y: -119.762
                 opacity: JsonData.speed
                 visible: true
                 source: "#Rectangle"
-                z: -11.17475
+                eulerRotation.z: -90
+                eulerRotation.y: 0.00002
+                eulerRotation.x: -70
+                z: -178.60217
                 materials: laneLines
                 receivesReflections: true
-                eulerRotation.z: -90.00005
-                eulerRotation.x: -75.00004
-                eulerRotation.y: 0.00003
                 castsReflections: false
                 receivesShadows: false
                 castsShadows: false
@@ -234,7 +250,7 @@ Rectangle {
                 scale.z: 1
                 scale.y: 0.9
                 scale.x: 1
-                brightness: 600
+                brightness: 100
                 scope: headlampPlaneRight
                 innerConeAngle: 14
                 coneAngle: 30
@@ -254,13 +270,14 @@ Rectangle {
                 scale.y: 0.9
                 scale.x: 1
                 quadraticFade: 10
-                innerConeAngle: 17
+                innerConeAngle: 14
                 eulerRotation.z: 0
                 eulerRotation.y: 0
                 eulerRotation.x: -15
-                coneAngle: 29
-                brightness: 600
+                coneAngle: 30
+                brightness: 100
             }
+
 
         }
     }
@@ -269,11 +286,6 @@ Rectangle {
     Item {
         id: __materialLibrary__
 
-        Texture {
-            id: the_sky_is_on_fire_4k
-            source: "images/the_sky_is_on_fire_4k.hdr"
-        }
-
         PrincipledMaterial {
             id: laneLines
             lighting: PrincipledMaterial.FragmentLighting
@@ -281,7 +293,7 @@ Rectangle {
             occlusionChannel: Material.R
             occlusionMap: vecLaneLines
             metalness: 0
-            baseColor: "#00000000"
+            baseColor: "#0a272727"
             objectName: "laneLines"
 
             Texture {
@@ -321,18 +333,8 @@ Rectangle {
             transmissionFactor: 0.47422
             lighting: PrincipledMaterial.FragmentLighting
             roughness: 1
-            baseColor: "#000000"
+            baseColor: "#373737"
             objectName: "Headlamp Reflection"
-        }
-
-        Texture {
-            id: basicLights2_4K
-            source: "../images/BasicLights2_4K.hdr"
-        }
-
-        Texture {
-            id: basicLights1_4K
-            source: "../images/BasicLights1_4K.hdr"
         }
 
         Texture {
@@ -383,6 +385,20 @@ Rectangle {
     states: [
         State {
             name: "Running"
+
+            PropertyChanges {
+                target: headlampPlaneRight
+                x: 70.14
+                y: -3.605
+                z: -373.4649
+            }
+
+            PropertyChanges {
+                target: headlampPlaneLeft
+                x: -66.347
+                y: -3.605
+                z: -424.92371
+            }
         }
     ]
 
@@ -390,6 +406,6 @@ Rectangle {
 
 /*##^##
 Designer {
-    D{i:0}D{i:4;cameraSpeed3d:25;cameraSpeed3dMultiplier:1}
+    D{i:0}D{i:4;cameraSpeed3d:25;cameraSpeed3dMultiplier:1}D{i:6}
 }
 ##^##*/
