@@ -1,11 +1,12 @@
 import QtQuick
 import QtQuick.Controls
+import Data 1.0 as Data
 
 Rectangle {
     id: navView
     width: 1920
     height: 1080
-    color: "#353535"
+    color: Data.Themes.backgroundColor
     border.color: "#00ffffff"
     border.width: 1
     clip: true

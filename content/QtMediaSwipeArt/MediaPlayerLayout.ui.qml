@@ -6,7 +6,7 @@ Rectangle {
     id: mediaPlayerLayout
     width: 1920
     height: 1080
-    color: "#353535"
+    color: Data.Themes.backgroundColor
 
     KnobComponent_1 {
         id: knobComponent

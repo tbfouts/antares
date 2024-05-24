@@ -64,7 +64,7 @@ View3D {
             fxaaEnabled: true
             antialiasingQuality: SceneEnvironment.VeryHigh
             antialiasingMode: SceneEnvironment.MSAA
-            backgroundMode: SceneEnvironment.Color
+            backgroundMode: SceneEnvironment.Transparent
         }
 
         Node {
@@ -174,10 +174,10 @@ View3D {
 
                 PerspectiveCamera {
                     id: perspectiveCamera
-                    y: -17
+                    y: -19
                     eulerRotation.z: 0
                     eulerRotation.y: 7
-                    eulerRotation.x: 3
+                    eulerRotation.x: 2
                     fieldOfView: 50
                     z: 472
                 }

@@ -19,7 +19,7 @@ Rectangle {
     width: Constants.width
     height: Constants.height
     visible: true
-    color: "#003d3d3d"
+    color: Data.Themes.backgroundColor
     border.color: "#00000000"
     clip: true
 

@@ -24,7 +24,7 @@ Rectangle {
         gradient: Gradient {
             GradientStop {
                 position: 0.90484
-                color: "#353535"
+                color: "#1e1e1e"
             }
 
             GradientStop {
@@ -42,8 +42,8 @@ Rectangle {
         anchors.right: parent.right
         anchors.top: parent.top
         anchors.bottom: parent.bottom
-        anchors.leftMargin: 286
-        anchors.rightMargin: 90
+        anchors.leftMargin: 256
+        anchors.rightMargin: 120
         anchors.topMargin: 49
         anchors.bottomMargin: 909
         fillColor: Data.Themes.themeColor3
@@ -53,16 +53,6 @@ Rectangle {
         path: "M 19.462421417236328 0 C 8.71682071685791 0 0 8.652708053588867 0 19.31929588317871 C 0 29.985883712768555 19.462398529052734 61.67434310913086 19.462398529052734 61.67434310913086 C 19.462398529052734 61.67434310913086 38.924766540527344 29.992236137390137 38.924766540527344 19.31929588317871 C 38.924766540527344 8.646355628967285 30.214420318603516 0 19.462421417236328 0 Z M 19.462421417236328 33.054351806640625 C 11.859221458435059 33.054351806640625 5.676796913146973 26.91740322113037 5.676796913146973 19.37010955810547 C 5.676796913146973 11.822815895080566 11.859221458435059 5.685880184173584 19.462421417236328 5.685880184173584 C 27.065621376037598 5.685880184173584 33.24796676635742 11.822815895080566 33.24796676635742 19.37010955810547 C 33.24796676635742 26.91740322113037 27.065621376037598 33.054351806640625 19.462421417236328 33.054351806640625 Z"
         joinStyle: 0
         antialiasing: true
-
-        DesignEffect {
-            effects: [
-                DesignDropShadow {
-                    color: "#f6f6f6"
-                    blur: 50
-                    offsetY: 0
-                }
-            ]
-        }
     }
 
     Rectangle {
@@ -86,16 +76,6 @@ Rectangle {
             anchors.topMargin: 22
             source: "assets/txtRoute.png"
         }
-
-        DesignEffect {
-            effects: [
-                DesignDropShadow {
-                    color: "#f6f6f6"
-                    blur: 50
-                    offsetY: 0
-                }
-            ]
-        }
     }
 
     Text {
@@ -115,16 +95,6 @@ Rectangle {
         wrapMode: Text.Wrap
         font.weight: Font.Normal
         font.family: "Oxanium"
-
-        DesignEffect {
-            effects: [
-                DesignDropShadow {
-                    color: "#f6f6f6"
-                    blur: 50
-                    offsetY: 0
-                }
-            ]
-        }
     }
 
     Text {
@@ -144,16 +114,6 @@ Rectangle {
         wrapMode: Text.Wrap
         font.weight: Font.Normal
         font.family: "Oxanium"
-
-        DesignEffect {
-            effects: [
-                DesignDropShadow {
-                    color: "#f6f6f6"
-                    blur: 50
-                    offsetY: 0
-                }
-            ]
-        }
     }
 
     Text {
@@ -173,16 +133,6 @@ Rectangle {
         wrapMode: Text.Wrap
         font.weight: Font.Normal
         font.family: "Oxanium"
-
-        DesignEffect {
-            effects: [
-                DesignDropShadow {
-                    color: "#f6f6f6"
-                    blur: 50
-                    offsetY: 0
-                }
-            ]
-        }
     }
 
     Text {
@@ -201,16 +151,6 @@ Rectangle {
         wrapMode: Text.Wrap
         font.weight: Font.Normal
         font.family: "Oxanium"
-
-        DesignEffect {
-            effects: [
-                DesignDropShadow {
-                    color: "#f6f6f6"
-                    blur: 50
-                    offsetY: 0
-                }
-            ]
-        }
     }
 
     SvgPathItem {
