@@ -1,6 +1,7 @@
 pragma Singleton
 import QtQuick 2.12
 import QtMultimedia
+import Data 1.0 as Data
 
 Item {
     id: themes
@@ -24,6 +25,8 @@ Item {
     property bool mediaSoundMute: true
 
     Component.onCompleted: mediaPlayer.play()
+
+    onStateChanged: Data.Values.currentTheme = state
 
     MediaPlayer {
         id: mediaPlayer

@@ -25,8 +25,6 @@ Item {
 
     Component.onCompleted: mediaPlayer.play()
 
-
-
     function playPause()
     {
         if(mediaPlayer.playing)
