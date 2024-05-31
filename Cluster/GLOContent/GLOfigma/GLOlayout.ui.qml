@@ -182,7 +182,7 @@ Rectangle {
             anchors.top: parent.top
             anchors.topMargin: 5
             width: parent.width
-            font.pixelSize: 18
+            font.pixelSize: 15
             horizontalAlignment: Text.AlignHCenter
             verticalAlignment: Text.AlignVCenter
             wrapMode: Text.Wrap
@@ -202,7 +202,7 @@ Rectangle {
             anchors.topMargin: 0
             anchors.bottomMargin: 0
             font.letterSpacing: -1.797
-            font.pixelSize: 45
+            font.pixelSize: 40
             horizontalAlignment: Text.AlignHCenter
             verticalAlignment: Text.AlignVCenter
             wrapMode: Text.Wrap
