@@ -12,7 +12,7 @@ Item {
 
     property string driveMode: adas ? "ADAS" : "SPORT"
 
-    property string demoMode: "manual"
+    property string demoMode: "auto"
     property bool simulationRunning: true
 
 
@@ -57,10 +57,12 @@ Item {
                 case "lamps":
                     lights = ("true" === data[1])
                     break;
+                case "adasEnabled":
+                    adas = ("true" === data[1])
+                    break;
                 default:
                     console.log("message went unhandled")
                 }
-
             });
         }
         onErrorStringChanged: {

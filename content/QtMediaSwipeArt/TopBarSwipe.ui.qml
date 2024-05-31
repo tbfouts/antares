@@ -70,15 +70,13 @@ Rectangle {
 
         Connections {
             target: btnSound
-            onPressed:  {
+            onPressed: {
                 if (Data.Themes.mediaSoundMute === true)
                     Data.Themes.mediaSoundMute = false
                 else if (Data.Themes.mediaSoundMute === false)
                     Data.Themes.mediaSoundMute = true
             }
-
         }
-
     }
 
     Btn3DView {
@@ -90,7 +88,7 @@ Rectangle {
 
         Connections {
             target: btn3DViewLamps
-            onPressed:  {
+            onPressed: {
                 if (Data.Values.lamps === true)
                     Data.Values.lamps = false
                 else if (Data.Values.lamps === false)
@@ -141,17 +139,13 @@ Rectangle {
         y: 12
         txtViewText: "ADAS"
 
-        // JsonData.qml in cluster controls on/off from "property bool adas: true"
+        Connections {
+            target: btn3ADASview
+            onPressed: {
+                Data.Values.adasEnabled = !Data.Values.adasEnabled
+            }
+        }
 
-        // Connections {
-        //     target: btn3ADASview
-        //     onPressed: {
-        //         if ( === true)
-        //              = false
-        //         else if ( === false)
-        //              = true
-        //     }
-        // }
         checked: false
     }
 
@@ -186,14 +180,12 @@ Rectangle {
         source: "assets/btnAdas.png"
         fillMode: Image.PreserveAspectFit
     }
-
-
 }
 
 /*##^##
 Designer {
     D{i:0;uuid:"f1d29a34-1966-5fbb-b9d5-550da3aae6b8"}D{i:1;uuid:"fbf4d9c1-7d16-5947-b578-674145f3f7be"}
-D{i:2;uuid:"c976690e-9fc9-57f3-b5b0-c3465ef12556"}D{i:13}
+D{i:2;uuid:"c976690e-9fc9-57f3-b5b0-c3465ef12556"}
 }
 ##^##*/
 

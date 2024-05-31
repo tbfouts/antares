@@ -9,12 +9,14 @@ Item {
     property bool doorL: false
     property bool doorR: false
     property bool lamps: true
+    property bool adasEnabled: false
     property string currentTheme: "luna"
 
     onDoorLChanged: webSocketClient.sendTextMessage("doorLeft:" + doorL)
     onDoorRChanged: webSocketClient.sendTextMessage("doorRight:" + doorR)
     onLampsChanged: webSocketClient.sendTextMessage("lamps:" + lamps)
     onCurrentThemeChanged: webSocketClient.sendTextMessage("theme:" + currentTheme)
+    onAdasEnabledChanged: webSocketClient.sendTextMessage("adasEnabled:" + adasEnabled)
 
     property WebSocket wsClient: WebSocket
     {
@@ -31,6 +33,7 @@ Item {
                 webSocketClient.sendTextMessage("theme:" + currentTheme)
                 webSocketClient.sendTextMessage("doorRight:" + doorR)
                 webSocketClient.sendTextMessage("doorLeft:" + doorL)
+                webSocketClient.sendTextMessage("adasEnabled:" + adasEnabled)
                 webSocketClient.sendTextMessage("lamps:" + lamps)
             }
         }
