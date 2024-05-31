@@ -3,8 +3,6 @@ import QtQuick.Controls
 import QtQuick.Studio.Utils
 import GLO 1.0
 
-
-
 Rectangle {
     id: gLOlayout
     width: Constants.width
@@ -164,6 +162,55 @@ Rectangle {
         visible: JsonData.UnitType.Metric === JsonData.units
     }
 
+    Rectangle {
+        id: speedLimit_MPH
+
+        width: 66
+        height: 86
+        color: "#ffffff"
+        radius: 3
+        visible: JsonData.UnitType.Imperial === JsonData.units
+        anchors.left: parent.left
+        anchors.top: parent.top
+        anchors.leftMargin: 1398
+        anchors.topMargin: 550
+
+        Text {
+            id: txtSpeedLimit
+            text: qsTr("SPEED\nLIMIT")
+            color: "#545454"
+            anchors.top: parent.top
+            anchors.topMargin: 5
+            width: parent.width
+            font.pixelSize: 18
+            horizontalAlignment: Text.AlignHCenter
+            verticalAlignment: Text.AlignVCenter
+            wrapMode: Text.Wrap
+            font.weight: Font.DemiBold
+            font.family: "Oxanium"
+        }
+
+        Text {
+            id: txtKiSL
+            color: "#545454"
+            text: qsTr("55")
+            anchors.left: parent.left
+            anchors.right: parent.right
+            anchors.bottom: parent.bottom
+            anchors.leftMargin: 3
+            anchors.rightMargin: 5
+            anchors.topMargin: 0
+            anchors.bottomMargin: 0
+            font.letterSpacing: -1.797
+            font.pixelSize: 45
+            horizontalAlignment: Text.AlignHCenter
+            verticalAlignment: Text.AlignVCenter
+            wrapMode: Text.Wrap
+            font.weight: Font.DemiBold
+            font.family: "Oxanium"
+        }
+    }
+
     Speedometer_Value {
         id: speedometer_Value
         width: 320
@@ -219,7 +266,6 @@ Rectangle {
     //     qsrON: JsonData.qsrIcons
     //     clip: true
     // }
-
     Clock {
         id: clock
         width: 166
@@ -279,14 +325,10 @@ Rectangle {
     //     turnLeftSignal: JsonData.switchTurnL
     //     clip: true
     // }
-
     Item {
         id: __materialLibrary__
     }
 }
-
-
-
 
 /*##^##
 Designer {
@@ -297,10 +339,6 @@ D{i:6;uuid:"27c019d7-02f8-53b4-8cfe-f0163ce353dc"}D{i:7;uuid:"d1903e74-1dda-5aa8
 D{i:8;uuid:"6cde417c-6ad1-5542-aef0-6c0b5f2b12cf"}D{i:9;uuid:"ff5b4c02-ca53-5562-92c7-c88afdd79914"}
 D{i:10;uuid:"9f8cbf5b-d381-57ce-bded-6f035a8b8ede"}D{i:11;uuid:"eec0a678-b761-5d9d-a113-37bda6e97b6e"}
 D{i:12;uuid:"8a123f28-ffe0-58fd-adbb-656ac97a4828"}D{i:13;uuid:"434ae6df-097a-581e-ad95-956420a62740"}
-D{i:14;uuid:"b483d8ad-d777-565b-9c59-08fad8c7a2e2"}D{i:15;uuid:"00b4cd91-8ab0-585f-bbf6-545a3c727bc3"}
-D{i:16;uuid:"ad897557-5a50-5234-8c03-07dd1ce2ebdd"}D{i:17;uuid:"72d5cd39-f6e8-5fc7-8fbb-af18167c5962"}
-D{i:18;uuid:"32f627c7-833c-5c26-8809-484ef93ef2c3"}D{i:19;uuid:"563a9edf-fd9b-53fd-8916-a3935e7127e1"}
-D{i:20;uuid:"796157ce-da5f-5f50-98e2-c24fd7b8cc05"}D{i:21;uuid:"9f886707-d59d-5cfd-a7e1-f33e1a0b7840"}
-D{i:22;uuid:"02a55ee7-cd7d-5656-a334-5b942de7ddab"}
 }
 ##^##*/
+
