@@ -1,6 +1,7 @@
 import QtQuick
 import QtQuick.Controls
 import QtQuick.Studio.DesignEffects
+import GLO 1.0
 
 Rectangle {
     id: speedometer_Value
@@ -89,7 +90,7 @@ Rectangle {
     Text {
         id: txtMPH
         color: "#a8a8a8"
-        text: qsTr("KPH")
+        text: JsonData.UnitType.Metric === JsonData.units ? "KPH" : "MPH"
         anchors.left: parent.left
         anchors.right: parent.right
         anchors.top: parent.top

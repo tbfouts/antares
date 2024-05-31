@@ -40,7 +40,7 @@ Item {
 
         property Timer timer: Timer {
             interval: 100
-            running: webSocketClient.status != WebSocket.Open
+            running: true
             onTriggered: {
                 webSocketClient.active = true;
             }

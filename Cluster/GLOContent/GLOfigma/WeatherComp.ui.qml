@@ -1,6 +1,7 @@
 import QtQuick
 import QtQuick.Controls
 import QtQuick.Studio.Components 1.0
+import GLO 1.0
 
 Rectangle {
     id: weatherComp
@@ -12,7 +13,7 @@ Rectangle {
     Text {
         id: txtDate
         color: "#b3b3b3"
-        text: qsTr("15") + "\xB0 C"
+        text: JsonData.UnitType.Metric === JsonData.units ? "15\xB0 C" : "55\xB0 F"
         anchors.left: parent.left
         anchors.right: parent.right
         anchors.top: parent.top

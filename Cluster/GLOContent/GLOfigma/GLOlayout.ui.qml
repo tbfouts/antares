@@ -12,7 +12,7 @@ Rectangle {
     color: "#000000"
     // property alias qsrTurnSignalsVisible: qsrTurnSignals.visible
     // property alias qsrWarningsVisible: qsrWarnings.visible
-    state: JsonData.driveMode
+    state: (JsonData.DriveMode.Adas === JsonData.driveMode) ? "ADAS" : "SPORT"
     property alias rpmGauge_ValueRpmGaugeCoverColor: rpmGauge_Value.rpmGaugeCoverColor
     property alias speedometer_ValueSpeedGaugeCoverColor: speedometer_Value.speedGaugeCoverColor
 
@@ -161,6 +161,7 @@ Rectangle {
         anchors.top: parent.top
         anchors.leftMargin: 1398
         anchors.topMargin: 550
+        visible: JsonData.UnitType.Metric === JsonData.units
     }
 
     Speedometer_Value {
@@ -258,7 +259,7 @@ Rectangle {
         height: 592
         visible: false
         anchors.verticalCenter: parent.verticalCenter
-        adasON: JsonData.adas
+        adasON: JsonData.DriveMode.Adas === JsonData.driveMode
         adasOFF: false
         anchors.verticalCenterOffset: -4
         anchors.horizontalCenterOffset: -1

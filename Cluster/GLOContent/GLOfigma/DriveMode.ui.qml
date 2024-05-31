@@ -31,7 +31,7 @@ Rectangle {
         width: 89
         height: 35
         color: "#f2f2f2"
-        text: JsonData.driveMode
+        text: JsonData.DriveMode.Adas === JsonData.driveMode ? "ADAS" : "SPORT"
         anchors.left: parent.left
         anchors.top: parent.top
         anchors.leftMargin: 186

@@ -10,7 +10,20 @@ Item {
     id: jsonBackEnd
     // source: Qt.resolvedUrl("data.json")
 
-    property string driveMode: adas ? "ADAS" : "SPORT"
+    enum UnitType
+    {
+        Metric,
+        Imperial
+    }
+
+    enum DriveMode
+    {
+        Adas,
+        Sport
+    }
+
+    property var driveMode: JsonData.DriveMode.Sport
+    property var units: JsonData.UnitType.Imperial
 
     property string demoMode: "auto"
     property bool simulationRunning: true
@@ -58,7 +71,7 @@ Item {
                     lights = ("true" === data[1])
                     break;
                 case "adasEnabled":
-                    adas = ("true" === data[1])
+                    driveMode = ("true" === data[1]) ? JsonData.DriveMode.Adas : JsonData.DriveMode.Sport
                     break;
                 default:
                     console.log("message went unhandled")

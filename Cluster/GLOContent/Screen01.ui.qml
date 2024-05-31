@@ -379,7 +379,7 @@ Rectangle {
         y: 64
         width: 480
         anchors.horizontalCenter: parent.horizontalCenter
-        adasON: JsonData.adas
+        adasON: JsonData.DriveMode.Adas === JsonData.driveMode
         adasOFF: true
     }
     states: [
