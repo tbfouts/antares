@@ -103,6 +103,7 @@ Rectangle {
         id: btn3DViewDRVR
         x: 194
         y: 12
+        checked: false
         txtViewText: "DRIVER DOOR"
 
         Connections {
@@ -134,6 +135,26 @@ Rectangle {
         }
     }
 
+    Btn3DView {
+        id: btn3ADASview
+        x: 498
+        y: 12
+        txtViewText: "ADAS"
+
+        // JsonData.qml in cluster controls on/off from "property bool adas: true"
+
+        // Connections {
+        //     target: btn3ADASview
+        //     onPressed: {
+        //         if ( === true)
+        //              = false
+        //         else if ( === false)
+        //              = true
+        //     }
+        // }
+        checked: false
+    }
+
     Image {
         id: lamps
         x: 17
@@ -158,12 +179,21 @@ Rectangle {
         fillMode: Image.PreserveAspectFit
     }
 
+    Image {
+        id: btnAdas
+        x: 450
+        y: 15
+        source: "assets/btnAdas.png"
+        fillMode: Image.PreserveAspectFit
+    }
+
+
 }
 
 /*##^##
 Designer {
     D{i:0;uuid:"f1d29a34-1966-5fbb-b9d5-550da3aae6b8"}D{i:1;uuid:"fbf4d9c1-7d16-5947-b578-674145f3f7be"}
-D{i:2;uuid:"c976690e-9fc9-57f3-b5b0-c3465ef12556"}D{i:11}
+D{i:2;uuid:"c976690e-9fc9-57f3-b5b0-c3465ef12556"}D{i:13}
 }
 ##^##*/
 

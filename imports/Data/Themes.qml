@@ -284,6 +284,48 @@ Item {
                 easing.type: Easing.InOutQuad;
             }
     }
+    transitions: [
+        Transition {
+            id: transition
+            ParallelAnimation {
+                SequentialAnimation {
+                    PauseAnimation {
+                        duration: 50
+                    }
+
+                    PropertyAnimation {
+                        target: themes
+                        property: "themeColor1"
+                        duration: 300
+                    }
+                }
+
+                SequentialAnimation {
+                    PauseAnimation {
+                        duration: 50
+                    }
+
+                    PropertyAnimation {
+                        target: themes
+                        property: "themeColor2"
+                        duration: 300
+                    }
+                }
+
+                SequentialAnimation {
+                    PauseAnimation {
+                        duration: 50
+                    }
+
+                    PropertyAnimation {
+                        target: themes
+                        property: "themeColor3"
+                        duration: 300
+                    }
+                }
+    }
+}
+]
 }
 
 

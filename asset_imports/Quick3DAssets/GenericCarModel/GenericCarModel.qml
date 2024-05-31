@@ -185,9 +185,9 @@ Node {
         Model {
             id: brakeCaliperFrLeft
             objectName: "BrakeCaliperFrLeft"
-            x: 0.8492889404296875
-            y: 0.352143794298172
-            z: 1.2830318212509155
+            x: 0.849
+            y: 0.352
+            z: 1.28482
             scale.x: 0.001
             scale.y: 0.001
             scale.z: 0.001
@@ -207,21 +207,6 @@ Node {
             scale.y: 0.001
             scale.z: 0.001
             source: "meshes/brakeCaliperFrRight_mesh.mesh"
-            materials: [
-                wheelPlasticBlackBolt_material,
-                wheelCaliper_material
-            ]
-        }
-        Model {
-            id: brakeCaliperRearLeft
-            objectName: "BrakeCaliperRearLeft"
-            x: 0.8791868686676025
-            y: 0.35214540362358093
-            z: -1.374197006225586
-            scale.x: 0.001
-            scale.y: 0.001
-            scale.z: 0.001
-            source: "meshes/brakeCaliperRearLeft_mesh.mesh"
             materials: [
                 wheelPlasticBlackBolt_material,
                 wheelCaliper_material
@@ -1512,6 +1497,6 @@ Node {
 
 /*##^##
 Designer {
-    D{i:0;cameraSpeed3d:25;cameraSpeed3dMultiplier:1}D{i:118;transitionDuration:2000}
+    D{i:0;cameraSpeed3d:25;cameraSpeed3dMultiplier:1}D{i:117;transitionDuration:2000}
 }
 ##^##*/
