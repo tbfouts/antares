@@ -16,7 +16,10 @@ set_source_files_properties(Themes.qml
 		QT_QML_SINGLETON_TYPE true
 )
 
-
+set_source_files_properties(DateTime.qml
+        PROPERTIES
+                QT_QML_SINGLETON_TYPE true
+)
 
 qt_add_library(GLO STATIC)
 qt6_add_qml_module(GLO
@@ -27,6 +30,7 @@ qt6_add_qml_module(GLO
 		"Constants.qml"
 		"Themes.qml"
 		"JsonData.qml"
+		"DateTime.qml"
 	RESOURCES
 		"data.json"
 )

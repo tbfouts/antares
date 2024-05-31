@@ -28,7 +28,6 @@ Item {
     property string demoMode: "auto"
     property bool simulationRunning: true
 
-
     property int speed: 60
     property int fuel: 100
     property int battery: 100
