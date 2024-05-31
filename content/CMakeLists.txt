@@ -71,6 +71,10 @@ qt6_add_qml_module(content
         QtMediaSwipeArt/assets/mapWBorder_merged_child.png
         QtMediaSwipeArt/assets/arrowShadowVec.png
         QtMediaSwipeArt/assets/electricDreamscape.png
+        QtMediaSwipeArt/assets/lamps.png
+        QtMediaSwipeArt/assets/carDoorL.png
+        QtMediaSwipeArt/assets/carDoorR.png
+        QtMediaSwipeArt/assets/btnAdas.png
         QtMediaSwipeArt/assets/sonicPrism.png
         QtMediaSwipeArt/assets/timeAddPanels.png
         QtMediaSwipeArt/assets/knobVolumeForeground_1.png
