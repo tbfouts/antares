@@ -29,7 +29,7 @@ Rectangle {
         y: 0
         width: 1920
         height: 1080
-        interactive: true
+        interactive: false
         currentIndex: 1
         focusPolicy: Qt.ClickFocus
 
