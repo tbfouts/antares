@@ -8,8 +8,8 @@ Rectangle {
     width: Constants.width
     height: Constants.height
     color: "#000000"
-    // property alias qsrTurnSignalsVisible: qsrTurnSignals.visible
-    // property alias qsrWarningsVisible: qsrWarnings.visible
+    property alias qsrTurnSignalsVisible: qsrTurnSignals.visible
+    property alias qsrWarningsVisible: qsrWarnings.visible
     state: (JsonData.DriveMode.Adas === JsonData.driveMode) ? "ADAS" : "SPORT"
     property alias rpmGauge_ValueRpmGaugeCoverColor: rpmGauge_Value.rpmGaugeCoverColor
     property alias speedometer_ValueSpeedGaugeCoverColor: speedometer_Value.speedGaugeCoverColor
@@ -257,15 +257,15 @@ Rectangle {
         anchors.verticalCenterOffset: -319
     }
 
-    // QsrWarnings {
-    //     id: qsrWarnings
-    //     x: 602
-    //     y: 662
-    //     width: 713
-    //     height: 60
-    //     qsrON: JsonData.qsrIcons
-    //     clip: true
-    // }
+    QsrWarnings {
+        id: qsrWarnings
+        x: 602
+        y: 662
+        width: 713
+        height: 60
+        qsrON: JsonData.qsrIcons
+        clip: true
+    }
     Clock {
         id: clock
         width: 166
@@ -312,19 +312,19 @@ Rectangle {
         anchors.horizontalCenter: parent.horizontalCenter
     }
 
-    // QsrTurnSignals {
-    //     id: qsrTurnSignals
-    //     width: 500
-    //     height: 60
-    //     visible: true
-    //     anchors.left: parent.left
-    //     anchors.top: parent.top
-    //     anchors.leftMargin: 710
-    //     anchors.topMargin: 24
-    //     turnRightSignal: JsonData.switchTurnR
-    //     turnLeftSignal: JsonData.switchTurnL
-    //     clip: true
-    // }
+    QsrTurnSignals {
+        id: qsrTurnSignals
+        width: 500
+        height: 60
+        visible: true
+        anchors.left: parent.left
+        anchors.top: parent.top
+        anchors.leftMargin: 710
+        anchors.topMargin: 24
+        turnRightSignal: JsonData.switchTurnR
+        turnLeftSignal: JsonData.switchTurnL
+        clip: true
+    }
     Item {
         id: __materialLibrary__
     }

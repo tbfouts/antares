@@ -25,13 +25,15 @@ Item {
     property var driveMode: JsonData.DriveMode.Sport
     property var units: JsonData.UnitType.Imperial
 
-    property string demoMode: "auto"
-    property bool simulationRunning: true
+    property string demoMode: "manual"
+    property bool simulationRunning: false
 
     property int speed: 60
     property int fuel: 100
     property int battery: 100
     property int adasRot: 0
+
+    onAdasRotChanged: console.log(adasRot)
 
     property bool lights: true
     property bool adas: false
@@ -170,7 +172,7 @@ Item {
     // adas
        SequentialAnimation {
            id: adasSimulation
-           running: simulationRunning
+           running: false
            paused: false
            loops: Animation.Infinite
            PropertyAnimation {

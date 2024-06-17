@@ -24,16 +24,18 @@ Window {
         }
     }
 
-    // Window {
-    //     width: 1000
-    //     height: 400
-    //     visible: true
-    //     x: mainScreen.x + 1180
-    //     y: mainScreen.y + 1320
+    Window {
+        id: controlsWindow
+        width: 1000
+        height: 400
+        visible: Qt.platform.os !== 'android'
+        x: mainScreen.x + 1180
+        y: mainScreen.y + 1320
 
-    //     Screen02 {
-    //         id: controlPanel
-    //     }
-    // }
+        Screen02 {
+            id: controlPanel
+        }
+    }
 
+    Component.onDestruction: controlsWindow.close()
 }

@@ -21,22 +21,6 @@ Item {
 
     property int trackSpeed: 1200
 
-    property bool mediaPlaying: mediaPlayer.playing
-
-    Component.onCompleted: mediaPlayer.play()
-
-    function playPause()
-    {
-        if(mediaPlayer.playing)
-        {
-            mediaPlayer.pause()
-        }
-        else
-        {
-            mediaPlayer.play()
-        }
-    }
-
     function nextTrack()
     {
         var numSongs = songs.length
@@ -255,20 +239,20 @@ Item {
         }
     ]
 
-    SequentialAnimation {
-            id: trackProgress
-            running: true
-            paused: false
-            loops: Animation.Infinite
-            PropertyAnimation {
-                property: "animRunning"
-                duration: 50000
-                target: trackProgress
-                from: 0
-                to: 323
-                easing.type: Easing.InOutQuad;
-            }
-    }
+    // SequentialAnimation {
+    //         id: trackProgress
+    //         running: true
+    //         paused: false
+    //         loops: Animation.Infinite
+    //         PropertyAnimation {
+    //             property: "animRunning"
+    //             duration: 50000
+    //             target: trackProgress
+    //             from: 0
+    //             to: 323
+    //             easing.type: Easing.InOutQuad;
+    //         }
+    // }
 
     transitions: [
         Transition {

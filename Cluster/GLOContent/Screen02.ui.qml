@@ -1,10 +1,11 @@
+
+
 /*
 This is a UI file (.ui.qml) that is intended to be edited in Qt Design Studio only.
 It is supposed to be strictly declarative and only uses a subset of QML. If you edit
 this file manually, you might introduce QML code that is not supported by Qt Design Studio.
 Check out https://doc.qt.io/qtcreator/creator-quick-ui-forms.html for details on .ui.qml files.
 */
-
 import QtQuick 2.15
 import QtQuick.Controls 2.15
 import GLO 1.0
@@ -27,22 +28,9 @@ Rectangle {
         Connections {
             target: sliderSpeed
             onValueChanged: {
-                (JsonData.speed = sliderSpeed.value)
+                JsonData.speed = sliderSpeed.value
+                JsonData.gear = !sliderSpeed.value > 0
             }
-        }
-        Connections {
-            target: sliderSpeed
-            onValueChanged: {
-                if (sliderSpeed.value >= 1)
-                    (switchGear.enabled = false)
-                            (JsonData.gear = false)
-
-                else if (sliderSpeed.value < 1)
-                    (switchGear.enabled = true)
-                            (JsonData.gear = true)
-
-            }
-
         }
 
         Text {
@@ -136,10 +124,8 @@ Rectangle {
             onToggled: {
                 if (JsonData.gear === true)
                     (JsonData.gear = false)
-
                 else if (JsonData.gear === false)
                     (JsonData.gear = true)
-
             }
         }
     }
@@ -155,26 +141,9 @@ Rectangle {
         Connections {
             target: switchAdas
             onToggled: {
-                if (JsonData.adas === false)
-                    (JsonData.adas = true)
-                            (dialAdas.enabled = true)
-                else if (JsonData.adas === true)
-                    (JsonData.adas = false)
-                            (dialAdas.enabled = false)
-
-            }
-        }
-
-        Connections {
-            target: switchAdas
-            onToggled: {
-             if (JsonData.adas === false)
-                (adasText.opacity = 0.8)
-                (dialAdas.opacity = 1)
-             else if (JsonData.adas === true)
-                 (adasText.opacity = 0)
-             (dialAdas.opacity = 0.4)
-
+                JsonData.adas = switchAdas.checked
+                JsonData.driveMode
+                        = switchAdas.checked ? JsonData.DriveMode.Adas : JsonData.DriveMode.Sport
             }
         }
     }
@@ -190,12 +159,8 @@ Rectangle {
         Connections {
             target: switchLights
             onToggled: {
-                if (JsonData.lights === false)
-                    JsonData.lights = true
-                else if (JsonData.lights === true)
-                    JsonData.lights = false
+                JsonData.lights = switchLights.checked
             }
-
         }
     }
 
@@ -216,7 +181,6 @@ Rectangle {
                 else if (JsonData.doorDrvr === true)
                     JsonData.doorDrvr = false
             }
-
         }
     }
 
@@ -237,7 +201,6 @@ Rectangle {
                 else if (JsonData.doorPsgr === true)
                     JsonData.doorPsgr = false
             }
-
         }
     }
 
@@ -256,18 +219,42 @@ Rectangle {
 
         model: ListModel {
             id: themeSelect
-            ListElement { text: "stardust"}
-            ListElement { text: "luna" }
-            ListElement { text: "pixel" }
-            ListElement { text: "electric" }
-            ListElement { text: "crystal" }
-            ListElement { text: "sonic" }
-            ListElement { text: "ethereal" }
-            ListElement { text: "mind" }
-            ListElement { text: "gravity" }
-            ListElement { text: "zen" }
-            ListElement { text: "ultraviolet" }
-            ListElement { text: "velvet" }
+            ListElement {
+                text: "stardust"
+            }
+            ListElement {
+                text: "luna"
+            }
+            ListElement {
+                text: "pixel"
+            }
+            ListElement {
+                text: "electric"
+            }
+            ListElement {
+                text: "crystal"
+            }
+            ListElement {
+                text: "sonic"
+            }
+            ListElement {
+                text: "ethereal"
+            }
+            ListElement {
+                text: "mind"
+            }
+            ListElement {
+                text: "gravity"
+            }
+            ListElement {
+                text: "zen"
+            }
+            ListElement {
+                text: "ultraviolet"
+            }
+            ListElement {
+                text: "velvet"
+            }
         }
 
         Text {
@@ -337,7 +324,8 @@ Rectangle {
 
         Connections {
             target: buttonLeftTurn
-            onPressed: (JsonData.switchTurnL = true) && (JsonData.switchTurnR = false)
+            onPressed: (JsonData.switchTurnL = true)
+                       && (JsonData.switchTurnR = false)
         }
     }
 
@@ -356,7 +344,8 @@ Rectangle {
 
         Connections {
             target: buttonLeftRight
-            onPressed: (JsonData.switchTurnR = true) && (JsonData.switchTurnL = false)
+            onPressed: (JsonData.switchTurnR = true)
+                       && (JsonData.switchTurnL = false)
         }
     }
 
@@ -375,7 +364,8 @@ Rectangle {
 
         Connections {
             target: buttonSignalsOff
-            onPressed: (JsonData.switchTurnR = false) && (JsonData.switchTurnL = false)
+            onPressed: (JsonData.switchTurnR = false)
+                       && (JsonData.switchTurnL = false)
         }
     }
 
@@ -390,10 +380,7 @@ Rectangle {
         Connections {
             target: switchQSR
             onToggled: {
-                if (JsonData.qsrIcons === true)
-                    JsonData.qsrIcons = false
-                else if (JsonData.qsrIcons === false)
-                    JsonData.qsrIcons = true
+                JsonData.qsrIcons = switchQSR.checked
             }
         }
     }
@@ -404,13 +391,13 @@ Rectangle {
         y: 104
         width: 280
         height: 280
-        opacity: 0.4
+        opacity: JsonData.adas ? 1 : 0.4
         value: 180
         stepSize: 1
-        enabled: false
+        enabled: JsonData.adas
 
         Connections {
-            target: dial
+            target: dialAdas
             onValueChanged: JsonData.adasRot = dialAdas.value
         }
 
@@ -418,13 +405,14 @@ Rectangle {
             id: adasText
             x: -3
             y: -6
-            opacity: 0
+            opacity: JsonData.adas ? 0.8 : 0
             source: "GLOfigma/assets/adasText.png"
             fillMode: Image.PreserveAspectFit
         }
         to: 360
     }
 
-
-
+    Item {
+        id: __materialLibrary__
+    }
 }
