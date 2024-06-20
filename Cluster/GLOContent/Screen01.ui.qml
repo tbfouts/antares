@@ -22,7 +22,6 @@ Rectangle {
     width: Constants.width
     height: Constants.height
     color: "#000000"
-    state: "Running"
 
 
     GLOlayout {
@@ -155,7 +154,7 @@ Rectangle {
 
             Model {
                 id: headlampPlaneRight
-                x: 70.14
+                x: 68.492
                 y: -3.605
                 opacity: 0.978
                 visible: JsonData.lights
@@ -171,7 +170,7 @@ Rectangle {
                 castsReflections: false
                 receivesShadows: false
                 castsShadows: false
-                scale.y: 1.5
+                scale.y: 0.9
                 scale.x: 3.3792
             }
 
@@ -182,10 +181,10 @@ Rectangle {
                 opacity: 0.978
                 visible: JsonData.lights
                 source: "#Rectangle"
-                z: -432.35562
+                z: -440.60001
                 usedInBakedLighting: true
                 scale.z: 1
-                scale.y: 1.5
+                scale.y: 0.9
                 scale.x: 3.3792
                 receivesShadows: false
                 receivesReflections: true
@@ -221,14 +220,14 @@ Rectangle {
             Model {
                 id: lanePlane
                 x: -0
-                y: -119.762
+                y: -156.957
                 opacity: JsonData.speed
                 visible: true
                 source: "#Rectangle"
                 eulerRotation.z: -90
                 eulerRotation.y: 0.00002
                 eulerRotation.x: -70
-                z: -178.60217
+                z: -192.13997
                 materials: laneLines
                 receivesReflections: true
                 castsReflections: false
@@ -250,10 +249,10 @@ Rectangle {
                 scale.z: 1
                 scale.y: 0.9
                 scale.x: 1
-                brightness: 100
+                brightness: 80
                 scope: headlampPlaneRight
                 innerConeAngle: 14
-                coneAngle: 30
+                coneAngle: 26
                 quadraticFade: 10
                 z: -232.73135
             }
@@ -274,8 +273,8 @@ Rectangle {
                 eulerRotation.z: 0
                 eulerRotation.y: 0
                 eulerRotation.x: -15
-                coneAngle: 30
-                brightness: 100
+                coneAngle: 26
+                brightness: 80
             }
 
 
@@ -382,25 +381,6 @@ Rectangle {
         adasON: JsonData.DriveMode.Adas === JsonData.driveMode
         adasOFF: true
     }
-    states: [
-        State {
-            name: "Running"
-
-            PropertyChanges {
-                target: headlampPlaneRight
-                x: 70.14
-                y: -3.605
-                z: -373.4649
-            }
-
-            PropertyChanges {
-                target: headlampPlaneLeft
-                x: -66.347
-                y: -3.605
-                z: -424.92371
-            }
-        }
-    ]
 
 }
 
