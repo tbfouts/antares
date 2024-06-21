@@ -2,7 +2,7 @@
 // SPDX-License-Identifier: LicenseRef-Qt-Commercial OR GPL-3.0-only
 
 import QtQuick 6.7
-//import GLO
+import GLO
 
 Window {
     width: mainScreen.width
@@ -15,12 +15,29 @@ Window {
 
     Rectangle
     {
+        id: bg
         anchors.fill: parent
         color: "black"
 
         Screen01 {
             id: mainScreen
             anchors.centerIn: parent
+
+            transform: Scale {
+                origin.x: mainScreen.width / 2
+                origin.y: mainScreen.height / 2
+                readonly property real xRatio: bg.width / mainScreen.width
+                readonly property real yRatio: bg.height / mainScreen.height
+                xScale: Math.min(xRatio, yRatio)
+                yScale: Math.min(xRatio, yRatio)
+            }
+            Component.onCompleted:
+            {
+                if(Qt.platform.os === 'android')
+                {
+                    JsonData.simulationRunning = true
+                }
+            }
         }
     }
 
