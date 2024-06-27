@@ -8,13 +8,13 @@ Musically inspired, project Antares demonstrates the latest technologies from Qt
 On some READMEs, you may see small images that convey metadata, such as whether or not all the tests are passing for the project. You can use Shields to add some to your README. Many services also have instructions for adding a badge.
 
 ## Visuals
-![Cluster](cluster.png)
+![Cluster](screenshots/cluster.png)
 
-![IVI](ivi.png)
+![IVI](screenshots/ivi.png)
 
 This project was demoed on Panasonic's virtual SkipGen platform, an AWS Graviton based Android Automotive OS:
 
-![vSkipGen](skipgen.png)
+![vSkipGen](screenshots/skipgen.png)
 
 ## Installation
 In order to successfully run this demo, the following is required:
