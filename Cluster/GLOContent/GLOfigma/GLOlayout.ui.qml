@@ -232,8 +232,8 @@ Rectangle {
         anchors.top: parent.top
         anchors.leftMargin: 175
         anchors.topMargin: 178
-        txtRPMValueRRText: Math.min(JsonData.speed / (3.14 * 6)).toFixed(0)
-        txtRPMValueFRText: Math.min(JsonData.speed / (3.14 * 6)).toFixed(0)
+        txtRPMValueRRText: Math.min((JsonData.speed / (3.14 * 6)) + 1).toFixed(0)
+        txtRPMValueFRText: Math.min((JsonData.speed / (3.14 * 6)) + 1).toFixed(0)
         rpmGaugeCoverRadius: JsonData.speed + 30
     }
 

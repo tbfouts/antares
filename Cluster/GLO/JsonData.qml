@@ -28,7 +28,7 @@ Item {
     property string demoMode: "manual"
     property bool simulationRunning: false
 
-    property int speed: 20
+    property int speed: 0
     property int fuel: 100
     property int battery: 100
     property int adasRot: 0
@@ -39,10 +39,10 @@ Item {
     property bool adas: false
     property bool doorDrvr: false
     property bool doorPsgr: false
-    property bool gear: false
+    property bool gear: speed == 0
     property bool switchTurnL: false
     property bool switchTurnR: false
-    property bool qsrIcons: false
+    property bool qsrIcons: gear
 
     property WebSocketServer wss: WebSocketServer
     {
@@ -73,6 +73,9 @@ Item {
                     break;
                 case "adasEnabled":
                     driveMode = ("true" === data[1]) ? JsonData.DriveMode.Adas : JsonData.DriveMode.Sport
+                    break;
+                case "speed":
+                    speed = Number(data[1])
                     break;
                 default:
                     console.log("message went unhandled")
@@ -119,11 +122,12 @@ Item {
            running: simulationRunning
            paused: false
            loops: Animation.Infinite
+           PauseAnimation { duration: 5000 }
            PropertyAnimation {
                property: "speed"
                duration: 9000
                target: jsonBackEnd
-               from: 30
+               from: 0
                to: 55
                easing.type: Easing.InOutQuad;
            }
@@ -164,7 +168,7 @@ Item {
                duration: 12000
                target: jsonBackEnd
                from: 125
-               to: 30
+               to: 0
                easing.type: Easing.InOutQuad;
            }
          }
@@ -172,7 +176,7 @@ Item {
     // adas
        SequentialAnimation {
            id: adasSimulation
-           running: false
+           running: simulationRunning
            paused: false
            loops: Animation.Infinite
            PropertyAnimation {

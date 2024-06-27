@@ -385,7 +385,7 @@ Rectangle {
     states: [
         State {
             name: "OFF"
-            when: qsrOFF
+            when: !qsrON
 
             PropertyChanges {
                 target: lampHighBeamIcon
