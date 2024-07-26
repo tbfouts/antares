@@ -4,6 +4,7 @@ import QtQuick.Studio.Components 1.0
 import QtQuick.Studio.DesignEffects
 import QtQuick.Timeline 1.0
 import GLO 1.0
+import VehicleData 1.0
 
 Rectangle {
     id: fuelGauge_Comp
@@ -124,7 +125,7 @@ Rectangle {
         startFrame: 0
         endFrame: 100
         enabled: true
-        currentFrame: JsonData.fuel
+        currentFrame: VehicleData.fuel
 
         KeyframeGroup {
             target: veFuelGaugeBar

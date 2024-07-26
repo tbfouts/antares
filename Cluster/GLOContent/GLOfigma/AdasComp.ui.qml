@@ -3,6 +3,7 @@ import QtQuick.Controls
 import QtQuick.Studio.DesignEffects
 import QtQuick.Timeline 1.0
 import GLO 1.0
+import VehicleData 1.0
 
 Rectangle {
     id: adasComp
@@ -119,7 +120,7 @@ Rectangle {
         startFrame: 0
         endFrame: 360
         enabled: true
-        currentFrame: JsonData.adasRot
+        currentFrame: VehicleData.adasRot
 
         KeyframeGroup {
             target: aDAS_Front

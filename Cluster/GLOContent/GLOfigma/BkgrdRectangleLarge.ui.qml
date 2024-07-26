@@ -2,6 +2,7 @@ import QtQuick
 import QtQuick.Controls
 import QtQuick.Timeline 1.0
 import GLO 1.0
+import VehicleData 1.0
 
 Rectangle {
     id: bkgrdRectangleLarge
@@ -27,7 +28,7 @@ Rectangle {
         startFrame: 0
         endFrame: 130
         enabled: true
-        currentFrame: JsonData.speed
+        currentFrame: VehicleData.speed
 
         KeyframeGroup {
             target: rectangleLarge

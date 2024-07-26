@@ -13,7 +13,7 @@ Rectangle {
     Text {
         id: txtDate
         color: "#b3b3b3"
-        text: JsonData.UnitType.Metric === JsonData.units ? "15\xB0 C" : "55\xB0 F"
+        text: VehicleData.UnitType.Metric === VehicleData.units ? "15\xB0 C" : "55\xB0 F"
         anchors.left: parent.left
         anchors.right: parent.right
         anchors.top: parent.top
