@@ -28,44 +28,44 @@ public:
     /**
      * @brief Enumeration of available drive modes.
      */
-    enum class DriveMode {
-        Adas,
-        Sport
-    };
-    Q_ENUM(DriveMode)
+    // enum class DriveMode {
+    //     Adas,
+    //     Sport
+    // };
+    // Q_ENUM(DriveMode)
 
     /**
      * @brief Enumeration of available unit types.
      */
-    enum class UnitType {
-        Metric,
-        Imperial
-    };
-    Q_ENUM(UnitType)
+    // enum class UnitType {
+    //     Metric,
+    //     Imperial
+    // };
+    // Q_ENUM(UnitType)
 
     /**
      * @brief Get the current drive mode.
      * @return The current DriveMode.
      */
-    virtual DriveMode driveMode() const = 0;
+    virtual QString driveMode() const = 0;
 
     /**
      * @brief Set the drive mode.
      * @param driveMode The DriveMode to set.
      */
-    virtual void setDriveMode(DriveMode driveMode) = 0;
+    virtual void setDriveMode(const QString &driveMode) = 0;
 
     /**
      * @brief Get the current unit type.
      * @return The current UnitType.
      */
-    virtual UnitType units() const = 0;
+    virtual QString units() const = 0;
 
     /**
      * @brief Set the unit type.
      * @param units The UnitType to set.
      */
-    virtual void setUnits(UnitType units) = 0;
+    virtual void setUnits(const QString &units) = 0;
 
     /**
      * @brief Get the current demo mode.

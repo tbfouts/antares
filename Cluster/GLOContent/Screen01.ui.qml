@@ -379,7 +379,7 @@ Rectangle {
         y: 64
         width: 480
         anchors.horizontalCenter: parent.horizontalCenter
-        adasON: VehicleData.DriveMode.Adas === VehicleData.driveMode
+        adasON: VehicleData.driveMode == "ADAS"
         adasOFF: true
     }
 

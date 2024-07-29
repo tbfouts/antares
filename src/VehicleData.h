@@ -7,8 +7,8 @@ class VehicleData : public VehicleDataInterface
 {
     Q_OBJECT
 
-    Q_PROPERTY(VehicleDataInterface::DriveMode driveMode READ driveMode WRITE setDriveMode NOTIFY driveModeChanged)
-    Q_PROPERTY(VehicleDataInterface::UnitType units READ units WRITE setUnits NOTIFY unitsChanged)
+    Q_PROPERTY(QString driveMode READ driveMode WRITE setDriveMode NOTIFY driveModeChanged)
+    Q_PROPERTY(QString units READ units WRITE setUnits NOTIFY unitsChanged)
     Q_PROPERTY(QString demoMode READ demoMode WRITE setDemoMode NOTIFY demoModeChanged)
     Q_PROPERTY(bool simulationRunning READ simulationRunning WRITE setSimulationRunning NOTIFY simulationRunningChanged)
     Q_PROPERTY(int speed READ speed WRITE setSpeed NOTIFY speedChanged)
@@ -19,7 +19,7 @@ class VehicleData : public VehicleDataInterface
     Q_PROPERTY(bool adas READ adas WRITE setAdas NOTIFY adasChanged)
     Q_PROPERTY(bool doorDrvr READ doorDrvr WRITE setDoorDrvr NOTIFY doorDrvrChanged)
     Q_PROPERTY(bool doorPsgr READ doorPsgr WRITE setDoorPsgr NOTIFY doorPsgrChanged)
-    Q_PROPERTY(bool gear READ gear NOTIFY gearChanged)
+    Q_PROPERTY(bool gear READ gear WRITE setGear NOTIFY gearChanged)
     Q_PROPERTY(bool switchTurnL READ switchTurnL WRITE setSwitchTurnL NOTIFY switchTurnLChanged)
     Q_PROPERTY(bool switchTurnR READ switchTurnR WRITE setSwitchTurnR NOTIFY switchTurnRChanged)
     Q_PROPERTY(bool qsrIcons READ qsrIcons WRITE setQsrIcons NOTIFY qsrIconsChanged)
@@ -27,11 +27,11 @@ class VehicleData : public VehicleDataInterface
 public:
     explicit VehicleData(QObject *parent = nullptr);
 
-    VehicleDataInterface::DriveMode driveMode() const override;
-    void setDriveMode(VehicleDataInterface::DriveMode driveMode) override;
+    QString driveMode() const override;
+    void setDriveMode(const QString &driveMode) override;
 
-    VehicleDataInterface::UnitType units() const override;
-    void setUnits(VehicleDataInterface::UnitType units) override;
+    QString units() const override;
+    void setUnits(const QString &units) override;
 
     QString demoMode() const override;
     void setDemoMode(const QString &demoMode) override;
@@ -76,8 +76,8 @@ public:
     void setQsrIcons(bool qsrIconsEnabled) override;
 
 private:
-    DriveMode m_driveMode;
-    UnitType m_units;
+    QString m_driveMode;
+    QString m_units;
     QString m_demoMode;
     bool m_simulationRunning;
     int m_speed;

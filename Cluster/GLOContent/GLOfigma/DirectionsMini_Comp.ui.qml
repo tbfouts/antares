@@ -88,7 +88,7 @@ Rectangle {
     Text {
         id: txt_ETAdistance
         color: "#afafaf"
-        text: VehicleData.UnitType.Metric === VehicleData.units ? "13.3 km" : "26.6 mi"
+        text: VehicleData.units === "Metric" ? "13.3 km" : "26.6 mi"
         anchors.left: parent.left
         anchors.right: parent.right
         anchors.top: parent.top

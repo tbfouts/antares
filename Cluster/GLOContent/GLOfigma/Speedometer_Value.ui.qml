@@ -91,7 +91,7 @@ Rectangle {
     Text {
         id: txtMPH
         color: "#a8a8a8"
-        text: VehicleData.UnitType.Metric === VehicleData.units ? "KPH" : "MPH"
+        text: VehicleData.units === "Metric" ? "KPH" : "MPH"
         anchors.left: parent.left
         anchors.right: parent.right
         anchors.top: parent.top

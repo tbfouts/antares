@@ -112,14 +112,17 @@ void VehicleCANInterface::processFrame(const QCanBusFrame& frame)
     case 0x104: // Drive Mode
         if (!frame.payload().isEmpty()) {
             quint8 driveMode = static_cast<quint8>(frame.payload().at(0));
-            m_vehicleData->setDriveMode(static_cast<VehicleDataInterface::DriveMode>(driveMode));
+            QString driveModeStr = driveMode ? "ADAS" : "SPORT";
+            qDebug() << "driveMode: " << driveMode << driveModeStr;
+            m_vehicleData->setDriveMode(driveModeStr);
         }
         break;
     case 0x105: // Units
         if (!frame.payload().isEmpty()) {
             quint8 units = static_cast<quint8>(frame.payload().at(0));
-            qDebug() << "units: " << units;
-            m_vehicleData->setUnits(static_cast<VehicleDataInterface::UnitType>(units));
+            QString unitType = units ? "Metric" : "Imperial";
+            qDebug() << "units: " << units << unitType;
+            m_vehicleData->setUnits(unitType);
         }
         break;
     case 0x106: // ADAS Rotation

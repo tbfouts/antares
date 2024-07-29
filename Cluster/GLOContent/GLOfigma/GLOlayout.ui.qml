@@ -11,7 +11,7 @@ Rectangle {
     color: "#000000"
     property alias qsrTurnSignalsVisible: qsrTurnSignals.visible
     property alias qsrWarningsVisible: qsrWarnings.visible
-    state: (VehicleData.DriveMode.Adas === VehicleData.driveMode) ? "ADAS" : "SPORT"
+    state: VehicleData.driveMode
     property alias rpmGauge_ValueRpmGaugeCoverColor: rpmGauge_Value.rpmGaugeCoverColor
     property alias speedometer_ValueSpeedGaugeCoverColor: speedometer_Value.speedGaugeCoverColor
 
@@ -160,7 +160,7 @@ Rectangle {
         anchors.top: parent.top
         anchors.leftMargin: 1398
         anchors.topMargin: 550
-        visible: VehicleData.UnitType.Metric === VehicleData.units
+        visible: VehicleData.units === "Metric"
     }
 
     Rectangle {
@@ -170,7 +170,7 @@ Rectangle {
         height: 86
         color: "#ffffff"
         radius: 3
-        visible: VehicleData.UnitType.Imperial === VehicleData.units
+        visible: VehicleData.units === "Imperial"
         anchors.left: parent.left
         anchors.top: parent.top
         anchors.leftMargin: 1398
@@ -306,7 +306,7 @@ Rectangle {
         height: 592
         visible: false
         anchors.verticalCenter: parent.verticalCenter
-        adasON: VehicleData.DriveMode.Adas === VehicleData.driveMode
+        adasON: VehicleData.driveMode === "ADAS"
         adasOFF: false
         anchors.verticalCenterOffset: -4
         anchors.horizontalCenterOffset: -1

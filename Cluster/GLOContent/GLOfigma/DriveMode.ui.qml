@@ -32,7 +32,7 @@ Rectangle {
         width: 89
         height: 35
         color: "#f2f2f2"
-        text: VehicleData.DriveMode.Adas === VehicleData.driveMode ? "ADAS" : "SPORT"
+        text: VehicleData.driveMode
         anchors.left: parent.left
         anchors.top: parent.top
         anchors.leftMargin: 186

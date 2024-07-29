@@ -3,8 +3,8 @@
 
 VehicleData::VehicleData(QObject *parent)
     : VehicleDataInterface(parent)
-    , m_driveMode(DriveMode::Sport)
-    , m_units(UnitType::Imperial)
+    , m_driveMode("SPORT")
+    , m_units("Imperial")
     , m_demoMode("manual")
     , m_simulationRunning(false)
     , m_speed(0)
@@ -12,7 +12,7 @@ VehicleData::VehicleData(QObject *parent)
     , m_gear(true)
     , m_battery(100)
     , m_adasRot(0)
-    , m_lights(true)
+    , m_lights(false)
     , m_adas(false)
     , m_doorDrvr(false)
     , m_doorPsgr(false)
@@ -22,12 +22,12 @@ VehicleData::VehicleData(QObject *parent)
 {
 }
 
-VehicleDataInterface::DriveMode VehicleData::driveMode() const
+QString VehicleData::driveMode() const
 {
     return m_driveMode;
 }
 
-void VehicleData::setDriveMode(VehicleDataInterface::DriveMode driveMode)
+void VehicleData::setDriveMode(const QString &driveMode)
 {
     if (m_driveMode != driveMode) {
         m_driveMode = driveMode;
@@ -35,12 +35,12 @@ void VehicleData::setDriveMode(VehicleDataInterface::DriveMode driveMode)
     }
 }
 
-VehicleDataInterface::UnitType VehicleData::units() const
+QString VehicleData::units() const
 {
     return m_units;
 }
 
-void VehicleData::setUnits(VehicleDataInterface::UnitType units)
+void VehicleData::setUnits(const QString &units)
 {
     if (m_units != units) {
         m_units = units;
