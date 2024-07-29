@@ -16,6 +16,7 @@ import Generated.QtQuick3D.Lights
 import QtQuick3D.Helpers 6.7
 import QtQuick3D.AssetUtils
 import QtQuick.Timeline 1.0
+import VehicleData 1.0
 
 Rectangle {
     id: rectangle
@@ -132,7 +133,7 @@ Rectangle {
                 x: -0
                 y: -0
                 visible: true
-                lightOn: JsonData.lights
+                lightOn: VehicleData.lights
                 z: -6.48958
                 eulerRotation.y: 180
                 scale.z: 104
@@ -143,8 +144,8 @@ Rectangle {
             GenericCarModel {
                 id: genericCarModel
                 visible: true
-                doorsOpenRight: JsonData.doorPsgr
-                doorsOpenLeft: JsonData.doorDrvr
+                doorsOpenRight: VehicleData.doorPsgr
+                doorsOpenLeft: VehicleData.doorDrvr
                 carPaint_materialBaseColor: Themes.themeColor1
                 eulerRotation.y: 180
                 scale.z: 100
@@ -157,7 +158,7 @@ Rectangle {
                 x: 68.492
                 y: -3.605
                 opacity: 0.978
-                visible: JsonData.lights
+                visible: VehicleData.lights
                 source: "#Rectangle"
                 usedInBakedLighting: true
                 scale.z: 1
@@ -179,7 +180,7 @@ Rectangle {
                 x: -66.347
                 y: -3.605
                 opacity: 0.978
-                visible: JsonData.lights
+                visible: VehicleData.lights
                 source: "#Rectangle"
                 z: -440.60001
                 usedInBakedLighting: true
@@ -221,7 +222,7 @@ Rectangle {
                 id: lanePlane
                 x: -0
                 y: -156.957
-                opacity: JsonData.speed
+                opacity: VehicleData.speed
                 visible: true
                 source: "#Rectangle"
                 eulerRotation.z: -90
@@ -241,7 +242,7 @@ Rectangle {
                 id: spotlightRight
                 x: 70.014
                 y: 23.399
-                visible: JsonData.lights
+                visible: VehicleData.lights
                 color: "#ffffbb"
                 eulerRotation.z: 0
                 eulerRotation.y: -0
@@ -261,7 +262,7 @@ Rectangle {
                 id: spotlightLeft
                 x: -67.088
                 y: 23.4
-                visible: JsonData.lights
+                visible: VehicleData.lights
                 color: "#ffffbb"
                 z: -232.73135
                 scope: headlampPlaneLeft
@@ -378,7 +379,7 @@ Rectangle {
         y: 64
         width: 480
         anchors.horizontalCenter: parent.horizontalCenter
-        adasON: JsonData.DriveMode.Adas === JsonData.driveMode
+        adasON: VehicleData.driveMode == "ADAS"
         adasOFF: true
     }
 

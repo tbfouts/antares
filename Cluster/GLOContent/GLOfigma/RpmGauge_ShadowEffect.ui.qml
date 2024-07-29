@@ -3,6 +3,7 @@ import QtQuick.Controls
 import QtQuick.Studio.DesignEffects
 import QtQuick.Timeline 1.0
 import GLO 1.0
+import VehicleData 1.0
 
 Rectangle {
     id: rpmGauge_ShadowEffect
@@ -44,7 +45,7 @@ Rectangle {
         startFrame: 0
         endFrame: 130
         enabled: true
-        currentFrame: JsonData.speed
+        currentFrame: VehicleData.speed
 
         KeyframeGroup {
             target: designDropShadow

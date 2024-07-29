@@ -5,6 +5,7 @@ import QtQuick.Controls 2.15
 import QtQuick.Studio.Utils 1.0
 import QtWebSockets
 import GLO 1.0
+import VehicleData 1.0
 
 Item {
     id: jsonBackEnd

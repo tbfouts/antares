@@ -1,6 +1,7 @@
 import QtQuick
 import QtQuick.Controls
 import GLO 1.0
+import VehicleData 1.0
 
 Rectangle {
     id: driveMode
@@ -31,7 +32,7 @@ Rectangle {
         width: 89
         height: 35
         color: "#f2f2f2"
-        text: JsonData.DriveMode.Adas === JsonData.driveMode ? "ADAS" : "SPORT"
+        text: VehicleData.driveMode
         anchors.left: parent.left
         anchors.top: parent.top
         anchors.leftMargin: 186

@@ -9,6 +9,7 @@ Check out https://doc.qt.io/qtcreator/creator-quick-ui-forms.html for details on
 import QtQuick 2.15
 import QtQuick.Controls 2.15
 import GLO 1.0
+import VehicleData
 
 Rectangle {
     id: controlPanel
@@ -22,14 +23,14 @@ Rectangle {
         y: 45
         width: 575
         height: 40
-        value: 20
+        value: 0
         stepSize: 1
 
         Connections {
             target: sliderSpeed
             onValueChanged: {
-                JsonData.speed = sliderSpeed.value
-                JsonData.gear = !sliderSpeed.value > 0
+                VehicleData.speed = sliderSpeed.value
+                VehicleData.gear = !sliderSpeed.value > 0
             }
         }
 
@@ -63,7 +64,7 @@ Rectangle {
 
         Connections {
             target: sliderFuel
-            onValueChanged: JsonData.fuel = sliderFuel.value
+            onValueChanged: VehicleData.fuel = sliderFuel.value
         }
 
         Text {
@@ -91,7 +92,7 @@ Rectangle {
 
         Connections {
             target: sliderBattery
-            onValueChanged: JsonData.battery = sliderBattery.value
+            onValueChanged: VehicleData.battery = sliderBattery.value
         }
 
         Text {
@@ -116,16 +117,12 @@ Rectangle {
         font.pointSize: 20
         font.styleName: "Regular"
         font.family: "Oxanium"
-        font.bold: true
         icon.color: "#ffffff"
 
         Connections {
             target: switchGear
             onToggled: {
-                if (JsonData.gear === true)
-                    (JsonData.gear = false)
-                else if (JsonData.gear === false)
-                    (JsonData.gear = true)
+                VehicleData.gear = switchGear.checked
             }
         }
     }
@@ -141,16 +138,14 @@ Rectangle {
         Connections {
             target: switchAdas
             onToggled: {
-                JsonData.adas = switchAdas.checked
-                JsonData.driveMode
-                        = switchAdas.checked ? JsonData.DriveMode.Adas : JsonData.DriveMode.Sport
+                VehicleData.driveMode = switchAdas.checked ? "ADAS" : "SPORT"
             }
         }
     }
 
     Switch {
         id: switchLights
-        x: 424
+        x: 269
         y: 189
         text: qsTr("LIGHTS")
         font.pointSize: 20
@@ -159,7 +154,22 @@ Rectangle {
         Connections {
             target: switchLights
             onToggled: {
-                JsonData.lights = switchLights.checked
+                VehicleData.lights = switchLights.checked
+            }
+        }
+    }
+
+    Switch {
+        id: switchUnits
+        x: 400
+        y: 189
+        text: qsTr("METRIC")
+        font.pointSize: 20
+        font.family: "Oxanium"
+        Connections {
+            target: switchUnits
+            onToggled: {
+                VehicleData.units = switchUnits.checked ? "Metric" : "Imperial"
             }
         }
     }
@@ -176,10 +186,7 @@ Rectangle {
         Connections {
             target: switchDoorL
             onToggled: {
-                if (JsonData.doorDrvr === false)
-                    JsonData.doorDrvr = true
-                else if (JsonData.doorDrvr === true)
-                    JsonData.doorDrvr = false
+                VehicleData.doorDrvr = switchDoorL.checked
             }
         }
     }
@@ -196,10 +203,7 @@ Rectangle {
         Connections {
             target: switchDoorR
             onToggled: {
-                if (JsonData.doorPsgr === false)
-                    JsonData.doorPsgr = true
-                else if (JsonData.doorPsgr === true)
-                    JsonData.doorPsgr = false
+                VehicleData.doorPsgr = switchDoorR.checked
             }
         }
     }
@@ -324,8 +328,11 @@ Rectangle {
 
         Connections {
             target: buttonLeftTurn
-            onPressed: (JsonData.switchTurnL = true)
-                       && (JsonData.switchTurnR = false)
+            onPressed:
+            {
+                VehicleData.switchTurnR = false
+                VehicleData.switchTurnL = true
+            }
         }
     }
 
@@ -344,8 +351,11 @@ Rectangle {
 
         Connections {
             target: buttonLeftRight
-            onPressed: (JsonData.switchTurnR = true)
-                       && (JsonData.switchTurnL = false)
+            onPressed:
+            {
+                VehicleData.switchTurnR = true
+                VehicleData.switchTurnL = false
+            }
         }
     }
 
@@ -364,14 +374,17 @@ Rectangle {
 
         Connections {
             target: buttonSignalsOff
-            onPressed: (JsonData.switchTurnR = false)
-                       && (JsonData.switchTurnL = false)
+            onPressed:
+            {
+                VehicleData.switchTurnR = false
+                VehicleData.switchTurnL = false
+            }
         }
     }
 
     Switch {
         id: switchQSR
-        x: 248
+        x: 170
         y: 191
         text: qsTr("QSR")
         font.pointSize: 18
@@ -380,7 +393,7 @@ Rectangle {
         Connections {
             target: switchQSR
             onToggled: {
-                JsonData.qsrIcons = switchQSR.checked
+                VehicleData.qsrIcons = switchQSR.checked
             }
         }
     }
@@ -391,21 +404,21 @@ Rectangle {
         y: 104
         width: 280
         height: 280
-        opacity: JsonData.adas ? 1 : 0.4
+        opacity: VehicleData.driveMode == "ADAS" ? 1 : 0.4
         value: 180
         stepSize: 1
-        enabled: JsonData.adas
+        enabled: VehicleData.driveMode == "ADAS"
 
         Connections {
             target: dialAdas
-            onValueChanged: JsonData.adasRot = dialAdas.value
+            onValueChanged: VehicleData.adasRot = dialAdas.value
         }
 
         Image {
             id: adasText
             x: -3
             y: -6
-            opacity: JsonData.adas ? 0.8 : 0
+            opacity: VehicleData.driveMode == "ADAS" ? 0.8 : 0
             source: "GLOfigma/assets/adasText.png"
             fillMode: Image.PreserveAspectFit
         }

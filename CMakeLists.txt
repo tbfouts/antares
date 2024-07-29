@@ -13,7 +13,10 @@ if (Qt6_VERSION VERSION_GREATER_EQUAL 6.3)
     qt_standard_project_setup()
 endif()
 
-qt_add_executable(QtMediaSwipeApp src/main.cpp)
+qt_add_executable(QtMediaSwipeApp src/main.cpp
+    src/VehicleDataInterface.h
+    src/vehiclecaninterface.h src/vehiclecaninterface.cpp
+    src/VehicleCanInterface.h src/VehicleCanInterface.cpp)
 
 qt_add_resources(QtMediaSwipeApp "configuration"
     PREFIX "/"

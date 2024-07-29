@@ -3,6 +3,7 @@ import QtQuick.Controls
 import QtQuick.Studio.Components 1.0
 import QtQuick.Shapes 1.0
 import GLO 1.0
+import VehicleData 1.0
 
 Rectangle {
     id: directionsMini_Comp
@@ -87,7 +88,7 @@ Rectangle {
     Text {
         id: txt_ETAdistance
         color: "#afafaf"
-        text: JsonData.UnitType.Metric === JsonData.units ? "13.3 km" : "26.6 mi"
+        text: VehicleData.units === "Metric" ? "13.3 km" : "26.6 mi"
         anchors.left: parent.left
         anchors.right: parent.right
         anchors.top: parent.top

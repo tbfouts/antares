@@ -2,6 +2,7 @@ import QtQuick
 import QtQuick.Controls
 import QtQuick.Studio.Utils
 import GLO 1.0
+import VehicleData 1.0
 
 Rectangle {
     id: gLOlayout
@@ -10,7 +11,7 @@ Rectangle {
     color: "#000000"
     property alias qsrTurnSignalsVisible: qsrTurnSignals.visible
     property alias qsrWarningsVisible: qsrWarnings.visible
-    state: (JsonData.DriveMode.Adas === JsonData.driveMode) ? "ADAS" : "SPORT"
+    state: VehicleData.driveMode
     property alias rpmGauge_ValueRpmGaugeCoverColor: rpmGauge_Value.rpmGaugeCoverColor
     property alias speedometer_ValueSpeedGaugeCoverColor: speedometer_Value.speedGaugeCoverColor
 
@@ -40,7 +41,7 @@ Rectangle {
         anchors.top: parent.top
         anchors.leftMargin: 1349
         anchors.topMargin: 39
-        speedGaugeEffectRadius: JsonData.speed + 30
+        speedGaugeEffectRadius: VehicleData.speed + 30
     }
 
     RpmGauge_ShadowEffect {
@@ -51,7 +52,7 @@ Rectangle {
         anchors.top: parent.top
         anchors.leftMargin: -47
         anchors.topMargin: 59
-        rpmGaugeEffectRadius: JsonData.speed + 30
+        rpmGaugeEffectRadius: VehicleData.speed + 30
     }
 
     CircuitBoard {
@@ -136,7 +137,7 @@ Rectangle {
         anchors.top: parent.top
         anchors.leftMargin: 1337
         anchors.topMargin: 214
-        modePark: JsonData.gear
+        modePark: VehicleData.gear
         modeDrive: false
         state: "Drive"
     }
@@ -159,7 +160,7 @@ Rectangle {
         anchors.top: parent.top
         anchors.leftMargin: 1398
         anchors.topMargin: 550
-        visible: JsonData.UnitType.Metric === JsonData.units
+        visible: VehicleData.units === "Metric"
     }
 
     Rectangle {
@@ -169,7 +170,7 @@ Rectangle {
         height: 86
         color: "#ffffff"
         radius: 3
-        visible: JsonData.UnitType.Imperial === JsonData.units
+        visible: VehicleData.units === "Imperial"
         anchors.left: parent.left
         anchors.top: parent.top
         anchors.leftMargin: 1398
@@ -219,9 +220,9 @@ Rectangle {
         anchors.top: parent.top
         anchors.leftMargin: 1425
         anchors.topMargin: 178
-        speedGaugeCoverRadius: JsonData.speed + 30
-        txtMPHvalueRRText: JsonData.speed
-        txtMPHvalueFRText: JsonData.speed
+        speedGaugeCoverRadius: VehicleData.speed + 30
+        txtMPHvalueRRText: VehicleData.speed
+        txtMPHvalueFRText: VehicleData.speed
     }
 
     RpmGauge_Value {
@@ -232,9 +233,9 @@ Rectangle {
         anchors.top: parent.top
         anchors.leftMargin: 175
         anchors.topMargin: 178
-        txtRPMValueRRText: Math.min((JsonData.speed / (3.14 * 6)) + 1).toFixed(0)
-        txtRPMValueFRText: Math.min((JsonData.speed / (3.14 * 6)) + 1).toFixed(0)
-        rpmGaugeCoverRadius: JsonData.speed + 30
+        txtRPMValueRRText: Math.min((VehicleData.speed / (3.14 * 6)) + 1).toFixed(0)
+        txtRPMValueFRText: Math.min((VehicleData.speed / (3.14 * 6)) + 1).toFixed(0)
+        rpmGaugeCoverRadius: VehicleData.speed + 30
     }
 
     DriveMode {
@@ -263,7 +264,7 @@ Rectangle {
         y: 662
         width: 713
         height: 60
-        qsrON: JsonData.qsrIcons
+        qsrON: VehicleData.qsrIcons
         clip: true
     }
     Clock {
@@ -305,7 +306,7 @@ Rectangle {
         height: 592
         visible: false
         anchors.verticalCenter: parent.verticalCenter
-        adasON: JsonData.DriveMode.Adas === JsonData.driveMode
+        adasON: VehicleData.driveMode === "ADAS"
         adasOFF: false
         anchors.verticalCenterOffset: -4
         anchors.horizontalCenterOffset: -1
@@ -321,8 +322,8 @@ Rectangle {
         anchors.top: parent.top
         anchors.leftMargin: 710
         anchors.topMargin: 24
-        turnRightSignal: JsonData.switchTurnR
-        turnLeftSignal: JsonData.switchTurnL
+        turnRightSignal: VehicleData.switchTurnR
+        turnLeftSignal: VehicleData.switchTurnL
         clip: true
     }
     Item {

@@ -5,11 +5,21 @@
 #include <QQmlApplicationEngine>
 
 #include "autogen/environment.h"
+#include "../../src/VehicleData.h"
+#include "../../src/VehicleCanInterface.h"
 
 int main(int argc, char *argv[])
 {
     set_qt_environment();
     QGuiApplication app(argc, argv);
+
+    VehicleData* vehData = new VehicleData();
+    VehicleCANInterface* vehCanInterface = new VehicleCANInterface(vehData);
+
+    qmlRegisterSingletonInstance<VehicleCANInterface>("VehicleCANInterface", 1, 0, "VehicleCANInterface", vehCanInterface);
+    qmlRegisterSingletonInstance<VehicleData>("VehicleData", 1, 0, "VehicleData", vehData);
+    vehCanInterface->connectToCAN();
+
 
     QQmlApplicationEngine engine;
     const QUrl url(mainQmlFile);
