@@ -13,6 +13,7 @@ import Data 1.0 as Data
 import QtQuick3D 6.5
 import QtQuick3D.SpatialAudio
 import QtMultimedia
+import "IVIIncCall"
 
 Rectangle {
     id: swipeBkgrd
@@ -148,6 +149,13 @@ Rectangle {
 
     Item {
         id: __materialLibrary__
+    }
+
+    IncomingCall {
+        id: incomingCall
+        x: 438
+        y: 163
+        opacity: 1
     }
 
 }

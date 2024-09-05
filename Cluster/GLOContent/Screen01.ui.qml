@@ -17,12 +17,15 @@ import QtQuick3D.Helpers 6.7
 import QtQuick3D.AssetUtils
 import QtQuick.Timeline 1.0
 import VehicleData 1.0
+import "IPIncCall"
+
 
 Rectangle {
     id: rectangle
     width: Constants.width
     height: Constants.height
     color: "#000000"
+
 
 
     GLOlayout {
@@ -38,6 +41,13 @@ Rectangle {
         speedGauge_ShadowColor: Themes.themeColor2
         rpmGauge_ShadowColor: Themes.themeColor2
         adasCompVisible: false
+    }
+
+
+    IncomingCallIP {
+        id: incomingCallIP
+        x: 1344
+        y: 67
     }
 
     View3D {
