@@ -7,7 +7,7 @@ project(QtMediaSwipeApp LANGUAGES CXX)
 
 set(CMAKE_AUTOMOC ON)
 
-find_package(Qt6 6.2 REQUIRED COMPONENTS Core Gui Qml Quick Multimedia)
+find_package(Qt6 6.2 REQUIRED COMPONENTS Core Gui Qml Quick Multimedia SerialBus)
 
 if (Qt6_VERSION VERSION_GREATER_EQUAL 6.3)
     qt_standard_project_setup()
@@ -42,6 +42,7 @@ target_link_libraries(QtMediaSwipeApp PRIVATE
     Qt6::Qml
     Qt6::Quick
     Qt6::Multimedia
+    Qt6::SerialBus
 )
 
 set(QT_QML_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/qml)
