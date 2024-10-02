@@ -18,6 +18,14 @@ Item {
     onCurrentThemeChanged: webSocketClient.sendTextMessage("theme:" + currentTheme)
     onAdasEnabledChanged: webSocketClient.sendTextMessage("adasEnabled:" + adasEnabled)
 
+    Component.onCompleted: {
+        connectSocket()
+    }
+
+    function connectSocket() {
+        webSocketClient.active = true
+    }
+
     property WebSocket wsClient: WebSocket
     {
         id: webSocketClient
@@ -27,22 +35,30 @@ Item {
         }
 
         onStatusChanged: {
-            console.log("IVI WebSocket Status: " + webSocketClient.status + " " + url)
-            if(webSocketClient.status == WebSocket.Open)
-            {
+            if (webSocketClient.status === WebSocket.Error) {
+                console.log("IVI WS Error: " + webSocketClient.errorString)
+                reconnectionTimer.start()
+            } else if (webSocketClient.status === WebSocket.Open) {
+                console.log("IVI WS Connection established")
                 webSocketClient.sendTextMessage("theme:" + currentTheme)
                 webSocketClient.sendTextMessage("doorRight:" + doorR)
                 webSocketClient.sendTextMessage("doorLeft:" + doorL)
                 webSocketClient.sendTextMessage("adasEnabled:" + adasEnabled)
                 webSocketClient.sendTextMessage("lamps:" + lamps)
+                reconnectionTimer.stop()
+            } else if (webSocketClient.status === WebSocket.Closed) {
+                reconnectionTimer.start()
             }
         }
 
         property Timer timer: Timer {
-            interval: 100
-            running: true
+            id: reconnectionTimer
+            interval: 5000 // 5 seconds
+            repeat: false
             onTriggered: {
-                webSocketClient.active = true;
+                console.log("Attempting to reconnect...")
+                webSocketClient.active = false
+                webSocketClient.active = true
             }
         }
     }

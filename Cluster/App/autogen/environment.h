@@ -6,9 +6,9 @@
 #include <QGuiApplication>
 #include "qqmlextensionplugin.h"
 
-Q_IMPORT_QML_PLUGIN(GLOContentPlugin)
 Q_IMPORT_QML_PLUGIN(Generated_QtQuick3D_GenericCarModelPlugin)
 Q_IMPORT_QML_PLUGIN(Generated_QtQuick3D_LightsPlugin)
+Q_IMPORT_QML_PLUGIN(GLOContentPlugin)
 Q_IMPORT_QML_PLUGIN(GLOPlugin)
 Q_IMPORT_QML_PLUGIN(VehicleDataPlugin)
 

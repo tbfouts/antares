@@ -203,6 +203,6 @@ Item {
                from: 360
                to: 180
                easing.type: Easing.InOutQuad;
+            }
         }
-         }
 }

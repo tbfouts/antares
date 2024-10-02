@@ -3,6 +3,8 @@
 
 import QtQuick 6.7
 import GLO
+import QtWebSockets
+import VehicleData 1.0
 
 Window {
     width: mainScreen.width
@@ -39,6 +41,50 @@ Window {
                 }
             }
         }
+    }
+
+    property WebSocketServer wss: WebSocketServer
+    {
+        id: wsVehicleDataServer
+
+        listen: true
+        host: "127.0.0.1"
+        port: 8080
+        property WebSocket ws
+        onClientConnected: function(webSocket) {
+            ws = webSocket
+            ws.onTextMessageReceived.connect(function(message) {
+                console.log(qsTr("Server received message: %1").arg(message));
+                const data = message.split(":")
+
+                switch(data[0]){
+                case "theme":
+                    Themes.state = data[1]
+                    break;
+                case "doorLeft":
+                    VehicleData.doorDrvr = ("true" === data[1])
+                    break;
+                case "doorRight":
+                    VehicleData.doorPsgr = ("true" === data[1])
+                    break;
+                case "lamps":
+                    VehicleData.lights = ("true" === data[1])
+                    break;
+                case "adasEnabled":
+                    VehicleData.driveMode = ("true" === data[1]) ? "ADAS" : "SPORT"
+                    break;
+                case "speed":
+                    VehicleData.speed = Number(data[1])
+                    break;
+                default:
+                    console.log("message went unhandled")
+                }
+            });
+        }
+        onErrorStringChanged: {
+            console.log(qsTr("Server error: %1").arg(errorString));
+        }
+
     }
 
     Window {
