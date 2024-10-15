@@ -9,11 +9,16 @@ import VehicleData 1.0
 Window {
     width: mainScreen.width
     height: mainScreen.height
+    property real speed: 0
 
     visibility: Qt.platform.os === 'android' ? Window.FullScreen : Window.AutomaticVisibility
 
     visible: true
     title: "GLO"
+
+    Component.onCompleted: {
+        speedChangeTimer.start()
+    }
 
     Rectangle
     {
@@ -85,6 +90,33 @@ Window {
             console.log(qsTr("Server error: %1").arg(errorString));
         }
 
+    }
+
+    Timer {
+        id: speedChangeTimer
+        interval: 3000  // Change target every 3 seconds
+        running: true
+        repeat: true
+
+        onTriggered: {
+
+            // Generate random speed between 0 and 120
+            speedAnimation.to = Math.random() * 120
+            speedAnimation.start()
+
+            // Send the new speed value over WebSocket
+            if (wsVehicleDataServer.ws) {
+                wsVehicleDataServer.ws.sendTextMessage("speed:" + speed.toFixed(1))
+            }
+        }
+    }
+
+    NumberAnimation {
+        id: speedAnimation
+        target: VehicleData
+        property: "speed"
+        duration: 2000  // 2 second transition
+        easing.type: Easing.InOutQuad  // Smooth acceleration and deceleration
     }
 
     Window {

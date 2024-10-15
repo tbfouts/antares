@@ -34,7 +34,7 @@ Rectangle {
         height: 399
         transformOrigin: Item.Center
         scale: 1
-        eQAnimationRunning: Data.Themes.mediaPlaying
+        eQAnimationRunning: false
         rotation: 180
         clip: true
     }
@@ -47,7 +47,7 @@ Rectangle {
         anchors.top: parent.top
         anchors.leftMargin: 224
         anchors.topMargin: 43
-        eQAnimationRunning: Data.Themes.mediaPlaying
+        eQAnimationRunning: false
         clip: true
     }
 

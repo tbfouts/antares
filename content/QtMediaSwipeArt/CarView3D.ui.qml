@@ -46,7 +46,7 @@ Rectangle {
         y: 371
         opacity: 0.521
         visible: false
-        eQAnimationRunning: Data.Themes.mediaPlaying
+        eQAnimationRunning: false
         scale: 1.5
         rotation: -90
     }

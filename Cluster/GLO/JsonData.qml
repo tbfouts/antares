@@ -45,6 +45,10 @@ Item {
     property bool switchTurnR: false
     property bool qsrIcons: gear
 
+    Component.onCompleted: {
+         speedChangeTimer.start()
+     }
+
     property WebSocketServer wss: WebSocketServer
     {
         id: wsVehicleDataServer
