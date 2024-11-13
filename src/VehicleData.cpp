@@ -182,7 +182,7 @@ void VehicleData::setDoorPsgr(bool doorPsgr)
 
 bool VehicleData::gear() const
 {
-    return m_speed == 0;
+    return m_gear;
 }
 
 void VehicleData::setGear(bool gear)
@@ -222,7 +222,7 @@ void VehicleData::setSwitchTurnR(bool switchTurnR)
 
 bool VehicleData::qsrIcons() const
 {
-    return gear();
+    return m_qsricons;
 }
 
 void VehicleData::setQsrIcons(bool qsrIconsEnabled)

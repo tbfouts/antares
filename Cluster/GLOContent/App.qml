@@ -9,16 +9,11 @@ import VehicleData 1.0
 Window {
     width: mainScreen.width
     height: mainScreen.height
-    property real speed: 0
 
     visibility: Qt.platform.os === 'android' ? Window.FullScreen : Window.AutomaticVisibility
 
     visible: true
-    title: "GLO"
-
-    Component.onCompleted: {
-        speedChangeTimer.start()
-    }
+    title: "Antares Cluster"
 
     Rectangle
     {
@@ -38,13 +33,6 @@ Window {
                 xScale: Math.min(xRatio, yRatio)
                 yScale: Math.min(xRatio, yRatio)
             }
-            Component.onCompleted:
-            {
-                if(Qt.platform.os === 'android')
-                {
-                    JsonData.simulationRunning = true
-                }
-            }
         }
     }
 
@@ -54,12 +42,12 @@ Window {
 
         listen: true
         host: "127.0.0.1"
-        port: 8080
+        port: 5555
         property WebSocket ws
         onClientConnected: function(webSocket) {
             ws = webSocket
             ws.onTextMessageReceived.connect(function(message) {
-                console.log(qsTr("Server received message: %1").arg(message));
+                console.log(qsTr("Cluster received message: %1").arg(message));
                 const data = message.split(":")
 
                 switch(data[0]){
@@ -72,6 +60,18 @@ Window {
                 case "doorRight":
                     VehicleData.doorPsgr = ("true" === data[1])
                     break;
+                case "turnSignalLeft":
+                    VehicleData.switchTurnL = ("true" === data[1])
+                    break;
+                case "turnSignalRight":
+                    VehicleData.switchTurnR = ("true" === data[1])
+                    break;
+                case "qsrIcons":
+                    VehicleData.qsrIcons = ("true" === data[1])
+                    break;
+                case "gear":
+                    VehicleData.gear = ("true" === data[1])
+                    break;
                 case "lamps":
                     VehicleData.lights = ("true" === data[1])
                     break;
@@ -81,8 +81,21 @@ Window {
                 case "speed":
                     VehicleData.speed = Number(data[1])
                     break;
+                case "fuel":
+                    VehicleData.fuel = Number(data[1])
+                    break;
+                case "battery":
+                    VehicleData.battery = Number(data[1])
+                    break;
+                case "adasRot":
+                    VehicleData.adasRot = Number(data[1])
+                    break;
+                case "units":
+                    VehicleData.units = data[1]
+                    break;
+
                 default:
-                    console.log("message went unhandled")
+                    console.log("Warning: message went unhandled")
                 }
             });
         }
@@ -92,35 +105,9 @@ Window {
 
     }
 
-    Timer {
-        id: speedChangeTimer
-        interval: 3000  // Change target every 3 seconds
-        running: true
-        repeat: true
-
-        onTriggered: {
-
-            // Generate random speed between 0 and 120
-            speedAnimation.to = Math.random() * 120
-            speedAnimation.start()
-
-            // Send the new speed value over WebSocket
-            if (wsVehicleDataServer.ws) {
-                wsVehicleDataServer.ws.sendTextMessage("speed:" + speed.toFixed(1))
-            }
-        }
-    }
-
-    NumberAnimation {
-        id: speedAnimation
-        target: VehicleData
-        property: "speed"
-        duration: 2000  // 2 second transition
-        easing.type: Easing.InOutQuad  // Smooth acceleration and deceleration
-    }
-
     Window {
         id: controlsWindow
+        title: "Antares Controls"
         width: 1000
         height: 400
         visible: Qt.platform.os !== 'android'

@@ -138,7 +138,7 @@ Rectangle {
         anchors.leftMargin: 1337
         anchors.topMargin: 214
         modePark: VehicleData.gear
-        modeDrive: false
+        modeDrive: !VehicleData.gear
         state: "Drive"
     }
 

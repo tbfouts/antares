@@ -34,8 +34,6 @@ Item {
     property int battery: 100
     property int adasRot: 0
 
-    onAdasRotChanged: console.log(adasRot)
-
     property bool lights: true
     property bool adas: false
     property bool doorDrvr: false
@@ -43,7 +41,7 @@ Item {
     property bool gear: speed == 0
     property bool switchTurnL: false
     property bool switchTurnR: false
-    property bool qsrIcons: gear
+    property bool qsrIcons: false
 
     Component.onCompleted: {
          speedChangeTimer.start()

@@ -1,21 +1,23 @@
-
-
-/*
-This is a UI file (.ui.qml) that is intended to be edited in Qt Design Studio only.
-It is supposed to be strictly declarative and only uses a subset of QML. If you edit
-this file manually, you might introduce QML code that is not supported by Qt Design Studio.
-Check out https://doc.qt.io/qtcreator/creator-quick-ui-forms.html for details on .ui.qml files.
-*/
 import QtQuick 2.15
 import QtQuick.Controls 2.15
 import GLO 1.0
 import VehicleData
+import QtWebSockets
 
 Rectangle {
     id: controlPanel
     width: 1000
     height: 400
     color: "#1e1e1e"
+
+    property WebSocket ws: WebSocket {
+        id: socket
+        url: "ws://127.0.0.1:5555"
+        active: true
+        onTextMessageReceived: {
+            console.log("Received message from server:", message)
+        }
+    }
 
     Slider {
         id: sliderSpeed
@@ -26,12 +28,9 @@ Rectangle {
         value: 0
         stepSize: 1
 
-        Connections {
-            target: sliderSpeed
-            onValueChanged: {
-                VehicleData.speed = sliderSpeed.value
-                VehicleData.gear = !sliderSpeed.value > 0
-            }
+        onValueChanged: {
+            ws.sendTextMessage("speed:" + value)
+            VehicleData.gear = !value > 0
         }
 
         Text {
@@ -46,10 +45,6 @@ Rectangle {
             font.family: "Oxanium"
         }
 
-        Connections {
-            target: sliderSpeed
-            //onMoved: console.log("clicked")
-        }
         to: 130
     }
 
@@ -62,10 +57,7 @@ Rectangle {
         value: 100
         stepSize: 1
 
-        Connections {
-            target: sliderFuel
-            onValueChanged: VehicleData.fuel = sliderFuel.value
-        }
+        onValueChanged: ws.sendTextMessage("fuel:" + value)
 
         Text {
             id: textFuel
@@ -90,10 +82,7 @@ Rectangle {
         value: 100
         stepSize: 1
 
-        Connections {
-            target: sliderBattery
-            onValueChanged: VehicleData.battery = sliderBattery.value
-        }
+        onValueChanged: ws.sendTextMessage("battery:" + value)
 
         Text {
             id: textBattery
@@ -119,12 +108,7 @@ Rectangle {
         font.family: "Oxanium"
         icon.color: "#ffffff"
 
-        Connections {
-            target: switchGear
-            onToggled: {
-                VehicleData.gear = switchGear.checked
-            }
-        }
+        onToggled: ws.sendTextMessage("gear:" + (checked ? "true" : "false"))
     }
 
     Switch {
@@ -135,12 +119,7 @@ Rectangle {
         font.family: "Oxanium"
         font.pointSize: 20
 
-        Connections {
-            target: switchAdas
-            onToggled: {
-                VehicleData.driveMode = switchAdas.checked ? "ADAS" : "SPORT"
-            }
-        }
+        onToggled: ws.sendTextMessage("adasEnabled:" + (checked ? "true" : "false"))
     }
 
     Switch {
@@ -151,12 +130,7 @@ Rectangle {
         font.pointSize: 20
         font.family: "Oxanium"
 
-        Connections {
-            target: switchLights
-            onToggled: {
-                VehicleData.lights = switchLights.checked
-            }
-        }
+        onToggled: ws.sendTextMessage("lamps:" + (checked ? "true" : "false"))
     }
 
     Switch {
@@ -166,12 +140,7 @@ Rectangle {
         text: qsTr("METRIC")
         font.pointSize: 20
         font.family: "Oxanium"
-        Connections {
-            target: switchUnits
-            onToggled: {
-                VehicleData.units = switchUnits.checked ? "Metric" : "Imperial"
-            }
-        }
+        onToggled: ws.sendTextMessage("units:" + (checked ? "Metric" : "Imperial"))
     }
 
     Switch {
@@ -183,12 +152,7 @@ Rectangle {
         font.family: "Oxanium"
         enabled: true
 
-        Connections {
-            target: switchDoorL
-            onToggled: {
-                VehicleData.doorDrvr = switchDoorL.checked
-            }
-        }
+        onToggled: ws.sendTextMessage("doorLeft:" + (checked ? "true" : "false"))
     }
 
     Switch {
@@ -200,12 +164,7 @@ Rectangle {
         font.family: "Oxanium"
         enabled: true
 
-        Connections {
-            target: switchDoorR
-            onToggled: {
-                VehicleData.doorPsgr = switchDoorR.checked
-            }
-        }
+        onToggled: ws.sendTextMessage("doorRight:" + (checked ? "true" : "false"))
     }
 
     ComboBox {
@@ -219,7 +178,7 @@ Rectangle {
         font.pointSize: 18
         font.family: "Oxanium"
         editable: false
-        onActivated: Themes.currentTheme = comboBox.currentText
+        onActivated: ws.sendTextMessage("theme:" + currentText)
 
         model: ListModel {
             id: themeSelect
@@ -299,133 +258,112 @@ Rectangle {
         horizontalAlignment: Text.AlignHCenter
         font.family: "Oxanium"
     }
-
     Text {
-        id: textBatteryValue
-        x: sliderBattery.handle.x + 326
-        y: 104
-        width: 43
-        height: 23
-        color: "#48a7ff"
-        text: sliderBattery.value.toFixed(0)
-        font.pixelSize: 18
-        horizontalAlignment: Text.AlignHCenter
-        font.family: "Oxanium"
-    }
+           id: textBatteryValue
+           x: sliderBattery.handle.x + 326
+           y: 104
+           width: 43
+           height: 23
+           color: "#48a7ff"
+           text: sliderBattery.value.toFixed(0)
+           font.pixelSize: 18
+           horizontalAlignment: Text.AlignHCenter
+           font.family: "Oxanium"
+       }
 
-    Button {
-        id: buttonLeftTurn
-        x: 309
-        y: 329
-        width: 116
-        height: 30
-        text: qsTr("< LEFT TURN")
-        checked: false
-        font.pointSize: 16
-        font.family: "Oxanium"
-        autoExclusive: true
-        checkable: true
+   Button {
+       id: buttonLeftTurn
+       x: 309
+       y: 329
+       width: 116
+       height: 30
+       text: qsTr("< LEFT TURN")
+       checked: false
+       font.pointSize: 16
+       font.family: "Oxanium"
+       autoExclusive: true
+       checkable: true
 
-        Connections {
-            target: buttonLeftTurn
-            onPressed:
-            {
-                VehicleData.switchTurnR = false
-                VehicleData.switchTurnL = true
-            }
-        }
-    }
+       onPressed: {
+           ws.sendTextMessage("turnSignalLeft:true")
+           ws.sendTextMessage("turnSignalRight:false")
+       }
+   }
 
-    Button {
-        id: buttonLeftRight
-        x: 481
-        y: 329
-        width: 116
-        height: 30
-        text: qsTr("RIGHT TURN >")
-        checked: false
-        font.pointSize: 16
-        font.family: "Oxanium"
-        autoExclusive: true
-        checkable: true
+   Button {
+       id: buttonLeftRight
+       x: 481
+       y: 329
+       width: 116
+       height: 30
+       text: qsTr("RIGHT TURN >")
+       checked: false
+       font.pointSize: 16
+       font.family: "Oxanium"
+       autoExclusive: true
+       checkable: true
 
-        Connections {
-            target: buttonLeftRight
-            onPressed:
-            {
-                VehicleData.switchTurnR = true
-                VehicleData.switchTurnL = false
-            }
-        }
-    }
+       onPressed: {
+           ws.sendTextMessage("turnSignalRight:true")
+           ws.sendTextMessage("turnSignalLeft:false")
+       }
+   }
 
-    Button {
-        id: buttonSignalsOff
-        x: 431
-        y: 329
-        width: 44
-        height: 30
-        text: qsTr("OFF")
-        checked: false
-        font.pointSize: 16
-        font.family: "Oxanium"
-        autoExclusive: true
-        checkable: false
+   Button {
+       id: buttonSignalsOff
+       x: 431
+       y: 329
+       width: 44
+       height: 30
+       text: qsTr("OFF")
+       checked: false
+       font.pointSize: 16
+       font.family: "Oxanium"
+       autoExclusive: true
+       checkable: false
 
-        Connections {
-            target: buttonSignalsOff
-            onPressed:
-            {
-                VehicleData.switchTurnR = false
-                VehicleData.switchTurnL = false
-            }
-        }
-    }
+       onPressed: {
+           ws.sendTextMessage("turnSignalRight:false")
+           ws.sendTextMessage("turnSignalLeft:false")
+       }
+   }
 
     Switch {
-        id: switchQSR
-        x: 170
-        y: 191
-        text: qsTr("QSR")
-        font.pointSize: 18
-        font.family: "Oxanium"
+       id: switchQSR
+       x: 170
+       y: 191
+       text: qsTr("QSR")
+       font.pointSize: 18
+       font.family: "Oxanium"
 
-        Connections {
-            target: switchQSR
-            onToggled: {
-                VehicleData.qsrIcons = switchQSR.checked
-            }
-        }
+       onToggled: ws.sendTextMessage("qsrIcons:" + (checked ? "true" : "false"))
     }
 
     Dial {
-        id: dialAdas
-        x: 673
-        y: 104
-        width: 280
-        height: 280
-        opacity: VehicleData.driveMode == "ADAS" ? 1 : 0.4
-        value: 180
-        stepSize: 1
-        enabled: VehicleData.driveMode == "ADAS"
+       id: dialAdas
+       x: 673
+       y: 104
+       width: 280
+       height: 280
+       opacity: switchAdas.checked ? 1 : 0.4
+       value: 180
+       stepSize: 1
+       enabled: switchAdas.checked
 
-        Connections {
-            target: dialAdas
-            onValueChanged: VehicleData.adasRot = dialAdas.value
-        }
+       onValueChanged: ws.sendTextMessage("adasRot:" + value)
 
-        Image {
-            id: adasText
-            x: -3
-            y: -6
-            opacity: VehicleData.driveMode == "ADAS" ? 0.8 : 0
-            source: "GLOfigma/assets/adasText.png"
-            fillMode: Image.PreserveAspectFit
-        }
-        to: 360
+       Image {
+           id: adasText
+           x: -3
+           y: -6
+           opacity: VehicleData.driveMode == "ADAS" ? 0.8 : 0
+           source: "GLOfigma/assets/adasText.png"
+           fillMode: Image.PreserveAspectFit
+       }
+       to: 360
     }
 
     Item {
-        id: __materialLibrary__
+       id: __materialLibrary__
     }
 }
