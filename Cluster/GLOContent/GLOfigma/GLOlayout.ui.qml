@@ -170,6 +170,8 @@ Rectangle {
         height: 86
         color: "#ffffff"
         radius: 3
+        border.color: "red"
+        border.width: VehicleData.speed > 55 ? 3 : 0
         visible: VehicleData.units === "Imperial"
         anchors.left: parent.left
         anchors.top: parent.top
@@ -179,7 +181,7 @@ Rectangle {
         Text {
             id: txtSpeedLimit
             text: qsTr("SPEED\nLIMIT")
-            color: "#545454"
+            color: VehicleData.speed > 55 ? "red" : "#545454"
             anchors.top: parent.top
             anchors.topMargin: 5
             width: parent.width
@@ -193,7 +195,7 @@ Rectangle {
 
         Text {
             id: txtKiSL
-            color: "#545454"
+            color: VehicleData.speed > 55 ? "red" : "#545454"
             text: qsTr("55")
             anchors.left: parent.left
             anchors.right: parent.right

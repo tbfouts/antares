@@ -1,5 +1,6 @@
 import QtQuick
 import QtQuick.Controls
+import VehicleData
 
 Rectangle {
     id: speedLimit_KPH
@@ -19,7 +20,7 @@ Rectangle {
 
     Text {
         id: txtKiSL
-        color: "#545454"
+        color: VehicleData.speed > 55 ? "red" : "#545454"
         text: qsTr("130")
         anchors.left: parent.left
         anchors.right: parent.right
