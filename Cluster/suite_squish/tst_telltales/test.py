@@ -8,7 +8,7 @@ def main():
     datainterface = databackend.ws()
     datainterface.send("qsrIcons", True)
 
-    snooze(2)
+    snooze(3)
 
     test.compare(waitForObjectExists(names.antares_Cluster_qsrWarnings_ui).visible, True)
     test.vp("VP1")
