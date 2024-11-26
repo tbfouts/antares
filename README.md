@@ -4,9 +4,6 @@
 ## Description
 Musically inspired, project Antares demonstrates the latest technologies from Qt, combining photorealistic realtime 3D with 2D shader effects imported directly from Figma
 
-## Badges
-On some READMEs, you may see small images that convey metadata, such as whether or not all the tests are passing for the project. You can use Shields to add some to your README. Many services also have instructions for adding a badge.
-
 ## Visuals
 ![Cluster](screenshots/cluster.png)
 
@@ -36,16 +33,16 @@ cmake --install .
 git clone "https://codereview.qt-project.org/tqtc-boot2qt/qtsaferenderer-runtime"
 mkdir buildQsrRuntime
 cd buildQsrRuntime
-cmake -GNinja -DCMAKE_INSTALL_PREFIX=<path_to_qt_install_directory> <path_to_qtquickdesigner-components>
+cmake -GNinja -DCMAKE_INSTALL_PREFIX=<path_to_qt_install_directory> <path_to_qtsaferenderer-runtime>
 cmake --buildQsrRuntime .
 cmake --install .
 ```
 ```
 git clone "https://codereview.qt-project.org/tqtc-boot2qt/qtsaferenderer"
-mkdir buildQsrRuntime
-cd buildQsrRuntime
-cmake -GNinja -DCMAKE_INSTALL_PREFIX=<path_to_qt_install_directory> <path_to_qtquickdesigner-components>
-cmake --buildQsrRuntime .
+mkdir buildQsr
+cd buildQsr
+cmake -GNinja -DCMAKE_INSTALL_PREFIX=<path_to_qt_install_directory> <path_to_qtsaferenderer
+cmake --buildQsr .
 cmake --install .
 ```
 ## Authors and acknowledgment
