@@ -2,6 +2,7 @@ import QtQuick
 import QtQuick.Controls
 import Qt.SafeRenderer
 import QtQuick.Timeline 1.0
+import VehicleData 1.0
 
 Rectangle {
     id: qsrWarnings
@@ -9,7 +10,7 @@ Rectangle {
     height: 60
     color: "transparent"
     state: "OFF"
-    property bool qsrON: false
+    property bool qsrON: VehicleData.qsrIcons
 
     SafeImage {
         id: lampHighBeamIcon
@@ -532,7 +533,6 @@ D{i:4;uuid:"934a57cd-3b4d-5597-bd4c-ea3f9dfeeb53"}D{i:5;uuid:"29b6db3e-94b9-541a
 D{i:6;uuid:"cea5c0ae-75fc-58b3-be6a-8134c5b7e529"}D{i:7;uuid:"73f2ed1b-7476-5139-a3bb-558c54431584"}
 D{i:8;uuid:"20919db4-1217-5299-8889-ee8d14321801"}D{i:9;uuid:"9c9dca09-0448-5e25-b4cb-fc835dbed57f"}
 D{i:10;uuid:"5c67c761-9804-5d60-bd2d-4171aa8df605"}D{i:11;uuid:"06537269-841b-5668-a910-c5e56c45952c"}
-D{i:12;uuid:"fc0482b5-0f48-5b6a-b093-09c933f812ab"}
 }
 ##^##*/
 

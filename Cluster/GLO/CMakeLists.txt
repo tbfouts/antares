@@ -2,23 +2,23 @@
 ### Do not change
 
 set_source_files_properties(Constants.qml
-	PROPERTIES
-		QT_QML_SINGLETON_TYPE true
+    PROPERTIES
+        QT_QML_SINGLETON_TYPE true
 )
 
 set_source_files_properties(JsonData.qml
-	PROPERTIES
-		QT_QML_SINGLETON_TYPE true
+    PROPERTIES
+        QT_QML_SINGLETON_TYPE true
 )
 
 set_source_files_properties(Themes.qml
-	PROPERTIES
-		QT_QML_SINGLETON_TYPE true
+    PROPERTIES
+        QT_QML_SINGLETON_TYPE true
 )
 
 set_source_files_properties(DateTime.qml
-	PROPERTIES
-		QT_QML_SINGLETON_TYPE true
+    PROPERTIES
+        QT_QML_SINGLETON_TYPE true
 )
 
 
@@ -28,13 +28,13 @@ qt6_add_qml_module(GLO
     URI "GLO"
     VERSION 1.0
     RESOURCE_PREFIX "/qt/qml"
-	QML_FILES
-		"Constants.qml"
-		"Themes.qml"
-		"DateTime.qml"
-		"JsonData.qml"
-	RESOURCES
-		"data.json"
+    QML_FILES
+        "JsonData.qml"
+        "Themes.qml"
+        "DateTime.qml"
+        "Constants.qml"
+    RESOURCES
+        "data.json"
 )
 
 

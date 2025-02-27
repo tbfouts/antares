@@ -8,11 +8,11 @@ qt6_add_qml_module(Generated_QtQuick3D_Lights
     URI "Generated.QtQuick3D.Lights"
     VERSION 1.0
     RESOURCE_PREFIX "/qt/qml"
-	QML_FILES
-		"Lights.qml"
-	RESOURCES
-		"_importdata.json"
-		"meshes/lights_mesh.mesh"
+    QML_FILES
+        "Lights.qml"
+    RESOURCES
+        "_importdata.json"
+        "meshes/lights_mesh.mesh"
 )
 
 

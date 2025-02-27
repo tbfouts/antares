@@ -9,7 +9,7 @@ Rectangle {
     width: Constants.width
     height: Constants.height
     color: "#000000"
-    property alias qsrTurnSignalsVisible: qsrTurnSignals.visible
+    property alias qsrTurnSignalsVisible: qsrTurnSignals.active
     property alias qsrWarningsVisible: qsrWarnings.visible
     state: VehicleData.driveMode
     property alias rpmGauge_ValueRpmGaugeCoverColor: rpmGauge_Value.rpmGaugeCoverColor
@@ -235,8 +235,10 @@ Rectangle {
         anchors.top: parent.top
         anchors.leftMargin: 175
         anchors.topMargin: 178
-        txtRPMValueRRText: Math.min((VehicleData.speed / (3.14 * 6)) + 1).toFixed(0)
-        txtRPMValueFRText: Math.min((VehicleData.speed / (3.14 * 6)) + 1).toFixed(0)
+        txtRPMValueRRText: Math.min(
+                               (VehicleData.speed / (3.14 * 6)) + 1).toFixed(0)
+        txtRPMValueFRText: Math.min(
+                               (VehicleData.speed / (3.14 * 6)) + 1).toFixed(0)
         rpmGaugeCoverRadius: VehicleData.speed + 30
     }
 
@@ -260,15 +262,26 @@ Rectangle {
         anchors.verticalCenterOffset: -319
     }
 
-    QsrWarnings {
+    Loader {
         id: qsrWarnings
+        source: "QsrWarnings.ui.qml"
         x: 602
         y: 662
         width: 713
         height: 60
-        qsrON: VehicleData.qsrIcons
         clip: true
+
+        Connections {
+            target: qsrWarnings
+
+            function onStatusChanged() {
+                if (qsrWarnings.status === Loader.Error) {
+                    console.error("Failed to load QsrWarnings.ui.qml, were the proper QSR dependencies installed?")
+                }
+            }
+        }
     }
+
     Clock {
         id: clock
         width: 166
@@ -315,8 +328,9 @@ Rectangle {
         anchors.horizontalCenter: parent.horizontalCenter
     }
 
-    QsrTurnSignals {
+    Loader {
         id: qsrTurnSignals
+        source: "QsrTurnSignals.ui.qml"
         width: 500
         height: 60
         visible: true
@@ -324,10 +338,20 @@ Rectangle {
         anchors.top: parent.top
         anchors.leftMargin: 710
         anchors.topMargin: 24
-        turnRightSignal: VehicleData.switchTurnR
-        turnLeftSignal: VehicleData.switchTurnL
         clip: true
+
+        Connections {
+            target: qsrTurnSignals
+
+            function onStatusChanged() {
+                if (qsrTurnSignals.status === Loader.Error) {
+                    console.error(
+                                "Failed to load QsrTurnSignals.ui.qml, were the proper QSR dependencies installed?")
+                }
+            }
+        }
     }
+
     Item {
         id: __materialLibrary__
     }

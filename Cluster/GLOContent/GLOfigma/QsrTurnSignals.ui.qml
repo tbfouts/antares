@@ -2,15 +2,15 @@ import QtQuick
 import QtQuick.Controls
 import Qt.SafeRenderer
 import QtQuick.Timeline 1.0
-
+import VehicleData 1.0
 
 Rectangle {
     id: qsrTurnSignals
     width: 500
     height: 60
     color: "transparent"
-    property bool turnLeftSignal: false
-    property bool turnRightSignal: false
+    property bool turnLeftSignal: VehicleData.switchTurnL
+    property bool turnRightSignal: VehicleData.switchTurnR
 
     SafeImage {
         id: turnLeftIcon
