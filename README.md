@@ -13,6 +13,63 @@ This project was demoed on Panasonic's virtual SkipGen platform, an AWS Graviton
 
 ![vSkipGen](screenshots/skipgen.png)
 
+## Vehicle Control WebSocket API Documentation
+
+### Connection Details
+
+- **Host**: `websocketHost` in App.qml (127.0.0.1 by default)
+- **Port**: `websocketPort` in App.qml (8080 by default)
+- **Protocol**: WebSocket (ws:// or wss://)
+
+### Overview
+
+This WebSocket API allows clients to control various aspects of a vehicle's dashboard and systems. Communication is done through text messages in a simple `command:value` format.
+
+### Message Format
+Messages should be sent as strings in the following format:
+```
+command:value
+```
+- `command` is the property to modify
+- `value` is the new value for the property
+
+### Notes
+
+- Boolean values must be specified as string literals: `"true"` or `"false"`
+- Numeric values should be sent as strings that can be parsed as numbers
+- The server logs received messages for debugging purposes
+- Invalid commands will be logged with a "Warning: message went unhandled" message
+
+### Available Commands
+
+| Command | Value Type | Description | Possible Values |
+|---------|------------|-------------|----------------|
+| `theme` | String | Sets the theme/appearance | Any valid theme state |
+| `doorLeft` | Boolean | Controls the driver's door status | `"true"` (open), `"false"` (closed) |
+| `doorRight` | Boolean | Controls the passenger's door status | `"true"` (open), `"false"` (closed) |
+| `turnSignalLeft` | Boolean | Controls the left turn signal | `"true"` (on), `"false"` (off) |
+| `turnSignalRight` | Boolean | Controls the right turn signal | `"true"` (on), `"false"` (off) |
+| `qsrIcons` | Boolean | Controls QSR icons display | `"true"` (show), `"false"` (hide) |
+| `gear` | Boolean | Controls gear status | `"true"`, `"false"` |
+| `lamps` | Boolean | Controls vehicle lights | `"true"` (on), `"false"` (off) |
+| `adasEnabled` | Boolean | Controls drive mode | `"true"` (ADAS mode), `"false"` (SPORT mode) |
+| `speed` | Number | Sets the vehicle speed | Any valid number |
+| `fuel` | Number | Sets the fuel level | Any valid number (likely a percentage) |
+| `battery` | Number | Sets the battery level | Any valid number (likely a percentage) |
+| `adasRot` | Number | Sets the ADAS rotation value | Any valid number |
+| `units` | String | Sets the measurement units | Valid unit identifier string |
+
+### Example Messages
+```
+theme:dark
+doorLeft:true
+doorRight:false
+speed:65
+fuel:75
+battery:80
+adasEnabled:true
+turnSignalLeft:true
+```
 ## Installation
 In order to successfully run this demo, the following is required:
 
