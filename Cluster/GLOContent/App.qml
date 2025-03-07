@@ -7,8 +7,12 @@ import QtWebSockets
 import VehicleData 1.0
 
 Window {
+    id: root
     width: mainScreen.width
     height: mainScreen.height
+
+    property string webSocketAddress: "127.0.0.1"
+    property string webSocketPort: "8080"
 
     visibility: Qt.platform.os === 'android' ? Window.FullScreen : Window.AutomaticVisibility
 
@@ -41,8 +45,8 @@ Window {
         id: wsVehicleDataServer
 
         listen: true
-        host: "127.0.0.1"
-        port: 5555
+        host: root.webSocketAddress
+        port: root.webSocketPort
         property WebSocket ws
         onClientConnected: function(webSocket) {
             ws = webSocket
@@ -114,8 +118,17 @@ Window {
         x: mainScreen.x + 1180
         y: mainScreen.y + 1320
 
-        Screen02 {
-            id: controlPanel
+        Loader
+        {
+            active: parent.visible
+            sourceComponent: Component
+            {
+                Screen02
+                {
+                    address: root.webSocketAddress
+                    portNumber: root.webSocketPort
+                }
+            }
         }
     }
 

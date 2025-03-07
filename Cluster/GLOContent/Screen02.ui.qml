@@ -10,9 +10,12 @@ Rectangle {
     height: 400
     color: "#1e1e1e"
 
+    property string address: ""
+    property string portNumber: ""
+
     property WebSocket ws: WebSocket {
         id: socket
-        url: "ws://127.0.0.1:5555"
+        url: "ws://" + address + ":" + portNumber
         active: true
         onTextMessageReceived: {
             console.log("Received message from server:", message)
