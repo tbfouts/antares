@@ -2,7 +2,7 @@
 
 
 ## Description
-Musically inspired, project Antares demonstrates the latest technologies from Qt, combining photorealistic realtime 3D with 2D shader effects imported directly from Figma
+Musically inspired, project Antares demonstrates the latest technologies from Qt, combining photorealistic realtime 3D with 2D shader effects imported directly from Figma. The project includes both a cluster (GLO) and an IVI (QtMediaSwipe) interface that communicate with each other.
 
 ## Visuals
 ![Cluster](screenshots/cluster.png)
@@ -70,6 +70,14 @@ battery:80
 adasEnabled:true
 turnSignalLeft:true
 ```
+## Project Structure
+The project is divided into two main components:
+
+* **Cluster** - Digital instrument cluster with QML-based UI showcasing Qt Safe Renderer integration
+* **IVI** - In-Vehicle Infotainment system featuring media player, navigation and 3D car view
+
+Both components share vehicle data and can be run independently or together.
+
 ## Installation
 In order to successfully run this demo, the following is required:
 
@@ -102,6 +110,20 @@ cmake -GNinja -DCMAKE_INSTALL_PREFIX=<path_to_qt_install_directory> <path_to_qts
 cmake --buildQsr .
 cmake --install .
 ```
+## Running the Application
+To run the application:
+
+1. Open each project in Qt Creator or Qt Design Studio:
+   - For the cluster interface: Open `Cluster/GLO.qmlproject`
+   - For the IVI interface: Open `IVI/QtMediaSwipe.qmlproject`
+
+2. Build and run each project separately
+
+3. The applications will automatically connect via the WebSocket API
+
+## Development and Testing
+The project includes Squish test suites located in `suite_squish/` for automated UI testing.
+
 ## Authors and acknowledgment
 Design/Visuals: Shawn Dorsey
 
