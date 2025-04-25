@@ -2,8 +2,8 @@
 ### Do not change
 
 add_subdirectory(Generated)
-add_subdirectory(GLOContent)
-add_subdirectory(GLO)
+add_subdirectory(ClusterContent)
+add_subdirectory(Cluster)
 add_subdirectory(VehicleData)
 add_subdirectory(App)
 # Dependencies directory doesn't exist, so commenting this out
@@ -12,6 +12,6 @@ add_subdirectory(App)
 target_link_libraries(${CMAKE_PROJECT_NAME} PRIVATE
     Generated_QtQuick3D_GenericCarModelplugin
     Generated_QtQuick3D_Lightsplugin
-    GLOContentplugin
-    GLOplugin
+    ClusterContentplugin
+    Clusterplugin
     VehicleDataplugin)

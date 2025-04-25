@@ -4,7 +4,7 @@ cmake_minimum_required(VERSION 3.21.1)
 option(LINK_INSIGHT "Link Qt Insight Tracker library" OFF)
 option(BUILD_QDS_COMPONENTS "Build design studio components" ON)
 
-project(GLOApp LANGUAGES CXX)
+project(ClusterApp LANGUAGES CXX)
 
 list(APPEND CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}" "${CMAKE_CURRENT_SOURCE_DIR}/cmake")
 

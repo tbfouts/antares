@@ -3,7 +3,7 @@ cmake_minimum_required(VERSION 3.21.1)
 option(LINK_INSIGHT "Link Qt Insight Tracker library" ON)
 option(BUILD_QDS_COMPONENTS "Build design studio components" ON)
 
-project(QtMediaSwipeApp LANGUAGES CXX)
+project(IVIApp LANGUAGES CXX)
 
 set(CMAKE_AUTOMOC ON)
 
@@ -16,9 +16,9 @@ if (Qt6_VERSION VERSION_GREATER_EQUAL 6.3)
     qt_standard_project_setup()
 endif()
 
-qt_add_executable(QtMediaSwipeApp src/main.cpp)
+qt_add_executable(IVIApp src/main.cpp)
 
-qt_add_resources(QtMediaSwipeApp "configuration"
+qt_add_resources(IVIApp "configuration"
     PREFIX "/"
     FILES
         qtquickcontrols2.conf
@@ -36,7 +36,7 @@ qt_add_resources(QtMediaSwipeApp "configuration"
         sounds/velvet.wav
 )
 
-target_link_libraries(QtMediaSwipeApp PRIVATE
+target_link_libraries(IVIApp PRIVATE
     Qt6::Core
     Qt6::Gui
     Qt6::Qml
@@ -63,7 +63,7 @@ if (LINK_INSIGHT)
 endif ()
 
 include(GNUInstallDirs)
-install(TARGETS QtMediaSwipeApp
+install(TARGETS IVIApp
     BUNDLE DESTINATION .
     LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
     RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
