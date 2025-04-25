@@ -94,7 +94,7 @@ cmake -GNinja -DCMAKE_INSTALL_PREFIX=<path_to_qt_install_directory> <path_to_qtq
 cmake --buildDScomponents .
 cmake --install .
 ```
-* Build/Install Qt Safe Renderer (source code requires DCE license)
+* Build/Install Qt Safe Renderer (source code requires Qt Device Creation Enterprise license)
 ```
 git clone "https://codereview.qt-project.org/tqtc-boot2qt/qtsaferenderer-runtime"
 mkdir buildQsrRuntime
@@ -113,33 +113,9 @@ cmake --install .
 ```
 ## Building and Running the Application
 
-### Automated Build Script (Recommended)
-For convenience, you can use the included build script to build both applications and automatically handle dependencies:
+The easiest path is to download and install a corresponding Qt Creator kit for your host environment (e.g. macOS/Windows).  This will enable you to easily build and deploy to whatever target you prefer (e.g. QNX or Android).
 
-```bash
-# From the project root directory
-./build_all.sh
-```
-
-This script will:
-1. Build the common library shared by both applications
-2. Build the Cluster application to `/builds/cluster/`
-3. Build the IVI application to `/builds/ivi/`
-
-Note: Qt Designer Components must be installed separately before running the build script.
-
-After successful build, the script will display instructions on how to run each application.
-
-### Running the Demo
-To launch both applications simultaneously for testing:
-
-```bash
-./run_demo.sh
-```
-
-This will start both the Cluster and IVI applications in the background. Press Ctrl+C to stop both applications.
-
-### Building Manually with CMake
+#### Building Manually with CMake
 If you prefer to build projects manually, you can do so:
 
 #### Building the Cluster application
@@ -189,5 +165,3 @@ Design/Visuals: Shawn Dorsey
 
 Development/Coding: Taylor Fouts
 
-## License
-In order to build this project a Qt Device Creation License is required.
