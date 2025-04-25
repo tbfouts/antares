@@ -5,8 +5,8 @@
 #include <QQmlApplicationEngine>
 
 #include "autogen/environment.h"
-#include "../../src/VehicleData.h"
-#include "../../src/VehicleCanInterface.h"
+#include "VehicleData.h"
+#include "VehicleCanInterface.h"
 
 int main(int argc, char *argv[])
 {

@@ -7,12 +7,21 @@
 #include "app_environment.h"
 #include "import_qml_components_plugins.h"
 #include "import_qml_plugins.h"
+#include "VehicleData.h"
+#include "VehicleCanInterface.h"
 
 int main(int argc, char *argv[])
 {
     set_qt_environment();
 
     QGuiApplication app(argc, argv);
+
+    VehicleData* vehData = new VehicleData();
+    VehicleCANInterface* vehCanInterface = new VehicleCANInterface(vehData);
+
+    qmlRegisterSingletonInstance<VehicleCANInterface>("VehicleCANInterface", 1, 0, "VehicleCANInterface", vehCanInterface);
+    qmlRegisterSingletonInstance<VehicleData>("VehicleData", 1, 0, "VehicleData", vehData);
+    vehCanInterface->connectToCAN();
 
     QQmlApplicationEngine engine;
     const QUrl url(u"qrc:/qt/qml/Main/main.qml"_qs);

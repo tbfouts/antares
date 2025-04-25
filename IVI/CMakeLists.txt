@@ -9,14 +9,14 @@ set(CMAKE_AUTOMOC ON)
 
 find_package(Qt6 6.2 REQUIRED COMPONENTS Core Gui Qml Quick Multimedia SerialBus)
 
+# Include common library
+add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/../common ${CMAKE_BINARY_DIR}/common)
+
 if (Qt6_VERSION VERSION_GREATER_EQUAL 6.3)
     qt_standard_project_setup()
 endif()
 
-qt_add_executable(QtMediaSwipeApp src/main.cpp
-    ../src/VehicleDataInterface.h
-    ../src/VehicleCanInterface.h
-    ../src/VehicleCanInterface.cpp)
+qt_add_executable(QtMediaSwipeApp src/main.cpp)
 
 qt_add_resources(QtMediaSwipeApp "configuration"
     PREFIX "/"
@@ -43,6 +43,7 @@ target_link_libraries(QtMediaSwipeApp PRIVATE
     Qt6::Quick
     Qt6::Multimedia
     Qt6::SerialBus
+    antares_common
 )
 
 set(QT_QML_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/qml)

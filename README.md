@@ -71,17 +71,18 @@ adasEnabled:true
 turnSignalLeft:true
 ```
 ## Project Structure
-The project is divided into two main components:
+The project is organized into three main directories:
 
-* **Cluster** - Digital instrument cluster with QML-based UI showcasing Qt Safe Renderer integration
-* **IVI** - In-Vehicle Infotainment system featuring media player, navigation and 3D car view
+* **common/** - Shared code for vehicle data model and CAN interface
+* **Cluster/** - Digital instrument cluster with QML-based UI showcasing Qt Safe Renderer integration
+* **IVI/** - In-Vehicle Infotainment system featuring media player, navigation and 3D car view
 
-Both components share vehicle data and can be run independently or together.
+Both applications (Cluster and IVI) link against the common library, allowing them to share a single source of truth for vehicle data. They can be built and run independently or together.
 
 ## Installation
 In order to successfully run this demo, the following is required:
 
-* Installation of Qt 6.7.X or later
+* Installation of Qt 6.2 or later (project was developed with Qt 6.7.X)
 * Installation of Qt Creator
 * Installation of Qt Design Studio
 * Build/Install Qt Designer Components 
@@ -110,10 +111,69 @@ cmake -GNinja -DCMAKE_INSTALL_PREFIX=<path_to_qt_install_directory> <path_to_qts
 cmake --buildQsr .
 cmake --install .
 ```
-## Running the Application
-To run the application:
+## Building and Running the Application
 
-1. Open each project in Qt Creator or Qt Design Studio:
+### Automated Build Script (Recommended)
+For convenience, you can use the included build script to build both applications and automatically handle dependencies:
+
+```bash
+# From the project root directory
+./build_all.sh
+```
+
+This script will:
+1. Build the common library shared by both applications
+2. Build the Cluster application to `/builds/cluster/`
+3. Build the IVI application to `/builds/ivi/`
+
+Note: Qt Designer Components must be installed separately before running the build script.
+
+After successful build, the script will display instructions on how to run each application.
+
+### Running the Demo
+To launch both applications simultaneously for testing:
+
+```bash
+./run_demo.sh
+```
+
+This will start both the Cluster and IVI applications in the background. Press Ctrl+C to stop both applications.
+
+### Building Manually with CMake
+If you prefer to build projects manually, you can do so:
+
+#### Building the Cluster application
+```bash
+cd Cluster
+mkdir build && cd build
+cmake ..
+cmake --build .
+```
+
+Run the application:
+```bash
+./GLOApp
+```
+
+#### Building the IVI application
+```bash
+cd IVI
+mkdir build && cd build
+cmake ..
+cmake --build .
+```
+
+Run the application:
+```bash
+./QtMediaSwipeApp
+```
+
+> **Note**: During the build process, you may see warnings about "spirv-opt" or missing Vulkan components. These can be safely ignored as they are related to shader compilation that's not critical for the basic functionality.
+
+### Using Qt Creator or Qt Design Studio
+To open in Qt Creator or Qt Design Studio:
+
+1. Open each project:
    - For the cluster interface: Open `Cluster/GLO.qmlproject`
    - For the IVI interface: Open `IVI/QtMediaSwipe.qmlproject`
 
