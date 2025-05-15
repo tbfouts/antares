@@ -387,6 +387,7 @@ Rectangle {
 
 /*##^##
 Designer {
-    D{i:0}D{i:4;cameraSpeed3d:25;cameraSpeed3dMultiplier:1}
+    D{i:0;matPrevEnvDoc:"SkyBox";matPrevEnvValueDoc:"preview_studio";matPrevModelDoc:"#Sphere"}
+D{i:4;cameraSpeed3d:25;cameraSpeed3dMultiplier:1}
 }
 ##^##*/
