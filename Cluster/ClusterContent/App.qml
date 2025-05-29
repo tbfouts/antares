@@ -13,7 +13,7 @@ Window {
     height: mainScreen.height
 
     property string webSocketAddress: "127.0.0.1"
-    property string webSocketPort: "8080"
+    property string webSocketPort: "5555"
 
     visibility: Qt.platform.os === 'android' ? Window.FullScreen : Window.AutomaticVisibility
 
@@ -115,7 +115,7 @@ Window {
         title: "Antares Controls"
         width: 1000
         height: 400
-        visible: Qt.platform.os !== 'android'
+        visible: false
         x: mainScreen.x + 1180
         y: mainScreen.y + 1320
 

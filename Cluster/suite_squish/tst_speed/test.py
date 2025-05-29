@@ -4,15 +4,20 @@ import names
 import databackend
 
 def main():
-    startApplication("GLOApp")
+    startApplication("ClusterApp")
     
     datainterface = databackend.ws()
     datainterface.send("speed", 100)
 
-    test.compare(str(waitForObjectExists(names.antares_Cluster_6_Text).text), "6")
-    test.compare(str(waitForObjectExists(names.antares_Cluster_55_Text_2).color.name), "#ff0000")
-    test.compare(waitForObjectExists(names.antares_Cluster_55_Text_2).color.red, 255)
-    test.compare(waitForObjectExists(names.antares_Cluster_55_Text_2).color.green, 0)
-    test.compare(waitForObjectExists(names.antares_Cluster_55_Text_2).color.blue, 0)
-    test.compare(str(waitForObjectExists(names.antares_Cluster_0_Text).text), "100")
+    test.compare(str(waitForObject(names.antares_Cluster_speedLimit_MPH_Rectangle).border.color.name), "#ff0000")
+    test.compare(str(waitForObject(names.antares_Cluster_speedometer_Value_ui).txtMPHvalueFRText), "100")
+        
+def waitUntilObjectReady( obj ):
+    highlightObject(obj)
+    snooze(1)
+    
+def waitUntilObjectItemReady( obj ):
+    highlightObject(obj)
+    snooze(1)
+
 

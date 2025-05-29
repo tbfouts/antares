@@ -3,7 +3,7 @@ import names
 import databackend
 
 def main():
-    startApplication("GLOApp")
+    startApplication("ClusterApp")
     datainterface = databackend.ws()
     datainterface.send("adasEnabled", True)
     snooze(1)

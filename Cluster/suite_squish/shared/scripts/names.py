@@ -22,3 +22,7 @@ antares_Cluster_ADAS_Text_2 = {"container": antares_Cluster_QQuickWindowQmlImpl,
 antares_Cluster_KPH_Text = {"container": antares_Cluster_QQuickWindowQmlImpl, "text": "KPH", "type": "Text", "unnamed": 1, "visible": True}
 antares_Cluster_13_3_km_Text = {"container": antares_Cluster_QQuickWindowQmlImpl, "text": "13.3 km", "type": "Text", "unnamed": 1, "visible": True}
 antares_Cluster_15_C_Text = {"container": antares_Cluster_QQuickWindowQmlImpl, "text": "15° C", "type": "Text", "unnamed": 1, "visible": True}
+antares_Cluster_rectangleLarge_Image = {"container": antares_Cluster_QQuickWindowQmlImpl, "id": "rectangleLarge", "source": "qrc:/qt/qml/ClusterContent/ClusterFigma/assets/rectangleLarge.png", "type": "Image", "unnamed": 1, "visible": True}
+antares_Cluster_bar20_Rectangle = {"container": antares_Cluster_QQuickWindowQmlImpl, "id": "bar20", "type": "Rectangle", "unnamed": 1, "visible": True}
+antares_Cluster_speedometer_Value_ui = {"container": antares_Cluster_QQuickWindowQmlImpl, "id": "speedometer_Value", "type": "Speedometer_Value.ui", "unnamed": 1, "visible": True}
+antares_Cluster_speedLimit_MPH_Rectangle = {"container": antares_Cluster_QQuickWindowQmlImpl, "id": "speedLimit_MPH", "type": "Rectangle", "unnamed": 1, "visible": True}
