@@ -47,3 +47,8 @@ ui_*.h
 *.qmlc
 *.jsc
 *.qmlls.ini
+
+# Python cache files
+*.pyc
+*.pyo
+__pycache__/
