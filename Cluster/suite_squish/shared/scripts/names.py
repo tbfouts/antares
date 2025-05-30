@@ -26,3 +26,5 @@ antares_Cluster_rectangleLarge_Image = {"container": antares_Cluster_QQuickWindo
 antares_Cluster_bar20_Rectangle = {"container": antares_Cluster_QQuickWindowQmlImpl, "id": "bar20", "type": "Rectangle", "unnamed": 1, "visible": True}
 antares_Cluster_speedometer_Value_ui = {"container": antares_Cluster_QQuickWindowQmlImpl, "id": "speedometer_Value", "type": "Speedometer_Value.ui", "unnamed": 1, "visible": True}
 antares_Cluster_speedLimit_MPH_Rectangle = {"container": antares_Cluster_QQuickWindowQmlImpl, "id": "speedLimit_MPH", "type": "Rectangle", "unnamed": 1, "visible": True}
+antares_Cluster_driveMode_ui = {"container": antares_Cluster_QQuickWindowQmlImpl, "id": "driveMode", "type": "DriveMode.ui", "unnamed": 1, "visible": True}
+antares_Cluster_rpmGauge_ShadowEffect_ui = {"container": antares_Cluster_QQuickWindowQmlImpl, "id": "rpmGauge_ShadowEffect", "type": "RpmGauge_ShadowEffect.ui", "unnamed": 1, "visible": True}

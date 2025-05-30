@@ -4,7 +4,9 @@ import names
 import databackend
 
 def main():
-    startApplication("ClusterApp")
+    #startApplication("ClusterApp")
+    
+    attachToApplication("samsung_tab")
     
     datainterface = databackend.ws()
     
@@ -25,6 +27,8 @@ def main():
         else:
             # Speed is at or below limit - should have no border (width = 0)
             test.compare(border_width, 0, f"Speed {speed} mph should not show border")
+            
+    datainterface.send("speed", 0)
         
 def waitUntilObjectReady( obj ):
     highlightObject(obj, 500)

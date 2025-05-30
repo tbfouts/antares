@@ -2,7 +2,7 @@
 import databackend
 
 def main():
-    startApplication("ClusterApp")
+    attachToApplication("samsung_tab")
     datainterface = databackend.ws()
     datainterface.send("doorLeft", True)
     snooze(2)

@@ -6,6 +6,16 @@ option(BUILD_QDS_COMPONENTS "Build design studio components" ON)
 
 project(ClusterApp LANGUAGES CXX)
 
+# Remote Squish Testing
+# setting squish package
+set(SQUISH_BUILTIN_PATH "/Applications/Squish/9.0.1/squish-9.0.1-qt69x-android-arm64-v8a")
+list(APPEND CMAKE_FIND_ROOT_PATH "${SQUISH_BUILTIN_PATH}")
+list(APPEND CMAKE_PREFIX_PATH "${SQUISH_BUILTIN_PATH}")
+set(SquishQtBuiltinHook_DIR "${SQUISH_BUILTIN_PATH}/lib/cmake/SquishQtBuiltinHook")
+set(SquishQtBuiltinHook_ROOT "${SQUISH_BUILTIN_PATH}")
+
+find_package(SquishQtBuiltinHook)
+
 list(APPEND CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}" "${CMAKE_CURRENT_SOURCE_DIR}/cmake")
 
 set(CMAKE_AUTOMOC ON)
@@ -40,6 +50,11 @@ target_link_libraries(${CMAKE_PROJECT_NAME} PRIVATE
     Qt6::SerialBus
     antares_common
 )
+
+# Add Squish to application target if found
+if(SquishQtBuiltinHook_FOUND)
+   squish_qt_add_builtin_hook(ClusterApp ATTACH_PORT 4711)
+endif()
 
 include(qds)
 

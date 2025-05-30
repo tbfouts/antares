@@ -4,12 +4,13 @@ import names
 import databackend
 
 def main():
-    startApplication("ClusterApp")
+    attachToApplication("samsung_tab")
     
     datainterface = databackend.ws()
     datainterface.send("theme", "luna")
     snooze(.5)
     test.compare(str(waitForObject(names.antares_Cluster_speedGauge_ShadowEffect_ui).designDropShadowColor.name), "#395b85")
+    test.compare(str(waitForObject(names.antares_Cluster_rpmGauge_ShadowEffect_ui).designDropShadowColor.name), "#395b85")
     
     datainterface.send("theme", "stardust")
     snooze(.5)

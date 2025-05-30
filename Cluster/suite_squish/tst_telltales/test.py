@@ -3,7 +3,7 @@ import names
 import databackend
 
 def main():
-    startApplication("GLOApp")
+    attachToApplication("samsung_tab")
     
     datainterface = databackend.ws()
     datainterface.send("qsrIcons", True)

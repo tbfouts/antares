@@ -6,7 +6,6 @@ add_subdirectory(Generated)
 add_subdirectory(Cluster)
 add_subdirectory(VehicleData)
 add_subdirectory(App)
-add_subdirectory(Dependencies)
 
 target_link_libraries(${CMAKE_PROJECT_NAME} PRIVATE
     ClusterContentplugin

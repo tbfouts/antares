@@ -8,6 +8,7 @@ build/
 *.user.*
 *.qtds.*
 *.autosave
+CMakeLists.txt.user
 
 # OS specific files
 .DS_Store
