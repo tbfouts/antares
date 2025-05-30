@@ -7,54 +7,35 @@ def main():
     attachToApplication("samsung_tab")
     
     datainterface = databackend.ws()
-    datainterface.send("theme", "luna")
-    snooze(.5)
-    test.compare(str(waitForObject(names.antares_Cluster_speedGauge_ShadowEffect_ui).designDropShadowColor.name), "#395b85")
-    test.compare(str(waitForObject(names.antares_Cluster_rpmGauge_ShadowEffect_ui).designDropShadowColor.name), "#395b85")
     
-    datainterface.send("theme", "stardust")
-    snooze(.5)
-    test.compare(str(waitForObject(names.antares_Cluster_speedGauge_ShadowEffect_ui).designDropShadowColor.name), "#8e4362")
+    # Theme to expected shadow color mapping
+    theme_colors = {
+        "luna": "#395b85",
+        "stardust": "#8e4362", 
+        "pixel": "#fd825f",
+        "electric": "#4d5674",
+        "crystal": "#7cdae0",
+        "sonic": "#89bfbf",
+        "ethereal": "#db752c",
+        "mind": "#eea153",
+        "gravity": "#79aa8d",
+        "zen": "#e78f54",
+        "ultraviolet": "#fc715a",
+        "velvet": "#485557"
+    }
     
-    datainterface.send("theme", "pixel")
-    snooze(.5)
-    test.compare(str(waitForObject(names.antares_Cluster_speedGauge_ShadowEffect_ui).designDropShadowColor.name), "#fd825f")
-    
-    datainterface.send("theme", "electric")
-    snooze(.5)
-    test.compare(str(waitForObject(names.antares_Cluster_speedGauge_ShadowEffect_ui).designDropShadowColor.name), "#4d5674")
+    # Test each theme for both speedgauge and rpmgauge shadow effects
+    for theme_name, expected_color in theme_colors.items():
+        datainterface.send("theme", theme_name)
+        snooze(.5)
         
-    datainterface.send("theme", "crystal")
-    snooze(.5)
-    test.compare(str(waitForObject(names.antares_Cluster_speedGauge_ShadowEffect_ui).designDropShadowColor.name), "#7cdae0")
+        # Test speedgauge shadow effect color
+        speed_shadow_color = str(waitForObject(names.antares_Cluster_speedGauge_ShadowEffect_ui).designDropShadowColor.name)
+        test.compare(speed_shadow_color, expected_color, f"Speed gauge shadow color for {theme_name} theme")
         
-    datainterface.send("theme", "sonic")
-    snooze(.5)
-    test.compare(str(waitForObject(names.antares_Cluster_speedGauge_ShadowEffect_ui).designDropShadowColor.name), "#89bfbf")
-    
-    datainterface.send("theme", "ethereal")
-    snooze(.5)
-    test.compare(str(waitForObject(names.antares_Cluster_speedGauge_ShadowEffect_ui).designDropShadowColor.name), "#db752c")
-    
-    datainterface.send("theme", "mind")
-    snooze(.5)
-    test.compare(str(waitForObject(names.antares_Cluster_speedGauge_ShadowEffect_ui).designDropShadowColor.name), "#eea153")
-        
-    datainterface.send("theme", "gravity")
-    snooze(.5)
-    test.compare(str(waitForObject(names.antares_Cluster_speedGauge_ShadowEffect_ui).designDropShadowColor.name), "#79aa8d")
-        
-    datainterface.send("theme", "zen")
-    snooze(.5)
-    test.compare(str(waitForObject(names.antares_Cluster_speedGauge_ShadowEffect_ui).designDropShadowColor.name), "#e78f54")
-    
-    datainterface.send("theme", "ultraviolet")
-    snooze(.5)
-    test.compare(str(waitForObject(names.antares_Cluster_speedGauge_ShadowEffect_ui).designDropShadowColor.name), "#fc715a")
-        
-    datainterface.send("theme", "velvet")
-    snooze(.5)
-    test.compare(str(waitForObject(names.antares_Cluster_speedGauge_ShadowEffect_ui).designDropShadowColor.name), "#485557")
+        # Test rpmgauge shadow effect color  
+        rpm_shadow_color = str(waitForObject(names.antares_Cluster_rpmGauge_ShadowEffect_ui).designDropShadowColor.name)
+        test.compare(rpm_shadow_color, expected_color, f"RPM gauge shadow color for {theme_name} theme")
     
     
 def waitUntilObjectReady( obj ):
