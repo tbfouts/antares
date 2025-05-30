@@ -14,6 +14,7 @@ Window {
 
     property string webSocketAddress: "127.0.0.1"
     property string webSocketPort: "5555"
+    property string currentTestName: ""
 
     visibility: Qt.platform.os === 'android' ? Window.FullScreen : Window.AutomaticVisibility
 
@@ -38,6 +39,17 @@ Window {
                 xScale: Math.min(xRatio, yRatio)
                 yScale: Math.min(xRatio, yRatio)
             }
+        }
+
+        Text {
+            id: testName
+            text: "Now testing: " + root.currentTestName
+            visible: "" != root.currentTestName
+            anchors.bottom: bg.bottom
+            font.pixelSize: 48
+            color: "white"
+            anchors.bottomMargin: 100
+            anchors.horizontalCenter: parent.horizontalCenter
         }
     }
 
@@ -97,6 +109,9 @@ Window {
                     break;
                 case "units":
                     VehicleData.units = data[1]
+                    break;
+                case "testName":
+                    root.currentTestName = data[1]
                     break;
 
                 default:

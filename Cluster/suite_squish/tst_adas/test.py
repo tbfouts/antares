@@ -5,6 +5,7 @@ import databackend
 def main():
     attachToApplication("samsung_tab")
     datainterface = databackend.ws()
+    datainterface.send_test_name("Drive Modes")
     datainterface.send("adasEnabled", True)
     snooze(1)
 

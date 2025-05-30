@@ -7,6 +7,7 @@ def main():
     attachToApplication("samsung_tab")
     
     datainterface = databackend.ws()
+    datainterface.send_test_name("Themes")
     
     # Theme to expected shadow color mapping
     theme_colors = {
@@ -39,9 +40,6 @@ def main():
     
     
 def waitUntilObjectReady( obj ):
-    highlightObject(obj)
+    highlightObject(obj, 1000)
     snooze(1)
     
-def waitUntilObjectItemReady( obj ):
-    highlightObject(obj)
-    snooze(1)

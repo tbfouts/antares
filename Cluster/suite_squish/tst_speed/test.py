@@ -9,6 +9,7 @@ def main():
     attachToApplication("samsung_tab")
     
     datainterface = databackend.ws()
+    datainterface.send_test_name("Speed and RPM")
     
     # Test varying speed increments with expected RPM values
     # RPM calculation from QML: Math.min((speed / (3.14 * 6)) + 1).toFixed(0)
@@ -49,9 +50,6 @@ def main():
     datainterface.send("speed", 0)
         
 def waitUntilObjectReady( obj ):
-    highlightObject(obj, 500)
-    
-def waitUntilObjectItemReady( obj ):
-    highlightObject(obj, 500)
+    highlightObject(obj, 750)
 
 

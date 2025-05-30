@@ -4,6 +4,7 @@ import databackend
 def main():
     attachToApplication("samsung_tab")
     datainterface = databackend.ws()
+    datainterface.send_test_name("Doors")
     datainterface.send("doorLeft", True)
     snooze(2)
     test.vp("VP1")

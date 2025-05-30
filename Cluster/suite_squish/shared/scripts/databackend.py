@@ -86,5 +86,11 @@ class ws:
         print(msg)
         self.__send_msg(msg)
 
+    def send_test_name(self, test_name: str):
+        """
+        Send the current test name to be displayed in the cluster
+        """
+        self.send("testName", test_name)
+
     def close(self):
         self.connection.close_socket()
