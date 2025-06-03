@@ -46,8 +46,8 @@ Window {
             text: "Now testing: " + root.currentTestName
             visible: "" != root.currentTestName
             anchors.bottom: bg.bottom
-            font.pixelSize: 48
-            color: "white"
+            font.pixelSize: 60
+            color: "light gray"
             anchors.bottomMargin: 100
             anchors.horizontalCenter: parent.horizontalCenter
         }
