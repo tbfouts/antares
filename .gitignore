@@ -8,7 +8,8 @@ build/
 *.user.*
 *.qtds.*
 *.autosave
-CMakeLists.txt.user
+*CMakeLists.txt.user
+*.DS_Store
 
 # OS specific files
 .DS_Store
@@ -53,3 +54,12 @@ ui_*.h
 *.pyc
 *.pyo
 __pycache__/
+
+Cluster-Release/
+Cluster-Debug/
+py-venv/
+py-venv*
+
+# Squish artifacts
+*failedImages*
+*attachment*
