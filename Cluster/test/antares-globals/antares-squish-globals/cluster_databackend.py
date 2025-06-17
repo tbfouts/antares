@@ -11,7 +11,7 @@ class VehicleSimulatorWS:
         connection_string = f"ws://{host}:{port}"
         try:
             self.connection = connect(connection_string)
-        except Error as e:
+        except Exception as e:
             test.warning(f"Databackend not connected! Attempted {host}:{port}")
             test.fatal(f"ERROR: {e}")
         

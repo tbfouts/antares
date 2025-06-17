@@ -23,8 +23,9 @@ class Setup():
         self.log_system_info()        
         self.app_launch_sequence(launchParameters)
         
-        VEHICLE_SIMULATOR = VehicleSimulatorWS()
-        VEHICLE_SIMULATOR.send_test_name(str(squishinfo.testCaseName))
+        if "ClusterApp" in launchParameters.keys():
+            VEHICLE_SIMULATOR = VehicleSimulatorWS()
+            VEHICLE_SIMULATOR.send_test_name(str(squishinfo.testCaseName))
         
         
     def app_launch_sequence(self, params:dict):
