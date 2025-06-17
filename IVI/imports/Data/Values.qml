@@ -29,7 +29,7 @@ Item {
     property WebSocket wsClient: WebSocket
     {
         id: webSocketClient
-        url: "ws://127.0.0.1:8080"
+        url: "ws://127.0.0.1:5555"
         onTextMessageReceived: function(message) {
             console.log(qsTr("IVI Client received theme message: %1").arg(message));
         }
