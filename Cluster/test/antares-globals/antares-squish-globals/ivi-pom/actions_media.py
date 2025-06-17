@@ -7,5 +7,5 @@ class IVI_Media_Actions():
         
         track = Ivi_Objects.o_trackBySubstring(input)
         mouseClick( track )
-        snooze(1)
+        snooze(2)  # Gives time for IVI to update and send socket msg to Cluster
         

@@ -3,7 +3,8 @@ import time
 
 from websockets.sync.client import connect
 
-class ws:
+
+class VehicleSimulatorWS:
     def __init__(self):
         port = 5555
         host = "localhost"

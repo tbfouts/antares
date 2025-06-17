@@ -1,9 +1,11 @@
     
 
-class ClusterObjects():
-    # Top-level object
-    antares_Cluster_QQuickWindowQmlImpl = {"title": "Antares Cluster", "type": "QQuickWindowQmlImpl", "unnamed": 1, "visible": True}
-    
+# Top-level object
+antares_Cluster_QQuickWindowQmlImpl = {"title": "Antares Cluster", "type": "QQuickWindowQmlImpl", "unnamed": 1, "visible": True}
+
+
+class Cluster_Objects():
+
     def o_appWindow():
         return waitForObject(antares_Cluster_QQuickWindowQmlImpl)
     
@@ -12,6 +14,9 @@ class ClusterObjects():
     
     def o_clusterLayout():
         return waitforObject( {"container": antares_Cluster_QQuickWindowQmlImpl, "id": "gLOlayout", "type": "ClusterLayout.ui", "unnamed": 1, "visible": True} )
+    
+    def o_vehicleModel():
+        return waitForObjectExists( {"container": antares_Cluster_QQuickWindowQmlImpl, "id": "view3D", "type": "3DViewport", "visible": True} )
     
     def o_musicPlayerComponent():
         """ 
@@ -26,7 +31,7 @@ class ClusterObjects():
     
     def o_fuelGaugeFillBar():
         # `status` property gets fuel level, [0-1]
-        return find_recursively(o_fuelGaugeComponent(), {"id": "vecFuelFillingBar"})
+        return find_recursively( Cluster_Objects.o_fuelGaugeComponent(), {"id": "vecFuelFillingBar"})
     
     def o_gearComponent():
         # property: state: str (e.g. 'Park')
@@ -37,7 +42,7 @@ class ClusterObjects():
     
     def o_batteryGaugeFillBar():
         # `status` property gets fuel level, [0-1]
-        return find_recursively(o_batteryGaugeComponent(), {"id": "barFillingBattery"})
+        return find_recursively( Cluster_Objects.o_batteryGaugeComponent(), {"id": "barFillingBattery"})
     
     def o_speedLimitMPH():
         return waitForObject( {"container": antares_Cluster_QQuickWindowQmlImpl, "id": "speedLimit_MPH", "type": "Rectangle", "unnamed": 1} )
@@ -61,19 +66,19 @@ class ClusterObjects():
     
     def o_qsrWarningsComponent():
         # return waitForObject( {"container": antares_Cluster_QQuickWindowQmlImpl, "id": "qsrWarnings", "type": "Loader", "unnamed": 1, "visible": True} )
-        return find_recursively( o_clusterLayout(), {"id": "qsrWarnings"})
+        return find_recursively( Cluster_Objects.o_clusterLayout(), {"id": "qsrWarnings"})
     
     def o_clock():
         # return waitForObject( {"container": antares_Cluster_QQuickWindowQmlImpl, "id": "clock", "type": "Clock.ui", "unnamed": 1, "visible": True} )
-        return find_recursively( o_clusterLayout(), {"id": "clock"})
+        return find_recursively( Cluster_Objects.o_clusterLayout(), {"id": "clock"})
         
     def o_adasComponent():
         # return waitForObject( {"container": antares_Cluster_QQuickWindowQmlImpl, "id": "adasComp", "type": "AdasComp.ui", "unnamed": 1, "visible": False} )
-        return find_recursively( o_clusterLayout(), {"id": "adasComp"}, max_search_depth=2)
+        return find_recursively( Cluster_Objects.o_clusterLayout(), {"id": "adasComp"}, max_search_depth=2)
     
     def o_qsrTurnSignals():
         # return waitForObject( {"container": antares_Cluster_QQuickWindowQmlImpl, "id": "qsrTurnSignals", "type": "Loader", "unnamed": 1, "visible": True} )
-        return find_recursively( o_clusterLayout(), {"id": "qsrTurnSignals"}, 2)
+        return find_recursively( Cluster_Objects.o_clusterLayout(), {"id": "qsrTurnSignals"}, 2)
     
 
 

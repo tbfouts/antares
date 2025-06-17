@@ -3,39 +3,53 @@ source(findFile('scripts', 'antares-setup.py'))
 
 
 def main():
-    Setup( {'IVIApp': 'launch', 'Cluster': 'launch'} )
+    """ NOTE: This test requires both the Antares IVI & Cluster apps to be mapped to squishserver! """
+    
+    Setup( {'IVIApp': 'launch', 'ClusterApp': 'launch'} )
     
     """
      * Verify that Media Controls invoked in the IVI are reflected in the Cluster *
     """
     
+    test.breakpoint()
+    
     test.startSection("Set Song 1")
-    artist = "Pixel Pulse"
-    Ivi.select_song(artist)
+    expected_artist = "Pixel Pulse"
     
-    test.startSection("Verify the song change on the IVI")
-    test.verify(Ivi_Objects.o_artistName == artist, 
-                f"Expected Artist Name: {artist}")
-    verify_image("IVI_Pixel_Pulse_MediaPlayer", Ivi_Objects.o_mediaPlayerComponent())
+    test.startSection("Verify the artist set on the IVI")
+    setApplicationContext(applicationContext('IVIApp'))
+    Ivi.select_song(expected_artist)
+    ivi_artist = str(Ivi.o_artistName().text)
+    test.verify(ivi_artist == expected_artist, f"Expected Artist Name: {expected_artist}. Observed value: {ivi_artist}")
+    verify_image("IVI_Pixel_Pulse", Ivi.o_mediaPlayerComponent())
     test.endSection()
     
-    test.startSection("Verify the song on the Cluster Media Player")
+    test.startSection("Verify the artist on the Cluster Media Player")
+    setApplicationContext(applicationContext('ClusterApp'))
+    cluster_artist = str(Cluster.o_musicPlayerComponent().txtArtistText)
+    test.verify(cluster_artist == expected_artist, f"Expected Artist Name: {expected_artist}. Observed value: {cluster_artist}")
+    verify_image("Cluster_Pixel_Pulse", Cluster.o_musicPlayerComponent())
+    test.endSection()
     test.endSection()
     
-    test.endSection()
     
     test.startSection("Set Song 2")
-    song = "Whispers of the Wind"
-    Ivi.select_song(song)
+    expected_song = "Whispers of the Wind"
     
-    test.startSection("Verify the song change on the IVI")
-    test.verify(Ivi_Objects.o_trackName == song, 
-                f"Expected Track Name: {song}")
-    verify_image("IVI_Wind_Whispers_MediaPlayer", Ivi_Objects.o_mediaPlayerComponent())
+    test.startSection("Verify the song set on the IVI")
+    setApplicationContext(applicationContext('IVIApp'))
+    Ivi.select_song(expected_song)
+    ivi_track = str( Ivi.o_trackName().text )
+    test.verify(ivi_track == expected_song, 
+                f"Expected Track Name: {expected_song}, Observed value: {ivi_track}")
+    verify_image("IVI_Wind_Whispers", Ivi.o_mediaPlayerComponent())
     test.endSection()
     
     test.startSection("Verify the song on the Cluster Media Player")
-    
+    setApplicationContext(applicationContext('ClusterApp'))
+    cluster_artist = str(Cluster.o_musicPlayerComponent().txtArtistText)
+    test.verify(cluster_artist == expected_artist, f"Expected Artist Name: {expected_song}. Observed value: {cluster_artist}")
+    verify_image("Cluster_Pixel_Pulse", Cluster.o_musicPlayerComponent())
     test.endSection()
     test.endSection()
     

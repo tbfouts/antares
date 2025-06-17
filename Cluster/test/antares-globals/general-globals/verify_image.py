@@ -60,7 +60,7 @@ def generate_screenshot_vp(objectOrRealName, vpName):
     # Capture img of object and send to screenshot vp
     img = object.grabScreenshot(objectOrRealName)
     img.save(tmp_img_path)
-    args = CONVERT_VP + f''' --tovp {vp_path} {tmp_img_path} {objectMap.symbolicName(objectOrRealName)}'''
+    args = CONVERT_VP + f''' --tovp {vp_path} {tmp_img_path} "{objectMap.symbolicName(objectOrRealName)}"'''
     _ = subprocess.call(args, shell=True)
     
     assert os.path.exists(vp_path), "Screenshot VP not generated!"

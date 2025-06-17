@@ -3,6 +3,8 @@ import platform
 import subprocess
 from datetime import datetime
 
+VEHICLE_SIMULATOR = None
+
 class Setup():
     
     APPS = ["IVIApp", "ClusterApp"]
@@ -15,9 +17,14 @@ class Setup():
             reference usage:
                 Setup( {"ClusterApp": "launch", "IVIApp", "attach" } )
         """
+        global VEHICLE_SIMULATOR
+        
         self.import_global_scripts()
         self.log_system_info()        
         self.app_launch_sequence(launchParameters)
+        
+        VEHICLE_SIMULATOR = VehicleSimulatorWS()
+        VEHICLE_SIMULATOR.send_test_name(str(squishinfo.testCaseName))
         
         
     def app_launch_sequence(self, params:dict):
@@ -25,6 +32,9 @@ class Setup():
             if app not in self.APPS:
                 test.warning(f"Invalid AUT specified provided! Verify AUT name {app} registerred with squishserver")
                 continue
+            
+            testSettings.setWrappersForApplication(app, ["Qt"])
+            
             if launchMode == 'launch':
                 startApplication(app)
             elif launchMode == 'attach':
@@ -45,6 +55,9 @@ class Setup():
         #Project POM directories
         self._safe_source_import('antares-squish-globals/cluster-pom/base.py')
         self._safe_source_import('antares-squish-globals/ivi-pom/base.py')
+        
+        #Non-UI Antares Helper Utils
+        self._safe_source_import('antares-squish-globals/cluster_databackend.py')
         
     def _safe_source_import(self, filename:str):
         try:

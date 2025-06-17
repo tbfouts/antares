@@ -5,10 +5,7 @@ built_with_Qt_QQuickWindowQmlImpl = {"title": "Built with Qt", "type": "QQuickWi
 built_with_Qt_swipeView_SwipeView = {"container": built_with_Qt_QQuickWindowQmlImpl, "id": "swipeView", "type": "SwipeView", "unnamed": 1, "visible": True}
 
 class Ivi_Objects():
-    
-    # The metaclass argument is important. This way @staticmethod is not required on all methods. It gets applied during construction
-    # class IVI_Objects(metaclass=StaticMethodMeta):
-    
+        
     @staticmethod
     def o_iviAppWindow():
         return waitForObject(built_with_Qt_QQuickWindowQmlImpl)
@@ -19,7 +16,7 @@ class Ivi_Objects():
     
     @staticmethod
     def o_iviMainSwipeView():
-        return waitforObject( {"container": built_with_Qt_QQuickWindowQmlImpl, "id": "swipeView", "type": "SwipeView", "visible": True} )
+        return waitForObject( {"container": built_with_Qt_QQuickWindowQmlImpl, "id": "swipeView", "type": "SwipeView", "visible": True} )
     
     """  Top Bar Area  """
     @staticmethod
@@ -28,7 +25,7 @@ class Ivi_Objects():
     
     @staticmethod
     def o_lampsIndicator():
-        return waitForObject( {"checkable": True, "container": built_with_Qt_QQuickWindowQmlImpl, "id": "btn3DViewLamps", "visible": True} )
+        return waitForObject( {"checkable": True, "container": built_with_Qt_QQuickWindowQmlImpl, "type": "Btn3DView.ui", "id": "btn3DViewLamps", "visible": True} )
     
     @staticmethod
     def o_driverDoorIndicator():
@@ -74,7 +71,8 @@ class Ivi_Objects():
     # This object is re-used on each page. Only need one reference
     @staticmethod
     def o_mediaPlayerControls():
-        return waitForObject( {"container": built_with_Qt_swipeView_SwipeView, "id": "miniPlayer", "type": "MiniPlayer.ui", "visible": True} )
+        return find_recursively( Ivi_Objects.o_iviMainSwipeView(), {"id": "miniPlayer"} )
+        # return waitForObject( {"container": built_with_Qt_swipeView_SwipeView, "id": "miniPlayer", "type": "MiniPlayer.ui", "visible": True} )
     
     @staticmethod
     def o_trackName():
@@ -129,7 +127,7 @@ class Ivi_Objects():
         track_listview = waitForObject( {"container": built_with_Qt_swipeView_SwipeView, "id": "listViewTracks", "index": 0, "type": "ListViewTracks.ui", "unnamed": 1, "visible": True} )
         tracks = object.children(track_listview)
         for track in tracks:
-            if substring in track.artistInfoText:
+            if substring in str(track.artistInfoText):
                 return track
         test.fatal("Selected substring not found in track!")
         return None
