@@ -57,8 +57,8 @@ __pycache__/
 
 Cluster-Release/
 Cluster-Debug/
-py-env/
-py-env*
+py-venv/
+py-venv*
 
 # Squish artifacts
 *failedImages*
