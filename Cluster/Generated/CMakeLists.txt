@@ -2,3 +2,4 @@
 ### Do not change
 
 add_subdirectory(QtQuick3D)
+add_subdirectory(Bundles)

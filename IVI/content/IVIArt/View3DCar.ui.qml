@@ -13,7 +13,7 @@ View3D {
     property alias doorL: genericCarModel.doorsOpenLeft
     property alias doorR: genericCarModel.doorsOpenRight
         state: "base"
-        environment: extendedSceneEnvironment
+        environment: xsceneEnvironment
         camera: perspectiveCamera
         property alias lightsVisible: lights.visible
 
@@ -30,42 +30,96 @@ View3D {
         }
 
         ExtendedSceneEnvironment {
-            id: extendedSceneEnvironment
-            clearColor: Data.Themes.backgroundColor
-            vignetteEnabled: false
-            skyboxBlurAmount: 0.35753
-            probeHorizon: 0.1
-            tonemapMode: SceneEnvironment.TonemapModeLinear
-            glowUseBicubicUpscale: true
-            glowLevel: ExtendedSceneEnvironment.GlowLevel.One
-                       | ExtendedSceneEnvironment.GlowLevel.Two
-                       | ExtendedSceneEnvironment.GlowLevel.Three
-                       | ExtendedSceneEnvironment.GlowLevel.Four
-                       | ExtendedSceneEnvironment.GlowLevel.Six
-            glowBlendMode: ExtendedSceneEnvironment.GlowBlendMode.Additive
-            depthOfFieldEnabled: false
-            aoEnabled: true
-            glowHDRMaximumValue: 13.4
-            glowHDRScale: 1.31
-            probeExposure: 2
-            glowHDRMinimumValue: 0
-            glowBloom: 0.09
-            glowQualityHigh: true
-            glowIntensity: 1.1
-            glowStrength: 1
-            lensFlareEnabled: false
-            glowEnabled: true
-            ditheringEnabled: false
-            exposure: 1.3
-            lightProbe: basicLights3_4K
-            temporalAAStrength: 2
-            specularAAEnabled: false
-            temporalAAEnabled: false
-            fxaaEnabled: true
-            antialiasingQuality: SceneEnvironment.VeryHigh
-            antialiasingMode: SceneEnvironment.MSAA
-            backgroundMode: SceneEnvironment.Transparent
+            id: xsceneEnvironment
+            glowLevel: ExtendedSceneEnvironment.GlowLevel.Five
+            probeOrientation.y: 130
+                    depthOfFieldBlurAmount: 25
+                    depthOfFieldFocusDistance: 500
+                    depthOfFieldEnabled: false
+                    adjustmentContrast: 1
+                    adjustmentBrightness: 1
+                    colorAdjustmentsEnabled: false
+                    ditheringEnabled: false
+                    sharpnessAmount: 0
+                    whitePoint: 1
+                    probeExposure: 2
+                    probeHorizon: 0.5
+                    lightProbe: konzerthaus_4k
+                    aoDither: false
+                    aoSampleRate: 4
+                    aoSoftness: 0
+                    lutEnabled: false
+                    exposure: 1.38999
+                    lensFlareBlurAmount: 50
+                    lensFlareDistortion: 5
+                    lensFlareStretchToAspect: 0.5
+                    lensFlareHaloWidth: 0.5
+                    lensFlareGhostDispersal: 0.5
+                    lensFlareBloomBias: 0.1
+                    lensFlareBloomScale: 20
+                    lensFlareEnabled: false
+                    vignetteEnabled: false
+                    glowBlendMode: ExtendedSceneEnvironment.GlowBlendMode.Screen
+                    glowHDRMinimumValue: 3
+                    glowHDRMaximumValue: 5
+                    glowHDRScale: 1
+                    glowBloom: 0
+                    glowIntensity: 0.001
+                    glowStrength: 1.9
+                    glowQualityHigh: true
+                    glowEnabled: true
+                    fxaaEnabled: true
+                    clearColor: "#191919"
+                    depthPrePassEnabled: true
+                    aoDistance: 0
+                    aoEnabled: false
+                    backgroundMode: SceneEnvironment.Transparent
+                    specularAAEnabled: true
+                    tonemapMode: SceneEnvironment.TonemapModeLinear
+                    temporalAAEnabled: false
+                    antialiasingMode: SceneEnvironment.SSAA
+                    antialiasingQuality: SceneEnvironment.Medium
+
         }
+
+
+        // ExtendedSceneEnvironment {
+        //     id: extendedSceneEnvironment
+        //     clearColor: Data.Themes.backgroundColor
+        //     vignetteEnabled: false
+        //     skyboxBlurAmount: 0.35753
+        //     probeHorizon: 0.1
+        //     tonemapMode: SceneEnvironment.TonemapModeLinear
+        //     glowUseBicubicUpscale: true
+        //     glowLevel: ExtendedSceneEnvironment.GlowLevel.One
+        //                | ExtendedSceneEnvironment.GlowLevel.Two
+        //                | ExtendedSceneEnvironment.GlowLevel.Three
+        //                | ExtendedSceneEnvironment.GlowLevel.Four
+        //                | ExtendedSceneEnvironment.GlowLevel.Six
+        //     glowBlendMode: ExtendedSceneEnvironment.GlowBlendMode.Additive
+        //     depthOfFieldEnabled: false
+        //     aoEnabled: true
+        //     glowHDRMaximumValue: 13.4
+        //     glowHDRScale: 1.31
+        //     probeExposure: 2
+        //     glowHDRMinimumValue: 0
+        //     glowBloom: 0.09
+        //     glowQualityHigh: true
+        //     glowIntensity: 1.1
+        //     glowStrength: 1
+        //     lensFlareEnabled: false
+        //     glowEnabled: true
+        //     ditheringEnabled: false
+        //     exposure: 1.3
+        //     lightProbe: basicLights3_4K
+        //     temporalAAStrength: 2
+        //     specularAAEnabled: false
+        //     temporalAAEnabled: false
+        //     fxaaEnabled: true
+        //     antialiasingQuality: SceneEnvironment.VeryHigh
+        //     antialiasingMode: SceneEnvironment.MSAA
+        //     backgroundMode: SceneEnvironment.Transparent
+        // }
 
         Node {
             id: scene
@@ -98,7 +152,6 @@ View3D {
                 scale.x: 5
                 receivesShadows: true
                 receivesReflections: true
-                materials: eqFloorMat
                 eulerRotation.z: 90
                 eulerRotation.y: 0
                 eulerRotation.x: -90
@@ -109,9 +162,10 @@ View3D {
             Model {
                 id: shadowPlane
                 y: 3
-                opacity: 0.978
+                opacity: 0.676
                 visible: true
                 source: "#Rectangle"
+                scale.z: 1
                 receivesReflections: true
                 eulerRotation.z: 90
                 eulerRotation.x: -90
@@ -121,7 +175,7 @@ View3D {
                 receivesShadows: true
                 castsShadows: false
                 scale.y: 3.1
-                scale.x: 6.3
+                scale.x: 6.6528
             }
 
             Lights {
@@ -169,18 +223,19 @@ View3D {
                 castsReflections: false
                 receivesShadows: false
                 castsShadows: false
-                eulerRotation.z: 0
-                eulerRotation.x: -19
-                eulerRotation.y: 37
+                eulerRotation.z: 1
+                eulerRotation.x: -18.32633
+                eulerRotation.y: 36
 
                 PerspectiveCamera {
                     id: perspectiveCamera
-                    y: -19
+                    x: -2.764
+                    y: -73.375
                     eulerRotation.z: 0
                     eulerRotation.y: 7
-                    eulerRotation.x: 2
-                    fieldOfView: 50
-                    z: 472
+                    eulerRotation.x: 12
+                    fieldOfView: 40
+                    z: 530
                 }
             }
 
@@ -262,6 +317,12 @@ View3D {
             diffuseColor: "#ffffff"
             objectName: "switchMat"
 
+        }
+
+        Texture {
+            id: konzerthaus_4k
+            source: "../images/konzerthaus_4k.hdr"
+            objectName: "Konzerthaus 4k"
         }
     }
 
@@ -514,6 +575,6 @@ View3D {
 
 /*##^##
 Designer {
-    D{i:0}D{i:3;cameraSpeed3d:25;cameraSpeed3dMultiplier:1}D{i:35;transitionDuration:2000}
+    D{i:0}D{i:3;cameraSpeed3d:25;cameraSpeed3dMultiplier:1}D{i:36;transitionDuration:2000}
 }
 ##^##*/

@@ -1,0 +1,17 @@
+{
+    "designer/carbonfiber.metainfo": [
+        "CarbonFiberMaterial.qml"
+    ],
+    "designer/images/material.png": [
+        "CarbonFiberMaterial.qml"
+    ],
+    "designer/images/material16.png": [
+        "CarbonFiberMaterial.qml"
+    ],
+    "designer/images/material@2x.png": [
+        "CarbonFiberMaterial.qml"
+    ],
+    "images/Fabric004_2K_NormalGL.png": [
+        "CarbonFiberMaterial.qml"
+    ]
+}

@@ -1,5 +1,6 @@
 import QtQuick
 import QtQuick3D
+import Generated.Bundles.Materials
 
 Node {
     id: node
@@ -165,23 +166,8 @@ Node {
             scale.y: 0.001
             scale.z: 0.001
             source: "meshes/body_mesh.mesh"
-            materials: [
-                carPaint_material,
-                carPaintBlackBump_material,
-                metalDark_material,
-                plasticBlack_material,
-                chrome_material,
-                glassLights_material,
-                glassRedLights_material,
-                glassMatRedLights_material,
-                glassLightsIllum_material,
-                metalBlackMatte_material,
-                metalGreyMatte_material,
-                rubber_material,
-                glassTextured_material,
-                intCarpet_material,
-                glassFrontGrill_material
-            ]
+
+           materials: [carPaint_material,carPaintBlackBump_material,metalDark_material,plasticBlack_material,chrome_material,glassLights_material,glassRedLights_material,glassMatRedLights_material,glassLightsIllum_material,metalBlackMatte_material,metalGreyMatte_material,rubber_material,glassTextured_material,intCarpet_material,glassFrontGrill_material]
         }
         Model {
             id: chargingCap
@@ -406,6 +392,16 @@ Node {
 
     Node {
         id: __materialLibrary__
+
+        PrincipledMaterial {
+            id: body_material
+            clearcoatAmount: 1
+            metalness: 0
+            objectName: "body"
+            baseColor: "#ff6f6f6f"
+            roughness: 0.5
+                }
+
 
         PrincipledMaterial {
             id: wheelBrakeDisk_material
@@ -1148,6 +1144,6 @@ Node {
 
 /*##^##
 Designer {
-    D{i:0;cameraSpeed3d:25;cameraSpeed3dMultiplier:1}D{i:95;transitionDuration:2000}
+    D{i:0;cameraSpeed3d:25;cameraSpeed3dMultiplier:1}D{i:96;transitionDuration:2000}
 }
 ##^##*/

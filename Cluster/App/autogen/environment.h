@@ -11,6 +11,7 @@
 Q_IMPORT_QML_PLUGIN(ClusterContentPlugin)
 Q_IMPORT_QML_PLUGIN(Generated_QtQuick3D_GenericCarModelPlugin)
 Q_IMPORT_QML_PLUGIN(Generated_QtQuick3D_LightsPlugin)
+Q_IMPORT_QML_PLUGIN(Generated_Bundles_MaterialsPlugin)
 Q_IMPORT_QML_PLUGIN(ClusterPlugin)
 Q_IMPORT_QML_PLUGIN(VehicleDataPlugin)
 

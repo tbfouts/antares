@@ -24,130 +24,131 @@ Node {
     property url textureData42: "maps/textureData42.jpg"
     property url textureData133: "maps/textureData133.jpg"
     property url textureData80: "maps/textureData80.jpg"
-    property alias _4_texture: _4_texture
+  //  property alias _4_texture: _4_texture
+    property alias carPaint_materialBaseColor: body_material.baseColor
     property bool doorsOpenLeft: false
     property bool doorsOpenRight: false
-    property alias carPaint_materialBaseColor: carPaint_material.baseColor
+    //property alias carPaint_materialBaseColor: carPaint_material.baseColor
     property alias wheelRimColor_materialBaseColor: wheelRimColor_material.baseColor
     property alias wheelCaliper_materialBaseColor: wheelCaliper_material.baseColor
     state: "closed"
     scale.z: 1
     scale.y: 1
     scale.x: 1
-    Texture {
-        id: _0_texture
-        generateMipmaps: true
-        mipFilter: Texture.Linear
-        source: node.textureData5
-    }
-    Texture {
-        id: _6_texture
-        generateMipmaps: true
-        mipFilter: Texture.Linear
-        source: node.textureData54
-    }
-    Texture {
-        id: _1_texture
-        generateMipmaps: true
-        mipFilter: Texture.Linear
-        source: node.textureData8
-    }
-    Texture {
-        id: _2_texture
-        generateMipmaps: true
-        mipFilter: Texture.Linear
-        source: node.textureData10
-    }
-    Texture {
-        id: _3_texture
-        generateMipmaps: true
-        mipFilter: Texture.Linear
-        source: node.textureData23
-    }
-    Texture {
-        id: _4_texture
-        generateMipmaps: true
-        mipFilter: Texture.Linear
-        source: node.textureData26
-    }
-    Texture {
-        id: _12_texture
-        generateMipmaps: true
-        mipFilter: Texture.Linear
-        source: node.textureData94
-    }
-    Texture {
-        id: _7_texture
-        generateMipmaps: true
-        mipFilter: Texture.Linear
-        source: node.textureData
-    }
-    Texture {
-        id: _5_texture
-        generateMipmaps: true
-        mipFilter: Texture.Linear
-        source: node.textureData42
-    }
-    Texture {
-        id: _8_texture
-        generateMipmaps: true
-        mipFilter: Texture.Linear
-        source: node.textureData80
-    }
-    Texture {
-        id: _11_texture
-        generateMipmaps: true
-        mipFilter: Texture.Linear
-        source: node.textureData89
-    }
-    Texture {
-        id: _15_texture
-        generateMipmaps: true
-        mipFilter: Texture.Linear
-        source: node.textureData123
-    }
-    Texture {
-        id: _13_texture
-        generateMipmaps: true
-        mipFilter: Texture.Linear
-        source: node.textureData99
-    }
-    Texture {
-        id: _16_texture
-        generateMipmaps: true
-        mipFilter: Texture.Linear
-        source: node.textureData128
-    }
-    Texture {
-        id: _10_texture
-        generateMipmaps: true
-        mipFilter: Texture.Linear
-        source: node.textureData86
-    }
-    Texture {
-        id: _17_texture
-        generateMipmaps: true
-        mipFilter: Texture.Linear
-        source: node.textureData133
-    }
-    Texture {
-        id: _14_texture
-        generateMipmaps: true
-        mipFilter: Texture.Linear
-        source: node.textureData121
-    }
-    Texture {
-        id: _18_texture
-        generateMipmaps: true
-        mipFilter: Texture.Linear
-        source: node.textureData147
-    }
-    Texture {
-        id: _9_texture
-        generateMipmaps: true
-        mipFilter: Texture.Linear
-        source: node.textureData83
-    }
+    // Texture {
+    //     id: _0_texture
+    //     generateMipmaps: true
+    //     mipFilter: Texture.Linear
+    //     source: node.textureData5
+    // }
+    // Texture {
+    //     id: _6_texture
+    //     generateMipmaps: true
+    //     mipFilter: Texture.Linear
+    //     source: node.textureData54
+    // }
+    // Texture {
+    //     id: _1_texture
+    //     generateMipmaps: true
+    //     mipFilter: Texture.Linear
+    //     source: node.textureData8
+    // }
+    // Texture {
+    //     id: _2_texture
+    //     generateMipmaps: true
+    //     mipFilter: Texture.Linear
+    //     source: node.textureData10
+    // }
+    // Texture {
+    //     id: _3_texture
+    //     generateMipmaps: true
+    //     mipFilter: Texture.Linear
+    //     source: node.textureData23
+    // }
+    // Texture {
+    //     id: _4_texture
+    //     generateMipmaps: true
+    //     mipFilter: Texture.Linear
+    //     source: node.textureData26
+    // }
+    // Texture {
+    //     id: _12_texture
+    //     generateMipmaps: true
+    //     mipFilter: Texture.Linear
+    //     source: node.textureData94
+    // }
+    // Texture {
+    //     id: _7_texture
+    //     generateMipmaps: true
+    //     mipFilter: Texture.Linear
+    //     source: node.textureData
+    // }
+    // Texture {
+    //     id: _5_texture
+    //     generateMipmaps: true
+    //     mipFilter: Texture.Linear
+    //     source: node.textureData42
+    // }
+    // Texture {
+    //     id: _8_texture
+    //     generateMipmaps: true
+    //     mipFilter: Texture.Linear
+    //     source: node.textureData80
+    // }
+    // Texture {
+    //     id: _11_texture
+    //     generateMipmaps: true
+    //     mipFilter: Texture.Linear
+    //     source: node.textureData89
+    // }
+    // Texture {
+    //     id: _15_texture
+    //     generateMipmaps: true
+    //     mipFilter: Texture.Linear
+    //     source: node.textureData123
+    // }
+    // Texture {
+    //     id: _13_texture
+    //     generateMipmaps: true
+    //     mipFilter: Texture.Linear
+    //     source: node.textureData99
+    // }
+    // Texture {
+    //     id: _16_texture
+    //     generateMipmaps: true
+    //     mipFilter: Texture.Linear
+    //     source: node.textureData128
+    // }
+    // Texture {
+    //     id: _10_texture
+    //     generateMipmaps: true
+    //     mipFilter: Texture.Linear
+    //     source: node.textureData86
+    // }
+    // Texture {
+    //     id: _17_texture
+    //     generateMipmaps: true
+    //     mipFilter: Texture.Linear
+    //     source: node.textureData133
+    // }
+    // Texture {
+    //     id: _14_texture
+    //     generateMipmaps: true
+    //     mipFilter: Texture.Linear
+    //     source: node.textureData121
+    // }
+    // Texture {
+    //     id: _18_texture
+    //     generateMipmaps: true
+    //     mipFilter: Texture.Linear
+    //     source: node.textureData147
+    // }
+    // Texture {
+    //     id: _9_texture
+    //     generateMipmaps: true
+    //     mipFilter: Texture.Linear
+    //     source: node.textureData83
+    // }
 
     // Nodes:
     Node {
@@ -160,27 +161,12 @@ Node {
             id: body
             objectName: "Body"
             y: 0.6449694037437439
+            visible: true
             scale.x: 0.001
             scale.y: 0.001
             scale.z: 0.001
             source: "meshes/body_mesh.mesh"
-            materials: [
-                carPaint_material,
-                carPaintBlackBump_material,
-                metalDark_material,
-                plasticBlack_material,
-                chrome_material,
-                glassLights_material,
-                glassRedLights_material,
-                glassMatRedLights_material,
-                glassLightsIllum_material,
-                metalBlackMatte_material,
-                metalGreyMatte_material,
-                rubber_material,
-                glassTextured_material,
-                intCarpet_material,
-                glassFrontGrill_material
-            ]
+            materials: [body_material,carPaintBlackBump_material,metalDark_material,plasticBlack_material,chrome_material,glassLights_material,glassRedLights_material,glassMatRedLights_material,glassLightsIllum_material,metalBlackMatte_material,metalGreyMatte_material,rubber_material,glassTextured_material,intCarpet_material,glassFrontGrill_material]
         }
         Model {
             id: brakeCaliperFrLeft
@@ -373,6 +359,7 @@ Node {
             id: dash
             objectName: "Dash"
             y: 0.6341137886047363
+            visible: true
             z: 0.24422581493854523
             scale.x: 0.001
             scale.y: 0.001
@@ -408,59 +395,20 @@ Node {
             scale.y: 0.001
             scale.z: 0.001
             source: "meshes/doorLeft_mesh.mesh"
-            materials: [
-                carPaint_material,
-                metalDark_material,
-                plasticBlack_material,
-                chrome_material,
-                glassLights_material,
-                glassRedLights_material,
-                glassMatRedLights_material,
-                chromeLightsBMP_material,
-                glassLightsIllum_material,
-                metalBlackMatte_material,
-                metalMirror_material,
-                aluminium_material,
-                glassTextured_material,
-                intAlcanataraGrey_material,
-                intLeatherBlack_material,
-                intStitchesRed_material,
-                intLeatherSeatsPattern_material,
-                intButtons_material,
-                intGrillBump_material
-            ]
+            materials: [body_material,metalDark_material,plasticBlack_material,chrome_material,glassLights_material,glassRedLights_material,glassMatRedLights_material,chromeLightsBMP_material,glassLightsIllum_material,metalBlackMatte_material,metalMirror_material,aluminium_material,glassTextured_material,intAlcanataraGrey_material,intLeatherBlack_material,intStitchesRed_material,intLeatherSeatsPattern_material,intButtons_material,intGrillBump_material]
         }
         Model {
             id: doorRight
             objectName: "DoorRight"
             x: -0.8845332264900208
             y: 0.6892746090888977
+            visible: true
             z: 0.8587785363197327
             scale.x: 0.001
             scale.y: 0.001
             scale.z: 0.001
             source: "meshes/doorRight_mesh.mesh"
-            materials: [
-                carPaint_material,
-                metalDark_material,
-                plasticBlack_material,
-                chrome_material,
-                glassLights_material,
-                glassRedLights_material,
-                glassMatRedLights_material,
-                chromeLightsBMP_material,
-                glassLightsIllum_material,
-                metalBlackMatte_material,
-                metalMirror_material,
-                aluminium_material,
-                glassTextured_material,
-                intAlcanataraGrey_material,
-                intLeatherBlack_material,
-                intStitchesRed_material,
-                intLeatherSeatsPattern_material,
-                intButtons_material,
-                intGrillBump_material
-            ]
+            materials: [body_material,metalDark_material,plasticBlack_material,chrome_material,glassLights_material,glassRedLights_material,glassMatRedLights_material,chromeLightsBMP_material,glassLightsIllum_material,metalBlackMatte_material,metalMirror_material,aluminium_material,glassTextured_material,intAlcanataraGrey_material,intLeatherBlack_material,intStitchesRed_material,intLeatherSeatsPattern_material,intButtons_material,intGrillBump_material]
         }
         Model {
             id: engineFront
@@ -532,14 +480,7 @@ Node {
             castsReflections: true
             receivesShadows: true
             castsShadows: true
-            materials: [
-                carPaint_material,
-                plasticBlack_material,
-                chrome_material,
-                glassLightsIllum_material,
-                rubber_material
-
-            ]
+            materials: [body_material,plasticBlack_material,chrome_material,glassLightsIllum_material,rubber_material]
         }
         Model {
             id: hoodEngineCover
@@ -582,6 +523,7 @@ Node {
             id: seats
             objectName: "Seats"
             y: 0.6852515935897827
+            visible: false
             z: -0.17120154201984406
             scale.x: 0.001
             scale.y: 0.001
@@ -675,14 +617,7 @@ Node {
             scale.y: 0.001
             scale.z: 0.001
             source: "meshes/trunkLid_mesh.mesh"
-            materials: [
-                carPaint_material,
-                carPaintBlackBump_material,
-                metalDark_material,
-                plasticBlack_material,
-                metalBlackMatte_material,
-                rubber_material
-            ]
+            materials: [body_material,carPaintBlackBump_material,metalDark_material,plasticBlack_material,metalBlackMatte_material,rubber_material]
         }
         Model {
             id: wheelFrLeft
@@ -1104,7 +1039,7 @@ Node {
         PrincipledMaterial {
             id: metalGreyMatte_material
             objectName: "MetalGreyMatte"
-            baseColor: "#ff6f6f6f"
+            baseColor: "#181818"
             metalness: 1
             roughness: 0.8258898854255676
             cullMode: PrincipledMaterial.NoCulling
@@ -1174,10 +1109,13 @@ Node {
             alphaMode: PrincipledMaterial.Opaque
         }
 
-        DefaultMaterial {
+        PrincipledMaterial {
             id: rubber_material
-            bumpAmount: 0.5
-            diffuseColor: "#141414"
+            metalness: 0.09762
+            specularAmount: 0.5
+            clearcoatAmount: 0
+            baseColor: "#272727"
+            roughness: 0.10523
             objectName: "Rubber"
             cullMode: PrincipledMaterial.NoCulling
         }
@@ -1186,10 +1124,9 @@ Node {
             id: glassTextured_material
             objectName: "GlassTextured"
             baseColor: "#ff0f0f0f"
-            baseColorMap: _3_texture
-            metalness: 1
+            metalness: 0.69836
             cullMode: PrincipledMaterial.NoCulling
-            alphaMode: PrincipledMaterial.Blend
+            alphaMode: PrincipledMaterial.Default
         }
 
         PrincipledMaterial {
@@ -1270,18 +1207,20 @@ Node {
 
         PrincipledMaterial {
             id: wheelRimBlack_material
+            baseColor: "#ffffff"
             objectName: "WheelRimBlack"
             baseColorMap: _18_texture
             metalness: 1
-            roughness: 0.5205535888671875
+            roughness: 0.03458
             cullMode: PrincipledMaterial.NoCulling
             alphaMode: PrincipledMaterial.Opaque
         }
 
         PrincipledMaterial {
             id: wheelRimAlum_material
+            roughness: 0.17105
             objectName: "WheelRimAlum"
-            baseColor: "#ff808080"
+            baseColor: "#181818"
             metalness: 1
             cullMode: PrincipledMaterial.NoCulling
             alphaMode: PrincipledMaterial.Opaque
@@ -1296,6 +1235,16 @@ Node {
             cullMode: PrincipledMaterial.NoCulling
             alphaMode: PrincipledMaterial.Opaque
         }
+
+        PrincipledMaterial {
+                    id: body_material
+                    clearcoatAmount: 0.69951
+                    metalness: 0.28334
+                    objectName: "body"
+                    baseColor: "#b10000"
+                    roughness: 0.40178
+        }
+
     }
 
     Texture {
@@ -1497,6 +1446,6 @@ Node {
 
 /*##^##
 Designer {
-    D{i:0;cameraSpeed3d:25;cameraSpeed3dMultiplier:1}D{i:117;transitionDuration:2000}
+    D{i:0;cameraSpeed3d:25;cameraSpeed3dMultiplier:1}D{i:99;transitionDuration:2000}
 }
 ##^##*/
