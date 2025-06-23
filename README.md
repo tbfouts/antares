@@ -157,8 +157,25 @@ To open in Qt Creator or Qt Design Studio:
 
 3. The applications will automatically connect via the WebSocket API
 
-## Development and Testing
-The project includes Squish test suites located in `suite_squish/` for automated UI testing.
+## Testing
+The project includes Squish test suites located in `Cluster/tests/` for automated UI testing.
+`suite_antares-basic` contains tests developed more in line with a linear scripting, 'record-and-playback' style of test scripts.
+`suite_antares-framework` contains tests developed with a Page Object Model style of automation architecture, regarding separating the object references and interactions between the Cluster and IVI AUTs.
+
+When testing with multiple applications (IVI & Cluster), as is done in `suite_antares-framework/tst_media-parity`, use application context switching to switch Squish's focus between IVI and ClusterApp, respectively. e.g.:
+`setApplicationContext(applicationContext('IVIApp'))`
+`setApplicationContext(applicationContext('ClusterApp'))`
+
+When using the framework approach that has been developed in `suite_antares-framework`, start each test with the following lines:
+```
+source(findFile('scripts', 'antares-setup.py'))
+
+def main():     
+    Setup( {'IVIApp': 'launch', 'ClusterApp': 'launch'} )
+``` 
+
+The `Setup()` function comes from the `antares-setup.py` file. It imports all additional framework and convenience/helper files. 
+As shown in the example above, you can specify if you want to "launch" or "attach" either of the Antares GUI applications in a given test.
 
 ## Authors and acknowledgment
 Design/Visuals: Shawn Dorsey
