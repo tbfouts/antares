@@ -6,6 +6,7 @@ import Quick3DAssets.GenericCarModel
 import Quick3DAssets.Lights
 import QtQuick3D.Helpers 6.5
 import Data 1.0 as Data
+import QtQuick.Timeline 1.0
 
 View3D {
     id: view3DCar
@@ -31,11 +32,12 @@ View3D {
 
         ExtendedSceneEnvironment {
             id: xsceneEnvironment
+            depthOfFieldFocusRange: 120
             glowLevel: ExtendedSceneEnvironment.GlowLevel.Five
             probeOrientation.y: 130
-                    depthOfFieldBlurAmount: 25
+                    depthOfFieldBlurAmount: 15
                     depthOfFieldFocusDistance: 500
-                    depthOfFieldEnabled: false
+                    depthOfFieldEnabled: true
                     adjustmentContrast: 1
                     adjustmentBrightness: 1
                     colorAdjustmentsEnabled: false
@@ -193,7 +195,7 @@ View3D {
                 y: 454.668
                 visible: true
                 color: "#a1a1a1"
-                scope: groundPlaneA
+                scope: cylinder
                 ambientColor: "#ffffff"
                 brightness: 0.16
                 eulerRotation.z: 114.08686
@@ -202,19 +204,19 @@ View3D {
                 z: -618.60547
             }
 
-            ReflectionProbe {
-                id: reflectionProbe
-                x: 0
-                y: -993.322
-                clearColor: "#00000000"
-                z: 0
-                quality: ReflectionProbe.High
-                parallaxCorrection: true
-                debugView: false
-                boxSize.z: 2000
-                boxSize.y: 2000
-                boxSize.x: 2000
-            }
+            // ReflectionProbe {
+            //     id: reflectionProbe
+            //     x: 0
+            //     y: -993.322
+            //     clearColor: "#00000000"
+            //     z: 0
+            //     quality: ReflectionProbe.High
+            //     parallaxCorrection: true
+            //     debugView: false
+            //     boxSize.z: 2000
+            //     boxSize.y: 2000
+            //     boxSize.x: 2000
+            // }
 
             Model {
                 id: camNull
@@ -229,14 +231,32 @@ View3D {
 
                 PerspectiveCamera {
                     id: perspectiveCamera
-                    x: -2.764
-                    y: -73.375
+                    x: 6.321
+                    y: -85.846
+                    clipFar: 3000
                     eulerRotation.z: 0
                     eulerRotation.y: 7
                     eulerRotation.x: 12
-                    fieldOfView: 40
-                    z: 530
+                    fieldOfView: 30
+                    z: 603.9931
                 }
+            }
+
+            Model {
+                id: cylinder
+                x: -807.69
+                y: 0
+                opacity: 1
+                source: "#Cylinder"
+                eulerRotation.z: -0.00001
+                eulerRotation.y: -34.99999
+                eulerRotation.x: 0
+                pivot.y: -50
+                scale.z: 2.1
+                scale.y: 4
+                scale.x: 1
+                materials: eq3DBar_1
+                z: -632.18176
             }
 
 }
@@ -324,6 +344,14 @@ View3D {
             source: "../images/konzerthaus_4k.hdr"
             objectName: "Konzerthaus 4k"
         }
+
+        PrincipledMaterial {
+            id: eq3DBar_1
+            clearcoatAmount: 0.59356
+            roughness: 0.47091
+            baseColor: Data.Themes.themeColor3
+            objectName: "eq3DBar_1"
+        }
     }
 
     OrbitCameraController {
@@ -339,9 +367,77 @@ View3D {
         origin: camNull
     }
 
+    Timeline {
+        id: timelineBARS
+        animations: [
+            TimelineAnimation {
+                id: animBars
+                duration: Data.Themes.trackSpeed
+                running: true
+                loops: -1
+                to: 1000
+                from: 0
+            }
+        ]
+        startFrame: 0
+        endFrame: 1000
+        enabled: true
+
+        KeyframeGroup {
+            target: cylinder
+            property: "scale.y"
+            Keyframe {
+                value: 2
+                frame: 0
+            }
+
+            Keyframe {
+                value: 3
+                frame: 1000
+            }
+
+            Keyframe {
+                value: 4
+                frame: 583
+            }
+
+            Keyframe {
+                value: 2.5
+                frame: 229
+            }
+
+            Keyframe {
+                value: 1.8
+                frame: 737
+            }
+        }
+
+        KeyframeGroup {
+            target: cylinder
+            property: "scale"
+        }
+    }
+
     states: [
         State {
             name: "base"
+
+            PropertyChanges {
+                target: timelineBARS
+                enabled: true
+            }
+
+            PropertyChanges {
+                target: animBars
+                running: true
+            }
+
+            PropertyChanges {
+                target: cylinder
+                x: -1521.955
+                y: -0
+                z: -1132.31543
+            }
         },
 
         State {
@@ -356,9 +452,22 @@ View3D {
 
             PropertyChanges {
                 target: perspectiveCamera
+                x: -62.801
+                y: -8.819
+                z: 546.85822
                 eulerRotation.z: -1
                 eulerRotation.x: 6
                 eulerRotation.y: 7
+            }
+
+            PropertyChanges {
+                target: timelineBARS
+                enabled: true
+            }
+
+            PropertyChanges {
+                target: animBars
+                running: true
             }
 
 
@@ -370,6 +479,16 @@ View3D {
                 target: camNull
                 opacity: 0
                 materials: shadowMaterial
+            }
+
+            PropertyChanges {
+                target: timelineBARS
+                enabled: true
+            }
+
+            PropertyChanges {
+                target: animBars
+                running: true
             }
         },
         State {
@@ -389,9 +508,28 @@ View3D {
 
             PropertyChanges {
                 target: perspectiveCamera
+                x: 1.363
+                y: -32.687
+                z: 609.60693
                 eulerRotation.z: 0
                 eulerRotation.x: 6
                 eulerRotation.y: 3
+            }
+
+            PropertyChanges {
+                target: cylinder
+                y: 48.852
+                materials: shadowMaterial
+            }
+
+            PropertyChanges {
+                target: timelineBARS
+                enabled: true
+            }
+
+            PropertyChanges {
+                target: animBars
+                running: true
             }
         }    ]
     transitions: [
@@ -575,6 +713,7 @@ View3D {
 
 /*##^##
 Designer {
-    D{i:0}D{i:3;cameraSpeed3d:25;cameraSpeed3dMultiplier:1}D{i:36;transitionDuration:2000}
+    D{i:0;matPrevEnvDoc:"SkyBox";matPrevEnvValueDoc:"preview_studio";matPrevModelDoc:"#Sphere"}
+D{i:3;cameraSpeed3d:25;cameraSpeed3dMultiplier:1}D{i:56;transitionDuration:2000}
 }
 ##^##*/

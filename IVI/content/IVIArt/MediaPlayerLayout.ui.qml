@@ -16,6 +16,8 @@ Rectangle {
         anchors.top: parent.top
         anchors.leftMargin: 808
         anchors.topMargin: 34
+        eqBarsTopEQAnimationRunning: true
+        eqBarsBottomEQAnimationRunning: true
         dialValue: -101
     }
 
