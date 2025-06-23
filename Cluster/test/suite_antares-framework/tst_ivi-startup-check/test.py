@@ -7,10 +7,12 @@ def main():
     
     test.log("Verify the default screen upon launch is the Media Tab")    
     
-    test.verify(Ivi.o_tabElement("Media").checked and Ivi.o_mediaView().focus, 
+    test.verify(Ivi.objects.tabElement("Media").checked and Ivi.objects.mediaView().focus, 
                 "Media Tab selected and visible upon startup")
     
-    log_object_screenshot(Ivi.o_iviAppWindow(), "Default Tab after startup")
+    log_object_screenshot(Ivi.objects.appWindow(), "Default Tab after startup")
+    
+    Ivi.select_tab("Vehicle")
     
     
     

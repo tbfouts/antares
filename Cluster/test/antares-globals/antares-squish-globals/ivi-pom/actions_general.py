@@ -3,7 +3,8 @@ class IVI_General_Actions():
     
     @staticmethod
     def select_tab(input:str=None):
-        mouseClick( Ivi_Objects.o_tabElement( input ))
+        # mouseClick( Ivi_Objects.tabElement( input ))
+        mouseClick( Ivi.objects.tabElement( input ))
         snooze(1)
         
     @staticmethod
@@ -28,13 +29,13 @@ class IVI_General_Actions():
     def _get_setting_btn_reference(setting:str=None):
         input = setting.lower()
         if input == "lights":
-            btn = Ivi.o_lampsIndicator()
+            btn = Ivi.objects.lampsIndicator()
         elif input == "driver door":
-            btn = Ivi.o_driverDoorIndicator()
+            btn = Ivi.objects.driverDoorIndicator()
         elif input == "passenger door":
-            btn = Ivi.o_passengerDoorIndicator()
+            btn = Ivi.objects.passengerDoorIndicator()
         elif input == "adas":
-            btn = Ivi.o_adasIndicator()
+            btn = Ivi.objects.adasIndicator()
         else:
             test.fatal("Pass in valid 3D model setting")
         return btn

@@ -3,6 +3,7 @@ source(findFile('scripts', 'antares-squish-globals/ivi-pom/actions_general.py'))
 source(findFile('scripts', 'antares-squish-globals/ivi-pom/actions_media.py'))
 
 
-class Ivi( Ivi_Objects, IVI_General_Actions, IVI_Media_Actions ):
-    pass
+class Ivi( IVI_General_Actions, IVI_Media_Actions ):
+    
+    objects = Ivi_Objects()
 

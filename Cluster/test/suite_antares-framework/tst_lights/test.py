@@ -17,16 +17,16 @@ def main():
     test.log("Checking Lights are OFF in IVI")
     # Object-based
     test.compare( Ivi.get_model_setting_state('lights'), False)
-    test.compare( Ivi.o_carModel().lightsVisible, False )
+    test.compare( Ivi.objects.carModel().lightsVisible, False )
     # Image-based
-    verify_image( "Ivi_Lights-Off", Ivi.o_carModel() )
+    verify_image( "Ivi_Lights-Off", Ivi.objects.carModel() )
     
     test.log("Checking Lights are OFF in Cluster")
     setApplicationContext(applicationContext('ClusterApp'))
     # Object-based
     #Cluster 3D model doesn't have the same exposed properties
     #Image-based
-    verify_image( "Cluster_Lights_Off", Cluster.o_vehicleModel() )
+    verify_image( "Cluster_Lights_Off", Cluster.objects.vehicleModel() )
     test.endSection()
     
     
@@ -38,16 +38,16 @@ def main():
     test.log("Checking Lights are ON in IVI")
     # Object-based
     test.compare( Ivi.get_model_setting_state('lights'), True)
-    test.compare( Ivi.o_carModel().lights, True )
+    test.compare( Ivi.objects.carModel().lights, True )
     # Image-based
-    verify_image( "Ivi_Lights-On", Ivi.o_carModel() )
+    verify_image( "Ivi_Lights-On", Ivi.objects.carModel() )
     
     test.log("Checking Lights are ON in Cluster")
     setApplicationContext(applicationContext('ClusterApp'))
     # Object-based
     #Cluster 3D model doesn't have the same exposed properties
     #Image-based
-    verify_image( "Cluster_Lights_On", Cluster.o_vehicleModel() )
+    verify_image( "Cluster_Lights_On", Cluster.objects.vehicleModel() )
     test.endSection()
     
     

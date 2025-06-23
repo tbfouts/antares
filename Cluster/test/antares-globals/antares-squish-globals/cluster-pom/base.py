@@ -2,6 +2,8 @@ source(findFile('scripts', 'antares-squish-globals/cluster-pom/object_references
 source(findFile('scripts', 'antares-squish-globals/cluster-pom/actions.py'))
 
 
-class Cluster( Cluster_Objects, Cluster_Actions ):
+class Cluster( Cluster_Actions ):
+    
+    objects = Cluster_Objects()
     pass
     

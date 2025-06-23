@@ -34,9 +34,9 @@ def main():
         
         test.log("Verify speed limit indicator")
         if speed > 55:
-            verify_image( "over-speed-limit", Cluster.o_speedLimitMPH(), pixel_error_threshold=0.08 )
+            verify_image( "over-speed-limit", Cluster.objects.speedLimitMPH(), pixel_error_threshold=0.08 )
         else:
-            verify_image( "under-speed-limit", Cluster.o_speedLimitMPH(), pixel_error_threshold=0.08 )
+            verify_image( "under-speed-limit", Cluster.objects.speedLimitMPH(), pixel_error_threshold=0.08 )
         test.endSection()
 
     VEHICLE_SIMULATOR.send("speed", 0)

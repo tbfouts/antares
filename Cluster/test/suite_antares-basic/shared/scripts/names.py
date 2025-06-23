@@ -32,3 +32,7 @@ antares_Cluster_qsrWarnings_Loader = {"container": antares_Cluster_QQuickWindowQ
 antares_Cluster_qsrWarnings_ui = {"container": antares_Cluster_QQuickWindowQmlImpl, "id": "qsrWarnings", "type": "QsrWarnings.ui", "unnamed": 1, "visible": True}
 antares_Cluster_directionsMini_Comp_ui = {"container": antares_Cluster_QQuickWindowQmlImpl, "id": "directionsMini_Comp", "type": "DirectionsMini_Comp.ui", "unnamed": 1, "visible": True}
 antares_Cluster_weatherComp_ui = {"container": antares_Cluster_QQuickWindowQmlImpl, "id": "weatherComp", "type": "WeatherComp.ui", "unnamed": 1, "visible": True}
+txtFuelRem = {"container": antares_Cluster_QQuickWindowQmlImpl, "id": "txtFuelRem", "type": "Text", "unnamed": 1, "visible": True}
+veFuelGaugeBar = {"container": antares_Cluster_QQuickWindowQmlImpl, "id": "veFuelGaugeBar", "type": "Rectangle", "unnamed": 1, "visible": True}
+textBatteryRem = {"container": antares_Cluster_QQuickWindowQmlImpl, "id": "textBatteryRem", "type": "Text", "unnamed": 1, "visible": True}
+barFillingBattery = {"container": antares_Cluster_QQuickWindowQmlImpl, "id": "barFillingBattery", "type": "Rectangle", "unnamed": 1, "visible": True}
