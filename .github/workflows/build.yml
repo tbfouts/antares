@@ -34,9 +34,9 @@ jobs:
     - name: Install Qt for Android
       uses: jurplel/install-qt-action@v3
       with:
-        version: '6.8.4'  # Qt 6.8.4 LTS
+        version: '6.8.3'  # Qt 6.8.3 LTS
         target: 'android'
-        arch: 'android_arm64_v8a'  # Modern Android devices
+        arch: 'android_arm64_v8a'
         modules: >
           qtquick
           qtquickcontrols2
@@ -121,7 +121,7 @@ jobs:
         
         # Create a simple info file
         echo "Android build completed on $(date)" > ../../artifacts/build_info.txt
-        echo "Qt version: 6.8.4 LTS" >> ../../artifacts/build_info.txt
+        echo "Qt version: 6.8.3 LTS" >> ../../artifacts/build_info.txt
         echo "Android ABI: arm64-v8a" >> ../../artifacts/build_info.txt
         echo "Android API: 26" >> ../../artifacts/build_info.txt
         
