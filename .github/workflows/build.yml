@@ -35,7 +35,7 @@ jobs:
         host: linux
         target: desktop
         arch: linux_gcc_64
-        modules: qtwebsockets qtquick3d qtshadertools qtquicktimeline qt5compat qtshadertools qtwebsockets qtmultimedia
+        modules: qtwebsockets qtquick3d qtshadertools qtquicktimeline qt5compat qtshadertools qtwebsockets qtmultimedia qtserialbus
         cache: true
         
     - name: Build Qt Designer Components
