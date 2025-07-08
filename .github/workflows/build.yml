@@ -1,12 +1,15 @@
-name: Build Antares Qt Project for Android
+name: Build Antares Qt Project for Linux
 
 on:
   push:
     branches: [ main ]
+  pull_request:
+    branches: [ main ]
+  workflow_dispatch:  # Allow manual triggering
 
 jobs:
-  build-android:
-    runs-on: ubuntu-latest  # Ubuntu for Android builds
+  build-linux:
+    runs-on: ubuntu-latest
     
     steps:
     - name: Checkout repository
@@ -14,29 +17,55 @@ jobs:
       with:
         submodules: recursive  # In case you have submodules
         
-    - name: Set up Java 17
-      uses: actions/setup-java@v4
-      with:
-        distribution: 'temurin'
-        java-version: '17'
-        
-    - name: Setup Android SDK
-      uses: android-actions/setup-android@v3
-      
-    - name: Install Android SDK components
+    - name: Install system dependencies
       run: |
-        $ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager \
-          "platforms;android-34" \
-          "build-tools;34.0.0" \
-          "ndk;26.1.10909125" \
-          "platform-tools"
-        
-    - name: Install Qt for Android
+        sudo apt-get update
+        sudo apt-get install -y \
+          build-essential \
+          cmake \
+          ninja-build \
+          libgl1-mesa-dev \
+          libxkbcommon-x11-0 \
+          libxcb-xinerama0 \
+          libxcb-cursor0 \
+          libxcb-icccm4 \
+          libxcb-image0 \
+          libxcb-keysyms1 \
+          libxcb-randr0 \
+          libxcb-render-util0 \
+          libxcb-shape0 \
+          libxcb-xfixes0 \
+          libfontconfig1-dev \
+          libfreetype6-dev \
+          libx11-dev \
+          libx11-xcb-dev \
+          libxext-dev \
+          libxfixes-dev \
+          libxi-dev \
+          libxrender-dev \
+          libxcb1-dev \
+          libxcb-cursor-dev \
+          libxcb-glx0-dev \
+          libxcb-util-dev \
+          libxcb-keysyms1-dev \
+          libxcb-image0-dev \
+          libxcb-shm0-dev \
+          libxcb-icccm4-dev \
+          libxcb-sync-dev \
+          libxcb-xfixes0-dev \
+          libxcb-shape0-dev \
+          libxcb-randr0-dev \
+          libxcb-render-util0-dev \
+          libxcb-util-wm-dev \
+          libxcb-xinerama0-dev \
+          libxcb-xkb-dev \
+          libxkbcommon-dev \
+          libxkbcommon-x11-dev
+          
+    - name: Install Qt for Linux
       uses: jurplel/install-qt-action@v3
       with:
-        version: '6.8.3'  # Qt 6.8.3 LTS
-        target: 'android'
-        arch: 'android_arm64_v8a'
+        version: '6.8.3'
         modules: >
           qtquick
           qtquickcontrols2
@@ -46,12 +75,6 @@ jobs:
           qtshadertools
         cache: true
         
-    - name: Set up Android environment variables
-      run: |
-        echo "ANDROID_SDK_ROOT=$ANDROID_HOME" >> $GITHUB_ENV
-        echo "ANDROID_NDK_ROOT=$ANDROID_HOME/ndk/26.1.10909125" >> $GITHUB_ENV
-        echo "JAVA_HOME=$JAVA_HOME_17_X64" >> $GITHUB_ENV
-        
     - name: Build Qt Designer Components
       run: |
         # Clone and build Qt Designer Components as specified in README
@@ -60,9 +83,7 @@ jobs:
         cd buildDScomponents
         cmake -GNinja \
           -DCMAKE_INSTALL_PREFIX=$Qt6_DIR \
-          -DCMAKE_TOOLCHAIN_FILE=$ANDROID_NDK_ROOT/build/cmake/android.toolchain.cmake \
-          -DANDROID_ABI=arm64-v8a \
-          -DANDROID_PLATFORM=android-26 \
+          -DCMAKE_BUILD_TYPE=Release \
           ../qtquickdesigner-components
         cmake --build .
         cmake --install .
@@ -73,9 +94,6 @@ jobs:
         mkdir build && cd build
         cmake .. \
           -DCMAKE_BUILD_TYPE=Release \
-          -DCMAKE_TOOLCHAIN_FILE=$ANDROID_NDK_ROOT/build/cmake/android.toolchain.cmake \
-          -DANDROID_ABI=arm64-v8a \
-          -DANDROID_PLATFORM=android-26 \
           -DQt6_DIR=$Qt6_DIR
         cmake --build .
         
@@ -85,9 +103,6 @@ jobs:
         mkdir build && cd build
         cmake .. \
           -DCMAKE_BUILD_TYPE=Release \
-          -DCMAKE_TOOLCHAIN_FILE=$ANDROID_NDK_ROOT/build/cmake/android.toolchain.cmake \
-          -DANDROID_ABI=arm64-v8a \
-          -DANDROID_PLATFORM=android-26 \
           -DQt6_DIR=$Qt6_DIR
         cmake --build .
         
@@ -97,39 +112,39 @@ jobs:
         mkdir build && cd build
         cmake .. \
           -DCMAKE_BUILD_TYPE=Release \
-          -DCMAKE_TOOLCHAIN_FILE=$ANDROID_NDK_ROOT/build/cmake/android.toolchain.cmake \
-          -DANDROID_ABI=arm64-v8a \
-          -DANDROID_PLATFORM=android-26 \
           -DQt6_DIR=$Qt6_DIR
         cmake --build .
         
-    - name: Package Android APKs
+    - name: Package Linux binaries
       run: |
         # Create a directory for artifacts
         mkdir -p artifacts
         
-        # Build APKs if the projects are configured for Android deployment
-        cd Cluster/build
-        if [ -f "android-build/build/outputs/apk/debug/android-build-debug.apk" ]; then
-          cp android-build/build/outputs/apk/debug/android-build-debug.apk ../../artifacts/GLOApp-debug.apk
+        # Copy built applications
+        if [ -f "Cluster/build/cluster" ]; then
+          cp Cluster/build/cluster artifacts/
         fi
         
-        cd ../../IVI/build
-        if [ -f "android-build/build/outputs/apk/debug/android-build-debug.apk" ]; then
-          cp android-build/build/outputs/apk/debug/android-build-debug.apk ../../artifacts/QtMediaSwipeApp-debug.apk
+        if [ -f "IVI/build/ivi" ]; then
+          cp IVI/build/ivi artifacts/
+        fi
+        
+        # Copy any shared libraries if needed
+        if [ -f "common/build/libcommon.so" ]; then
+          cp common/build/libcommon.so artifacts/
         fi
         
         # Create a simple info file
-        echo "Android build completed on $(date)" > ../../artifacts/build_info.txt
-        echo "Qt version: 6.8.3 LTS" >> ../../artifacts/build_info.txt
-        echo "Android ABI: arm64-v8a" >> ../../artifacts/build_info.txt
-        echo "Android API: 26" >> ../../artifacts/build_info.txt
+        echo "Linux build completed on $(date)" > artifacts/build_info.txt
+        echo "Qt version: 6.8.3" >> artifacts/build_info.txt
+        echo "Platform: Ubuntu Linux" >> artifacts/build_info.txt
+        echo "Architecture: x86_64" >> artifacts/build_info.txt
         
-    - name: Upload Android APK artifacts
+    - name: Upload Linux binaries
       uses: actions/upload-artifact@v4
       if: success()
       with:
-        name: antares-android-apks-${{ github.sha }}
+        name: antares-linux-binaries-${{ github.sha }}
         path: artifacts/
         retention-days: 30
         
@@ -137,9 +152,8 @@ jobs:
       uses: actions/upload-artifact@v4
       if: failure()
       with:
-        name: android-build-logs-${{ github.sha }}
+        name: linux-build-logs-${{ github.sha }}
         path: |
           */build/CMakeFiles/CMakeOutput.log
           */build/CMakeFiles/CMakeError.log
         retention-days: 7
-
