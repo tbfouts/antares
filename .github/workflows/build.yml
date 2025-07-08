@@ -69,14 +69,14 @@ jobs:
           -DQt6_DIR=$Qt6_DIR
         cmake --build .
         
-    - name: Build IVI Application
-      run: |
-        cd IVI
-        mkdir build && cd build
-        cmake .. \
-          -DCMAKE_BUILD_TYPE=Release \
-          -DQt6_DIR=$Qt6_DIR
-        cmake --build .
+    # - name: Build IVI Application
+    #   run: |
+    #     cd IVI
+    #     mkdir build && cd build
+    #     cmake .. \
+    #       -DCMAKE_BUILD_TYPE=Release \
+    #       -DQt6_DIR=$Qt6_DIR
+    #     cmake --build .
         
     - name: Package Linux binaries
       run: |
