@@ -31,14 +31,11 @@ jobs:
     - name: Install Qt for Linux
       uses: jurplel/install-qt-action@v3
       with:
-        version: '6.8.3'
-        modules: >
-          qtquick
-          qtquickcontrols2
-          qtmultimedia
-          qt3d
-          qtwebsockets
-          qtshadertools
+        version: 6.8.3
+        host: linux
+        target: desktop
+        arch: linux_gcc_64
+        modules: qtwebsockets qtquick3d qtshadertools qtquicktimeline qt5compat qtshadertools qtwebsockets qtmultimedia
         cache: true
         
     - name: Build Qt Designer Components
