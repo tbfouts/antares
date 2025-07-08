@@ -126,7 +126,7 @@ jobs:
         echo "Android API: 26" >> ../../artifacts/build_info.txt
         
     - name: Upload Android APK artifacts
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       if: success()
       with:
         name: antares-android-apks-${{ github.sha }}
@@ -134,7 +134,7 @@ jobs:
         retention-days: 30
         
     - name: Upload logs on failure
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       if: failure()
       with:
         name: android-build-logs-${{ github.sha }}
