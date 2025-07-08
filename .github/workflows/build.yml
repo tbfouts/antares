@@ -2,7 +2,7 @@ name: Build Antares Qt Project for Linux
 
 on:
   push:
-    branches: [ main ]
+    branches: [ main, develop ]
   pull_request:
     branches: [ main ]
   workflow_dispatch:  # Allow manual triggering
@@ -25,42 +25,8 @@ jobs:
           cmake \
           ninja-build \
           libgl1-mesa-dev \
-          libxkbcommon-x11-0 \
-          libxcb-xinerama0 \
-          libxcb-cursor0 \
-          libxcb-icccm4 \
-          libxcb-image0 \
-          libxcb-keysyms1 \
-          libxcb-randr0 \
-          libxcb-render-util0 \
-          libxcb-shape0 \
-          libxcb-xfixes0 \
-          libfontconfig1-dev \
-          libfreetype6-dev \
-          libx11-dev \
-          libx11-xcb-dev \
-          libxext-dev \
-          libxfixes-dev \
-          libxi-dev \
-          libxrender-dev \
-          libxcb1-dev \
-          libxcb-cursor-dev \
-          libxcb-glx0-dev \
-          libxcb-util-dev \
-          libxcb-keysyms1-dev \
-          libxcb-image0-dev \
-          libxcb-shm0-dev \
-          libxcb-icccm4-dev \
-          libxcb-sync-dev \
-          libxcb-xfixes0-dev \
-          libxcb-shape0-dev \
-          libxcb-randr0-dev \
-          libxcb-render-util0-dev \
-          libxcb-util-wm-dev \
-          libxcb-xinerama0-dev \
-          libxcb-xkb-dev \
           libxkbcommon-dev \
-          libxkbcommon-x11-dev
+          libxcb-xkb-dev
           
     - name: Install Qt for Linux
       uses: jurplel/install-qt-action@v3
