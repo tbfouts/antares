@@ -170,6 +170,9 @@ jobs:
         git clone https://code.qt.io/qt-labs/qtquickdesigner-components.git
         mkdir buildDScomponents-android
         cd buildDScomponents-android
+        # Set environment variables to override problematic flags
+        export CXXFLAGS="-Wno-error"
+        export CFLAGS="-Wno-error"
         cmake -GNinja \
           -DCMAKE_INSTALL_PREFIX=$Qt6_DIR \
           -DCMAKE_BUILD_TYPE=Release \
@@ -177,7 +180,7 @@ jobs:
           -DANDROID_ABI=arm64-v8a \
           -DANDROID_PLATFORM=android-33 \
           -DQT_HOST_PATH=$QT_HOST_PATH \
-          -DCMAKE_CXX_FLAGS="-Wno-error" \
+          -DCMAKE_CXX_FLAGS="-DNDEBUG -O2 -std=gnu++17 -fPIC -fvisibility=hidden -fvisibility-inlines-hidden -Wall -Wextra -fno-exceptions -Wno-error -Wno-deprecated-declarations -Wno-deprecated-enum-enum-conversion -Wno-unused-but-set-variable -ftrivial-auto-var-init=pattern -fstack-protector-strong" \
           ../qtquickdesigner-components
         cmake --build .
         cmake --install .
