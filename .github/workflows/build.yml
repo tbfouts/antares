@@ -37,53 +37,6 @@ jobs:
         arch: linux_gcc_64
         modules: qtwebsockets qtquick3d qtshadertools qtquicktimeline qt5compat qtshadertools qtwebsockets qtmultimedia qtserialbus qtserialport
         cache: true
-
-  build-android:
-    runs-on: ubuntu-latest
-    
-    steps:
-    - name: Checkout repository
-      uses: actions/checkout@v4
-      with:
-        submodules: recursive
-        
-    - name: Set up JDK 17
-      uses: actions/setup-java@v4
-      with:
-        java-version: '17'
-        distribution: 'temurin'
-        
-    - name: Setup Android SDK
-      uses: android-actions/setup-android@v3
-      
-    - name: Install Android NDK
-      run: |
-        sdkmanager --install "ndk;26.1.10909125"
-        sdkmanager --install "platforms;android-33"
-        sdkmanager --install "build-tools;33.0.0"
-        
-    - name: Install Qt for Linux (host for Android cross-compilation)
-      uses: jurplel/install-qt-action@v3
-      with:
-        version: 6.8.3
-        host: linux
-        target: desktop
-        arch: linux_gcc_64
-        modules: qtwebsockets qtquick3d qtshadertools qtquicktimeline qt5compat qtshadertools qtwebsockets qtmultimedia qtserialbus qtserialport
-        cache: true
-        
-    - name: Store Qt host path
-      run: echo "QT_HOST_PATH=$Qt6_DIR" >> $GITHUB_ENV
-        
-    - name: Install Qt for Android
-      uses: jurplel/install-qt-action@v3
-      with:
-        version: 6.8.3
-        host: linux
-        target: android
-        arch: android_arm64_v8a
-        modules: qtwebsockets qtquick3d qtshadertools qtquicktimeline qt5compat qtshadertools qtwebsockets qtmultimedia qtserialbus qtserialport
-        cache: true
         
     - name: Build Qt Designer Components
       run: |
@@ -139,7 +92,6 @@ jobs:
           cp IVI/build/ivi artifacts/
         fi
         
-        
         # Create a simple info file
         echo "Linux build completed on $(date)" > artifacts/build_info.txt
         echo "Qt version: 6.8.3" >> artifacts/build_info.txt
@@ -163,6 +115,57 @@ jobs:
           */build/CMakeFiles/CMakeOutput.log
           */build/CMakeFiles/CMakeError.log
         retention-days: 7
+
+  build-android:
+    runs-on: macos-latest
+    
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+      with:
+        submodules: recursive
+        
+    - name: Install system dependencies
+      run: |
+        brew install ninja cmake
+        
+    - name: Set up JDK 17
+      uses: actions/setup-java@v4
+      with:
+        java-version: '17'
+        distribution: 'temurin'
+        
+    - name: Setup Android SDK
+      uses: android-actions/setup-android@v3
+      
+    - name: Install Android NDK
+      run: |
+        sdkmanager --install "ndk;26.1.10909125"
+        sdkmanager --install "platforms;android-33"
+        sdkmanager --install "build-tools;33.0.0"
+        
+    - name: Install Qt for macOS (host for Android cross-compilation)
+      uses: jurplel/install-qt-action@v3
+      with:
+        version: 6.8.3
+        host: mac
+        target: desktop
+        arch: clang_64
+        modules: qtwebsockets qtquick3d qtshadertools qtquicktimeline qt5compat qtshadertools qtwebsockets qtmultimedia qtserialbus qtserialport
+        cache: true
+        
+    - name: Store Qt host path
+      run: echo "QT_HOST_PATH=$Qt6_DIR" >> $GITHUB_ENV
+        
+    - name: Install Qt for Android
+      uses: jurplel/install-qt-action@v3
+      with:
+        version: 6.8.3
+        host: mac
+        target: android
+        arch: android_arm64_v8a
+        modules: qtwebsockets qtquick3d qtshadertools qtquicktimeline qt5compat qtshadertools qtwebsockets qtmultimedia qtserialbus qtserialport
+        cache: true
         
     - name: Build Qt Designer Components for Android
       run: |
@@ -170,9 +173,6 @@ jobs:
         git clone https://code.qt.io/qt-labs/qtquickdesigner-components.git
         mkdir buildDScomponents-android
         cd buildDScomponents-android
-        # Set environment variables to override problematic flags
-        export CXXFLAGS="-Wno-error"
-        export CFLAGS="-Wno-error"
         cmake -GNinja \
           -DCMAKE_INSTALL_PREFIX=$Qt6_DIR \
           -DCMAKE_BUILD_TYPE=Release \
@@ -180,7 +180,6 @@ jobs:
           -DANDROID_ABI=arm64-v8a \
           -DANDROID_PLATFORM=android-33 \
           -DQT_HOST_PATH=$QT_HOST_PATH \
-          -DCMAKE_CXX_FLAGS="-DNDEBUG -O2 -std=gnu++17 -fPIC -fvisibility=hidden -fvisibility-inlines-hidden -Wall -Wextra -fno-exceptions -Wno-error -Wno-deprecated-declarations -Wno-deprecated-enum-enum-conversion -Wno-unused-but-set-variable -ftrivial-auto-var-init=pattern -fstack-protector-strong" \
           ../qtquickdesigner-components
         cmake --build .
         cmake --install .
