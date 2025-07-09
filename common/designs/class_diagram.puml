@@ -1,0 +1,141 @@
+@startuml Vehicle Data System Class Diagram
+
+!define INTERFACE <<interface>>
+
+abstract class VehicleDataInterface {
+    +VehicleDataInterface(QObject *parent = nullptr)
+    +virtual ~VehicleDataInterface()
+    
+    ' Drive Mode & Settings
+    +virtual QString driveMode() const = 0
+    +virtual void setDriveMode(const QString &driveMode) = 0
+    +virtual QString units() const = 0
+    +virtual void setUnits(const QString &units) = 0
+    +virtual QString demoMode() const = 0
+    +virtual void setDemoMode(const QString &demoMode) = 0
+    +virtual bool simulationRunning() const = 0
+    +virtual void setSimulationRunning(bool simulationRunning) = 0
+    
+    ' Vehicle Status
+    +virtual int speed() const = 0
+    +virtual void setSpeed(int speed) = 0
+    +virtual int fuel() const = 0
+    +virtual void setFuel(int fuel) = 0
+    +virtual int battery() const = 0
+    +virtual void setBattery(int battery) = 0
+    +virtual int adasRot() const = 0
+    +virtual void setAdasRot(int adasRot) = 0
+    
+    ' System States
+    +virtual bool lights() const = 0
+    +virtual void setLights(bool lights) = 0
+    +virtual bool adas() const = 0
+    +virtual void setAdas(bool adas) = 0
+    +virtual bool doorDrvr() const = 0
+    +virtual void setDoorDrvr(bool doorDrvr) = 0
+    +virtual bool doorPsgr() const = 0
+    +virtual void setDoorPsgr(bool doorPsgr) = 0
+    +virtual bool gear() const = 0
+    +virtual void setGear(bool gear) = 0
+    +virtual bool switchTurnL() const = 0
+    +virtual void setSwitchTurnL(bool switchTurnL) = 0
+    +virtual bool switchTurnR() const = 0
+    +virtual void setSwitchTurnR(bool switchTurnR) = 0
+    +virtual bool qsrIcons() const = 0
+    +virtual void setQsrIcons(bool qsrIconsEnabled) = 0
+    
+    ' Signals
+    +signal driveModeChanged()
+    +signal unitsChanged()
+    +signal demoModeChanged()
+    +signal simulationRunningChanged()
+    +signal speedChanged()
+    +signal fuelChanged()
+    +signal batteryChanged()
+    +signal adasRotChanged()
+    +signal lightsChanged()
+    +signal adasChanged()
+    +signal doorDrvrChanged()
+    +signal doorPsgrChanged()
+    +signal gearChanged()
+    +signal switchTurnLChanged()
+    +signal switchTurnRChanged()
+    +signal qsrIconsChanged()
+}
+
+class VehicleData {
+    -QString m_driveMode
+    -QString m_units
+    -QString m_demoMode
+    -bool m_simulationRunning
+    -int m_speed
+    -int m_fuel
+    -bool m_gear
+    -int m_battery
+    -int m_adasRot
+    -bool m_lights
+    -bool m_adas
+    -bool m_doorDrvr
+    -bool m_doorPsgr
+    -bool m_switchTurnL
+    -bool m_switchTurnR
+    -bool m_qsricons
+    
+    +VehicleData(QObject *parent = nullptr)
+    +QString driveMode() const override
+    +void setDriveMode(const QString &driveMode) override
+    +QString units() const override
+    +void setUnits(const QString &units) override
+    +QString demoMode() const override
+    +void setDemoMode(const QString &demoMode) override
+    +bool simulationRunning() const override
+    +void setSimulationRunning(bool simulationRunning) override
+    +int speed() const override
+    +void setSpeed(int speed) override
+    +int fuel() const override
+    +void setFuel(int fuel) override
+    +int battery() const override
+    +void setBattery(int battery) override
+    +int adasRot() const override
+    +void setAdasRot(int adasRot) override
+    +bool lights() const override
+    +void setLights(bool lights) override
+    +bool adas() const override
+    +void setAdas(bool adas) override
+    +bool doorDrvr() const override
+    +void setDoorDrvr(bool doorDrvr) override
+    +bool doorPsgr() const override
+    +void setDoorPsgr(bool doorPsgr) override
+    +bool gear() const override
+    +void setGear(bool gear) override
+    +bool switchTurnL() const override
+    +void setSwitchTurnL(bool switchTurnL) override
+    +bool switchTurnR() const override
+    +void setSwitchTurnR(bool switchTurnR) override
+    +bool qsrIcons() const override
+    +void setQsrIcons(bool qsrIconsEnabled) override
+}
+
+class VehicleCANInterface {
+    -VehicleDataInterface* m_vehicleData
+    -QCanBusDevice* m_canDevice
+    
+    +VehicleCANInterface(VehicleDataInterface* vehicleData, QObject *parent = nullptr)
+    +~VehicleCANInterface()
+    +bool connectToCAN(const QString& interface = "virtualcan", const QString& deviceName = "can0")
+    +void disconnectFromCAN()
+    -void processCANFrames()
+    -void processFrame(const QCanBusFrame& frame)
+    -QString frameToString(const QCanBusFrame &frame)
+}
+
+' Relationships
+VehicleDataInterface <|-- VehicleData : implements
+VehicleCANInterface --> VehicleDataInterface : uses
+VehicleCANInterface --> QCanBusDevice : uses
+
+note top of VehicleDataInterface : "Abstract interface defining vehicle data operations\nInherits from QObject for Qt signal/slot mechanism"
+note top of VehicleData : "Concrete implementation of vehicle data storage\nuses Qt Properties for QML binding"
+note top of VehicleCANInterface : "CAN bus interface for vehicle communication\nProcesses CAN frames and updates vehicle data"
+
+@enduml

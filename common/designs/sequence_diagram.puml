@@ -1,0 +1,63 @@
+@startuml Vehicle Data Update Sequence
+
+participant "Application" as App
+participant "VehicleCANInterface" as CAN
+participant "QCanBusDevice" as CanBus
+participant "VehicleData" as Data
+participant "UI Components" as UI
+
+title Vehicle Data Update Flow via CAN Bus
+
+App -> CAN : connectToCAN("virtualcan", "can0")
+activate CAN
+CAN -> CanBus : connect to CAN device
+activate CanBus
+CanBus --> CAN : connection established
+CAN --> App : connection successful
+
+note over CanBus : CAN frames received from vehicle
+
+CanBus -> CAN : framesReceived() signal
+CAN -> CAN : processCANFrames()
+activate CAN
+CAN -> CAN : processFrame(frame)
+CAN -> CAN : frameToString(frame)
+
+alt Speed Update Frame
+    CAN -> Data : setSpeed(newSpeed)
+    activate Data
+    Data -> Data : m_speed = newSpeed
+    Data -> UI : speedChanged() signal
+    activate UI
+    UI -> UI : update speed display
+    deactivate UI
+    deactivate Data
+end
+
+alt Door Status Frame
+    CAN -> Data : setDoorDrvr(doorOpen)
+    activate Data
+    Data -> Data : m_doorDrvr = doorOpen
+    Data -> UI : doorDrvrChanged() signal
+    activate UI
+    UI -> UI : update door indicator
+    deactivate UI
+    deactivate Data
+end
+
+alt ADAS Status Frame
+    CAN -> Data : setAdas(adasEnabled)
+    activate Data
+    Data -> Data : m_adas = adasEnabled
+    Data -> UI : adasChanged() signal
+    activate UI
+    UI -> UI : update ADAS indicator
+    deactivate UI
+    deactivate Data
+end
+
+deactivate CAN
+
+note over Data, UI : Qt signal/slot mechanism enables\nautomatic UI updates when data changes
+
+@enduml

@@ -1,0 +1,169 @@
+@startuml VehicleData Architecture
+
+!define ALLOWMIXING
+allowmixing
+
+title VehicleData Class Architecture
+
+skinparam class {
+    BackgroundColor #E8F4F8
+    BorderColor #2E86AB
+    FontColor #2E86AB
+}
+
+skinparam interface {
+    BackgroundColor #F8E8E8
+    BorderColor #AB2E2E
+    FontColor #AB2E2E
+}
+
+skinparam note {
+    BackgroundColor #F8F8E8
+    BorderColor #2EAB2E
+    FontColor #2EAB2E
+}
+
+' Core VehicleData Classes
+abstract class VehicleDataInterface {
+    <<interface>>
+    +virtual QString driveMode() const = 0
+    +virtual void setDriveMode(const QString &) = 0
+    +virtual QString units() const = 0
+    +virtual void setUnits(const QString &) = 0
+    +virtual bool simulationRunning() const = 0
+    +virtual void setSimulationRunning(bool) = 0
+    +virtual int speed() const = 0
+    +virtual void setSpeed(int) = 0
+    +virtual int fuel() const = 0
+    +virtual void setFuel(int) = 0
+    +virtual int battery() const = 0
+    +virtual void setBattery(int) = 0
+    +virtual bool lights() const = 0
+    +virtual void setLights(bool) = 0
+    +virtual bool adas() const = 0
+    +virtual void setAdas(bool) = 0
+    +virtual bool doorDrvr() const = 0
+    +virtual void setDoorDrvr(bool) = 0
+    +virtual bool doorPsgr() const = 0
+    +virtual void setDoorPsgr(bool) = 0
+    +virtual bool switchTurnL() const = 0
+    +virtual void setSwitchTurnL(bool) = 0
+    +virtual bool switchTurnR() const = 0
+    +virtual void setSwitchTurnR(bool) = 0
+    --
+    +signal speedChanged()
+    +signal fuelChanged()
+    +signal batteryChanged()
+    +signal lightsChanged()
+    +signal adasChanged()
+    +signal doorDrvrChanged()
+    +signal doorPsgrChanged()
+    +signal switchTurnLChanged()
+    +signal switchTurnRChanged()
+}
+
+class VehicleData {
+    -QString m_driveMode
+    -QString m_units
+    -bool m_simulationRunning
+    -int m_speed
+    -int m_fuel
+    -int m_battery
+    -bool m_lights
+    -bool m_adas
+    -bool m_doorDrvr
+    -bool m_doorPsgr
+    -bool m_switchTurnL
+    -bool m_switchTurnR
+    --
+    +VehicleData(QObject *parent = nullptr)
+    +QString driveMode() const override
+    +void setDriveMode(const QString &) override
+    +QString units() const override
+    +void setUnits(const QString &) override
+    +bool simulationRunning() const override
+    +void setSimulationRunning(bool) override
+    +int speed() const override
+    +void setSpeed(int) override
+    +int fuel() const override
+    +void setFuel(int) override
+    +int battery() const override
+    +void setBattery(int) override
+    +bool lights() const override
+    +void setLights(bool) override
+    +bool adas() const override
+    +void setAdas(bool) override
+    +bool doorDrvr() const override
+    +void setDoorDrvr(bool) override
+    +bool doorPsgr() const override
+    +void setDoorPsgr(bool) override
+    +bool switchTurnL() const override
+    +void setSwitchTurnL(bool) override
+    +bool switchTurnR() const override
+    +void setSwitchTurnR(bool) override
+}
+
+class VehicleCANInterface {
+    -VehicleDataInterface* m_vehicleData
+    -QCanBusDevice* m_canDevice
+    --
+    +VehicleCANInterface(VehicleDataInterface* vehicleData, QObject *parent = nullptr)
+    +~VehicleCANInterface()
+    +bool connectToCAN(const QString& interface, const QString& deviceName)
+    +void disconnectFromCAN()
+    -void processCANFrames()
+    -void processFrame(const QCanBusFrame& frame)
+    -QString frameToString(const QCanBusFrame &frame)
+}
+
+' External Dependencies
+class QCanBusDevice {
+    <<Qt Framework>>
+    +framesReceived() signal
+    +writeFrame(const QCanBusFrame &frame)
+    +readFrame()
+}
+
+class QObject {
+    <<Qt Framework>>
+    +signals and slots mechanism
+    +property system
+}
+
+' Layout positioning
+QObject ||-- VehicleDataInterface : inherits
+VehicleDataInterface ||-- VehicleData : implements
+
+' Other relationships
+VehicleCANInterface --> VehicleDataInterface : updates
+VehicleCANInterface --> QCanBusDevice : uses
+VehicleCANInterface --|> QObject : inherits
+
+' Force vertical layout
+QObject -[hidden]-> QCanBusDevice
+VehicleDataInterface -[hidden]-> VehicleCANInterface
+
+' Usage by Applications
+rectangle "Cluster Application" as CLUSTER #LightBlue
+rectangle "IVI Application" as IVI #LightBlue
+
+CLUSTER --> VehicleData : "binds to Qt Properties"
+IVI --> VehicleData : "binds to Qt Properties"
+
+' CAN Bus Data Flow
+rectangle "CAN Bus Network" as CAN_BUS #LightGreen
+CAN_BUS --> VehicleCANInterface : "CAN Frames"
+VehicleCANInterface --> VehicleData : "Parse & Update"
+VehicleData --> CLUSTER : "Qt Signals"
+VehicleData --> IVI : "Qt Signals"
+
+' Detailed Notes
+note top of VehicleDataInterface : "Abstract interface defining vehicle data operations\nInherits from QObject for Qt signal/slot mechanism\nProvides pure virtual methods for all vehicle properties"
+
+note top of VehicleData : "Concrete implementation storing vehicle state\nUses Qt Properties for QML data binding\nEmits signals when properties change"
+
+note top of VehicleCANInterface : "CAN bus communication handler\nParses incoming CAN frames\nUpdates VehicleData instance\nAbstracts CAN protocol details"
+
+note bottom : "Data Flow:\n1. CAN frames received from vehicle network\n2. VehicleCANInterface parses frames\n3. VehicleData properties updated\n4. Qt signals emitted automatically\n5. Both applications receive updates"
+
+@enduml
