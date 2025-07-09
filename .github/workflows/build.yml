@@ -84,18 +84,14 @@ jobs:
         mkdir -p artifacts
         
         # Copy built applications
-        if [ -f "Cluster/build/cluster" ]; then
-          cp Cluster/build/cluster artifacts/
+        if [ -f "Cluster/build/ClusterApp" ]; then
+          cp Cluster/build/ClusterApp artifacts/
         fi
         
         if [ -f "IVI/build/ivi" ]; then
           cp IVI/build/ivi artifacts/
         fi
         
-        # Copy any shared libraries if needed
-        if [ -f "common/build/libcommon.so" ]; then
-          cp common/build/libcommon.so artifacts/
-        fi
         
         # Create a simple info file
         echo "Linux build completed on $(date)" > artifacts/build_info.txt
