@@ -8,6 +8,7 @@ Rectangle {
     width: 1920
     height: 80
     color: Data.Themes.backgroundColor
+    property alias btn3DViewLampsState: btn3DViewLamps.state
     property alias btnSoundChecked: btnSound.checked
     property alias mediaSwipeText: mediaSwipe.text
 

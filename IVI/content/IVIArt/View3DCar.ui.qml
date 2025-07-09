@@ -19,17 +19,6 @@ View3D {
         property alias lightsVisible: lights.visible
 
 
-        SceneEnvironment {
-            id: sceneEnvironment
-            clearColor: "#000000"
-            antialiasingQuality: SceneEnvironment.VeryHigh
-            antialiasingMode: SceneEnvironment.SSAA
-            probeExposure: 20
-            aoEnabled: false
-            backgroundMode: SceneEnvironment.Color
-            lightProbe: basicLights3_4K
-        }
-
         ExtendedSceneEnvironment {
             id: xsceneEnvironment
             depthOfFieldFocusRange: 120
@@ -37,7 +26,7 @@ View3D {
             probeOrientation.y: 130
                     depthOfFieldBlurAmount: 15
                     depthOfFieldFocusDistance: 500
-                    depthOfFieldEnabled: true
+                    depthOfFieldEnabled: false
                     adjustmentContrast: 1
                     adjustmentBrightness: 1
                     colorAdjustmentsEnabled: false
@@ -76,52 +65,11 @@ View3D {
                     aoDistance: 0
                     aoEnabled: false
                     backgroundMode: SceneEnvironment.Transparent
-                    specularAAEnabled: true
                     tonemapMode: SceneEnvironment.TonemapModeLinear
                     temporalAAEnabled: false
                     antialiasingMode: SceneEnvironment.SSAA
                     antialiasingQuality: SceneEnvironment.Medium
-
         }
-
-
-        // ExtendedSceneEnvironment {
-        //     id: extendedSceneEnvironment
-        //     clearColor: Data.Themes.backgroundColor
-        //     vignetteEnabled: false
-        //     skyboxBlurAmount: 0.35753
-        //     probeHorizon: 0.1
-        //     tonemapMode: SceneEnvironment.TonemapModeLinear
-        //     glowUseBicubicUpscale: true
-        //     glowLevel: ExtendedSceneEnvironment.GlowLevel.One
-        //                | ExtendedSceneEnvironment.GlowLevel.Two
-        //                | ExtendedSceneEnvironment.GlowLevel.Three
-        //                | ExtendedSceneEnvironment.GlowLevel.Four
-        //                | ExtendedSceneEnvironment.GlowLevel.Six
-        //     glowBlendMode: ExtendedSceneEnvironment.GlowBlendMode.Additive
-        //     depthOfFieldEnabled: false
-        //     aoEnabled: true
-        //     glowHDRMaximumValue: 13.4
-        //     glowHDRScale: 1.31
-        //     probeExposure: 2
-        //     glowHDRMinimumValue: 0
-        //     glowBloom: 0.09
-        //     glowQualityHigh: true
-        //     glowIntensity: 1.1
-        //     glowStrength: 1
-        //     lensFlareEnabled: false
-        //     glowEnabled: true
-        //     ditheringEnabled: false
-        //     exposure: 1.3
-        //     lightProbe: basicLights3_4K
-        //     temporalAAStrength: 2
-        //     specularAAEnabled: false
-        //     temporalAAEnabled: false
-        //     fxaaEnabled: true
-        //     antialiasingQuality: SceneEnvironment.VeryHigh
-        //     antialiasingMode: SceneEnvironment.MSAA
-        //     backgroundMode: SceneEnvironment.Transparent
-        // }
 
         Node {
             id: scene
@@ -130,6 +78,11 @@ View3D {
                 id: genericCarModel
                 opacity: 1
                 visible: true
+               // wheelFrLeftEulerRotationy: camNull.eulerRotation.y - 40
+                wheelRearRightEulerRotationx: camNull.eulerRotation.y
+                wheelRearLeftEulerRotationx: camNull.eulerRotation.y
+                wheelFrRightEulerRotationx: camNull.eulerRotation.y
+                wheelFrLeftEulerRotationx: camNull.eulerRotation.y
                 doorsOpenLeft: false
                 doorsOpenRight: false
                 wheelCaliper_materialBaseColor: Data.Themes.themeColor1
@@ -138,27 +91,6 @@ View3D {
                 scale.z: 100
                 scale.y: 100
                 scale.x: 100
-            }
-
-            Model {
-                id: groundPlaneA
-                x: 0
-                y: 0
-                opacity: 1
-                visible: true
-                source: "#Rectangle"
-                z: -0.00007
-                usedInBakedLighting: false
-                scale.z: 7
-                scale.y: 4
-                scale.x: 5
-                receivesShadows: true
-                receivesReflections: true
-                eulerRotation.z: 90
-                eulerRotation.y: 0
-                eulerRotation.x: -90
-                castsShadows: false
-                castsReflections: false
             }
 
             Model {
@@ -189,34 +121,6 @@ View3D {
                 scale.x: 100
             }
 
-            DirectionalLight {
-                id: directionalLight
-                x: -0
-                y: 454.668
-                visible: true
-                color: "#a1a1a1"
-                scope: cylinder
-                ambientColor: "#ffffff"
-                brightness: 0.16
-                eulerRotation.z: 114.08686
-                eulerRotation.y: -128.0842
-                eulerRotation.x: -50.80216
-                z: -618.60547
-            }
-
-            // ReflectionProbe {
-            //     id: reflectionProbe
-            //     x: 0
-            //     y: -993.322
-            //     clearColor: "#00000000"
-            //     z: 0
-            //     quality: ReflectionProbe.High
-            //     parallaxCorrection: true
-            //     debugView: false
-            //     boxSize.z: 2000
-            //     boxSize.y: 2000
-            //     boxSize.x: 2000
-            // }
 
             Model {
                 id: camNull
@@ -231,14 +135,14 @@ View3D {
 
                 PerspectiveCamera {
                     id: perspectiveCamera
-                    x: 6.321
-                    y: -85.846
+                    x: 17.393
+                    y: -91.253
                     clipFar: 3000
                     eulerRotation.z: 0
                     eulerRotation.y: 7
                     eulerRotation.x: 12
                     fieldOfView: 30
-                    z: 603.9931
+                    z: 628.26337
                 }
             }
 
@@ -247,6 +151,7 @@ View3D {
                 x: -807.69
                 y: 0
                 opacity: 1
+                visible: false
                 source: "#Cylinder"
                 eulerRotation.z: -0.00001
                 eulerRotation.y: -34.99999
@@ -281,39 +186,6 @@ View3D {
                 positionU: 0.01
                 positionV: 0
             }
-        }
-
-        PrincipledMaterial {
-            id: eqFloorMat
-            opacity: 0.554
-            blendMode: PrincipledMaterial.Screen
-            occlusionMap: customeqFloor
-            lighting: PrincipledMaterial.FragmentLighting
-            metalness: 0.23094
-            baseColorMap: customeqFloor
-            opacityMap: customeqFloor
-            attenuationColor: "#ffffff"
-            objectName: "New Material"
-            baseColor: "#e5e5e5"
-
-            Texture {
-                id: customeqFloor
-                positionV: -2
-                scaleV: 2
-                scaleU: 1
-                flipU: true
-                flipV: false
-                tilingModeHorizontal: Texture.MirroredRepeat
-                tilingModeVertical: Texture.MirroredRepeat
-                autoOrientation: false
-                generateMipmaps: false
-                sourceItem: eqBars
-            }
-        }
-
-        Texture {
-            id: basicLights3_4K
-            source: "../images/BasicLights3_4K.hdr"
         }
 
         PrincipledMaterial {
@@ -361,6 +233,8 @@ View3D {
         width: 1534
         height: 830
         visible: true
+        ySpeed: 0
+        xSpeed: 0.1
         panEnabled: false
         yInvert: true
         camera: perspectiveCamera
@@ -439,99 +313,15 @@ View3D {
                 z: -1132.31543
             }
         },
-
         State {
-            name: "side"
+            name: "xray"
 
             PropertyChanges {
-                target: camNull
-                eulerRotation.z: 0.88047
-                eulerRotation.x: -9.96158
-                eulerRotation.y: 86.92
+                target: genericCarModel
+                optionalVizOpacity: 0.01
+                extSheetOpacity: 0.02
             }
-
-            PropertyChanges {
-                target: perspectiveCamera
-                x: -62.801
-                y: -8.819
-                z: 546.85822
-                eulerRotation.z: -1
-                eulerRotation.x: 6
-                eulerRotation.y: 7
-            }
-
-            PropertyChanges {
-                target: timelineBARS
-                enabled: true
-            }
-
-            PropertyChanges {
-                target: animBars
-                running: true
-            }
-
-
-        },
-        State {
-            name: "front"
-
-            PropertyChanges {
-                target: camNull
-                opacity: 0
-                materials: shadowMaterial
-            }
-
-            PropertyChanges {
-                target: timelineBARS
-                enabled: true
-            }
-
-            PropertyChanges {
-                target: animBars
-                running: true
-            }
-        },
-        State {
-            name: "rear"
-
-            PropertyChanges {
-                target: camNull
-                eulerRotation.z: 0.00001
-                eulerRotation.y: 153
-                eulerRotation.x: -15
-            }
-
-            PropertyChanges {
-                target: view3DCar
-                camera: perspectiveCamera
-            }
-
-            PropertyChanges {
-                target: perspectiveCamera
-                x: 1.363
-                y: -32.687
-                z: 609.60693
-                eulerRotation.z: 0
-                eulerRotation.x: 6
-                eulerRotation.y: 3
-            }
-
-            PropertyChanges {
-                target: cylinder
-                y: 48.852
-                materials: shadowMaterial
-            }
-
-            PropertyChanges {
-                target: timelineBARS
-                enabled: true
-            }
-
-            PropertyChanges {
-                target: animBars
-                running: true
-            }
-        }    ]
+        }]
     transitions: [
         Transition {
             id: transition
@@ -714,6 +504,6 @@ View3D {
 /*##^##
 Designer {
     D{i:0;matPrevEnvDoc:"SkyBox";matPrevEnvValueDoc:"preview_studio";matPrevModelDoc:"#Sphere"}
-D{i:3;cameraSpeed3d:25;cameraSpeed3dMultiplier:1}D{i:56;transitionDuration:2000}
+D{i:2;cameraSpeed3d:25;cameraSpeed3dMultiplier:1}D{i:39;transitionDuration:2000}
 }
 ##^##*/

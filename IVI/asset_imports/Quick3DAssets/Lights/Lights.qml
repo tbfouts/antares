@@ -5,8 +5,6 @@ Node {
     id: node
     property bool lightOn: false
 
-    // Resources
-
     // Nodes:
     Node {
         id: car
@@ -17,14 +15,14 @@ Node {
             objectName: "Lights"
             scale.x: 0.001
             scale.y: 0.001
-            scale.z: 0.001
+            scale.z: 0.00101
+
             source: "meshes/lights_mesh.mesh"
             materials: [
                 frontLight_material,
                 rearLight_material
             ]
         }
-    }
 
     Node {
         id: __materialLibrary__
@@ -43,10 +41,10 @@ Node {
 
         PrincipledMaterial {
             id: rearLight_material
-            lighting: PrincipledMaterial.NoLighting
+            emissiveFactor.x: 1
             objectName: "RearLight"
-            baseColor: "#000000"
-            roughness: 1
+            baseColor: "#ff4d4d"
+            roughness: 0.50159
             cullMode: PrincipledMaterial.NoCulling
             alphaMode: PrincipledMaterial.Default
         }
@@ -64,8 +62,19 @@ Node {
                 target: lights
                 visible: true
             }
+
+            PropertyChanges {
+                target: taillights
+                visible: true
+                materials: rearLight_material
+            }
         }
     ]
-
-    // Animations:
 }
+}
+
+/*##^##
+Designer {
+    D{i:0;cameraSpeed3d:25;cameraSpeed3dMultiplier:1}
+}
+##^##*/
