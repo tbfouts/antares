@@ -15,7 +15,7 @@ Item {
     property int fuel: 0
     property int battery: 0
     property int adasRot: 0
-    property bool lights: true
+    property bool lights: false
     property bool adas: false
     property bool doorDrvr: false
     property bool doorPsgr: false
