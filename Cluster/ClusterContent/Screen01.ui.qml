@@ -47,41 +47,60 @@ Rectangle {
         height: 720
         anchors.horizontalCenter: parent.horizontalCenter
         camera: sceneCamera
-        environment: extendedSceneEnvironment
+        environment: xsceneEnvironment
 
 
         ExtendedSceneEnvironment {
-            id: extendedSceneEnvironment
-            tonemapMode: SceneEnvironment.TonemapModeLinear
-            probeHorizon: 0.1
-            lightProbe: basicLights3_4K
-            glowUseBicubicUpscale: true
-            glowLevel: ExtendedSceneEnvironment.GlowLevel.One
-                       | ExtendedSceneEnvironment.GlowLevel.Two
-                       | ExtendedSceneEnvironment.GlowLevel.Three
-                       | ExtendedSceneEnvironment.GlowLevel.Four
-                       | ExtendedSceneEnvironment.GlowLevel.Six
-            glowBlendMode: ExtendedSceneEnvironment.GlowBlendMode.Additive
-            depthOfFieldEnabled: false
-            aoEnabled: true
-            glowHDRMaximumValue: 79.64209
-            glowHDRScale: 2.40928
-            probeExposure: 40
-            glowHDRMinimumValue: 0
-            glowBloom: 0.36081
-            glowQualityHigh: true
-            glowIntensity: 0.28793
-            glowStrength: 0.93527
-            lensFlareEnabled: false
-            glowEnabled: true
-            ditheringEnabled: true
-            temporalAAStrength: 2
-            specularAAEnabled: false
-            temporalAAEnabled: false
-            fxaaEnabled: true
-            antialiasingQuality: SceneEnvironment.High
-            antialiasingMode: SceneEnvironment.MSAA
-            backgroundMode: SceneEnvironment.Transparent
+            id: xsceneEnvironment
+            probeOrientation.x: 10
+            probeOrientation.y: 74
+            probeExposure: 1
+            probeHorizon: 0.5
+            lightProbe: konzerthaus_4k
+            depthOfFieldFocusRange: 120
+            glowLevel: ExtendedSceneEnvironment.GlowLevel.Five
+                    depthOfFieldBlurAmount: 15
+                    depthOfFieldFocusDistance: 500
+                    depthOfFieldEnabled: false
+                    adjustmentContrast: 1
+                    adjustmentBrightness: 1
+                    colorAdjustmentsEnabled: false
+                    ditheringEnabled: false
+                    sharpnessAmount: 0
+                    whitePoint: 1
+                    aoDither: false
+                    aoSampleRate: 4
+                    aoSoftness: 0
+                    lutEnabled: false
+                    exposure: 1.25
+                    lensFlareBlurAmount: 50
+                    lensFlareDistortion: 5
+                    lensFlareStretchToAspect: 0.5
+                    lensFlareHaloWidth: 0.5
+                    lensFlareGhostDispersal: 0.5
+                    lensFlareBloomBias: 0.1
+                    lensFlareBloomScale: 20
+                    lensFlareEnabled: false
+                    vignetteEnabled: false
+                    glowBlendMode: ExtendedSceneEnvironment.GlowBlendMode.Screen
+                    glowHDRMinimumValue: 2.48
+                    glowHDRMaximumValue: 5.18
+                    glowHDRScale: 1
+                    glowBloom: 0
+                    glowIntensity: 0.001
+                    glowStrength: 0.42
+                    glowQualityHigh: true
+                    glowEnabled: true
+                    fxaaEnabled: true
+                    clearColor: "#191919"
+                    depthPrePassEnabled: true
+                    aoDistance: 0
+                    aoEnabled: false
+                    backgroundMode: SceneEnvironment.Transparent
+                    tonemapMode: SceneEnvironment.TonemapModeLinear
+                    temporalAAEnabled: false
+                    antialiasingMode: SceneEnvironment.SSAA
+                    antialiasingQuality: SceneEnvironment.Medium
         }
 
 
@@ -91,7 +110,7 @@ Rectangle {
                 id: directionalLight
                 x: -0
                 y: 454.668
-                visible: true
+                visible: false
                 color: "#e6e6e6"
                 eulerRotation.z: 0.00003
                 scope: genericCarModel
@@ -338,8 +357,9 @@ Rectangle {
         }
 
         Texture {
-            id: basicLights3_4K
-            source: "images/BasicLights3_4K.hdr"
+            id: konzerthaus_4k
+            source: "images/konzerthaus_4k.hdr"
+            objectName: "Konzerthaus 4k"
         }
     }
 

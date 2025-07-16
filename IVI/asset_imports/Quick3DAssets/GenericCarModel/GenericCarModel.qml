@@ -1070,8 +1070,9 @@ Node {
 
         PrincipledMaterial {
             id: body_material
-            clearcoatAmount: 1
-            metalness: 0.28334
+            clearcoatRoughnessAmount: 0.09662
+            clearcoatAmount: 0.89982
+            metalness: 0.29858
             objectName: "body"
             baseColor: "#b10000"
             roughness: 0.40178
