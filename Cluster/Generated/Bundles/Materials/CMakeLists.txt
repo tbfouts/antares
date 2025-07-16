@@ -12,9 +12,9 @@ qt6_add_qml_module(Generated_Bundles_Materials
         "CarbonFiberMaterial.qml"
     RESOURCES
         "_asset_ref.json"
-        "designer/images/material.png"
-        "designer/images/material16.png"
         "designer/images/material@2x.png"
+        "designer/images/material16.png"
+        "designer/images/material.png"
         "images/Fabric004_2K_NormalGL.png"
 )
 

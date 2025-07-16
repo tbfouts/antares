@@ -176,13 +176,13 @@ Rectangle {
                 id: headlampPlaneRight
                 x: 68.492
                 y: -3.605
-                opacity: 0.978
+                opacity: 1
                 visible: VehicleData.lights
                 source: "#Rectangle"
                 usedInBakedLighting: true
                 scale.z: 1
                 z: -440.59552
-                receivesReflections: true
+                receivesReflections: false
                 eulerRotation.z: 90
                 eulerRotation.x: -90
                 eulerRotation.y: 180
@@ -261,6 +261,7 @@ Rectangle {
                 id: spotlightRight
                 x: 70.014
                 y: 23.399
+                opacity: 1
                 visible: VehicleData.lights
                 color: "#ffffbb"
                 eulerRotation.z: 0
@@ -347,12 +348,14 @@ Rectangle {
 
         PrincipledMaterial {
             id: headlampReflection
+            opacity: 1
+            roughnessChannel: Material.A
+            specularAmount: 0
             attenuationColor: "#363636"
-            metalness: 0.09332
-            transmissionFactor: 0.47422
-            lighting: PrincipledMaterial.FragmentLighting
-            roughness: 1
-            baseColor: "#373737"
+            metalness: 0.03031
+            transmissionFactor: 0
+            roughness: 0.98066
+            baseColor: "#242424"
             objectName: "Headlamp Reflection"
         }
 

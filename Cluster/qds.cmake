@@ -2,16 +2,16 @@
 ### Do not change
 
 add_subdirectory(ClusterContent)
-add_subdirectory(Cluster)
 add_subdirectory(Generated)
 add_subdirectory(VehicleData)
+add_subdirectory(Cluster)
 add_subdirectory(App)
 add_subdirectory(Dependencies)
 
 target_link_libraries(${CMAKE_PROJECT_NAME} PRIVATE
     ClusterContentplugin
-    Clusterplugin
-    Generated_QtQuick3D_Lightsplugin
     Generated_QtQuick3D_GenericCarModelplugin
+    Generated_QtQuick3D_Lightsplugin
     Generated_Bundles_Materialsplugin
-    VehicleDataplugin)
+    VehicleDataplugin
+    Clusterplugin)
