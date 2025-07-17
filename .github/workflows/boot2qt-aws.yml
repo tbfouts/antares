@@ -10,6 +10,7 @@ on:
 jobs:
   build-boot2qt-aws:
     runs-on: ubuntu-latest
+    timeout-minutes: 120
     
     steps:
     - name: Checkout repository
@@ -84,12 +85,22 @@ jobs:
         chmod +x qt-online-installer-linux-x64-online.run
         
     - name: Install Qt and Boot to Qt components
+      timeout-minutes: 60
       run: |
         # Install Qt with Boot to Qt components using credentials
-        ./qt-online-installer-linux-x64-online.run --headless --verbose --accept-licenses --confirm-command \
+        # Start a background job to output progress every 2 minutes
+        (while true; do echo "Qt installation still running... $(date)"; sleep 120; done) &
+        PROGRESS_PID=$!
+        
+        # Run the Qt installer
+        timeout 3600 ./qt-online-installer-linux-x64-online.run --headless --verbose --accept-licenses --confirm-command \
           --email ${{ secrets.QT_EMAIL }} --password ${{ secrets.QT_PASSWORD }} \
           --default-answer --auto-answer installationErrorWithCancel=Ignore --root /opt/Qt \
           install qt.qt6.683.linux_gcc_64 embedded.b2qt.683 embedded.b2qt.683.awsec2arm64 embedded.b2qt.683.awsec2arm64.toolchain
+        
+        # Kill the progress output job
+        kill $PROGRESS_PID 2>/dev/null || true
+        echo "Qt installation completed!"
         
     - name: Set up Boot to Qt environment
       run: |
