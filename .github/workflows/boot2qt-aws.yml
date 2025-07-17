@@ -78,13 +78,34 @@ jobs:
           libxkbcommon-x11-dev \
           libdbus-1-dev \
           libpulse-dev
+    
+    - name: Create Qt components cache key file
+      run: |
+        # Create a file with Qt component versions for cache key
+        echo "qt.qt6.683.linux_gcc_64" > qt-components.txt
+        echo "embedded.b2qt.683" >> qt-components.txt
+        echo "embedded.b2qt.683.awsec2arm64" >> qt-components.txt
+        echo "embedded.b2qt.683.awsec2arm64.toolchain" >> qt-components.txt
+        echo "Qt 6.8.3 Boot to Qt AWS" >> qt-components.txt
+        
+    - name: Cache Qt installation
+      uses: buildjet/cache@v4
+      id: qt-cache
+      with:
+        path: /opt/Qt
+        key: qt-6.8.3-boot2qt-${{ hashFiles('qt-components.txt') }}
+        restore-keys: |
+          qt-6.8.3-boot2qt-
+          qt-6.8.3-
         
     - name: Download Qt Online Installer
+      if: steps.qt-cache.outputs.cache-hit != 'true'
       run: |
         wget -O qt-online-installer-linux-x64-online.run https://download.qt.io/official_releases/online_installers/qt-online-installer-linux-x64-online.run
         chmod +x qt-online-installer-linux-x64-online.run
         
     - name: Install Qt and Boot to Qt components
+      if: steps.qt-cache.outputs.cache-hit != 'true'
       timeout-minutes: 60
       run: |
         # Install Qt with Boot to Qt components using credentials
@@ -101,6 +122,18 @@ jobs:
         # Kill the progress output job
         kill $PROGRESS_PID 2>/dev/null || true
         echo "Qt installation completed!"
+        
+    - name: Verify Qt installation
+      run: |
+        if [ -d "/opt/Qt/6.8.3" ]; then
+          echo "✅ Qt 6.8.3 installation found"
+          echo "Qt installation size: $(du -sh /opt/Qt)"
+          echo "Available Qt versions:"
+          ls -la /opt/Qt/
+        else
+          echo "❌ Qt installation not found"
+          exit 1
+        fi
         
     - name: Set up Boot to Qt environment
       run: |
