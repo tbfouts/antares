@@ -17,6 +17,11 @@ Node {
     property alias wheelFrRightEulerRotationy: wheelFrRight.eulerRotation.y
     property alias extSheetOpacity: extSheet.opacity
     property alias optionalVizOpacity: optionalViz.opacity
+    property alias glassTextured_materialMetalness: glassTextured_material.metalness
+    property alias glassTextured_materialRoughness: glassTextured_material.roughness
+    property alias glassTextured_materialOpacity: glassTextured_material.opacity
+    property alias headlightsVisible: headlights.visible
+    property alias taillightsVisible: taillights.visible
     state: "closed"
     scale.z: 1
     scale.y: 1
@@ -74,7 +79,7 @@ Node {
                 scale.y: 0.001
                 scale.z: 0.001
                 source: "meshes/doorRight_mesh.mesh"
-                materials: [body_material,metalDark_material,plasticBlack_material,chrome_material,glassLights_material,plasticBlack_001_material,plasticBlack_001_material,chromeLightsBMP_material,glassLightsIllum_material,metalBlackMatte_material,metalMirror_material,aluminium_material,glassTextured_material,intAlcanataraGrey_material,intLeatherBlack_material,intStitchesRed_material,intLeatherSeatsPattern_material,intButtons_material,intGrillBump_material]
+                materials: [body_material,metalDark_material,plasticBlack_material,chrome_material,glassLights_material,plasticBlack_001_material,plasticBlack_001_material,chromeLightsBMP_material,glassLightsIllum_material,metalBlackMatte_material,metalMirror_material,aluminium_material,glassTextured_material,intAlcanataraGrey_material,intLeatherBlack_material,intStitchesRed_material,intLeatherBlack_material,intButtons_material,intGrillBump_material]
             }
 
             Model {
@@ -88,7 +93,7 @@ Node {
                 scale.y: 0.001
                 scale.z: 0.001
                 source: "meshes/doorLeft_mesh.mesh"
-                materials: [body_material,metalDark_material,plasticBlack_material,chrome_material,glassLights_material,plasticBlack_001_material,plasticBlack_001_material,chromeLightsBMP_material,glassLightsIllum_material,metalBlackMatte_material,metalMirror_material,aluminium_material,glassTextured_material,intAlcanataraGrey_material,intLeatherBlack_material,intStitchesRed_material,intLeatherSeatsPattern_material,intButtons_material,intGrillBump_material]
+                materials: [body_material,metalDark_material,plasticBlack_material,chrome_material,glassLights_material,plasticBlack_001_material,plasticBlack_001_material,chromeLightsBMP_material,glassLightsIllum_material,metalBlackMatte_material,metalMirror_material,aluminium_material,glassTextured_material,intAlcanataraGrey_material,intLeatherBlack_material,intStitchesRed_material,intLeatherBlack_material,intButtons_material,intGrillBump_material]
             }
 
         }
@@ -474,25 +479,7 @@ Node {
             scale.y: 0.001
             scale.z: 0.001
             source: "meshes/dash_mesh.mesh"
-            materials: [
-                metalDark_material,
-                plasticBlack_material,
-                chrome_material,
-                glassLights_material,
-                glassRedLights_material,
-                glassLightsIllum_material,
-                metalBlackMatte_material,
-                aluminium_material,
-                rubber_material,
-                intAlcanataraGrey_material,
-                intLeatherBlack_material,
-                intAluminiumBrushed_material,
-                intStitchesRed_material,
-                intLeatherSeatsPattern_material,
-                intButtons_material,
-                intTexDevices_material,
-                intGrillBump_material
-            ]
+            materials: [metalDark_material,plasticBlack_material,chrome_material,glassLights_material,glassRedLights_material,glassLightsIllum_material,metalBlackMatte_material,aluminium_material,rubber_material,intAlcanataraGrey_material,intLeatherBlack_material,intAluminiumBrushed_material,intStitchesRed_material,intLeatherBlack_material,intButtons_material,intTexDevices_material,intGrillBump_material]
         }
 
         Model {
@@ -962,7 +949,6 @@ Node {
             baseColor: "#ff0f0f0f"
             metalness: 0.69836
             cullMode: PrincipledMaterial.NoCulling
-            alphaMode: PrincipledMaterial.Default
         }
 
         PrincipledMaterial {

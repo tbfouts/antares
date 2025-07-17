@@ -83,9 +83,9 @@ Rectangle {
             Connections {
                 target: btn3DViewSide
                 onPressed: {
-                    topBar.btn3DViewLampsState = "!btn3DView.checked"
+                  //  topBar.btn3DViewLampsState = "!btn3DView.checked"
                     //view3DCar.lightsVisible = false
-                    Data.Values.lamps = false
+                   // Data.Values.lamps = false
                     view3DCar.state = "xray"
                 }
             }
@@ -101,25 +101,25 @@ Rectangle {
                 id: connections
                 target: btn3DViewFront
                 onPressed: {
-                    topBar.btn3DViewLampsState = "btn3DView.checked"
+                   // topBar.btn3DViewLampsState = "btn3DView.checked"
                     //view3DCar.lightsVisible = true
-                    Data.Values.lamps = true
+                   // Data.Values.lamps = true
                     view3DCar.state = "front"
                 }
             }
         }
 
         Btn3DView {
-            id: btn3DViewRear
+            id: btn3DViewInt
             autoExclusive: true
             txtViewText: "INT"
 
             Connections {
-                target: btn3DViewRear
+                target: btn3DViewInt
                 onPressed: {
                    // view3DCar.lightsVisible = false
-                    Data.Values.lamps = false
-                    view3DCar.state = "rear"
+                   // Data.Values.lamps = true
+                    view3DCar.state = "int"
                 }
             }
         }

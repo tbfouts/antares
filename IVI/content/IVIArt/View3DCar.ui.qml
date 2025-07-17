@@ -23,7 +23,7 @@ View3D {
             id: xsceneEnvironment
             depthOfFieldFocusRange: 120
             glowLevel: ExtendedSceneEnvironment.GlowLevel.Five
-            probeOrientation.y: 130
+            probeOrientation.y: 0
                     depthOfFieldBlurAmount: 15
                     depthOfFieldFocusDistance: 500
                     depthOfFieldEnabled: false
@@ -78,7 +78,10 @@ View3D {
                 id: genericCarModel
                 opacity: 1
                 visible: true
-               // wheelFrLeftEulerRotationy: camNull.eulerRotation.y - 40
+                glassTextured_materialRoughness: 0.5
+                glassTextured_materialOpacity: 0.5
+                glassTextured_materialMetalness: 0.5
+                // wheelFrLeftEulerRotationy: camNull.eulerRotation.y - 40
                 wheelRearRightEulerRotationx: camNull.eulerRotation.y
                 wheelRearLeftEulerRotationx: camNull.eulerRotation.y
                 wheelFrRightEulerRotationx: camNull.eulerRotation.y
@@ -135,14 +138,34 @@ View3D {
 
                 PerspectiveCamera {
                     id: perspectiveCamera
-                    x: 17.393
-                    y: -91.253
+                    x: 33.549
+                    y: -41.747
                     clipFar: 3000
                     eulerRotation.z: 0
                     eulerRotation.y: 7
-                    eulerRotation.x: 12
+                    eulerRotation.x: 7
                     fieldOfView: 30
-                    z: 628.26337
+                    z: 759.841
+                }
+            }
+
+            Node {
+                id: camINT
+
+                x: 0
+                y: 0
+             //   eulerRotation.y: genericCarModel.genericCarModelEulerRotationy
+                z: 0
+
+                PerspectiveCamera {
+                    id: intCam
+                    x: -93.329
+                    y: 306.96
+                    eulerRotation.y: 0
+                    eulerRotation.z: 0
+                    eulerRotation.x: 0
+                    fieldOfView: 80
+                    z: -60.41337
                 }
             }
 
@@ -318,8 +341,59 @@ View3D {
 
             PropertyChanges {
                 target: genericCarModel
+                taillightsVisible: false
+                headlightsVisible: false
                 optionalVizOpacity: 0.01
                 extSheetOpacity: 0.02
+            }
+
+            PropertyChanges {
+                target: xsceneEnvironment
+                probeExposure: 6
+            }
+
+            PropertyChanges {
+                target: lights
+                visible: false
+            }
+        },
+        State {
+            name: "int"
+
+            PropertyChanges {
+                target: intCam
+                x: 0
+                y: 41.457
+                clipFar: 500
+                clipNear: 1
+                fieldOfView: 40
+                eulerRotation.y: 180
+                z: 0
+            }
+
+            PropertyChanges {
+                target: view3DCar
+                camera: intCam
+            }
+
+            PropertyChanges {
+                target: orbitCameraController
+                origin: camINT
+                camera: intCam
+            }
+
+            PropertyChanges {
+                target: camINT
+                x: 32.635
+                y: 49.787
+                z: -71.93106
+            }
+
+            PropertyChanges {
+                target: xsceneEnvironment
+                backgroundMode: SceneEnvironment.SkyBox
+                probeOrientation.y: 0
+                skyboxBlurAmount: 0.1
             }
         }]
     transitions: [
@@ -504,6 +578,6 @@ View3D {
 /*##^##
 Designer {
     D{i:0;matPrevEnvDoc:"SkyBox";matPrevEnvValueDoc:"preview_studio";matPrevModelDoc:"#Sphere"}
-D{i:2;cameraSpeed3d:25;cameraSpeed3dMultiplier:1}D{i:39;transitionDuration:2000}
+D{i:2;cameraSpeed3d:25;cameraSpeed3dMultiplier:1}D{i:49;transitionDuration:2000}
 }
 ##^##*/
