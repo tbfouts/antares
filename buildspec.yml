@@ -126,12 +126,33 @@ phases:
   build:
     commands:
       - echo "Building Qt Designer Components for Boot to Qt..."
-      - git clone https://code.qt.io/qt-labs/qtquickdesigner-components.git
-      - mkdir buildDScomponents-boot2qt
-      - cd buildDScomponents-boot2qt
       - |
-        # Source toolchain environment
-        source "$TOOLCHAIN_ENV_SCRIPT"
+        # Re-establish environment variables
+        export QT_DIR=/opt/Qt/6.8.3
+        export BOOT2QT_DIR=$QT_DIR/Boot2Qt
+        
+        # Find and source toolchain environment script
+        TOOLCHAIN_ENV_SCRIPT=$(find $BOOT2QT_DIR -name "environment-setup-*" -type f | head -1)
+        if [ -f "$TOOLCHAIN_ENV_SCRIPT" ]; then
+          echo "Sourcing toolchain environment: $TOOLCHAIN_ENV_SCRIPT"
+          source "$TOOLCHAIN_ENV_SCRIPT"
+          
+          # Set CMake toolchain file
+          export OECORE_CMAKE_TOOLCHAIN_FILE="$BOOT2QT_DIR/aws-ec2-arm64/toolchain/sysroots/x86_64-pokysdk-linux/usr/share/cmake/OEToolchainConfig.cmake"
+          
+          echo "Environment variables set:"
+          echo "  OECORE_CMAKE_TOOLCHAIN_FILE=$OECORE_CMAKE_TOOLCHAIN_FILE"
+          echo "  OECORE_TARGET_SYSROOT=$OECORE_TARGET_SYSROOT"
+          echo "  QT_HOST_PATH=/opt/Qt/6.8.3/gcc_64"
+        else
+          echo "❌ Toolchain environment script not found"
+          exit 1
+        fi
+        
+        # Build Qt Designer Components
+        git clone https://code.qt.io/qt-labs/qtquickdesigner-components.git
+        mkdir buildDScomponents-boot2qt
+        cd buildDScomponents-boot2qt
         
         cmake -GNinja \
           -DCMAKE_TOOLCHAIN_FILE=$OECORE_CMAKE_TOOLCHAIN_FILE \
@@ -144,11 +165,17 @@ phases:
         cmake --install .
       
       - echo "Building Common Library for Boot to Qt..."
-      - cd $CODEBUILD_SRC_DIR/common
-      - mkdir build-boot2qt && cd build-boot2qt
       - |
-        # Source toolchain environment
+        # Re-establish environment for Common Library
+        export QT_DIR=/opt/Qt/6.8.3
+        export BOOT2QT_DIR=$QT_DIR/Boot2Qt
+        
+        TOOLCHAIN_ENV_SCRIPT=$(find $BOOT2QT_DIR -name "environment-setup-*" -type f | head -1)
         source "$TOOLCHAIN_ENV_SCRIPT"
+        export OECORE_CMAKE_TOOLCHAIN_FILE="$BOOT2QT_DIR/aws-ec2-arm64/toolchain/sysroots/x86_64-pokysdk-linux/usr/share/cmake/OEToolchainConfig.cmake"
+        
+        cd $CODEBUILD_SRC_DIR/common
+        mkdir build-boot2qt && cd build-boot2qt
         
         cmake .. \
           -DCMAKE_BUILD_TYPE=Release \
@@ -158,11 +185,17 @@ phases:
         cmake --build .
       
       - echo "Building Cluster Application for Boot to Qt..."
-      - cd $CODEBUILD_SRC_DIR/Cluster
-      - mkdir build-boot2qt && cd build-boot2qt
       - |
-        # Source toolchain environment
+        # Re-establish environment for Cluster
+        export QT_DIR=/opt/Qt/6.8.3
+        export BOOT2QT_DIR=$QT_DIR/Boot2Qt
+        
+        TOOLCHAIN_ENV_SCRIPT=$(find $BOOT2QT_DIR -name "environment-setup-*" -type f | head -1)
         source "$TOOLCHAIN_ENV_SCRIPT"
+        export OECORE_CMAKE_TOOLCHAIN_FILE="$BOOT2QT_DIR/aws-ec2-arm64/toolchain/sysroots/x86_64-pokysdk-linux/usr/share/cmake/OEToolchainConfig.cmake"
+        
+        cd $CODEBUILD_SRC_DIR/Cluster
+        mkdir build-boot2qt && cd build-boot2qt
         
         cmake .. \
           -DCMAKE_BUILD_TYPE=Release \
