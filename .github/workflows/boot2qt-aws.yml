@@ -192,18 +192,18 @@ jobs:
         source "$TOOLCHAIN_ENV_SCRIPT"
         
         # Create a simple deployment script
-        cat > artifacts/aws/deploy.sh << 'EOF'
-#!/bin/bash
-# Simple deployment script for Boot to Qt AWS
-# Copy this script and ClusterApp to your AWS EC2 instance
+        cat > artifacts/aws/deploy.sh << 'DEPLOY_EOF'
+        #!/bin/bash
+        # Simple deployment script for Boot to Qt AWS
+        # Copy this script and ClusterApp to your AWS EC2 instance
 
-# Set up environment
-export QT_QPA_PLATFORM=eglfs
-export QT_QPA_EGLFS_INTEGRATION=eglfs_kms
+        # Set up environment
+        export QT_QPA_PLATFORM=eglfs
+        export QT_QPA_EGLFS_INTEGRATION=eglfs_kms
 
-# Run the Cluster application
-./ClusterApp
-EOF
+        # Run the Cluster application
+        ./ClusterApp
+        DEPLOY_EOF
         
         chmod +x artifacts/aws/deploy.sh
         
