@@ -8,19 +8,42 @@ on:
   workflow_dispatch:
 
 jobs:
-  build:
-    runs-on: codebuild-antares-cluster-boot2qt-docker-${{ github.run_id }}-${{ github.run_attempt }}
+  trigger-codebuild:
+    runs-on: ubuntu-latest
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
-      
-      - name: Run Boot to Qt build
-        run: |
-          chmod +x .github/workflows/build-boot2qt.sh
-          .github/workflows/build-boot2qt.sh
-      
-      - name: Upload artifacts
-        uses: actions/upload-artifact@v4
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v4
         with:
-          name: boot2qt-build-${{ github.run_number }}
-          path: artifacts/aws/
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: us-east-1
+      
+      - name: Start CodeBuild project
+        run: |
+          BUILD_ID=$(aws codebuild start-build --project-name "antares-cluster-boot2qt-docker" --query 'build.id' --output text)
+          echo "Started CodeBuild: $BUILD_ID"
+          echo "BUILD_ID=$BUILD_ID" >> $GITHUB_ENV
+      
+      - name: Wait for build completion
+        run: |
+          echo "Waiting for build to complete: $BUILD_ID"
+          while true; do
+            STATUS=$(aws codebuild batch-get-builds --ids "$BUILD_ID" --query 'builds[0].buildStatus' --output text)
+            echo "Build status: $STATUS"
+            
+            if [ "$STATUS" = "SUCCEEDED" ]; then
+              echo "Build completed successfully!"
+              break
+            elif [ "$STATUS" = "FAILED" ] || [ "$STATUS" = "FAULT" ] || [ "$STATUS" = "STOPPED" ] || [ "$STATUS" = "TIMED_OUT" ]; then
+              echo "Build failed with status: $STATUS"
+              exit 1
+            fi
+            
+            sleep 30
+          done
+      
+      - name: Get build logs URL
+        run: |
+          LOG_URL=$(aws codebuild batch-get-builds --ids "$BUILD_ID" --query 'builds[0].logs.deepLink' --output text)
+          echo "Build logs: $LOG_URL"
+          echo "Build completed successfully! Check AWS CodeBuild console for detailed logs."
