@@ -1,0 +1,103 @@
+version: 0.2
+
+# Docker-based CodeBuild buildspec that builds inside a container and uploads to GitHub
+phases:
+  install:
+    runtime-versions:
+      docker: 20
+    commands:
+      - echo "Installing AWS CLI and GitHub CLI..."
+      - curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
+      - unzip awscliv2.zip
+      - ./aws/install
+      - curl -fsSL https://cli.github.com/packages/githubcli-archive-keyring.gpg | dd of=/usr/share/keyrings/githubcli-archive-keyring.gpg
+      - echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/githubcli-archive-keyring.gpg] https://cli.github.com/packages stable main" | tee /etc/apt/sources.list.d/github-cli.list > /dev/null
+      - apt update
+      - apt install gh -y
+
+  pre_build:
+    commands:
+      - echo "Preparing build environment..."
+      - mkdir -p $CODEBUILD_SRC_DIR/artifacts
+      - echo "Building Docker image with Qt Boot to Qt environment..."
+      - docker build -t antares-boot2qt -f Dockerfile.boot2qt .
+
+  build:
+    commands:
+      - echo "Running Qt Boot to Qt build inside Docker container..."
+      - |
+        # Retrieve Qt credentials from Parameter Store
+        QT_EMAIL=$(aws ssm get-parameter --name "/codebuild/qt-email" --query "Parameter.Value" --output text --region us-east-1)
+        QT_PASSWORD=$(aws ssm get-parameter --name "/codebuild/qt-password" --with-decryption --query "Parameter.Value" --output text --region us-east-1)
+        
+        # Run the Docker container with Qt credentials and volume mount for artifacts
+        docker run --rm \
+          -e QT_EMAIL="$QT_EMAIL" \
+          -e QT_PASSWORD="$QT_PASSWORD" \
+          -v "$CODEBUILD_SRC_DIR/artifacts:/workspace/artifacts" \
+          antares-boot2qt
+
+  post_build:
+    commands:
+      - echo "Checking build artifacts..."
+      - |
+        if [ -f "$CODEBUILD_SRC_DIR/artifacts/aws/ClusterApp" ]; then
+          echo "✅ Build completed successfully!"
+          ls -la $CODEBUILD_SRC_DIR/artifacts/aws/
+        else
+          echo "❌ Build failed - ClusterApp not found"
+          exit 1
+        fi
+      
+      - echo "Creating build info and packaging artifacts..."
+      - |
+        cat > $CODEBUILD_SRC_DIR/artifacts/aws/codebuild_info.txt << EOF
+        Docker-based Boot to Qt Build
+        ============================
+        Build Date: $(date)
+        Qt Version: 6.8.3
+        Platform: Boot to Qt AWS EC2 ARM64
+        Architecture: aarch64
+        Application: Cluster
+        CodeBuild Project: $CODEBUILD_PROJECT_NAME
+        Build ID: $CODEBUILD_BUILD_ID
+        Source Version: $CODEBUILD_RESOLVED_SOURCE_VERSION
+        Build Method: Docker Container
+        EOF
+      
+      - echo "Creating release package..."
+      - cd $CODEBUILD_SRC_DIR/artifacts/aws
+      - tar -czf ../antares-cluster-boot2qt-${CODEBUILD_BUILD_NUMBER}.tar.gz *
+      - cd $CODEBUILD_SRC_DIR
+      
+      - echo "Uploading artifacts to GitHub..."
+      - |
+        # Retrieve GitHub token from Parameter Store
+        GITHUB_TOKEN=$(aws ssm get-parameter --name "/codebuild/github-token" --with-decryption --query "Parameter.Value" --output text --region us-east-1)
+        export GITHUB_TOKEN
+        
+        # Create a GitHub release with the artifacts
+        RELEASE_TAG="boot2qt-build-${CODEBUILD_BUILD_NUMBER}"
+        gh release create "$RELEASE_TAG" \
+          --title "Boot to Qt Build ${CODEBUILD_BUILD_NUMBER}" \
+          --notes "Automated Boot to Qt build from CodeBuild
+        
+        **Build Information:**
+        - Build Date: $(date)
+        - Qt Version: 6.8.3
+        - Platform: Boot to Qt AWS EC2 ARM64
+        - CodeBuild ID: $CODEBUILD_BUILD_ID
+        - Source Version: $CODEBUILD_RESOLVED_SOURCE_VERSION
+        
+        **Artifacts:**
+        - ClusterApp: Cross-compiled Qt application for AWS EC2 ARM64
+        - deploy.sh: Deployment script for AWS EC2
+        - build_info.txt: Detailed build information" \
+          artifacts/antares-cluster-boot2qt-${CODEBUILD_BUILD_NUMBER}.tar.gz
+      
+      - echo "✅ Artifacts uploaded to GitHub release!"
+
+artifacts:
+  files:
+    - artifacts/aws/**/*
+  name: antares-cluster-boot2qt-docker-$CODEBUILD_BUILD_NUMBER
