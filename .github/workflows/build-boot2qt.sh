@@ -4,6 +4,66 @@ set -e
 echo "=== Qt Boot to Qt Build Script ==="
 echo "Build started at: $(date)"
 
+# Install system dependencies
+echo "Installing system dependencies..."
+sudo apt-get update
+sudo apt-get install -y \
+  build-essential \
+  cmake \
+  ninja-build \
+  curl \
+  git \
+  gawk \
+  wget \
+  diffstat \
+  unzip \
+  texinfo \
+  chrpath \
+  socat \
+  cpio \
+  python3 \
+  python3-pexpect \
+  xz-utils \
+  debianutils \
+  iputils-ping \
+  python3-git \
+  python3-jinja2 \
+  python3-subunit \
+  zstd \
+  liblz4-tool \
+  file \
+  locales \
+  libacl1 \
+  libusb-1.0-0 \
+  libgl1-mesa-dev \
+  libfontconfig1-dev \
+  libfreetype6-dev \
+  libx11-dev \
+  libx11-xcb-dev \
+  libxext-dev \
+  libxfixes-dev \
+  libxi-dev \
+  libxrender-dev \
+  libxcb1-dev \
+  libxcb-cursor-dev \
+  libxcb-glx0-dev \
+  libxcb-keysyms1-dev \
+  libxcb-image0-dev \
+  libxcb-shm0-dev \
+  libxcb-icccm4-dev \
+  libxcb-sync-dev \
+  libxcb-xfixes0-dev \
+  libxcb-shape0-dev \
+  libxcb-randr0-dev \
+  libxcb-render-util0-dev \
+  libxcb-util-dev \
+  libxcb-xinerama0-dev \
+  libxcb-xkb-dev \
+  libxkbcommon-dev \
+  libxkbcommon-x11-dev \
+  libdbus-1-dev \
+  libpulse-dev
+
 # Retrieve Qt credentials from Parameter Store
 echo "Retrieving Qt credentials from Parameter Store..."
 QT_EMAIL=$(aws ssm get-parameter --name "/codebuild/qt-email" --query "Parameter.Value" --output text --region us-east-1)
