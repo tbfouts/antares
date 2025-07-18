@@ -12,25 +12,160 @@ phases:
 
   pre_build:
     commands:
-      - echo "Preparing build environment..."
+      - echo "Installing system dependencies..."
+      - apt-get update
+      - |
+        apt-get install -y \
+          build-essential \
+          cmake \
+          ninja-build \
+          curl \
+          git \
+          gawk \
+          wget \
+          diffstat \
+          unzip \
+          texinfo \
+          chrpath \
+          socat \
+          cpio \
+          python3 \
+          python3-pexpect \
+          xz-utils \
+          debianutils \
+          iputils-ping \
+          python3-git \
+          python3-jinja2 \
+          python3-subunit \
+          zstd \
+          liblz4-tool \
+          file \
+          locales \
+          libacl1 \
+          libusb-1.0-0 \
+          libgl1-mesa-dev \
+          libfontconfig1-dev \
+          libfreetype6-dev \
+          libx11-dev \
+          libx11-xcb-dev \
+          libxext-dev \
+          libxfixes-dev \
+          libxi-dev \
+          libxrender-dev \
+          libxcb1-dev \
+          libxcb-cursor-dev \
+          libxcb-glx0-dev \
+          libxcb-keysyms1-dev \
+          libxcb-image0-dev \
+          libxcb-shm0-dev \
+          libxcb-icccm4-dev \
+          libxcb-sync-dev \
+          libxcb-xfixes0-dev \
+          libxcb-shape0-dev \
+          libxcb-randr0-dev \
+          libxcb-render-util0-dev \
+          libxcb-util-dev \
+          libxcb-xinerama0-dev \
+          libxcb-xkb-dev \
+          libxkbcommon-dev \
+          libxkbcommon-x11-dev \
+          libdbus-1-dev \
+          libpulse-dev
       - mkdir -p $CODEBUILD_SRC_DIR/artifacts
-      - echo "Building Docker image with Qt Boot to Qt environment..."
-      - docker build -t antares-boot2qt -f .github/workflows/Dockerfile.boot2qt .
 
   build:
     commands:
-      - echo "Running Qt Boot to Qt build inside Docker container..."
+      - echo "Running Qt Boot to Qt build..."
       - |
         # Retrieve Qt credentials from Parameter Store
         QT_EMAIL=$(aws ssm get-parameter --name "/codebuild/qt-email" --query "Parameter.Value" --output text --region us-east-1)
         QT_PASSWORD=$(aws ssm get-parameter --name "/codebuild/qt-password" --with-decryption --query "Parameter.Value" --output text --region us-east-1)
         
-        # Run the Docker container with Qt credentials and volume mount for artifacts
-        docker run --rm \
-          -e QT_EMAIL="$QT_EMAIL" \
-          -e QT_PASSWORD="$QT_PASSWORD" \
-          -v "$CODEBUILD_SRC_DIR/artifacts:/workspace/artifacts" \
-          antares-boot2qt
+        # Download Qt installer
+        wget -O qt-online-installer-linux-x64-online.run https://download.qt.io/official_releases/online_installers/qt-online-installer-linux-x64-online.run
+        chmod +x qt-online-installer-linux-x64-online.run
+        
+        # Install Qt components
+        echo "Installing Qt 6.8.3 with Boot to Qt and components..."
+        ./qt-online-installer-linux-x64-online.run --headless --verbose --accept-licenses --confirm-command \
+          --email "$QT_EMAIL" --password "$QT_PASSWORD" \
+          --default-answer --auto-answer installationErrorWithCancel=Ignore --root /opt/Qt \
+          install qt.qt6.683.linux_gcc_64 qt.qt6.683.addons.qtshadertools embedded.b2qt.683 embedded.b2qt.683.awsec2arm64 embedded.b2qt.683.awsec2arm64.toolchain
+        
+        # Set up Boot to Qt environment
+        export QT_DIR=/opt/Qt/6.8.3
+        export BOOT2QT_DIR=$QT_DIR/Boot2Qt
+        
+        # Find and fix toolchain environment setup script
+        TOOLCHAIN_ENV_SCRIPT=$(find $BOOT2QT_DIR -name "environment-setup-*" -type f | head -1)
+        if [ -f "$TOOLCHAIN_ENV_SCRIPT" ]; then
+          echo "Found toolchain environment script: $TOOLCHAIN_ENV_SCRIPT"
+          
+          # Fix hardcoded paths in toolchain script
+          sed -i 's|/usr/local/oe-sdk-hardcoded-buildpath/sysroots|/opt/Qt/6.8.3/Boot2Qt/aws-ec2-arm64/toolchain/sysroots|g' "$TOOLCHAIN_ENV_SCRIPT"
+          
+          # Fix hardcoded paths in CMake toolchain file
+          CMAKE_TOOLCHAIN_FILE="$BOOT2QT_DIR/aws-ec2-arm64/toolchain/sysroots/x86_64-pokysdk-linux/usr/share/cmake/OEToolchainConfig.cmake"
+          if [ -f "$CMAKE_TOOLCHAIN_FILE" ]; then
+            sed -i 's|/usr/local/oe-sdk-hardcoded-buildpath/sysroots|/opt/Qt/6.8.3/Boot2Qt/aws-ec2-arm64/toolchain/sysroots|g' "$CMAKE_TOOLCHAIN_FILE"
+          fi
+          
+          # Fix hardcoded paths in all relevant files
+          find "$BOOT2QT_DIR/aws-ec2-arm64/toolchain" -type f \( -name "*.cmake" -o -name "*.pc" -o -name "*.la" -o -name "*.conf" -o -name "*.prf" \) -exec sed -i 's|/usr/local/oe-sdk-hardcoded-buildpath/sysroots|/opt/Qt/6.8.3/Boot2Qt/aws-ec2-arm64/toolchain/sysroots|g' {} \; 2>/dev/null || true
+          
+          source "$TOOLCHAIN_ENV_SCRIPT"
+          export OECORE_CMAKE_TOOLCHAIN_FILE="$CMAKE_TOOLCHAIN_FILE"
+          
+          echo "Building Common Library for Boot to Qt..."
+          cd $CODEBUILD_SRC_DIR/common
+          mkdir build-boot2qt && cd build-boot2qt
+          
+          cmake .. \
+            -DCMAKE_BUILD_TYPE=Release \
+            -DCMAKE_TOOLCHAIN_FILE=$OECORE_CMAKE_TOOLCHAIN_FILE \
+            -DQt6_DIR=$OECORE_TARGET_SYSROOT/usr/lib/cmake/Qt6 \
+            -DQT_HOST_PATH=/opt/Qt/6.8.3/gcc_64
+          cmake --build .
+          
+          echo "Building Cluster Application for Boot to Qt..."
+          cd $CODEBUILD_SRC_DIR/Cluster
+          mkdir build-boot2qt && cd build-boot2qt
+          
+          cmake .. \
+            -DCMAKE_BUILD_TYPE=Release \
+            -DCMAKE_TOOLCHAIN_FILE=$OECORE_CMAKE_TOOLCHAIN_FILE \
+            -DQt6_DIR=$OECORE_TARGET_SYSROOT/usr/lib/cmake/Qt6 \
+            -DQT_HOST_PATH=/opt/Qt/6.8.3/gcc_64
+          cmake --build .
+          
+          # Copy artifacts
+          mkdir -p $CODEBUILD_SRC_DIR/artifacts/aws
+          if [ -f "ClusterApp" ]; then
+            cp ClusterApp $CODEBUILD_SRC_DIR/artifacts/aws/
+            echo "ClusterApp copied to artifacts"
+          else
+            echo "ClusterApp not found"
+            exit 1
+          fi
+          
+          # Create deployment script
+          cat > $CODEBUILD_SRC_DIR/artifacts/aws/deploy.sh << 'EOF'
+#!/bin/bash
+# Boot to Qt AWS deployment script
+
+# Set up environment
+export QT_QPA_PLATFORM=eglfs
+export QT_QPA_EGLFS_INTEGRATION=eglfs_kms
+
+# Run the Cluster application
+./ClusterApp
+EOF
+          chmod +x $CODEBUILD_SRC_DIR/artifacts/aws/deploy.sh
+          
+        else
+          echo "No toolchain environment script found"
+          exit 1
+        fi
 
   post_build:
     commands:
