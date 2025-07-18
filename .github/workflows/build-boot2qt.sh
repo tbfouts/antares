@@ -7,6 +7,14 @@ echo "Build started at: $(date)"
 # Install system dependencies
 echo "Installing system dependencies..."
 sudo apt-get update
+
+# Install GitHub CLI
+echo "Installing GitHub CLI..."
+curl -fsSL https://cli.github.com/packages/githubcli-archive-keyring.gpg | sudo dd of=/usr/share/keyrings/githubcli-archive-keyring.gpg
+echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/githubcli-archive-keyring.gpg] https://cli.github.com/packages stable main" | sudo tee /etc/apt/sources.list.d/github-cli.list > /dev/null
+sudo apt-get update
+sudo apt-get install -y gh
+
 sudo apt-get install -y \
   build-essential \
   cmake \
@@ -157,6 +165,35 @@ export QT_QPA_EGLFS_INTEGRATION=eglfs_kms
 ./ClusterApp
 EOF
   chmod +x $CODEBUILD_SRC_DIR/artifacts/aws/deploy.sh
+  
+  echo "Creating GitHub release..."
+  cd $CODEBUILD_SRC_DIR/artifacts/aws
+  tar -czf ../antares-cluster-boot2qt-${CODEBUILD_BUILD_NUMBER}.tar.gz *
+  cd $CODEBUILD_SRC_DIR
+  
+  # Retrieve GitHub token from Parameter Store
+  GITHUB_TOKEN=$(aws ssm get-parameter --name "/codebuild/github-token" --with-decryption --query "Parameter.Value" --output text --region us-east-1)
+  export GITHUB_TOKEN
+  
+  # Create a GitHub release with the artifacts
+  RELEASE_TAG="boot2qt-build-${CODEBUILD_BUILD_NUMBER}"
+  gh release create "$RELEASE_TAG" \
+    --title "Boot to Qt Build ${CODEBUILD_BUILD_NUMBER}" \
+    --notes "Automated Boot to Qt build from GitHub Actions via CodeBuild
+
+**Build Information:**
+- Build Date: $(date)
+- Qt Version: 6.8.3
+- Platform: Boot to Qt AWS EC2 ARM64
+- CodeBuild ID: $CODEBUILD_BUILD_ID
+- Source Version: $CODEBUILD_RESOLVED_SOURCE_VERSION
+- Triggered by: GitHub Actions
+
+**Artifacts:**
+- ClusterApp: Cross-compiled Qt application for AWS EC2 ARM64
+- deploy.sh: Deployment script for AWS EC2
+- build_info.txt: Detailed build information" \
+    artifacts/antares-cluster-boot2qt-${CODEBUILD_BUILD_NUMBER}.tar.gz
   
   echo "Build completed successfully!"
 else
