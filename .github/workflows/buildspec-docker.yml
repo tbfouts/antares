@@ -149,17 +149,17 @@ phases:
           fi
           
           # Create deployment script
-          cat > $CODEBUILD_SRC_DIR/artifacts/aws/deploy.sh << 'EOF'
-#!/bin/bash
-# Boot to Qt AWS deployment script
-
-# Set up environment
-export QT_QPA_PLATFORM=eglfs
-export QT_QPA_EGLFS_INTEGRATION=eglfs_kms
-
-# Run the Cluster application
-./ClusterApp
-EOF
+          cat > $CODEBUILD_SRC_DIR/artifacts/aws/deploy.sh << 'DEPLOY_EOF'
+          #!/bin/bash
+          # Boot to Qt AWS deployment script
+          
+          # Set up environment
+          export QT_QPA_PLATFORM=eglfs
+          export QT_QPA_EGLFS_INTEGRATION=eglfs_kms
+          
+          # Run the Cluster application
+          ./ClusterApp
+          DEPLOY_EOF
           chmod +x $CODEBUILD_SRC_DIR/artifacts/aws/deploy.sh
           
         else
