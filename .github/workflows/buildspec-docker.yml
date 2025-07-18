@@ -15,7 +15,7 @@ phases:
       - echo "Preparing build environment..."
       - mkdir -p $CODEBUILD_SRC_DIR/artifacts
       - echo "Building Docker image with Qt Boot to Qt environment..."
-      - docker build -t antares-boot2qt -f Dockerfile.boot2qt .
+      - docker build -t antares-boot2qt -f .github/workflows/Dockerfile.boot2qt .
 
   build:
     commands:
