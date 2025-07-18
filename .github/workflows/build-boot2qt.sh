@@ -166,6 +166,21 @@ export QT_QPA_EGLFS_INTEGRATION=eglfs_kms
 EOF
   chmod +x $CODEBUILD_SRC_DIR/artifacts/aws/deploy.sh
   
+  # Create build info file
+  cat > $CODEBUILD_SRC_DIR/artifacts/aws/build_info.txt << EOF
+Boot to Qt Build
+================
+Build Date: $(date)
+Qt Version: 6.8.3
+Platform: Boot to Qt AWS EC2 ARM64
+Architecture: aarch64
+Application: Cluster
+CodeBuild Project: $CODEBUILD_PROJECT_NAME
+Build ID: $CODEBUILD_BUILD_ID
+Source Version: $CODEBUILD_RESOLVED_SOURCE_VERSION
+Triggered by: GitHub Actions
+EOF
+  
   echo "Creating GitHub release..."
   cd $CODEBUILD_SRC_DIR/artifacts/aws
   tar -czf ../antares-cluster-boot2qt-${CODEBUILD_BUILD_NUMBER}.tar.gz *
@@ -179,6 +194,7 @@ EOF
   RELEASE_TAG="boot2qt-build-${CODEBUILD_BUILD_NUMBER}"
   gh release create "$RELEASE_TAG" \
     --title "Boot to Qt Build ${CODEBUILD_BUILD_NUMBER}" \
+    --generate-notes=false \
     --notes "Automated Boot to Qt build from GitHub Actions via CodeBuild
 
 **Build Information:**
