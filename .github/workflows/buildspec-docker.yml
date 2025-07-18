@@ -3,8 +3,6 @@ version: 0.2
 # Docker-based CodeBuild buildspec that builds inside a container and uploads to GitHub
 phases:
   install:
-    runtime-versions:
-      docker: 20
     commands:
       - echo "Installing AWS CLI and GitHub CLI..."
       - curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
