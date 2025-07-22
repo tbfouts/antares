@@ -135,7 +135,7 @@ jobs:
           EOF
           
           # Run Claude Code with the prompt
-          claude chat --file fix_build_failure_prompt.md --non-interactive
+          claude chat --non-interactive < fix_build_failure_prompt.md
       
       - name: Setup git for PR creation
         if: failure() && env.FAILED_BUILD_ID
