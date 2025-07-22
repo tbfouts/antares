@@ -67,9 +67,11 @@ jobs:
       
       - name: Configure Claude Code
         if: failure() && env.FAILED_BUILD_ID
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.CLAUDE_API_KEY }}
         run: |
           echo "Configuring Claude Code..."
-          claude config set --global api-key "${{ secrets.CLAUDE_API_KEY }}"
+          echo "API key configured via environment variable"
       
       - name: Fetch build logs for Claude analysis
         if: failure() && env.FAILED_BUILD_ID
@@ -92,6 +94,8 @@ jobs:
       
       - name: Analyze and fix build failure with Claude Code
         if: failure() && env.FAILED_BUILD_ID
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.CLAUDE_API_KEY }}
         run: |
           echo "Running Claude Code to analyze and fix the build failure..."
           
