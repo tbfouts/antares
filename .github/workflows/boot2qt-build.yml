@@ -36,6 +36,8 @@ jobs:
               break
             elif [ "$STATUS" = "FAILED" ] || [ "$STATUS" = "FAULT" ] || [ "$STATUS" = "STOPPED" ] || [ "$STATUS" = "TIMED_OUT" ]; then
               echo "Build failed with status: $STATUS"
+              echo "FAILED_BUILD_ID=$BUILD_ID" >> $GITHUB_ENV
+              echo "FAILED_BUILD_STATUS=$STATUS" >> $GITHUB_ENV
               exit 1
             fi
             
@@ -47,3 +49,132 @@ jobs:
           LOG_URL=$(aws codebuild batch-get-builds --ids "$BUILD_ID" --query 'builds[0].logs.deepLink' --output text)
           echo "Build logs: $LOG_URL"
           echo "Build completed successfully! Check AWS CodeBuild console for detailed logs."
+      
+      - name: Checkout repository for Claude Code analysis
+        if: failure() && env.FAILED_BUILD_ID
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          token: ${{ secrets.GITHUB_TOKEN }}
+      
+      - name: Install Claude Code CLI
+        if: failure() && env.FAILED_BUILD_ID
+        run: |
+          echo "Installing Claude Code CLI..."
+          curl -fsSL https://claude.ai/install.sh | bash
+          echo "$HOME/.claude/bin" >> $GITHUB_PATH
+          claude --version
+      
+      - name: Configure Claude Code
+        if: failure() && env.FAILED_BUILD_ID
+        run: |
+          echo "Configuring Claude Code..."
+          claude config set api-key "${{ secrets.CLAUDE_API_KEY }}"
+      
+      - name: Fetch build logs for Claude analysis
+        if: failure() && env.FAILED_BUILD_ID
+        run: |
+          echo "Fetching CodeBuild logs..."
+          LOG_GROUP=$(aws codebuild batch-get-builds --ids "$FAILED_BUILD_ID" --query 'builds[0].logs.groupName' --output text)
+          LOG_STREAM=$(aws codebuild batch-get-builds --ids "$FAILED_BUILD_ID" --query 'builds[0].logs.streamName' --output text)
+          
+          if [ "$LOG_GROUP" != "None" ] && [ "$LOG_STREAM" != "None" ]; then
+            aws logs get-log-events \
+              --log-group-name "$LOG_GROUP" \
+              --log-stream-name "$LOG_STREAM" \
+              --limit 200 \
+              --query 'events[*].message' \
+              --output text > codebuild_failure_logs.txt
+            echo "Build logs saved to codebuild_failure_logs.txt"
+          else
+            echo "No build logs available" > codebuild_failure_logs.txt
+          fi
+      
+      - name: Analyze and fix build failure with Claude Code
+        if: failure() && env.FAILED_BUILD_ID
+        run: |
+          echo "Running Claude Code to analyze and fix the build failure..."
+          
+          # Create a comprehensive prompt for Claude Code
+          cat > fix_build_failure_prompt.md << 'EOF'
+          # CodeBuild Failure Auto-Fix Request
+          
+          I need you to analyze and fix this CodeBuild failure:
+          
+          **Build Details:**
+          - Build ID: ${{ env.FAILED_BUILD_ID }}
+          - Status: ${{ env.FAILED_BUILD_STATUS }}  
+          - Project: antares-cluster-boot2qt-docker
+          - Workflow: Boot to Qt Build
+          
+          **Your Task:**
+          1. Examine the build failure logs in `codebuild_failure_logs.txt`
+          2. Analyze the repository structure and build scripts
+          3. Identify the root cause of the failure
+          4. Make the necessary code changes to fix the issue
+          5. Create a branch and PR with your fixes
+          
+          **Key Files to Consider:**
+          - `.github/workflows/build-boot2qt.sh` (main build script)
+          - `.github/workflows/boot2qt-build.yml` (workflow definition)
+          - Any CMake files or configuration that might be causing issues
+          
+          **Requirements:**
+          - Make actual file modifications to fix the problem
+          - Test your understanding by examining related files
+          - Focus on practical, working solutions
+          - Create a new branch called `fix/codebuild-${{ env.FAILED_BUILD_ID }}`
+          - Commit your changes with a clear message
+          - Create a draft PR explaining your analysis and fixes
+          
+          Please start by reading the failure logs and then systematically work through the fix.
+          EOF
+          
+          # Run Claude Code with the prompt
+          claude chat --file fix_build_failure_prompt.md --non-interactive
+      
+      - name: Setup git for PR creation
+        if: failure() && env.FAILED_BUILD_ID
+        run: |
+          git config user.name "claude-code[bot]"
+          git config user.email "claude-code[bot]@users.noreply.github.com"
+      
+      - name: Create fallback issue if no PR was created
+        if: failure() && env.FAILED_BUILD_ID
+        run: |
+          # Check if Claude Code created a PR or made changes
+          if git diff --quiet && git diff --cached --quiet; then
+            echo "No changes were made by Claude Code. Creating issue instead..."
+            
+            # Read the logs for issue context
+            LOGS_PREVIEW=$(head -50 codebuild_failure_logs.txt)
+            
+            gh issue create \
+              --title "CodeBuild Failure - Build ${{ env.FAILED_BUILD_ID }}" \
+              --body "## CodeBuild Failure Report
+          
+          **Build Details:**
+          - Build ID: \`${{ env.FAILED_BUILD_ID }}\`
+          - Status: \`${{ env.FAILED_BUILD_STATUS }}\`
+          - Workflow Run: ${{ github.run_id }}
+          - Project: antares-cluster-boot2qt-docker
+          
+          ## Build Logs Preview
+          \`\`\`
+          $LOGS_PREVIEW
+          \`\`\`
+          
+          ## Action Required
+          Claude Code was unable to automatically fix this build failure. Manual investigation is required.
+          
+          **Next Steps:**
+          1. Review the full build logs in AWS CodeBuild console
+          2. Examine the build script: \`.github/workflows/build-boot2qt.sh\`
+          3. Check for dependency or configuration issues
+          
+          ---
+          *This issue was automatically created after Claude Code analysis.*" \
+              --label "bug,codebuild-failure,needs-investigation"
+          else
+            echo "Changes were made by Claude Code - PR should have been created"
+          fi
