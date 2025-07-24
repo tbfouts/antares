@@ -108,14 +108,14 @@ jobs:
           rm -f fix_build_failure_prompt.md
           
           # Create prompt file and run Claude Code
-          cat > claude_prompt.txt << EOF
+          cat > claude_prompt.txt << 'EOF'
 # CodeBuild Failure Auto-Fix Request
 
 I need you to analyze and fix this CodeBuild failure:
 
 **Build Details:**
-- Build ID: ${{ env.FAILED_BUILD_ID }}
-- Status: ${{ env.FAILED_BUILD_STATUS }}  
+- Build ID: BUILD_ID_PLACEHOLDER
+- Status: BUILD_STATUS_PLACEHOLDER
 - Project: antares-cluster-boot2qt-docker
 - Workflow: Boot to Qt Build
 
@@ -134,14 +134,19 @@ I need you to analyze and fix this CodeBuild failure:
 **Requirements:**
 - IMPORTANT: Only commit the actual source code fixes - DO NOT commit analysis files, logs, or prompts
 - Use Edit tool to modify only the files that need fixing
-- Create a new branch with: git checkout -b fix/codebuild-${{ env.FAILED_BUILD_ID }}
+- Create a new branch with: git checkout -b fix/codebuild-BRANCH_ID_PLACEHOLDER
 - Add only the fixed files with: git add <specific-files-you-fixed>
 - Commit with: git commit -m "Fix build failure: [brief description of fix]"
-- Push branch with: git push origin fix/codebuild-${{ env.FAILED_BUILD_ID }}
+- Push branch with: git push origin fix/codebuild-BRANCH_ID_PLACEHOLDER
 - DO NOT create a PR - the GitHub Actions workflow will handle that automatically
 
 Please start by reading the failure logs and then systematically work through the fix.
 EOF
+          
+          # Replace placeholders with actual values
+          sed -i "s/BUILD_ID_PLACEHOLDER/${{ env.FAILED_BUILD_ID }}/g" claude_prompt.txt
+          sed -i "s/BUILD_STATUS_PLACEHOLDER/${{ env.FAILED_BUILD_STATUS }}/g" claude_prompt.txt
+          sed -i "s/BRANCH_ID_PLACEHOLDER/${{ env.FAILED_BUILD_ID }}/g" claude_prompt.txt
           
           # Run Claude Code and clean up prompt file
           claude --dangerously-skip-permissions < claude_prompt.txt
