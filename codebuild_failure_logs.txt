@@ -1,0 +1,201 @@
+[219567] Done
+	[219567] backup qt.qt6.683.linux_gcc_64 operation: Settings
+	[219567] 	- arguments: path=/opt/Qt/6.8.3/gcc_64/bin/qt.conf, method=set, key=Paths/Documentation, value=../../Docs/Qt-6.8.3
+	[219567] Done
+	[219567] perform qt.qt6.683.linux_gcc_64 operation: Settings
+	[219567] 	- arguments: path=/opt/Qt/6.8.3/gcc_64/bin/qt.conf, method=set, key=Paths/Documentation, value=../../Docs/Qt-6.8.3
+	[219578] Done
+	[219579] backup qt.qt6.683.linux_gcc_64 operation: Settings
+	[219579] 	- arguments: path=/opt/Qt/6.8.3/gcc_64/libexec/qt.conf, method=set, key=Paths/Prefix, value=..
+	[219579] Done
+	[219579] perform qt.qt6.683.linux_gcc_64 operation: Settings
+	[219579] 	- arguments: path=/opt/Qt/6.8.3/gcc_64/libexec/qt.conf, method=set, key=Paths/Prefix, value=..
+	[219589] Done
+	[219589] backup qt.qt6.683.linux_gcc_64 operation: Settings
+	[219589] 	- arguments: path=/opt/Qt/6.8.3/gcc_64/libexec/qt.conf, method=set, key=Paths/Examples, value=../../Examples/Qt-6.8.3
+	[219589] Done
+	[219590] perform qt.qt6.683.linux_gcc_64 operation: Settings
+	[219590] 	- arguments: path=/opt/Qt/6.8.3/gcc_64/libexec/qt.conf, method=set, key=Paths/Examples, value=../../Examples/Qt-6.8.3
+	[219601] Done
+	[219601] backup qt.qt6.683.linux_gcc_64 operation: Settings
+	[219601] 	- arguments: path=/opt/Qt/6.8.3/gcc_64/libexec/qt.conf, method=set, key=Paths/Documentation, value=../../Docs/Qt-6.8.3
+	[219601] Done
+	[219601] perform qt.qt6.683.linux_gcc_64 operation: Settings
+	[219601] 	- arguments: path=/opt/Qt/6.8.3/gcc_64/libexec/qt.conf, method=set, key=Paths/Documentation, value=../../Docs/Qt-6.8.3
+	[219612] Done
+	[219612] backup qt.qt6.683.linux_gcc_64 operation: Move
+	[219612] 	- arguments: /opt/Qt/6.8.3/gcc_64/libexec/moc, /opt/Qt/6.8.3/gcc_64/libexec/qtmoc
+	[219612] Done
+	[219612] perform qt.qt6.683.linux_gcc_64 operation: Move
+	[219612] 	- arguments: /opt/Qt/6.8.3/gcc_64/libexec/moc, /opt/Qt/6.8.3/gcc_64/libexec/qtmoc
+	[219627] Done
+	[219627] backup qt.qt6.683.linux_gcc_64 operation: Copy
+	[219627] 	- arguments: /opt/Qt/Tools/mocwrapper/mocwrapper, /opt/Qt/6.8.3/gcc_64/libexec/moc
+	[219627] Done
+	[219627] perform qt.qt6.683.linux_gcc_64 operation: Copy
+	[219627] 	- arguments: /opt/Qt/Tools/mocwrapper/mocwrapper, /opt/Qt/6.8.3/gcc_64/libexec/moc
+	[219642] Done
+	[219642] backup qt.qt6.683.linux_gcc_64 operation: AppendFile
+	[219642] 	- arguments: /opt/Qt/6.8.3/gcc_64/libexec/mocwrapper_qt_version, 6.8.3
+	[219642] Done
+	[219642] perform qt.qt6.683.linux_gcc_64 operation: AppendFile
+	[219642] 	- arguments: /opt/Qt/6.8.3/gcc_64/libexec/mocwrapper_qt_version, 6.8.3
+	[219642] Done
+	[219666] Installing component Qt for Device Creation Documentation
+	[219666] backup embedded.b2qt.683.doc operation: Settings
+	[219666] 	- arguments: path=/opt/Qt//Tools/sdktool/share/qtcreator/QtProject/QtCreator.ini, method=add_array_value, key=Help/InstalledDocumentation, value=/opt/Qt/Docs/B2Qt-6.8.3
+	[219666] Done
+	[219666] perform embedded.b2qt.683.doc operation: Settings
+	[219666] 	- arguments: path=/opt/Qt//Tools/sdktool/share/qtcreator/QtProject/QtCreator.ini, method=add_array_value, key=Help/InstalledDocumentation, value=/opt/Qt/Docs/B2Qt-6.8.3
+	[219678] Done
+	[219693] Installing component AWS EC2 ARM64 Linux Toolchain
+	[219693] backup embedded.b2qt.683.awsec2arm64.toolchain operation: Execute
+	[219693] 	- arguments: {0}, sh, /opt/Qt/6.8.3/Boot2Qt/aws-ec2-arm64/toolchain/b2qt-x86_64-meta-toolchain-b2qt-embedded-qt6-sdk-aws-ec2-arm64.sh, -y, -d, /opt/Qt/6.8.3/Boot2Qt/aws-ec2-arm64/toolchain, UNDOEXECUTE, rm, -rf, /opt/Qt/6.8.3/Boot2Qt/aws-ec2-arm64/toolchain
+	[219693] Done
+	[219693] perform embedded.b2qt.683.awsec2arm64.toolchain operation: Execute
+	[219693] 	- arguments: {0}, sh, /opt/Qt/6.8.3/Boot2Qt/aws-ec2-arm64/toolchain/b2qt-x86_64-meta-toolchain-b2qt-embedded-qt6-sdk-aws-ec2-arm64.sh, -y, -d, /opt/Qt/6.8.3/Boot2Qt/aws-ec2-arm64/toolchain, UNDOEXECUTE, rm, -rf, /opt/Qt/6.8.3/Boot2Qt/aws-ec2-arm64/toolchain
+	[219699] sh" started, arguments: "/opt/Qt/6.8.3/Boot2Qt/aws-ec2-arm64/toolchain/b2qt-x86_64-meta-toolchain-b2qt-embedded-qt6-sdk-aws-ec2-arm64.sh -y -d /opt/Qt/6.8.3/Boot2Qt/aws-ec2-arm64/toolchain
+	[221976] Boot to Qt for Embedded Linux SDK installer version 5.0.7\n
+	[221977] =========================================================\n
+	[221980] You are about to install the SDK to \"/opt/Qt/6.8.3/Boot2Qt/aws-ec2-arm64/toolchain\". Proceed [Y/n]? 
+	[221980] Y\n
+	[221980] Extracting SDK...
+	[413292] done\nSetting it up...
+	[490502] done\n
+	[490602] SDK has been successfully set up and is ready to be used.\nEach time you wish to use the SDK in a new shell session, you need to source the environment setup script e.g.\n
+	[490603]  $ . /opt/Qt/6.8.3/Boot2Qt/aws-ec2-arm64/toolchain/environment-setup-armv8-2a-poky-linux\n
+	[490603] Done
+	[490603] backup embedded.b2qt.683.awsec2arm64.toolchain operation: Execute
+	[490603] 	- arguments: {0}, /bin/rm, /opt/Qt/6.8.3/Boot2Qt/aws-ec2-arm64/toolchain/b2qt-x86_64-meta-toolchain-b2qt-embedded-qt6-sdk-aws-ec2-arm64.sh
+	[490603] Done
+	[490603] perform embedded.b2qt.683.awsec2arm64.toolchain operation: Execute
+	[490603] 	- arguments: {0}, /bin/rm, /opt/Qt/6.8.3/Boot2Qt/aws-ec2-arm64/toolchain/b2qt-x86_64-meta-toolchain-b2qt-embedded-qt6-sdk-aws-ec2-arm64.sh
+	[490609] /bin/rm" started, arguments: "/opt/Qt/6.8.3/Boot2Qt/aws-ec2-arm64/toolchain/b2qt-x86_64-meta-toolchain-b2qt-embedded-qt6-sdk-aws-ec2-arm64.sh
+	[490757] Done
+	[490757] backup embedded.b2qt.683.awsec2arm64.toolchain operation: Execute
+	[490757] 	- arguments: {0,2}, /opt/Qt//Tools/sdktool/libexec/qtcreator/sdktool, addAbiFlavor, --flavor, poky, --oses, linux
+	[490757] Done
+	[490757] perform embedded.b2qt.683.awsec2arm64.toolchain operation: Execute
+	[490757] 	- arguments: {0,2}, /opt/Qt//Tools/sdktool/libexec/qtcreator/sdktool, addAbiFlavor, --flavor, poky, --oses, linux
+	[490764] /opt/Qt//Tools/sdktool/libexec/qtcreator/sdktool" started, arguments: "addAbiFlavor --flavor poky --oses linux
+	[490790] Done
+	[490790] backup embedded.b2qt.683.awsec2arm64.toolchain operation: Execute
+	[490790] 	- arguments: /opt/Qt//Tools/sdktool/libexec/qtcreator/sdktool, addTC, --id, ProjectExplorer.ToolChain.Gcc:embedded.b2qt.683.awsec2arm64.toolchain.gcc, --name, GCC (Boot2Qt 6.8.3 AWS EC2 ARM64), --path, /opt/Qt/6.8.3/Boot2Qt/aws-ec2-arm64/toolchain/sysroots/x86_64-pokysdk-linux/usr/bin/aarch64-poky-linux/aarch64-poky-linux-gcc, --abi, arm-linux-poky-elf-64bit, --language, C, UNDOEXECUTE, /opt/Qt//Tools/sdktool/libexec/qtcreator/sdktool, rmTC, --id, ProjectExplorer.ToolChain.Gcc:embedded.b2qt.683.awsec2arm64.toolchain.gcc
+	[490790] Done
+	[490790] perform embedded.b2qt.683.awsec2arm64.toolchain operation: Execute
+	[490790] 	- arguments: /opt/Qt//Tools/sdktool/libexec/qtcreator/sdktool, addTC, --id, ProjectExplorer.ToolChain.Gcc:embedded.b2qt.683.awsec2arm64.toolchain.gcc, --name, GCC (Boot2Qt 6.8.3 AWS EC2 ARM64), --path, /opt/Qt/6.8.3/Boot2Qt/aws-ec2-arm64/toolchain/sysroots/x86_64-pokysdk-linux/usr/bin/aarch64-poky-linux/aarch64-poky-linux-gcc, --abi, arm-linux-poky-elf-64bit, --language, C, UNDOEXECUTE, /opt/Qt//Tools/sdktool/libexec/qtcreator/sdktool, rmTC, --id, ProjectExplorer.ToolChain.Gcc:embedded.b2qt.683.awsec2arm64.toolchain.gcc
+	[490796] /opt/Qt//Tools/sdktool/libexec/qtcreator/sdktool" started, arguments: "addTC --id ProjectExplorer.ToolChain.Gcc:embedded.b2qt.683.awsec2arm64.toolchain.gcc --name GCC (Boot2Qt 6.8.3 AWS EC2 ARM64) --path /opt/Qt/6.8.3/Boot2Qt/aws-ec2-arm64/toolchain/sysroots/x86_64-pokysdk-linux/usr/bin/aarch64-poky-linux/aarch64-poky-linux-gcc --abi arm-linux-poky-elf-64bit --language C
+	[490807] Done
+	[490807] backup embedded.b2qt.683.awsec2arm64.toolchain operation: Execute
+	[490807] 	- arguments: /opt/Qt//Tools/sdktool/libexec/qtcreator/sdktool, addTC, --id, ProjectExplorer.ToolChain.Gcc:embedded.b2qt.683.awsec2arm64.toolchain.g++, --name, G++ (Boot2Qt 6.8.3 AWS EC2 ARM64), --path, /opt/Qt/6.8.3/Boot2Qt/aws-ec2-arm64/toolchain/sysroots/x86_64-pokysdk-linux/usr/bin/aarch64-poky-linux/aarch64-poky-linux-g++, --abi, arm-linux-poky-elf-64bit, --language, Cxx, UNDOEXECUTE, /opt/Qt//Tools/sdktool/libexec/qtcreator/sdktool, rmTC, --id, ProjectExplorer.ToolChain.Gcc:embedded.b2qt.683.awsec2arm64.toolchain.g++
+	[490807] Done
+	[490807] perform embedded.b2qt.683.awsec2arm64.toolchain operation: Execute
+	[490807] 	- arguments: /opt/Qt//Tools/sdktool/libexec/qtcreator/sdktool, addTC, --id, ProjectExplorer.ToolChain.Gcc:embedded.b2qt.683.awsec2arm64.toolchain.g++, --name, G++ (Boot2Qt 6.8.3 AWS EC2 ARM64), --path, /opt/Qt/6.8.3/Boot2Qt/aws-ec2-arm64/toolchain/sysroots/x86_64-pokysdk-linux/usr/bin/aarch64-poky-linux/aarch64-poky-linux-g++, --abi, arm-linux-poky-elf-64bit, --language, Cxx, UNDOEXECUTE, /opt/Qt//Tools/sdktool/libexec/qtcreator/sdktool, rmTC, --id, ProjectExplorer.ToolChain.Gcc:embedded.b2qt.683.awsec2arm64.toolchain.g++
+	[490812] /opt/Qt//Tools/sdktool/libexec/qtcreator/sdktool" started, arguments: "addTC --id ProjectExplorer.ToolChain.Gcc:embedded.b2qt.683.awsec2arm64.toolchain.g++ --name G++ (Boot2Qt 6.8.3 AWS EC2 ARM64) --path /opt/Qt/6.8.3/Boot2Qt/aws-ec2-arm64/toolchain/sysroots/x86_64-pokysdk-linux/usr/bin/aarch64-poky-linux/aarch64-poky-linux-g++ --abi arm-linux-poky-elf-64bit --language Cxx
+	[490822] Done
+	[490822] backup embedded.b2qt.683.awsec2arm64.toolchain operation: Execute
+	[490822] 	- arguments: /opt/Qt//Tools/sdktool/libexec/qtcreator/sdktool, addDebugger, --id, embedded.b2qt.683.awsec2arm64.toolchain, --name, GDB (Boot2Qt 6.8.3 AWS EC2 ARM64), --engine, 1, --binary, /opt/Qt/6.8.3/Boot2Qt/aws-ec2-arm64/toolchain/sysroots/x86_64-pokysdk-linux/usr/bin/aarch64-poky-linux/aarch64-poky-linux-gdb, --abis, arm-linux-poky-elf-64bit, UNDOEXECUTE, /opt/Qt//Tools/sdktool/libexec/qtcreator/sdktool, rmDebugger, --id, embedded.b2qt.683.awsec2arm64.toolchain
+	[490822] Done
+	[490822] perform embedded.b2qt.683.awsec2arm64.toolchain operation: Execute
+	[490822] 	- arguments: /opt/Qt//Tools/sdktool/libexec/qtcreator/sdktool, addDebugger, --id, embedded.b2qt.683.awsec2arm64.toolchain, --name, GDB (Boot2Qt 6.8.3 AWS EC2 ARM64), --engine, 1, --binary, /opt/Qt/6.8.3/Boot2Qt/aws-ec2-arm64/toolchain/sysroots/x86_64-pokysdk-linux/usr/bin/aarch64-poky-linux/aarch64-poky-linux-gdb, --abis, arm-linux-poky-elf-64bit, UNDOEXECUTE, /opt/Qt//Tools/sdktool/libexec/qtcreator/sdktool, rmDebugger, --id, embedded.b2qt.683.awsec2arm64.toolchain
+	[490828] /opt/Qt//Tools/sdktool/libexec/qtcreator/sdktool" started, arguments: "addDebugger --id embedded.b2qt.683.awsec2arm64.toolchain --name GDB (Boot2Qt 6.8.3 AWS EC2 ARM64) --engine 1 --binary /opt/Qt/6.8.3/Boot2Qt/aws-ec2-arm64/toolchain/sysroots/x86_64-pokysdk-linux/usr/bin/aarch64-poky-linux/aarch64-poky-linux-gdb --abis arm-linux-poky-elf-64bit
+	[490837] Done
+	[490838] backup embedded.b2qt.683.awsec2arm64.toolchain operation: Execute
+	[490838] 	- arguments: /opt/Qt//Tools/sdktool/libexec/qtcreator/sdktool, addQt, --id, embedded.b2qt.683.awsec2arm64.toolchain, --name, Boot2Qt 6.8.3 AWS EC2 ARM64, --type, Qdb.EmbeddedLinuxQt, --qmake, /opt/Qt/6.8.3/Boot2Qt/aws-ec2-arm64/toolchain/sysroots/x86_64-pokysdk-linux/usr/bin/qmake, --abis, arm-linux-poky-elf-64bit, UNDOEXECUTE, /opt/Qt//Tools/sdktool/libexec/qtcreator/sdktool, rmQt, --id, embedded.b2qt.683.awsec2arm64.toolchain
+	[490838] Done
+	[490838] perform embedded.b2qt.683.awsec2arm64.toolchain operation: Execute
+	[490838] 	- arguments: /opt/Qt//Tools/sdktool/libexec/qtcreator/sdktool, addQt, --id, embedded.b2qt.683.awsec2arm64.toolchain, --name, Boot2Qt 6.8.3 AWS EC2 ARM64, --type, Qdb.EmbeddedLinuxQt, --qmake, /opt/Qt/6.8.3/Boot2Qt/aws-ec2-arm64/toolchain/sysroots/x86_64-pokysdk-linux/usr/bin/qmake, --abis, arm-linux-poky-elf-64bit, UNDOEXECUTE, /opt/Qt//Tools/sdktool/libexec/qtcreator/sdktool, rmQt, --id, embedded.b2qt.683.awsec2arm64.toolchain
+	[490843] /opt/Qt//Tools/sdktool/libexec/qtcreator/sdktool" started, arguments: "addQt --id embedded.b2qt.683.awsec2arm64.toolchain --name Boot2Qt 6.8.3 AWS EC2 ARM64 --type Qdb.EmbeddedLinuxQt --qmake /opt/Qt/6.8.3/Boot2Qt/aws-ec2-arm64/toolchain/sysroots/x86_64-pokysdk-linux/usr/bin/qmake --abis arm-linux-poky-elf-64bit
+	[490853] Done
+	[490853] backup embedded.b2qt.683.awsec2arm64.toolchain operation: Execute
+	[490853] 	- arguments: /opt/Qt//Tools/sdktool/libexec/qtcreator/sdktool, addCMake, --id, embedded.b2qt.683.awsec2arm64.toolchain, --name, CMake (Boot2Qt 6.8.3 AWS EC2 ARM64), --path, /opt/Qt/6.8.3/Boot2Qt/aws-ec2-arm64/toolchain/sysroots/x86_64-pokysdk-linux/usr/bin/cmake, UNDOEXECUTE, /opt/Qt//Tools/sdktool/libexec/qtcreator/sdktool, rmCMake, --id, embedded.b2qt.683.awsec2arm64.toolchain
+	[490853] Done
+	[490853] perform embedded.b2qt.683.awsec2arm64.toolchain operation: Execute
+	[490853] 	- arguments: /opt/Qt//Tools/sdktool/libexec/qtcreator/sdktool, addCMake, --id, embedded.b2qt.683.awsec2arm64.toolchain, --name, CMake (Boot2Qt 6.8.3 AWS EC2 ARM64), --path, /opt/Qt/6.8.3/Boot2Qt/aws-ec2-arm64/toolchain/sysroots/x86_64-pokysdk-linux/usr/bin/cmake, UNDOEXECUTE, /opt/Qt//Tools/sdktool/libexec/qtcreator/sdktool, rmCMake, --id, embedded.b2qt.683.awsec2arm64.toolchain
+	[490858] /opt/Qt//Tools/sdktool/libexec/qtcreator/sdktool" started, arguments: "addCMake --id embedded.b2qt.683.awsec2arm64.toolchain --name CMake (Boot2Qt 6.8.3 AWS EC2 ARM64) --path /opt/Qt/6.8.3/Boot2Qt/aws-ec2-arm64/toolchain/sysroots/x86_64-pokysdk-linux/usr/bin/cmake
+	[490869] Done
+	[490869] backup embedded.b2qt.683.awsec2arm64.toolchain operation: Execute
+	[490869] 	- arguments: /opt/Qt//Tools/sdktool/libexec/qtcreator/sdktool, addKit, --id, embedded.b2qt.683.awsec2arm64.toolchain, --name, Boot2Qt 6.8.3 AWS EC2 ARM64, --mkspec, linux-oe-g++, --qt, embedded.b2qt.683.awsec2arm64.toolchain, --debuggerid, embedded.b2qt.683.awsec2arm64.toolchain, --sysroot, /opt/Qt/6.8.3/Boot2Qt/aws-ec2-arm64/toolchain/sysroots/armv8-2a-poky-linux, --devicetype, QdbLinuxOsType, --builddevice, , --Ctoolchain, ProjectExplorer.ToolChain.Gcc:embedded.b2qt.683.awsec2arm64.toolchain.gcc, --Cxxtoolchain, ProjectExplorer.ToolChain.Gcc:embedded.b2qt.683.awsec2arm64.toolchain.g++, --cmake, embedded.b2qt.683.awsec2arm64.toolchain, --cmake-generator, Ninja, --cmake-config, CMAKE_CXX_COMPILER:STRING=%{Compiler:Executable:Cxx}, --cmake-config, CMAKE_C_COMPILER:STRING=%{Compiler:Executable:C}, --cmake-config, CMAKE_PREFIX_PATH:STRING=%{Qt:QT_INSTALL_PREFIX}, --cmake-config, QT_QMAKE_EXECUTABLE:STRING=%{Qt:qmakeExecutable}, --cmake-config, CMAKE_TOOLCHAIN_FILE:FILEPATH=/opt/Qt/6.8.3/Boot2Qt/aws-ec2-arm64/toolchain/sysroots/x86_64-pokysdk-linux/usr/lib/cmake/Qt6/qt.toolchain.cmake, --cmake-config, CMAKE_MAKE_PROGRAM:FILEPATH=/opt/Qt/6.8.3/Boot2Qt/aws-ec2-arm64/toolchain/sysroots/x86_64-pokysdk-linux/usr/bin/ninja, PE.Profile.FileSystemFriendlyName, QString:6.8.3-aws-ec2-arm64, UNDOEXECUTE, /opt/Qt//Tools/sdktool/libexec/qtcreator/sdktool, rmKit, --id, embedded.b2qt.683.awsec2arm64.toolchain
+	[490869] Done
+	[490869] perform embedded.b2qt.683.awsec2arm64.toolchain operation: Execute
+	[490869] 	- arguments: /opt/Qt//Tools/sdktool/libexec/qtcreator/sdktool, addKit, --id, embedded.b2qt.683.awsec2arm64.toolchain, --name, Boot2Qt 6.8.3 AWS EC2 ARM64, --mkspec, linux-oe-g++, --qt, embedded.b2qt.683.awsec2arm64.toolchain, --debuggerid, embedded.b2qt.683.awsec2arm64.toolchain, --sysroot, /opt/Qt/6.8.3/Boot2Qt/aws-ec2-arm64/toolchain/sysroots/armv8-2a-poky-linux, --devicetype, QdbLinuxOsType, --builddevice, , --Ctoolchain, ProjectExplorer.ToolChain.Gcc:embedded.b2qt.683.awsec2arm64.toolchain.gcc, --Cxxtoolchain, ProjectExplorer.ToolChain.Gcc:embedded.b2qt.683.awsec2arm64.toolchain.g++, --cmake, embedded.b2qt.683.awsec2arm64.toolchain, --cmake-generator, Ninja, --cmake-config, CMAKE_CXX_COMPILER:STRING=%{Compiler:Executable:Cxx}, --cmake-config, CMAKE_C_COMPILER:STRING=%{Compiler:Executable:C}, --cmake-config, CMAKE_PREFIX_PATH:STRING=%{Qt:QT_INSTALL_PREFIX}, --cmake-config, QT_QMAKE_EXECUTABLE:STRING=%{Qt:qmakeExecutable}, --cmake-config, CMAKE_TOOLCHAIN_FILE:FILEPATH=/opt/Qt/6.8.3/Boot2Qt/aws-ec2-arm64/toolchain/sysroots/x86_64-pokysdk-linux/usr/lib/cmake/Qt6/qt.toolchain.cmake, --cmake-config, CMAKE_MAKE_PROGRAM:FILEPATH=/opt/Qt/6.8.3/Boot2Qt/aws-ec2-arm64/toolchain/sysroots/x86_64-pokysdk-linux/usr/bin/ninja, PE.Profile.FileSystemFriendlyName, QString:6.8.3-aws-ec2-arm64, UNDOEXECUTE, /opt/Qt//Tools/sdktool/libexec/qtcreator/sdktool, rmKit, --id, embedded.b2qt.683.awsec2arm64.toolchain
+	[490874] /opt/Qt//Tools/sdktool/libexec/qtcreator/sdktool" started, arguments: "addKit --id embedded.b2qt.683.awsec2arm64.toolchain --name Boot2Qt 6.8.3 AWS EC2 ARM64 --mkspec linux-oe-g++ --qt embedded.b2qt.683.awsec2arm64.toolchain --debuggerid embedded.b2qt.683.awsec2arm64.toolchain --sysroot /opt/Qt/6.8.3/Boot2Qt/aws-ec2-arm64/toolchain/sysroots/armv8-2a-poky-linux --devicetype QdbLinuxOsType --builddevice  --Ctoolchain ProjectExplorer.ToolChain.Gcc:embedded.b2qt.683.awsec2arm64.toolchain.gcc --Cxxtoolchain ProjectExplorer.ToolChain.Gcc:embedded.b2qt.683.awsec2arm64.toolchain.g++ --cmake embedded.b2qt.683.awsec2arm64.toolchain --cmake-generator Ninja --cmake-config CMAKE_CXX_COMPILER:STRING=%{Compiler:Executable:Cxx} --cmake-config CMAKE_C_COMPILER:STRING=%{Compiler:Executable:C} --cmake-config CMAKE_PREFIX_PATH:STRING=%{Qt:QT_INSTALL_PREFIX} --cmake-config QT_QMAKE_EXECUTABLE:STRING=%{Qt:qmakeExecutable} --cmake-config CMAKE_TOOLCHAIN_FILE:FILEPATH=/opt/Qt/6.8.3/Boot2Qt/aws-ec2-arm64/toolchain/sysroots/x86_64-pokysdk-linux/usr/lib/cmake/Qt6/qt.toolchain.cmake --cmake-config CMAKE_MAKE_PROGRAM:FILEPATH=/opt/Qt/6.8.3/Boot2Qt/aws-ec2-arm64/toolchain/sysroots/x86_64-pokysdk-linux/usr/bin/ninja PE.Profile.FileSystemFriendlyName QString:6.8.3-aws-ec2-arm64
+	[490884] Done
+	[490884] backup embedded.b2qt.683.awsec2arm64.toolchain operation: Move
+	[490884] 	- arguments: /opt/Qt/6.8.3/Boot2Qt/aws-ec2-arm64/toolchain/sysroots/x86_64-pokysdk-linux/usr/libexec/moc, /opt/Qt/6.8.3/Boot2Qt/aws-ec2-arm64/toolchain/sysroots/x86_64-pokysdk-linux/usr/libexec/qtmoc
+	[490884] Done
+	[490884] perform embedded.b2qt.683.awsec2arm64.toolchain operation: Move
+	[490884] 	- arguments: /opt/Qt/6.8.3/Boot2Qt/aws-ec2-arm64/toolchain/sysroots/x86_64-pokysdk-linux/usr/libexec/moc, /opt/Qt/6.8.3/Boot2Qt/aws-ec2-arm64/toolchain/sysroots/x86_64-pokysdk-linux/usr/libexec/qtmoc
+	[490889] Done
+	[490889] backup embedded.b2qt.683.awsec2arm64.toolchain operation: Copy
+	[490889] 	- arguments: /opt/Qt/Tools/mocwrapper/mocwrapper, /opt/Qt/6.8.3/Boot2Qt/aws-ec2-arm64/toolchain/sysroots/x86_64-pokysdk-linux/usr/libexec/moc
+	[490889] Done
+	[490889] perform embedded.b2qt.683.awsec2arm64.toolchain operation: Copy
+	[490889] 	- arguments: /opt/Qt/Tools/mocwrapper/mocwrapper, /opt/Qt/6.8.3/Boot2Qt/aws-ec2-arm64/toolchain/sysroots/x86_64-pokysdk-linux/usr/libexec/moc
+	[490899] Done
+	[491230] Got a replacement installer base binary: "/opt/Qt/installerbase"
+	[491230] Writing maintenance tool: "/opt/Qt/MaintenanceTool.new"
+	[491230] Writing maintenance tool.
+	[491558] Wrote permissions for maintenance tool.
+	[491565] Wrote the binary with the new replacement.
+	[491569] Removed installer base binary "/opt/Qt/installerbase" after updating the maintenance tool.
+	[491621] Maintenance tool hard restart: false.
+	[491621] Installation finished!
+	[491696] Headless installation: skip wizard page item addition:  "ReadMeCheckBoxForm"
+	[491696] Components installed successfully
+	Setting up Boot to Qt environment...
+	Found toolchain environment script: /opt/Qt/6.8.3/Boot2Qt/aws-ec2-arm64/toolchain/environment-setup-armv8-2a-poky-linux
+	Building Common Library for Boot to Qt...
+	-- The CXX compiler identification is GNU 13.3.0
+	-- Detecting CXX compiler ABI info
+	-- Detecting CXX compiler ABI info - done
+	-- Check for working CXX compiler: /opt/Qt/6.8.3/Boot2Qt/aws-ec2-arm64/toolchain/sysroots/x86_64-pokysdk-linux/usr/bin/aarch64-poky-linux/aarch64-poky-linux-g++ - skipped
+	-- Detecting CXX compile features
+	-- Detecting CXX compile features - done
+	-- Performing Test CMAKE_HAVE_LIBC_PTHREAD
+	-- Performing Test CMAKE_HAVE_LIBC_PTHREAD - Success
+	-- Found Threads: TRUE  
+	-- Performing Test HAVE_STDATOMIC
+	-- Performing Test HAVE_STDATOMIC - Success
+	-- Found WrapAtomic: TRUE  
+	-- Configuring done (0.9s)
+	-- Generating done (0.0s)
+	-- Build files have been written to: /codebuild/output/src2573347435/src/github.com/tbfouts/antares/common/build-boot2qt
+	[  0%] Built target antares_common_autogen_timestamp_deps
+	[ 16%] Automatic MOC for target antares_common
+	[ 16%] Built target antares_common_autogen
+	[ 33%] Building CXX object CMakeFiles/antares_common.dir/antares_common_autogen/mocs_compilation.cpp.o
+	[ 50%] Building CXX object CMakeFiles/antares_common.dir/src/VehicleData.cpp.o
+	[ 66%] Building CXX object CMakeFiles/antares_common.dir/src/VehicleCanInterface.cpp.o
+	/codebuild/output/src2573347435/src/github.com/tbfouts/antares/common/src/VehicleCanInterface.cpp:76:6: error: no declaration matches ‘void VehicleCANInterface::processFrame(QCanBusFrame)’
+	   76 | void VehicleCANInterface::processFrame(const QCanBusFrame frame)
+	      |      ^~~~~~~~~~~~~~~~~~~
+	In file included from /codebuild/output/src2573347435/src/github.com/tbfouts/antares/common/src/VehicleCanInterface.cpp:3:
+	/codebuild/output/src2573347435/src/github.com/tbfouts/antares/common/src/VehicleCanInterface.h:25:10: note: candidate is: ‘void VehicleCANInterface::processFrame(const QCanBusFrame&)’
+	   25 |     void processFrame(const QCanBusFrame& frame);
+	      |          ^~~~~~~~~~~~
+	/codebuild/output/src2573347435/src/github.com/tbfouts/antares/common/src/VehicleCanInterface.h:10:7: note: ‘class VehicleCANInterface’ defined here
+	   10 | class VehicleCANInterface : public QObject
+	      |       ^~~~~~~~~~~~~~~~~~~
+	gmake[2]: *** [CMakeFiles/antares_common.dir/build.make:110: CMakeFiles/antares_common.dir/src/VehicleCanInterface.cpp.o] Error 1
+	gmake[1]: *** [CMakeFiles/Makefile2:86: CMakeFiles/antares_common.dir/all] Error 2
+	gmake: *** [Makefile:91: all] Error 2
+	
+	[Container] 2025/07/24 19:44:57.189388 Command did not exit successfully .github/workflows/build-boot2qt.sh exit status 2
+	[Container] 2025/07/24 19:44:57.237241 Phase complete: BUILD State: FAILED
+	[Container] 2025/07/24 19:44:57.237269 Phase context status code: COMMAND_EXECUTION_ERROR Message: Error while executing command: .github/workflows/build-boot2qt.sh. Reason: exit status 2
+	[Container] 2025/07/24 19:44:57.304611 Entering phase POST_BUILD
+	[Container] 2025/07/24 19:44:57.307278 Phase complete: POST_BUILD State: SUCCEEDED
+	[Container] 2025/07/24 19:44:57.307298 Phase context status code:  Message: 
+	[Container] 2025/07/24 19:44:57.365160 Set report auto-discover timeout to 5 seconds
+	[Container] 2025/07/24 19:44:57.369163 Expanding base directory path:  .
+	[Container] 2025/07/24 19:44:57.370695 Assembling file list
+	[Container] 2025/07/24 19:44:57.370706 Expanding .
+	[Container] 2025/07/24 19:44:57.372188 Expanding file paths for base directory .
+	[Container] 2025/07/24 19:44:57.372197 Assembling file list
+	[Container] 2025/07/24 19:44:57.372200 Expanding **/*
+	[Container] 2025/07/24 19:44:57.394054 Found 2 file(s)
+	[Container] 2025/07/24 19:44:57.394087 Report auto-discover file discovery took 0.028927 seconds
+	[Container] 2025/07/24 19:44:57.397173 Phase complete: UPLOAD_ARTIFACTS State: SUCCEEDED
+	[Container] 2025/07/24 19:44:57.397188 Phase context status code:  Message: 
+
