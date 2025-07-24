@@ -135,7 +135,7 @@ jobs:
           EOF
           
           # Run Claude Code with the prompt
-          claude chat --non-interactive < fix_build_failure_prompt.md
+          claude -p "$(cat fix_build_failure_prompt.md)"
       
       - name: Setup git for PR creation
         if: failure() && env.FAILED_BUILD_ID
@@ -145,6 +145,8 @@ jobs:
       
       - name: Create fallback issue if no PR was created
         if: failure() && env.FAILED_BUILD_ID
+        env:
+          GH_TOKEN: ${{ github.token }}
         run: |
           # Check if Claude Code created a PR or made changes
           if git diff --quiet && git diff --cached --quiet; then
