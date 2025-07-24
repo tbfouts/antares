@@ -107,8 +107,9 @@ jobs:
           # Clean up any temporary files first
           rm -f fix_build_failure_prompt.md
           
-          # Run Claude Code with the prompt in interactive mode
-          echo "# CodeBuild Failure Auto-Fix Request
+          # Create prompt file and run Claude Code
+          cat > claude_prompt.txt << 'EOF'
+# CodeBuild Failure Auto-Fix Request
 
 I need you to analyze and fix this CodeBuild failure:
 
@@ -119,15 +120,15 @@ I need you to analyze and fix this CodeBuild failure:
 - Workflow: Boot to Qt Build
 
 **Your Task:**
-1. Examine the build failure logs in \`codebuild_failure_logs.txt\`
+1. Examine the build failure logs in `codebuild_failure_logs.txt`
 2. Analyze the repository structure and build scripts
 3. Identify the root cause of the failure
 4. Make the necessary code changes to fix the issue
 5. Create a branch and PR with your fixes
 
 **Key Files to Consider:**
-- \`.github/workflows/build-boot2qt.sh\` (main build script)
-- \`.github/workflows/boot2qt-build.yml\` (workflow definition)
+- `.github/workflows/build-boot2qt.sh` (main build script)
+- `.github/workflows/boot2qt-build.yml` (workflow definition)
 - Any CMake files or configuration that might be causing issues
 
 **Requirements:**
@@ -135,12 +136,17 @@ I need you to analyze and fix this CodeBuild failure:
 - Use Edit tool to modify only the files that need fixing
 - Create a new branch with: git checkout -b fix/codebuild-${{ env.FAILED_BUILD_ID }}
 - Add only the fixed files with: git add <specific-files-you-fixed>
-- Commit with: git commit -m \"Fix build failure: [brief description of fix]\"
+- Commit with: git commit -m "Fix build failure: [brief description of fix]"
 - Push branch with: git push origin fix/codebuild-${{ env.FAILED_BUILD_ID }}
-- Create PR with: gh pr create --title \"Fix CodeBuild failure\" --body \"Auto-fix from Claude Code analysis\" --draft
+- Create PR with: gh pr create --title "Fix CodeBuild failure" --body "Auto-fix from Claude Code analysis" --draft
 - This is running in GitHub Actions - you MUST actually execute these commands
 
-Please start by reading the failure logs and then systematically work through the fix." | claude --dangerously-skip-permissions
+Please start by reading the failure logs and then systematically work through the fix.
+EOF
+          
+          # Run Claude Code and clean up prompt file
+          claude --dangerously-skip-permissions < claude_prompt.txt
+          rm -f claude_prompt.txt
       
       - name: Setup git for PR creation
         if: failure() && env.FAILED_BUILD_ID
