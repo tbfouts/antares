@@ -155,18 +155,9 @@ jobs:
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
-          # Check if Claude Code successfully created a fix branch
-          if git ls-remote --heads origin | grep -q "fix/codebuild-"; then
-            echo "Fix branch found! Creating PR..."
-            FIX_BRANCH=$(git ls-remote --heads origin | grep "fix/codebuild-" | sed 's/.*refs\/heads\///' | tail -1)
-            echo "Fix branch: $FIX_BRANCH"
-            
-            gh pr create \
-              --head "$FIX_BRANCH" \
-              --base "main" \
-              --title "Auto-fix: CodeBuild failure" \
-              --body "Automated fix created by Claude Code for build ${{ env.FAILED_BUILD_ID }}. Fix branch: $FIX_BRANCH" \
-              --draft
+          # Check if Claude Code already created a PR
+          if gh pr list --head "fix/codebuild-${{ env.FAILED_BUILD_ID }}" --json number | grep -q "number"; then
+            echo "PR already created by Claude Code for this build"
           elif git diff --quiet && git diff --cached --quiet; then
             echo "No changes were made by Claude Code. Creating issue instead..."
             
