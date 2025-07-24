@@ -133,9 +133,11 @@ jobs:
           **Requirements:**
           - IMPORTANT: Actually modify the files to fix the problem using Edit tool
           - Create a new branch with: git checkout -b fix/codebuild-${{ env.FAILED_BUILD_ID }}
-          - After making changes, commit with: git add . && git commit -m "Fix build failure"
+          - After making changes, write a descriptive commit message based on what you fixed
+          - Commit with: git add . && git commit -m "your descriptive message here"
           - Push branch with: git push origin fix/codebuild-${{ env.FAILED_BUILD_ID }}
-          - Create PR with: gh pr create --title "Fix CodeBuild failure" --body "Auto-fix from Claude Code analysis" --draft
+          - Create PR with a descriptive title and body explaining the fix you made
+          - Use: gh pr create --title "Your descriptive PR title" --body "Detailed explanation of fix" --draft
           - This is running in GitHub Actions - you MUST actually execute these commands
           
           Please start by reading the failure logs and then systematically work through the fix.
