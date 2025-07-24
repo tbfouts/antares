@@ -143,6 +143,9 @@ jobs:
           
           # Run Claude Code with the prompt in interactive mode
           echo "$(cat fix_build_failure_prompt.md)" | claude --dangerously-skip-permissions
+          
+          # Clean up temporary files that shouldn't be committed
+          rm -f fix_build_failure_prompt.md codebuild_failure_logs.txt
       
       - name: Setup git for PR creation
         if: failure() && env.FAILED_BUILD_ID
