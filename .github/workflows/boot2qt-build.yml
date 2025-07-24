@@ -96,6 +96,7 @@ jobs:
         if: failure() && env.FAILED_BUILD_ID
         env:
           ANTHROPIC_API_KEY: ${{ secrets.CLAUDE_API_KEY }}
+          GH_TOKEN: ${{ github.token }}
         run: |
           echo "Running Claude Code to analyze and fix the build failure..."
           
@@ -124,18 +125,18 @@ jobs:
           - Any CMake files or configuration that might be causing issues
           
           **Requirements:**
-          - Make actual file modifications to fix the problem
-          - Test your understanding by examining related files
-          - Focus on practical, working solutions
-          - Create a new branch called `fix/codebuild-${{ env.FAILED_BUILD_ID }}`
-          - Commit your changes with a clear message
-          - Create a draft PR explaining your analysis and fixes
+          - IMPORTANT: Actually modify the files to fix the problem using Edit tool
+          - Create a new branch with: git checkout -b fix/codebuild-${{ env.FAILED_BUILD_ID }}
+          - After making changes, commit with: git add . && git commit -m "Fix build failure"
+          - Push branch with: git push origin fix/codebuild-${{ env.FAILED_BUILD_ID }}
+          - Create PR with: gh pr create --title "Fix CodeBuild failure" --body "Auto-fix from Claude Code analysis" --draft
+          - This is running in GitHub Actions - you MUST actually execute these commands
           
           Please start by reading the failure logs and then systematically work through the fix.
           EOF
           
-          # Run Claude Code with the prompt
-          claude -p "$(cat fix_build_failure_prompt.md)"
+          # Run Claude Code with the prompt in interactive mode
+          echo "$(cat fix_build_failure_prompt.md)" | claude --dangerously-skip-permissions
       
       - name: Setup git for PR creation
         if: failure() && env.FAILED_BUILD_ID
