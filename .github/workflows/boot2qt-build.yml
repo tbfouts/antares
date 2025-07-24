@@ -158,7 +158,7 @@ jobs:
           # Check if Claude Code successfully created a fix branch
           if git ls-remote --heads origin | grep -q "fix/codebuild-"; then
             echo "Fix branch found! Creating issue with PR link..."
-            FIX_BRANCH=$(git ls-remote --heads origin | grep "fix/codebuild-${{ env.FAILED_BUILD_ID }}" | sed 's/.*refs\/heads\///' | head -1)
+            FIX_BRANCH=$(git ls-remote --heads origin | grep "fix/codebuild-" | sed 's/.*refs\/heads\///' | tail -1)
             echo "Fix branch: $FIX_BRANCH"
             
             gh issue create \
