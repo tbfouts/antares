@@ -9,10 +9,6 @@ Musically inspired, project Antares demonstrates the latest technologies from Qt
 
 ![IVI](screenshots/ivi.png)
 
-This project was demoed on Panasonic's virtual SkipGen platform, an AWS Graviton based Android Automotive OS:
-
-![vSkipGen](screenshots/skipgen.png)
-
 ## Vehicle Control WebSocket API Documentation
 
 ### Connection Details
@@ -82,7 +78,7 @@ Both applications (Cluster and IVI) link against the common library, allowing th
 ## Installation
 In order to successfully run this demo, the following is required:
 
-* Installation of Qt 6.2 or later (project was developed with Qt 6.7.X)
+* Installation of Qt 6.8.3
 * Installation of Qt Creator
 * Installation of Qt Design Studio
 * Build/Install Qt Designer Components 
@@ -113,7 +109,7 @@ cmake --install .
 ```
 ## Building and Running the Application
 
-The easiest path is to download and install a corresponding Qt Creator kit for your host environment (e.g. macOS/Windows).  This will enable you to easily build and deploy to whatever target you prefer (e.g. QNX or Android).
+The easiest path is to download and install a 6.8.3 Qt Creator kit for your host environment (e.g. macOS/Windows).  This will enable you to easily build and deploy to whatever target you prefer (e.g. QNX or Android).
 
 #### Building Manually with CMake
 If you prefer to build projects manually, you can do so:
@@ -157,6 +153,24 @@ To open in Qt Creator or Qt Design Studio:
 
 3. The applications will automatically connect via the WebSocket API
 
+## Automated Build Process
+
+This project uses an automated CI/CD pipeline powered by GitHub Actions, AWS CodeBuild and Anthropic's Claude Code:
+
+### When Code is Pushed
+1. **GitHub Actions** automatically triggers a Boot2Qt build on AWS CodeBuild
+2. **AWS CodeBuild** cross-compiles the application for ARM64 AWS EC2 instances  
+3. **Automated Packaging** creates deployment artifacts and GitHub releases
+
+### When Builds Fail
+The system includes **AI-powered failure analysis**:
+1. **Claude Code AI** automatically analyzes build failures and error logs
+2. **Intelligent Fixes** - Creates fix branches with code corrections when possible
+3. **Auto-PR Creation** - Generates pull requests with fixes for review
+4. **Fallback Issues** - Creates detailed issue reports when fixes aren't possible
+
+This dramatically reduces time from build failure to resolution, often providing working fixes within minutes of a failure.
+
 ## Testing
 The project includes Squish test suites located in `Cluster/tests/` for automated UI testing.
 `suite_antares-basic` contains tests developed more in line with a linear scripting, 'record-and-playback' style of test scripts.
@@ -180,5 +194,7 @@ As shown in the example above, you can specify if you want to "launch" or "attac
 ## Authors and acknowledgment
 Design/Visuals: Shawn Dorsey
 
-Development/Coding: Taylor Fouts
+Development/Coding/Pipeline: Taylor Fouts
+
+Squish QA: Aaron LaBomascus
 
