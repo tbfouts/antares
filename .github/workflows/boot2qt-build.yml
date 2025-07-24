@@ -109,39 +109,39 @@ jobs:
           
           # Create prompt file and run Claude Code
           cat > claude_prompt.txt << 'EOF'
-# CodeBuild Failure Auto-Fix Request
-
-I need you to analyze and fix this CodeBuild failure:
-
-**Build Details:**
-- Build ID: BUILD_ID_PLACEHOLDER
-- Status: BUILD_STATUS_PLACEHOLDER
-- Project: antares-cluster-boot2qt-docker
-- Workflow: Boot to Qt Build
-
-**Your Task:**
-1. Examine the build failure logs in codebuild_failure_logs.txt
-2. Analyze the repository structure and build scripts
-3. Identify the root cause of the failure
-4. Make the necessary code changes to fix the issue
-5. Create a branch and push your fixes (GitHub Actions will handle PR creation)
-
-**Key Files to Consider:**
-- .github/workflows/build-boot2qt.sh (main build script)
-- .github/workflows/boot2qt-build.yml (workflow definition)
-- Any CMake files or configuration that might be causing issues
-
-**Requirements:**
-- IMPORTANT: Only commit the actual source code fixes - DO NOT commit analysis files, logs, or prompts
-- Use Edit tool to modify only the files that need fixing
-- Create a new branch with: git checkout -b fix/codebuild-BRANCH_ID_PLACEHOLDER
-- Add only the fixed files with: git add <specific-files-you-fixed>
-- Commit with: git commit -m "Fix build failure: [brief description of fix]"
-- Push branch with: git push origin fix/codebuild-BRANCH_ID_PLACEHOLDER
-- DO NOT create a PR - the GitHub Actions workflow will handle that automatically
-
-Please start by reading the failure logs and then systematically work through the fix.
-EOF
+          # CodeBuild Failure Auto-Fix Request
+          
+          I need you to analyze and fix this CodeBuild failure:
+          
+          **Build Details:**
+          - Build ID: BUILD_ID_PLACEHOLDER
+          - Status: BUILD_STATUS_PLACEHOLDER
+          - Project: antares-cluster-boot2qt-docker
+          - Workflow: Boot to Qt Build
+          
+          **Your Task:**
+          1. Examine the build failure logs in codebuild_failure_logs.txt
+          2. Analyze the repository structure and build scripts
+          3. Identify the root cause of the failure
+          4. Make the necessary code changes to fix the issue
+          5. Create a branch and push your fixes (GitHub Actions will handle PR creation)
+          
+          **Key Files to Consider:**
+          - .github/workflows/build-boot2qt.sh (main build script)
+          - .github/workflows/boot2qt-build.yml (workflow definition)
+          - Any CMake files or configuration that might be causing issues
+          
+          **Requirements:**
+          - IMPORTANT: Only commit the actual source code fixes - DO NOT commit analysis files, logs, or prompts
+          - Use Edit tool to modify only the files that need fixing
+          - Create a new branch with: git checkout -b fix/codebuild-BRANCH_ID_PLACEHOLDER
+          - Add only the fixed files with: git add <specific-files-you-fixed>
+          - Commit with: git commit -m "Fix build failure: [brief description of fix]"
+          - Push branch with: git push origin fix/codebuild-BRANCH_ID_PLACEHOLDER
+          - DO NOT create a PR - the GitHub Actions workflow will handle that automatically
+          
+          Please start by reading the failure logs and then systematically work through the fix.
+          EOF
           
           # Replace placeholders with actual values
           sed -i "s/BUILD_ID_PLACEHOLDER/${{ env.FAILED_BUILD_ID }}/g" claude_prompt.txt
