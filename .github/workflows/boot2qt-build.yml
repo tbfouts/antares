@@ -158,13 +158,13 @@ jobs:
           # Check if Claude Code successfully created a fix branch
           if git ls-remote --heads origin | grep -q "fix/codebuild-"; then
             echo "Fix branch found! Creating issue with PR link..."
-            FIX_BRANCH=$(git ls-remote --heads origin | grep "fix/codebuild-" | sed 's/.*refs\/heads\///')
+            FIX_BRANCH=$(git ls-remote --heads origin | grep "fix/codebuild-${{ env.FAILED_BUILD_ID }}" | sed 's/.*refs\/heads\///' | head -1)
             echo "Fix branch: $FIX_BRANCH"
             
             gh issue create \
               --title "Claude Code Auto-Fix Available - Build ${{ env.FAILED_BUILD_ID }}" \
               --body "Claude Code created a fix branch: $FIX_BRANCH. Create PR at: https://github.com/${{ github.repository }}/compare/main...$FIX_BRANCH" \
-              --label "enhancement,automated-fix,claude-code"
+              --label "automated-fix"
           elif git diff --quiet && git diff --cached --quiet; then
             echo "No changes were made by Claude Code. Creating issue instead..."
             
