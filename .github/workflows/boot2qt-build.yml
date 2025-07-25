@@ -69,7 +69,7 @@ jobs:
           echo "Downloading from release: $RELEASE_TAG"
           
           # Download the tarball from the GitHub release
-          gh release download "$RELEASE_TAG" --pattern "antares-cluster-boot2qt-*.tar.gz"
+          gh release download "$RELEASE_TAG" --repo "${{ github.repository }}" --pattern "antares-cluster-boot2qt-*.tar.gz"
           
           # Create artifacts directory and extract
           mkdir -p build-artifacts
