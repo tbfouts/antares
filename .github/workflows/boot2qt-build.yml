@@ -84,6 +84,12 @@ jobs:
             exit 1
           fi
       
+      - name: Checkout repository for deployment scripts
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+          token: ${{ secrets.GITHUB_TOKEN }}
+      
       - name: Deploy to EC2 instance
         env:
           EC2_KEY_NAME: ${{ secrets.EC2_KEY_NAME }}
