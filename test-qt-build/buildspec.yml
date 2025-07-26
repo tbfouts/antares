@@ -1,0 +1,36 @@
+version: 0.2
+
+env:
+  compute-type: BUILD_GENERAL1_MEDIUM
+  image: 434605327094.dkr.ecr.us-east-1.amazonaws.com/antares-qt:latest
+  type: LINUX_CONTAINER
+
+phases:
+  pre_build:
+    commands:
+      - echo Logging in to Amazon ECR...
+      - aws ecr get-login-password --region $AWS_DEFAULT_REGION | docker login --username AWS --password-stdin $AWS_ACCOUNT_ID.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com
+      - echo Build started on `date`
+      - echo Testing Qt installation...
+      - which qmake || echo "qmake not in PATH"
+      - ls -la /opt/Qt/
+      - ls -la /opt/Qt/6.8.3/
+  build:
+    commands:
+      - echo Build started on `date`
+      - echo Building Qt Hello World application...
+      - cd test-qt-build
+      - mkdir build && cd build
+      - cmake -DCMAKE_BUILD_TYPE=Release ..
+      - cmake --build .
+      - echo Testing the application...
+      - ./QtHelloWorld
+  post_build:
+    commands:
+      - echo Build completed on `date`
+      - echo Qt container test successful!
+
+artifacts:
+  files:
+    - test-qt-build/build/QtHelloWorld
+  name: qt-hello-world-$(date +%Y-%m-%d)
