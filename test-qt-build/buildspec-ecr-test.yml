@@ -28,11 +28,13 @@ phases:
       - echo "=== Testing Boot2Qt Cross-Compilation ==="
       - echo "Setting up Boot2Qt environment..."
       - . /opt/Qt/6.8.3/Boot2Qt/aws-ec2-arm64/toolchain/environment-setup-armv8-2a-poky-linux
+      - export OECORE_CMAKE_TOOLCHAIN_FILE="/opt/Qt/6.8.3/Boot2Qt/aws-ec2-arm64/toolchain/sysroots/x86_64-pokysdk-linux/usr/share/cmake/OEToolchainConfig.cmake"
       - echo "Cross-compiler:" "$CC"
       - echo "Target arch:" "$OECORE_TARGET_ARCH"
       - echo "Sysroot:" "$OECORE_TARGET_SYSROOT"
       - echo "CMake toolchain:" "$OECORE_CMAKE_TOOLCHAIN_FILE"
       
+      - rm -rf build-boot2qt
       - mkdir -p build-boot2qt && cd build-boot2qt
       - |
         cmake .. \
@@ -49,14 +51,17 @@ phases:
     commands:
       - echo "=== Test Summary ==="
       - echo "Build completed on $(date)"
-      - cd test-qt-build
+      - pwd
+      - ls -la
       - |
+        cd test-qt-build
         if [ -f build-desktop/QtHelloWorld ]; then
           echo "Desktop Qt: SUCCESS"
         else
           echo "Desktop Qt: FAILED"
         fi
       - |
+        cd test-qt-build
         if [ -f build-boot2qt/QtHelloWorld ]; then
           echo "Boot2Qt: SUCCESS"
         else
