@@ -53,11 +53,6 @@ phases:
     commands:
       - echo "=== Test Summary ==="
       - echo "Build completed on $(date)"
-      - echo "Desktop Qt: $([ -f test-qt-build/build-desktop/QtHelloWorld ] && echo 'SUCCESS' || echo 'FAILED')"
-      - echo "Boot2Qt: $([ -f test-qt-build/build-boot2qt/QtHelloWorld ] && echo 'SUCCESS' || echo 'FAILED')"
+      - ls -la test-qt-build/build-desktop/QtHelloWorld || echo "Desktop Qt build FAILED"
+      - ls -la test-qt-build/build-boot2qt/QtHelloWorld || echo "Boot2Qt build FAILED"
 
-artifacts:
-  files:
-    - test-qt-build/build-desktop/QtHelloWorld
-    - test-qt-build/build-boot2qt/QtHelloWorld
-  name: qt-container-test-$(date +%Y-%m-%d)
