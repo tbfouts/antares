@@ -7,7 +7,7 @@ set -e
 
 # Configuration
 AMI_ID="ami-0925b4f9cda817f8a"  # Boot2Qt 6.8 AMI for us-east-1
-INSTANCE_TYPE="g5g.large"       # GPU-enabled ARM64 instance
+INSTANCE_TYPE="g5g.xlarge"       # GPU-enabled ARM64 instance
 REGION="us-east-1"              # AWS region
 KEY_NAME="${EC2_KEY_NAME}"      # SSH key pair name
 SECURITY_GROUP="${EC2_SECURITY_GROUP:-boot2qt-sg}"
