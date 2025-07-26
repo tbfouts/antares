@@ -34,7 +34,12 @@ phases:
       - echo "CMake toolchain:" "$OECORE_CMAKE_TOOLCHAIN_FILE"
       
       - mkdir -p build-boot2qt && cd build-boot2qt
-      - cmake .. -DCMAKE_BUILD_TYPE=Release -DCMAKE_TOOLCHAIN_FILE="$OECORE_CMAKE_TOOLCHAIN_FILE" -DQt6_DIR="$OECORE_TARGET_SYSROOT/usr/lib/cmake/Qt6" -DQT_HOST_PATH=/opt/Qt/6.8.3/gcc_64 || echo "Boot2Qt cmake failed"
+      - |
+        cmake .. \
+          -DCMAKE_BUILD_TYPE=Release \
+          -DCMAKE_TOOLCHAIN_FILE="$OECORE_CMAKE_TOOLCHAIN_FILE" \
+          -DQt6_DIR="$OECORE_TARGET_SYSROOT/usr/lib/cmake/Qt6" \
+          -DQT_HOST_PATH=/opt/Qt/6.8.3/gcc_64 || echo "Boot2Qt cmake failed"
       - cmake --build . || echo "Boot2Qt build failed"
       - echo "Boot2Qt build result:"
       - ls -la QtHelloWorld || echo "Boot2Qt binary not found"
@@ -45,6 +50,16 @@ phases:
       - echo "=== Test Summary ==="
       - echo "Build completed on $(date)"
       - cd test-qt-build
-      - ls -la build-desktop/QtHelloWorld && echo "Desktop Qt: SUCCESS" || echo "Desktop Qt: FAILED"
-      - ls -la build-boot2qt/QtHelloWorld && echo "Boot2Qt: SUCCESS" || echo "Boot2Qt: FAILED"
+      - |
+        if [ -f build-desktop/QtHelloWorld ]; then
+          echo "Desktop Qt: SUCCESS"
+        else
+          echo "Desktop Qt: FAILED"
+        fi
+      - |
+        if [ -f build-boot2qt/QtHelloWorld ]; then
+          echo "Boot2Qt: SUCCESS"
+        else
+          echo "Boot2Qt: FAILED"
+        fi
 
