@@ -36,18 +36,6 @@ if [ -f "$TOOLCHAIN_ENV_SCRIPT" ]; then
   CMAKE_TOOLCHAIN_FILE="$BOOT2QT_DIR/aws-ec2-arm64/toolchain/sysroots/x86_64-pokysdk-linux/usr/share/cmake/OEToolchainConfig.cmake"
   if [ -f "$CMAKE_TOOLCHAIN_FILE" ]; then
     sed -i 's|/usr/local/oe-sdk-hardcoded-buildpath/sysroots|/opt/Qt/6.8.3/Boot2Qt/aws-ec2-arm64/toolchain/sysroots|g' "$CMAKE_TOOLCHAIN_FILE"
-    
-    # Configure CMake to use shared libgcc since Boot2Qt doesn't include static libgcc.a
-    echo "Configuring CMake toolchain for shared libgcc..."
-    cat >> "$CMAKE_TOOLCHAIN_FILE" << 'EOF'
-
-# Fix missing libgcc.a by using shared libgcc
-set(CMAKE_EXE_LINKER_FLAGS_INIT "-lgcc_s")
-set(CMAKE_SHARED_LINKER_FLAGS_INIT "-lgcc_s")
-set(CMAKE_MODULE_LINKER_FLAGS_INIT "-lgcc_s")
-set(CMAKE_C_LINK_FLAGS "-lgcc_s")
-set(CMAKE_CXX_LINK_FLAGS "-lgcc_s")
-EOF
   fi
   
   # Fix hardcoded paths in all relevant files
@@ -55,12 +43,6 @@ EOF
   
   source "$TOOLCHAIN_ENV_SCRIPT"
   export OECORE_CMAKE_TOOLCHAIN_FILE="$CMAKE_TOOLCHAIN_FILE"
-  
-  # Configure toolchain to use shared libgcc since Boot2Qt doesn't include static libgcc.a
-  echo "Configuring toolchain for shared libgcc..."
-  export LDFLAGS="$LDFLAGS -lgcc_s"
-  export CMAKE_EXE_LINKER_FLAGS="-lgcc_s"
-  export CMAKE_SHARED_LINKER_FLAGS="-lgcc_s"
   
   echo "Building Common Library for Boot to Qt..."
   cd $CODEBUILD_SRC_DIR/common
