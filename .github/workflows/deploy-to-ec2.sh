@@ -10,6 +10,7 @@ AMI_ID="ami-0925b4f9cda817f8a"  # Boot2Qt 6.8 AMI for us-east-1
 INSTANCE_TYPE="g5g.xlarge"       # GPU-enabled ARM64 instance
 REGION="us-east-1"              # AWS region
 KEY_NAME="${EC2_KEY_NAME}"      # SSH key pair name
+KEY_FILE="${EC2_KEY_FILE:-/tmp/deployment-key.pem}"  # SSH private key file
 SECURITY_GROUP="${EC2_SECURITY_GROUP:-boot2qt-sg}"
 SUBNET_ID="${EC2_SUBNET_ID}"    # Optional: specify subnet
 
@@ -87,10 +88,18 @@ launch_instance() {
 # Function to wait for SSH availability
 wait_for_ssh() {
     echo "Waiting for SSH to be available..."
+    echo "Debug: Testing SSH connection to user@$PUBLIC_IP"
+    
     for i in {1..30}; do
-        if ssh -o ConnectTimeout=5 -o StrictHostKeyChecking=no -i ~/.ssh/id_rsa user@"$PUBLIC_IP" 'echo "SSH connection successful"' >/dev/null 2>&1; then
-            echo "SSH is available"
-            return 0
+        # Test SSH connection with verbose output for debugging
+        if [ $i -eq 1 ]; then
+            echo "Debug: First attempt with verbose SSH output..."
+            ssh -vvv -o ConnectTimeout=10 -o StrictHostKeyChecking=no -i "$KEY_FILE" user@"$PUBLIC_IP" 'echo "SSH connection successful"' || true
+        else
+            if ssh -o ConnectTimeout=10 -o StrictHostKeyChecking=no -i "$KEY_FILE" user@"$PUBLIC_IP" 'echo "SSH connection successful"' >/dev/null 2>&1; then
+                echo "SSH is available"
+                return 0
+            fi
         fi
         echo "Attempt $i: SSH not ready, waiting 10 seconds..."
         sleep 10
@@ -104,17 +113,21 @@ deploy_application() {
     echo "Deploying application to EC2 instance..."
     
     # Create deployment directory on target
-    ssh -o StrictHostKeyChecking=no -i ~/.ssh/id_rsa user@"$PUBLIC_IP" '
-        mkdir -p /opt/antares
+    ssh -o StrictHostKeyChecking=no -i "$KEY_FILE" user@"$PUBLIC_IP" '
+        sudo mkdir -p /opt/antares
         cd /opt/antares
     '
     
     # Copy application files
     echo "Copying application files..."
-    scp -o StrictHostKeyChecking=no -i ~/.ssh/id_rsa -r ./build-artifacts/* user@"$PUBLIC_IP":/opt/antares/
+    scp -o StrictHostKeyChecking=no -i "$KEY_FILE" -r ./build-artifacts/* user@"$PUBLIC_IP":/tmp/
     
-    # Set executable permissions and run
-    ssh -o StrictHostKeyChecking=no -i ~/.ssh/id_rsa user@"$PUBLIC_IP" '
+    # Move files to final location and set permissions
+    ssh -o StrictHostKeyChecking=no -i "$KEY_FILE" user@"$PUBLIC_IP" '
+        sudo mv /tmp/* /opt/antares/
+        cd /opt/antares
+        sudo chown -R user:user /opt/antares
+        chmod +x ClusterApp deploy.sh
         cd /opt/antares
         chmod +x ClusterApp deploy.sh
         
@@ -135,7 +148,7 @@ deploy_application() {
     '
     
     echo "Deployment completed successfully!"
-    echo "Access the instance via SSH: ssh -i ~/.ssh/id_rsa user@$PUBLIC_IP"
+    echo "Access the instance via SSH: ssh -i $KEY_FILE user@$PUBLIC_IP"
     echo "Application directory: /opt/antares"
 }
 
@@ -146,6 +159,18 @@ main() {
         echo "Error: EC2_KEY_NAME environment variable is required"
         exit 1
     fi
+    
+    # Create SSH key from GitHub Secret
+    if [ -z "$EC2_PRIVATE_KEY" ]; then
+        echo "Error: EC2_PRIVATE_KEY environment variable is required"
+        echo "This should be set from GitHub Secrets containing the private key content"
+        exit 1
+    fi
+    
+    # Write the private key to a temporary file
+    echo "$EC2_PRIVATE_KEY" > "$KEY_FILE"
+    chmod 400 "$KEY_FILE"
+    echo "SSH key created and permissions set to 400"
     
     # Check if build artifacts exist
     if [ ! -d "./build-artifacts" ]; then
