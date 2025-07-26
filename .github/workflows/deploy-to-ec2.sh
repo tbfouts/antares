@@ -88,7 +88,7 @@ launch_instance() {
 wait_for_ssh() {
     echo "Waiting for SSH to be available..."
     for i in {1..30}; do
-        if ssh -o ConnectTimeout=5 -o StrictHostKeyChecking=no -i ~/.ssh/id_rsa root@"$PUBLIC_IP" 'echo "SSH connection successful"' >/dev/null 2>&1; then
+        if ssh -o ConnectTimeout=5 -o StrictHostKeyChecking=no -i ~/.ssh/id_rsa user@"$PUBLIC_IP" 'echo "SSH connection successful"' >/dev/null 2>&1; then
             echo "SSH is available"
             return 0
         fi
@@ -104,17 +104,17 @@ deploy_application() {
     echo "Deploying application to EC2 instance..."
     
     # Create deployment directory on target
-    ssh -o StrictHostKeyChecking=no -i ~/.ssh/id_rsa root@"$PUBLIC_IP" '
+    ssh -o StrictHostKeyChecking=no -i ~/.ssh/id_rsa user@"$PUBLIC_IP" '
         mkdir -p /opt/antares
         cd /opt/antares
     '
     
     # Copy application files
     echo "Copying application files..."
-    scp -o StrictHostKeyChecking=no -i ~/.ssh/id_rsa -r ./build-artifacts/* root@"$PUBLIC_IP":/opt/antares/
+    scp -o StrictHostKeyChecking=no -i ~/.ssh/id_rsa -r ./build-artifacts/* user@"$PUBLIC_IP":/opt/antares/
     
     # Set executable permissions and run
-    ssh -o StrictHostKeyChecking=no -i ~/.ssh/id_rsa root@"$PUBLIC_IP" '
+    ssh -o StrictHostKeyChecking=no -i ~/.ssh/id_rsa user@"$PUBLIC_IP" '
         cd /opt/antares
         chmod +x ClusterApp deploy.sh
         
@@ -135,7 +135,7 @@ deploy_application() {
     '
     
     echo "Deployment completed successfully!"
-    echo "Access the instance via SSH: ssh -i ~/.ssh/id_rsa root@$PUBLIC_IP"
+    echo "Access the instance via SSH: ssh -i ~/.ssh/id_rsa user@$PUBLIC_IP"
     echo "Application directory: /opt/antares"
 }
 
