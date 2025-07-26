@@ -73,7 +73,7 @@ void VehicleCANInterface::processCANFrames()
     }
 }
 
-void VehicleCANInterface::processFrame(const QCanBusFrame frame)
+void VehicleCANInterface::processFrame(const QCanBusFrame& frame)
 {
     // Process CAN frames and update VehicleDataInterface
     //qDebug() << "processing: " << frameToString(frame);
