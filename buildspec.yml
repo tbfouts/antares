@@ -1,0 +1,11 @@
+version: 0.2
+
+phases:
+  build:
+    commands:
+      - chmod +x scripts/build-boot2qt.sh
+      - scripts/build-boot2qt.sh
+
+artifacts:
+  files:
+    - '**/*'
