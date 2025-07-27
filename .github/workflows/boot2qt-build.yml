@@ -107,9 +107,16 @@ jobs:
       
       - name: Wait and collect cluster logs
         if: success()
+        env:
+          EC2_PRIVATE_KEY: ${{ secrets.EC2_PRIVATE_KEY }}
         run: |
           echo "Waiting 2 minutes for testing, then collecting cluster logs..."
           sleep 120  # Wait 2 minutes
+          
+          # Recreate SSH key file
+          KEY_FILE="/tmp/deployment-key.pem"
+          echo "$EC2_PRIVATE_KEY" > "$KEY_FILE"
+          chmod 400 "$KEY_FILE"
           
           # Download cluster logs from EC2 instance
           if [ -n "$PUBLIC_IP" ]; then
