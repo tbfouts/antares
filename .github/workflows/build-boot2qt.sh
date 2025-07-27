@@ -48,8 +48,8 @@ if [ -f "$TOOLCHAIN_ENV_SCRIPT" ]; then
   cd $CODEBUILD_SRC_DIR/Cluster
   mkdir build-boot2qt && cd build-boot2qt
   
-  # Use 3 parallel jobs for BUILD_GENERAL1_LARGE (4 vCPUs, 7GB memory)
-  JOBS=3
+  # Use 6 parallel jobs for BUILD_GENERAL1_LARGE (8 vCPUs, 15GB memory)
+  JOBS=6
   echo "Using $JOBS parallel jobs for compilation"
   
   cmake .. \
