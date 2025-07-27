@@ -115,6 +115,7 @@ jobs:
           
           # Recreate SSH key file
           KEY_FILE="/tmp/deployment-key.pem"
+          rm -f "$KEY_FILE"  # Remove existing file if it exists
           echo "$EC2_PRIVATE_KEY" > "$KEY_FILE"
           chmod 400 "$KEY_FILE"
           
