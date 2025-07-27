@@ -48,12 +48,16 @@ if [ -f "$TOOLCHAIN_ENV_SCRIPT" ]; then
   cd $CODEBUILD_SRC_DIR/common
   mkdir build-boot2qt && cd build-boot2qt
   
+  # Get number of CPU cores for parallel compilation
+  NPROC=$(nproc)
+  echo "Using $NPROC parallel jobs for compilation"
+  
   cmake .. \
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_TOOLCHAIN_FILE=$OECORE_CMAKE_TOOLCHAIN_FILE \
     -DQt6_DIR=$OECORE_TARGET_SYSROOT/usr/lib/cmake/Qt6 \
     -DQT_HOST_PATH=/opt/Qt/6.8.3/gcc_64
-  cmake --build .
+  cmake --build . --parallel $NPROC
   
   echo "Building Cluster Application for Boot to Qt..."
   cd $CODEBUILD_SRC_DIR/Cluster
@@ -64,7 +68,7 @@ if [ -f "$TOOLCHAIN_ENV_SCRIPT" ]; then
     -DCMAKE_TOOLCHAIN_FILE=$OECORE_CMAKE_TOOLCHAIN_FILE \
     -DQt6_DIR=$OECORE_TARGET_SYSROOT/usr/lib/cmake/Qt6 \
     -DQT_HOST_PATH=/opt/Qt/6.8.3/gcc_64
-  cmake --build .
+  cmake --build . --parallel $NPROC
   
   # Copy artifacts
   echo "Copying build artifacts..."
