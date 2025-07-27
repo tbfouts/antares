@@ -110,8 +110,10 @@ jobs:
         env:
           EC2_PRIVATE_KEY: ${{ secrets.EC2_PRIVATE_KEY }}
           PUBLIC_IP: ${{ env.PUBLIC_IP }}
+          INSTANCE_ID: ${{ env.INSTANCE_ID }}
         run: |
           echo "Waiting 2 minutes for testing, then collecting cluster logs..."
+          echo "Debug: PUBLIC_IP=$PUBLIC_IP INSTANCE_ID=$INSTANCE_ID"
           sleep 120  # Wait 2 minutes
           
           # Recreate SSH key file
@@ -124,6 +126,17 @@ jobs:
           if [ -n "$PUBLIC_IP" ]; then
             echo "Downloading cluster logs from EC2 instance..."
             scp -o StrictHostKeyChecking=no -i "$KEY_FILE" user@"$PUBLIC_IP":/opt/antares/cluster.log ./cluster.log || echo "No cluster.log found"
+            
+            # Check if file was downloaded
+            if [ -f "cluster.log" ]; then
+              echo "cluster.log downloaded successfully ($(wc -l < cluster.log) lines)"
+            else
+              echo "cluster.log not found, creating empty file for analysis step"
+              echo "No cluster log available" > cluster.log
+            fi
+          else
+            echo "PUBLIC_IP not available, creating empty log file"
+            echo "No PUBLIC_IP available" > cluster.log
           fi
       
       - name: Analyze cluster logs with Claude Code
