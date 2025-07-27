@@ -56,6 +56,70 @@ jobs:
           echo "Build logs: $LOG_URL"
           echo "Build completed successfully! Check AWS CodeBuild console for detailed logs."
       
+      - name: Checkout repository for deployment scripts
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+          token: ${{ secrets.GITHUB_TOKEN }}
+      
+      - name: Download build artifacts for deployment
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          echo "Downloading build artifacts from GitHub release..."
+          
+          # Get the build number from CodeBuild
+          BUILD_NUMBER=$(aws codebuild batch-get-builds --ids "$BUILD_ID" --query 'builds[0].buildNumber' --output text)
+          RELEASE_TAG="boot2qt-build-${BUILD_NUMBER}"
+          
+          echo "Downloading from release: $RELEASE_TAG"
+          
+          # Download the tarball from the GitHub release
+          gh release download "$RELEASE_TAG" --repo "${{ github.repository }}" --pattern "antares-cluster-boot2qt-*.tar.gz"
+          
+          # Create artifacts directory and extract
+          mkdir -p build-artifacts
+          TARBALL=$(ls antares-cluster-boot2qt-*.tar.gz | head -1)
+          
+          if [ -f "$TARBALL" ]; then
+            tar -xzf "$TARBALL" -C build-artifacts/
+            echo "Build artifacts extracted successfully"
+            ls -la build-artifacts/
+          else
+            echo "No tarball found in release"
+            exit 1
+          fi
+      
+      - name: Deploy to EC2 instance
+        env:
+          EC2_KEY_NAME: ${{ secrets.EC2_KEY_NAME }}
+          EC2_SECURITY_GROUP: ${{ secrets.EC2_SECURITY_GROUP }}
+          EC2_SUBNET_ID: ${{ secrets.EC2_SUBNET_ID }}
+          EC2_PRIVATE_KEY: ${{ secrets.EC2_PRIVATE_KEY }}
+        run: |
+          echo "Deploying successful build to EC2 instance..."
+          
+          # Make deployment script executable
+          chmod +x .github/workflows/deploy-to-ec2.sh
+          
+          # Run deployment
+          ./.github/workflows/deploy-to-ec2.sh
+      
+      - name: Wait and cleanup EC2 instance
+        if: success()
+        run: |
+          echo "Waiting 10 minutes for testing, then cleaning up EC2 instance..."
+          sleep 600  # Wait 10 minutes
+          
+          if [ -n "$INSTANCE_ID" ]; then
+            echo "Terminating EC2 instance: $INSTANCE_ID"
+            aws ec2 terminate-instances --instance-ids "$INSTANCE_ID"
+            echo "Instance $INSTANCE_ID terminated"
+          else
+            echo "No instance ID found to terminate"
+          fi
+      
+      
       - name: Checkout repository for Claude Code analysis
         if: failure() && env.FAILED_BUILD_ID
         uses: actions/checkout@v4
