@@ -109,6 +109,7 @@ jobs:
         if: success()
         env:
           EC2_PRIVATE_KEY: ${{ secrets.EC2_PRIVATE_KEY }}
+          PUBLIC_IP: ${{ env.PUBLIC_IP }}
         run: |
           echo "Waiting 2 minutes for testing, then collecting cluster logs..."
           sleep 120  # Wait 2 minutes
