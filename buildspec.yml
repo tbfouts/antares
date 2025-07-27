@@ -1,0 +1,7 @@
+version: 0.2
+
+phases:
+  build:
+    commands:
+      - chmod +x scripts/build-boot2qt-fixed.sh
+      - scripts/build-boot2qt-fixed.sh
