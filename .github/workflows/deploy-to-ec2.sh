@@ -139,10 +139,11 @@ deploy_application() {
         echo "To run the cluster app: ./ClusterApp"
         echo "Or use the deployment script: ./deploy.sh"
         
-        # Start the application (background process)
-        nohup ./ClusterApp > cluster.log 2>&1 &
+        # Start the application using deploy.sh script
+        echo "Starting cluster application via deploy.sh..."
+        timeout 120 ./deploy.sh > cluster.log 2>&1 || echo "Application completed or timed out after 2 minutes"
         
-        echo "Cluster application started in background"
+        echo "Cluster application execution completed"
         echo "Cluster log: /opt/antares/cluster.log"
         echo "Build info: /opt/antares/build_info.txt"
     '

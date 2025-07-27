@@ -105,12 +105,72 @@ jobs:
           # Run deployment
           ./.github/workflows/deploy-to-ec2.sh
       
-      - name: Wait and cleanup EC2 instance
+      - name: Wait and collect cluster logs
         if: success()
         run: |
-          echo "Waiting 10 minutes for testing, then cleaning up EC2 instance..."
-          sleep 600  # Wait 10 minutes
+          echo "Waiting 2 minutes for testing, then collecting cluster logs..."
+          sleep 120  # Wait 2 minutes
           
+          # Download cluster logs from EC2 instance
+          if [ -n "$PUBLIC_IP" ]; then
+            echo "Downloading cluster logs from EC2 instance..."
+            scp -o StrictHostKeyChecking=no -i "$KEY_FILE" user@"$PUBLIC_IP":/opt/antares/cluster.log ./cluster.log || echo "No cluster.log found"
+          fi
+      
+      - name: Analyze cluster logs with Claude Code
+        if: success()
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.CLAUDE_API_KEY }}
+          GH_TOKEN: ${{ github.token }}
+          EC2_KEY_NAME: ${{ secrets.EC2_KEY_NAME }}
+          EC2_PRIVATE_KEY: ${{ secrets.EC2_PRIVATE_KEY }}
+        run: |
+          if [ -f "cluster.log" ]; then
+            echo "Installing Claude Code CLI for cluster log analysis..."
+            curl -fsSL https://claude.ai/install.sh | bash
+            echo "$HOME/.claude/bin" >> $GITHUB_PATH
+            
+            # Create cluster analysis prompt
+            cat > cluster_analysis_prompt.md << 'EOF'
+          # EC2 Cluster Deployment Analysis
+          
+          Please analyze the cluster deployment logs from our EC2 instance:
+          
+          **Deployment Details:**
+          - Instance Type: g5g.xlarge (GPU-enabled ARM64)
+          - Platform: Boot2Qt 6.8.3
+          - Application: Antares Cluster App
+          - Runtime: 2 minutes
+          
+          **Your Task:**
+          1. Examine the cluster logs in `cluster.log`
+          2. Identify any errors, warnings, or performance issues
+          3. Assess if the application started correctly
+          4. Report on GPU acceleration status and Qt platform integration
+          5. Suggest improvements for deployment or runtime configuration
+          
+          **Key Areas to Check:**
+          - Application startup and initialization
+          - Qt platform (eglfs) and GPU integration
+          - Any runtime errors or crashes
+          - Performance metrics if available
+          - Resource usage indicators
+          
+          Please provide a concise summary of the deployment health and any recommendations.
+          EOF
+          
+            # Run Claude Code analysis
+            echo "$(cat cluster_analysis_prompt.md)" | claude --dangerously-skip-permissions
+            
+            # Clean up
+            rm -f cluster_analysis_prompt.md
+          else
+            echo "No cluster.log file found for analysis"
+          fi
+      
+      - name: Cleanup EC2 instance
+        if: always()
+        run: |
           if [ -n "$INSTANCE_ID" ]; then
             echo "Terminating EC2 instance: $INSTANCE_ID"
             aws ec2 terminate-instances --instance-ids "$INSTANCE_ID"
