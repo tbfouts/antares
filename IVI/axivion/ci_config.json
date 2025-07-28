@@ -1,0 +1,47 @@
+{
+    "Project": {
+        "BuildSystemIntegration": {
+            "child_order": [
+                "CMakeIntegration 1"
+            ]
+        },
+        "CMakeIntegration 1": {
+            "_active": true,
+            "_copy_from": "CMakeIntegration",
+            "build_directory": "IVI/build",
+            "generate_variables": {
+                "$(delta:+)": {
+                    "CMAKE_PREFIX_PATH": "/Users/aaronlabomascus/Qt/6.8.3/macos"
+                },
+                "$(delta:-)": []
+            },
+            "generator": "Ninja",
+            "source_directory": "IVI"
+        },
+        "Git": {
+            "_active": true,
+            "rootpath": "."
+        },
+        "Project-GlobalOptions": {
+            "ci_mode": {
+                "clean_after": false
+            },
+            "directory": "../../",
+            "ir": "IVI/build/IVIApp",
+            "name": "antares_ivi"
+        }
+    },
+    "Results": {
+        "Dashboard": {
+            "dashboard_url": "http://localhost:9090/axivion/",
+            "database_mode": "managed_upload"
+        }
+    },
+    "_Format": "1.0",
+    "_VersionNum": [
+        7,
+        10,
+        0,
+        17246
+    ]
+}

@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE gxl SYSTEM "http://www.gupro.de/GXL/gxl-1.0.dtd">
+<gxl xmlns:xlink="http://www.w3.org/1999/xlink">
+  <graph id="Architecture" edgeids="true">
+    <node id="N221752">
+      <type xlink:href="Cluster"/>
+      <attr name="Source.Name">
+        <string>App</string>
+      </attr>
+      <attr name="Linkage.Name">
+        <string>2a43bd0c-64b9-4db8-a07a-d5135acc95e3</string>
+      </attr>
+    </node>
+    <node id="N221756">
+      <type xlink:href="Cluster"/>
+      <attr name="Source.Name">
+        <string>VehicleCANInterface</string>
+      </attr>
+      <attr name="Linkage.Name">
+        <string>8c4a6b3b-a60c-46d0-bc96-c45c493590ab</string>
+      </attr>
+    </node>
+    <node id="N221757">
+      <type xlink:href="Cluster"/>
+      <attr name="Source.Name">
+        <string>VehicleData</string>
+      </attr>
+      <attr name="Linkage.Name">
+        <string>11f71f20-077c-49e7-88f1-e347bfb785f8</string>
+      </attr>
+    </node>
+    <node id="N221758">
+      <type xlink:href="Cluster"/>
+      <attr name="Source.Name">
+        <string>VehicleDataInterface</string>
+      </attr>
+      <attr name="Linkage.Name">
+        <string>a87ce424-5c62-4f3d-b628-d17dc95e0be3</string>
+      </attr>
+    </node>
+    <edge id="E748060" from="N221756" to="N221752">
+      <type xlink:href="Belongs_To"/>
+    </edge>
+    <edge id="E748085" from="N221757" to="N221758">
+      <type xlink:href="Inheritance"/>
+    </edge>
+    <edge id="E748086" from="N221756" to="N221757">
+      <type xlink:href="Source_Dependency"/>
+    </edge>
+    <edge id="E748087" from="N221756" to="N221758">
+      <type xlink:href="Source_Dependency"/>
+    </edge>
+    <edge id="E748088" from="N221758" to="N221752">
+      <type xlink:href="Belongs_To"/>
+    </edge>
+    <edge id="E748090" from="N221757" to="N221752">
+      <type xlink:href="Belongs_To"/>
+    </edge>
+  </graph>
+</gxl>

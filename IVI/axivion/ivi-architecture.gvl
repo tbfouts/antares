@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<!DOCTYPE Gravis2_Layout>
+<Gravis2_Layout W="Hierarchy" V="Architecture">
+  <Visualization>
+    <Dpi_Scaling Factor="1"/>
+    <Zoom Factor="1" Center_X="-33.5" Center_Y="-0.5"/>
+    <Option Name="Mute_Edges" Value="False"/>
+    <Option Name="Semi_Transparent_Edges" Value="False"/>
+    <Option Name="Edges_Behind_Nodes" Value="False"/>
+    <Option Name="Show_Lifted_Edges" Value="False"/>
+    <Option Name="Semi_Transparent_Backgrounds" Value="True"/>
+    <Option Name="Edge_Bundling_Threshold" Value="2"/>
+    <Option Name="Edge_Bundling" Value="False"/>
+    <Option Name="Show_Node_Names" Value="True"/>
+    <Option Name="Show_Attributes" Value="True"/>
+    <Hidden_Node_Types>
+    </Hidden_Node_Types>
+    <Hidden_Edge_Types>
+    </Hidden_Edge_Types>
+  </Visualization>
+  <Root_Properties CS="20" GX="50" GY="30"/>
+  <Node Id="L2a43bd0c-64b9-4db8-a07a-d5135acc95e3" X="-200" Y="-172" W="402" H="301" CS="14.14" Exp="True">
+    <Node Id="La87ce424-5c62-4f3d-b628-d17dc95e0be3" X="274" Y="220" W="0" H="0" CS="10">
+    </Node>
+    <Node Id="L11f71f20-077c-49e7-88f1-e347bfb785f8" X="97" Y="218" W="0" H="0" CS="10">
+    </Node>
+    <Node Id="L8c4a6b3b-a60c-46d0-bc96-c45c493590ab" X="106" Y="63" W="0" H="0" CS="10">
+    </Node>
+  </Node>
+</Gravis2_Layout>

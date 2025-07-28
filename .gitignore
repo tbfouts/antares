@@ -63,3 +63,6 @@ py-venv*
 # Squish artifacts
 *failedImages*
 *attachment*
+
+# Axivion
+*.axivion-cache*
