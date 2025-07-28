@@ -8,25 +8,26 @@
         "CMakeIntegration 1": {
             "_active": true,
             "_copy_from": "CMakeIntegration",
-            "build_directory": "build",
+            "build_directory": "Cluster/build",
             "generate_variables": {
                 "$(delta:+)": {
                     "CMAKE_PREFIX_PATH": "/Users/aaronlabomascus/Qt/6.8.3/macos"
                 },
                 "$(delta:-)": []
             },
-            "generator": "Ninja"
+            "generator": "Ninja",
+            "source_directory": "Cluster"
         },
         "Git": {
             "_active": true,
-            "rootpath": "../"
+            "rootpath": "."
         },
         "Project-GlobalOptions": {
             "ci_mode": {
                 "clean_after": false
             },
-            "directory": "../",
-            "ir": "build/ClusterApp",
+            "directory": "../../",
+            "ir": "Cluster/build/ClusterApp",
             "name": "antares_cluster"
         }
     },

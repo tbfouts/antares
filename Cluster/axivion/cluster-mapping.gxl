@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE gxl SYSTEM "http://www.gupro.de/GXL/gxl-1.0.dtd">
+<gxl xmlns:xlink="http://www.w3.org/1999/xlink">
+  <graph id="Mapping" edgeids="true">
+    <node id="N145262">
+      <type xlink:href="File"/>
+      <attr name="Source.Name">
+        <string>VehicleCanInterface.h</string>
+      </attr>
+      <attr name="Linkage.Name">
+        <string>f common/src/VehicleCanInterface.h</string>
+      </attr>
+    </node>
+    <node id="N145263">
+      <type xlink:href="File"/>
+      <attr name="Source.Name">
+        <string>VehicleData.h</string>
+      </attr>
+      <attr name="Linkage.Name">
+        <string>f common/src/VehicleData.h</string>
+      </attr>
+    </node>
+    <node id="N145264">
+      <type xlink:href="File"/>
+      <attr name="Source.Name">
+        <string>VehicleDataInterface.h</string>
+      </attr>
+      <attr name="Linkage.Name">
+        <string>f common/src/VehicleDataInterface.h</string>
+      </attr>
+    </node>
+    <node id="N145265">
+      <type xlink:href="File"/>
+      <attr name="Source.Name">
+        <string>main.cpp</string>
+      </attr>
+      <attr name="Linkage.Name">
+        <string>f Cluster/App/main.cpp</string>
+      </attr>
+    </node>
+    <node id="N145350">
+      <type xlink:href="File"/>
+      <attr name="Source.Name">
+        <string>VehicleCanInterface.cpp</string>
+      </attr>
+      <attr name="Linkage.Name">
+        <string>f common/src/VehicleCanInterface.cpp</string>
+      </attr>
+    </node>
+    <node id="N145351">
+      <type xlink:href="File"/>
+      <attr name="Source.Name">
+        <string>VehicleData.cpp</string>
+      </attr>
+      <attr name="Linkage.Name">
+        <string>f common/src/VehicleData.cpp</string>
+      </attr>
+    </node>
+    <node id="N200370">
+      <type xlink:href="Cluster"/>
+      <attr name="Source.Name">
+        <string>App</string>
+      </attr>
+      <attr name="Linkage.Name">
+        <string>bf3109c5-0177-451e-a6d3-ed20471cad10</string>
+      </attr>
+    </node>
+    <node id="N200371">
+      <type xlink:href="Cluster"/>
+      <attr name="Source.Name">
+        <string>VehicleCANInterface</string>
+      </attr>
+      <attr name="Linkage.Name">
+        <string>0663cd94-1a6d-4972-bd5d-b0edd7c6621b</string>
+      </attr>
+    </node>
+    <node id="N200372">
+      <type xlink:href="Cluster"/>
+      <attr name="Source.Name">
+        <string>VehicleData</string>
+      </attr>
+      <attr name="Linkage.Name">
+        <string>e3585ffc-6e14-4feb-94ce-49ede41cd77f</string>
+      </attr>
+    </node>
+    <node id="N200373">
+      <type xlink:href="Cluster"/>
+      <attr name="Source.Name">
+        <string>VehicleDataInterface</string>
+      </attr>
+      <attr name="Linkage.Name">
+        <string>094cdddf-c52f-433a-98cb-8e2ef9dd1039</string>
+      </attr>
+    </node>
+    <edge id="E655946" from="N145265" to="N200370">
+      <type xlink:href="Maps_To"/>
+    </edge>
+    <edge id="E655947" from="N145350" to="N200371">
+      <type xlink:href="Maps_To"/>
+    </edge>
+    <edge id="E655948" from="N145262" to="N200371">
+      <type xlink:href="Maps_To"/>
+    </edge>
+    <edge id="E655949" from="N145351" to="N200372">
+      <type xlink:href="Maps_To"/>
+    </edge>
+    <edge id="E655950" from="N145263" to="N200372">
+      <type xlink:href="Maps_To"/>
+    </edge>
+    <edge id="E655951" from="N145264" to="N200373">
+      <type xlink:href="Maps_To"/>
+    </edge>
+  </graph>
+</gxl>

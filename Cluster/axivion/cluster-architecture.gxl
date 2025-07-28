@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE gxl SYSTEM "http://www.gupro.de/GXL/gxl-1.0.dtd">
+<gxl xmlns:xlink="http://www.w3.org/1999/xlink">
+  <graph id="Architecture" edgeids="true">
+    <node id="N200370">
+      <type xlink:href="Cluster"/>
+      <attr name="Source.Name">
+        <string>App</string>
+      </attr>
+      <attr name="Linkage.Name">
+        <string>bf3109c5-0177-451e-a6d3-ed20471cad10</string>
+      </attr>
+    </node>
+    <node id="N200371">
+      <type xlink:href="Cluster"/>
+      <attr name="Source.Name">
+        <string>VehicleCANInterface</string>
+      </attr>
+      <attr name="Linkage.Name">
+        <string>0663cd94-1a6d-4972-bd5d-b0edd7c6621b</string>
+      </attr>
+    </node>
+    <node id="N200372">
+      <type xlink:href="Cluster"/>
+      <attr name="Source.Name">
+        <string>VehicleData</string>
+      </attr>
+      <attr name="Linkage.Name">
+        <string>e3585ffc-6e14-4feb-94ce-49ede41cd77f</string>
+      </attr>
+    </node>
+    <node id="N200373">
+      <type xlink:href="Cluster"/>
+      <attr name="Source.Name">
+        <string>VehicleDataInterface</string>
+      </attr>
+      <attr name="Linkage.Name">
+        <string>094cdddf-c52f-433a-98cb-8e2ef9dd1039</string>
+      </attr>
+    </node>
+    <edge id="E655940" from="N200371" to="N200370">
+      <type xlink:href="Belongs_To"/>
+    </edge>
+    <edge id="E655941" from="N200372" to="N200370">
+      <type xlink:href="Belongs_To"/>
+    </edge>
+    <edge id="E655942" from="N200373" to="N200370">
+      <type xlink:href="Belongs_To"/>
+    </edge>
+    <edge id="E655943" from="N200371" to="N200373">
+      <type xlink:href="Source_Dependency"/>
+    </edge>
+    <edge id="E655944" from="N200372" to="N200373">
+      <type xlink:href="Source_Dependency"/>
+    </edge>
+    <edge id="E655945" from="N200371" to="N200372">
+      <type xlink:href="Source_Dependency"/>
+    </edge>
+  </graph>
+</gxl>

@@ -3,7 +3,9 @@
         "Architecture": {
             "child_order": [
                 "Architecture-CyclesView 1",
-                "Architecture-DeadCodeView 1"
+                "Architecture-DeadCodeView 1",
+                "Architecture-GravisArchitecture 1",
+                "Architecture-MappingSanityCheck 1"
             ]
         },
         "Architecture-CyclesView 1": {
@@ -13,6 +15,16 @@
         "Architecture-DeadCodeView 1": {
             "_active": true,
             "_copy_from": "Architecture-DeadCodeView"
+        },
+        "Architecture-GravisArchitecture 1": {
+            "_active": true,
+            "_copy_from": "Architecture-GravisArchitecture",
+            "architecture_file": "cluster-architecture.gxl",
+            "mapping_file": "cluster-mapping.gxl"
+        },
+        "Architecture-MappingSanityCheck 1": {
+            "_active": true,
+            "_copy_from": "Architecture-MappingSanityCheck"
         },
         "CloneDetection": {
             "_active": true
