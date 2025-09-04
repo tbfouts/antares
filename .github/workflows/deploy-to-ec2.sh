@@ -132,8 +132,8 @@ deploy_application() {
         chmod +x ClusterApp deploy.sh
         
         # Set environment for GPU acceleration
-        export QT_QPA_PLATFORM=eglfs
-        export QT_QPA_EGLFS_INTEGRATION=eglfs_kms
+        # export QT_QPA_PLATFORM=eglfs
+        # export QT_QPA_EGLFS_INTEGRATION=eglfs_kms
         
         echo "Application deployed successfully"
         echo "To run the cluster app: ./ClusterApp"

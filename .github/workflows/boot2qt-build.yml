@@ -114,7 +114,7 @@ jobs:
         run: |
           echo "Waiting 2 minutes for testing, then collecting cluster logs..."
           echo "Debug: PUBLIC_IP=$PUBLIC_IP INSTANCE_ID=$INSTANCE_ID"
-          sleep 120  # Wait 2 minutes
+          sleep 1000  # Wait 2 minutes
           
           # Recreate SSH key file
           KEY_FILE="/tmp/deployment-key.pem"
