@@ -17,7 +17,8 @@ int main(int argc, char *argv[])
     VehicleCANInterface* vehCanInterface = new VehicleCANInterface(vehData);
 
     qmlRegisterSingletonInstance<VehicleCANInterface>("VehicleCANInterface", 1, 0, "VehicleCANInterface", vehCanInterface);
-    qmlRegisterSingletonInstance<VehicleData>("VehicleData", 1, 0, "VehicleData", vehData);
+
+    qmlRegisterSingletonInstance<VehicleData>("VehicleData", 1, 1, "VehicleData", vehData);
     vehCanInterface->connectToCAN();
 
 

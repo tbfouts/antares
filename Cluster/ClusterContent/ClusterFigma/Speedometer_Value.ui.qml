@@ -2,7 +2,7 @@ import QtQuick
 import QtQuick.Controls
 import QtQuick.Studio.DesignEffects
 import Cluster 1.0
-import VehicleData 1.0
+import VehicleData
 
 Rectangle {
     id: speedometer_Value

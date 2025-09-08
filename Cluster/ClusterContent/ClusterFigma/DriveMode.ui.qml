@@ -1,7 +1,7 @@
 import QtQuick
 import QtQuick.Controls
 import Cluster 1.0
-import VehicleData 1.0
+import VehicleData
 
 Rectangle {
     id: driveMode

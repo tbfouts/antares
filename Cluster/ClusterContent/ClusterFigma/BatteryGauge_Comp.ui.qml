@@ -4,7 +4,7 @@ import QtQuick.Studio.Components 1.0
 import QtQuick.Studio.DesignEffects
 import QtQuick.Timeline 1.0
 import Cluster 1.0
-import VehicleData 1.0
+import VehicleData
 
 Rectangle {
     id: batteryGauge_Comp

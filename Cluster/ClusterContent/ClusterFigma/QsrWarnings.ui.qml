@@ -2,7 +2,7 @@ import QtQuick
 import QtQuick.Controls
 import Qt.SafeRenderer
 import QtQuick.Timeline 1.0
-import VehicleData 1.0
+import VehicleData
 
 Rectangle {
     id: qsrWarnings

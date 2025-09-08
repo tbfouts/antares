@@ -16,7 +16,7 @@ import Generated.QtQuick3D.Lights
 import QtQuick3D.Helpers 6.7
 import QtQuick3D.AssetUtils
 import QtQuick.Timeline 1.0
-import VehicleData 1.0
+import VehicleData
 
 Rectangle {
     id: rectangle

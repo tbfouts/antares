@@ -4,7 +4,7 @@
 import QtQuick 6.7
 import Cluster
 import QtWebSockets
-import VehicleData 1.0
+import VehicleData
 import ClusterContent 1.0
 
 Window {
@@ -130,7 +130,7 @@ Window {
         title: "Antares Controls"
         width: 1000
         height: 400
-        visible: false
+        visible: Qt.platform.os === 'android' ? false : true
         x: mainScreen.x + 1180
         y: mainScreen.y + 1320
 
