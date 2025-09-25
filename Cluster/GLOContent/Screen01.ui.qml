@@ -26,10 +26,10 @@ Rectangle {
     height: Constants.height
     color: "#000000"
 
-
-
     GLOlayout {
         id: gLOlayout
+        anchors.fill: parent
+        recBkgrdRecBkgrdVisible: true
         state: "BOOST"
         bkgrdRectangleSmallVisible: true
         speedometer_ValueSpeedGaugeCoverColor: "#1e1e1e"
@@ -43,258 +43,38 @@ Rectangle {
         adasCompVisible: false
     }
 
-
     IncomingCallIP {
         id: incomingCallIP
         x: 1344
         y: 67
     }
 
-    View3D {
-        id: view3D
+
+
+    AdasView3D {
         y: 0
-        width: 580
+        width: 1933
         height: 720
+        visible: true
         anchors.horizontalCenter: parent.horizontalCenter
-        camera: sceneCamera
-        environment: extendedSceneEnvironment
-
-
-        ExtendedSceneEnvironment {
-            id: extendedSceneEnvironment
-            tonemapMode: SceneEnvironment.TonemapModeLinear
-            probeHorizon: 0.1
-            lightProbe: basicLights3_4K
-            glowUseBicubicUpscale: true
-            glowLevel: ExtendedSceneEnvironment.GlowLevel.One
-                       | ExtendedSceneEnvironment.GlowLevel.Two
-                       | ExtendedSceneEnvironment.GlowLevel.Three
-                       | ExtendedSceneEnvironment.GlowLevel.Four
-                       | ExtendedSceneEnvironment.GlowLevel.Six
-            glowBlendMode: ExtendedSceneEnvironment.GlowBlendMode.Additive
-            depthOfFieldEnabled: false
-            aoEnabled: true
-            glowHDRMaximumValue: 79.64209
-            glowHDRScale: 2.40928
-            probeExposure: 40
-            glowHDRMinimumValue: 0
-            glowBloom: 0.36081
-            glowQualityHigh: true
-            glowIntensity: 0.28793
-            glowStrength: 0.93527
-            lensFlareEnabled: false
-            glowEnabled: true
-            ditheringEnabled: true
-            temporalAAStrength: 2
-            specularAAEnabled: false
-            temporalAAEnabled: false
-            fxaaEnabled: true
-            antialiasingQuality: SceneEnvironment.High
-            antialiasingMode: SceneEnvironment.MSAA
-            backgroundMode: SceneEnvironment.Transparent
-        }
-
-
-        Node {
-            id: scene
-            DirectionalLight {
-                id: directionalLight
-                x: -0
-                y: 454.668
-                visible: true
-                color: "#e6e6e6"
-                eulerRotation.z: 0.00003
-                scope: genericCarModel
-                eulerRotation.x: -60.00002
-                eulerRotation.y: 179.99995
-                ambientColor: "#666666"
-                brightness: 1
-                z: -790.60999
-            }
-
-            DirectionalLight {
-                id: directionalLightLane
-                x: 0
-                y: 454.668
-                visible: true
-                color: "#e6e6e6"
-                z: 0
-                scope: lanePlane
-                eulerRotation.z: 179.99994
-                eulerRotation.y: 0.00005
-                eulerRotation.x: -64.99998
-                brightness: 5
-                ambientColor: "#666666"
-            }
-
-            PerspectiveCamera {
-                id: sceneCamera
-                x: -0
-                y: 529.607
-                eulerRotation.y: 0.00001
-                eulerRotation.z: 0.00001
-                eulerRotation.x: -38
-                fieldOfView: 38
-                z: 656.89447
-            }
-
-            Lights {
-                id: lights
-                x: -0
-                y: -0
-                visible: true
-                lightOn: VehicleData.lights
-                z: -6.48958
-                eulerRotation.y: 180
-                scale.z: 104
-                scale.y: 100
-                scale.x: 100
-            }
-
-            GenericCarModel {
-                id: genericCarModel
-                visible: true
-                doorsOpenRight: VehicleData.doorPsgr
-                doorsOpenLeft: VehicleData.doorDrvr
-                carPaint_materialBaseColor: Themes.themeColor1
-                eulerRotation.y: 180
-                scale.z: 100
-                scale.y: 100
-                scale.x: 100
-            }
-
-            Model {
-                id: headlampPlaneRight
-                x: 68.492
-                y: -3.605
-                opacity: 0.978
-                visible: VehicleData.lights
-                source: "#Rectangle"
-                usedInBakedLighting: true
-                scale.z: 1
-                z: -440.59552
-                receivesReflections: true
-                eulerRotation.z: 90
-                eulerRotation.x: -90
-                eulerRotation.y: 180
-                materials: headlampReflection
-                castsReflections: false
-                receivesShadows: false
-                castsShadows: false
-                scale.y: 0.9
-                scale.x: 3.3792
-            }
-
-            Model {
-                id: headlampPlaneLeft
-                x: -66.347
-                y: -3.605
-                opacity: 0.978
-                visible: VehicleData.lights
-                source: "#Rectangle"
-                z: -440.60001
-                usedInBakedLighting: true
-                scale.z: 1
-                scale.y: 0.9
-                scale.x: 3.3792
-                receivesShadows: false
-                receivesReflections: true
-                materials: headlampReflection
-                eulerRotation.z: 90
-                eulerRotation.y: 180
-                eulerRotation.x: -90
-                castsShadows: false
-                castsReflections: false
-            }
-
-            Model {
-                id: shadowPlane
-                x: -0
-                y: 3
-                opacity: 0.978
-                visible: true
-                source: "#Rectangle"
-                z: -11.90749
-                receivesReflections: true
-                eulerRotation.z: 90
-                eulerRotation.x: -90
-                eulerRotation.y: 180
-                materials: floorOpacity1
-                castsReflections: false
-                receivesShadows: true
-                castsShadows: false
-                scale.y: 2.8
-                scale.x: 5.6
-            }
-
-
-            Model {
-                id: lanePlane
-                x: -0
-                y: -156.957
-                opacity: VehicleData.speed
-                visible: true
-                source: "#Rectangle"
-                eulerRotation.z: -90
-                eulerRotation.y: 0.00002
-                eulerRotation.x: -70
-                z: -192.13997
-                materials: laneLines
-                receivesReflections: true
-                castsReflections: false
-                receivesShadows: false
-                castsShadows: false
-                scale.y: 4.75
-                scale.x: 18
-            }
-
-            SpotLight {
-                id: spotlightRight
-                x: 70.014
-                y: 23.399
-                visible: VehicleData.lights
-                color: "#ffffbb"
-                eulerRotation.z: 0
-                eulerRotation.y: -0
-                eulerRotation.x: -15
-                scale.z: 1
-                scale.y: 0.9
-                scale.x: 1
-                brightness: 80
-                scope: headlampPlaneRight
-                innerConeAngle: 14
-                coneAngle: 26
-                quadraticFade: 10
-                z: -232.73135
-            }
-
-            SpotLight {
-                id: spotlightLeft
-                x: -67.088
-                y: 23.4
-                visible: VehicleData.lights
-                color: "#ffffbb"
-                z: -232.73135
-                scope: headlampPlaneLeft
-                scale.z: 1
-                scale.y: 0.9
-                scale.x: 1
-                quadraticFade: 10
-                innerConeAngle: 14
-                eulerRotation.z: 0
-                eulerRotation.y: 0
-                eulerRotation.x: -15
-                coneAngle: 26
-                brightness: 80
-            }
-
-
-        }
     }
 
 
+
+
+    AdasComp {
+        id: adasComp
+        y: 64
+        width: 480
+        visible: false
+        anchors.horizontalCenter: parent.horizontalCenter
+        adasON: VehicleData.driveMode == "ADAS"
+        adasOFF: true
+    }
+
     Item {
         id: __materialLibrary__
+
 
         PrincipledMaterial {
             id: laneLines
@@ -312,9 +92,21 @@ Rectangle {
                 positionV: -110
                 tilingModeHorizontal: Texture.Repeat
                 tilingModeVertical: Texture.Repeat
-                scaleU: 1.3
+                scaleU: 1.2
                 rotationUV: 90
             }
+        }
+
+
+        PrincipledMaterial {
+            id: adasControl
+            baseColorMap: adasComp
+            occlusionChannel: Material.R
+            objectName: "laneLines"
+            metalness: 0
+            lighting: PrincipledMaterial.FragmentLighting
+            blendMode: PrincipledMaterial.SourceOver
+            baseColor: "#0a272727"
         }
 
         PrincipledMaterial {
@@ -336,6 +128,7 @@ Rectangle {
             }
         }
 
+
         PrincipledMaterial {
             id: headlampReflection
             attenuationColor: "#363636"
@@ -343,15 +136,19 @@ Rectangle {
             transmissionFactor: 0.47422
             lighting: PrincipledMaterial.FragmentLighting
             roughness: 1
-            baseColor: "#373737"
+            baseColor: "#000000"
             objectName: "Headlamp Reflection"
         }
+
 
         Texture {
             id: basicLights3_4K
             source: "images/BasicLights3_4K.hdr"
         }
+
     }
+
+
 
     Timeline {
         id: timeline
@@ -384,19 +181,12 @@ Rectangle {
         }
     }
 
-    AdasComp {
-        id: adasComp
-        y: 64
-        width: 480
-        anchors.horizontalCenter: parent.horizontalCenter
-        adasON: VehicleData.driveMode == "ADAS"
-        adasOFF: true
-    }
 
 }
 
 /*##^##
 Designer {
-    D{i:0}D{i:4;cameraSpeed3d:25;cameraSpeed3dMultiplier:1}
+    D{i:0;matPrevEnvDoc:"SkyBox";matPrevEnvValueDoc:"preview_studio";matPrevModelDoc:"#Sphere"}
+D{i:3;cameraSpeed3d:25;cameraSpeed3dMultiplier:1}
 }
 ##^##*/

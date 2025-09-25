@@ -139,6 +139,10 @@ Rectangle {
             target: switchAdas
             onToggled: {
                 VehicleData.driveMode = switchAdas.checked ? "ADAS" : "SPORT"
+                VehicleData.adasOFF = switchAdas.checked ? false : true
+                VehicleData.adasON = switchAdas.checked ? true : false
+
+
             }
         }
     }

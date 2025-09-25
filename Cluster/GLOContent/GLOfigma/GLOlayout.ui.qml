@@ -8,7 +8,8 @@ Rectangle {
     id: gLOlayout
     width: Constants.width
     height: Constants.height
-    color: "#000000"
+    color: "#1c1c1c"
+    property alias recBkgrdRecBkgrdVisible: recBkgrd.recBkgrdVisible
     property alias qsrTurnSignalsVisible: qsrTurnSignals.visible
     property alias qsrWarningsVisible: qsrWarnings.visible
     state: VehicleData.driveMode
@@ -29,6 +30,7 @@ Rectangle {
         id: recBkgrd
         width: 1920
         height: 720
+        visible: true
         anchors.left: parent.left
         anchors.top: parent.top
     }
@@ -48,6 +50,7 @@ Rectangle {
         id: rpmGauge_ShadowEffect
         width: 600
         height: 560
+        visible: true
         anchors.left: parent.left
         anchors.top: parent.top
         anchors.leftMargin: -47
@@ -70,6 +73,7 @@ Rectangle {
         id: circuitBoard1
         width: 552
         height: 534
+        visible: true
         anchors.left: parent.left
         anchors.top: parent.top
         anchors.leftMargin: -2
@@ -81,6 +85,7 @@ Rectangle {
         id: bkgrdRectangleLarge
         width: 1429
         height: 890
+        visible: false
         anchors.left: parent.left
         anchors.top: parent.top
         anchors.leftMargin: 246
@@ -91,7 +96,8 @@ Rectangle {
         id: bkgrdRectangleSmall
         width: 885
         height: 890
-        visible: true
+        opacity: 0
+        visible: false
         anchors.left: parent.left
         anchors.top: parent.top
         anchors.leftMargin: 523

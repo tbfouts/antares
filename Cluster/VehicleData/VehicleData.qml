@@ -23,4 +23,6 @@ Item {
     property bool switchTurnL: false
     property bool switchTurnR: false
     property bool qsrIcons: false
+    property bool adasOFF: true
+    property bool adasON: false
 }
