@@ -13,26 +13,15 @@ Rectangle {
     color: "transparent"
 
 
-    SvgPathItem {
-        id: batteryGauge_Border
-        visible: true
-        anchors.left: parent.left
-        anchors.right: parent.right
-        anchors.top: parent.top
-        anchors.bottom: parent.bottom
-        anchors.topMargin: 2
-        anchors.bottomMargin: -2
-        capStyle: 32
-        strokeWidth: 1
-        strokeStyle: 1
-        strokeColor: "#3f3f3f"
-        path: "M 75.44170379638672 0 L 647 0 L 647 161 L 0 161 L 75.44170379638672 0 Z"
-        joinStyle: 0
-        fillColor: "#1e1e1e"
-        antialiasing: true
+
+
+    Image {
+        id: batteryGauge_Border1
+        x: 41
+        y: 2
+        source: "assets/batteryGauge_Border.png"
+        fillMode: Image.PreserveAspectFit
     }
-
-
 
     SvgPathItem {
         id: vecBatteryStages
@@ -52,6 +41,7 @@ Rectangle {
         fillColor: "#3f3f3f"
         antialiasing: true
     }
+
 
 
 
@@ -79,6 +69,7 @@ Rectangle {
 
 
 
+
     SvgPathItem {
         id: batteryVecLow
         anchors.left: parent.left
@@ -99,6 +90,7 @@ Rectangle {
     }
 
 
+
     Text {
         id: textBatteryRem
         x: barFillingBattery.x - 55
@@ -113,6 +105,7 @@ Rectangle {
         font.family: "Oxanium"
     }
 
+
     Image {
         id: batteryVecFull
         anchors.left: parent.left
@@ -125,6 +118,7 @@ Rectangle {
         anchors.bottomMargin: 107
         source: "assets/batteryVecFull.png"
     }
+
 
 
 
@@ -170,13 +164,14 @@ Rectangle {
     }
 
 
+
 }
 
 /*##^##
 Designer {
-    D{i:0;uuid:"4f55a560-97ab-5fb1-aec6-cca4aafd456f"}D{i:1;uuid:"9088e3c0-6648-5b89-bf24-5e9d09c40cba"}
-D{i:2;uuid:"6b6be73d-cc47-5af1-a01d-b9ce1860f18a"}D{i:3;uuid:"e618ccc5-315d-5acd-8be5-29e4d8890e4f"}
-D{i:6;uuid:"df055184-5c49-5841-97db-5deb928f2a93"}D{i:8;uuid:"7fcdb930-9bfe-5789-9cbc-d7078a5693cf"}
+    D{i:0;uuid:"4f55a560-97ab-5fb1-aec6-cca4aafd456f"}D{i:2;uuid:"6b6be73d-cc47-5af1-a01d-b9ce1860f18a"}
+D{i:3;uuid:"e618ccc5-315d-5acd-8be5-29e4d8890e4f"}D{i:6;uuid:"df055184-5c49-5841-97db-5deb928f2a93"}
+D{i:8;uuid:"7fcdb930-9bfe-5789-9cbc-d7078a5693cf"}
 }
 ##^##*/
 

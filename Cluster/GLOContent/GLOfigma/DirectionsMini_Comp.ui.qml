@@ -14,21 +14,12 @@ Rectangle {
     property alias txt_ETAdistanceText: txt_ETAdistance.text
     property alias txt_NEText: txt_NE.text
 
-    SvgPathItem {
-        id: directions_Border
-        anchors.left: parent.left
-        anchors.right: parent.right
-        anchors.top: parent.top
-        anchors.bottom: parent.bottom
-        anchors.topMargin: 2
-        anchors.bottomMargin: -2
-        strokeWidth: 1
-        strokeStyle: 1
-        strokeColor: "#3f3f3f"
-        path: "M 75.44170379638672 0 L 647 0 L 647 206 L 0 206 L 75.44170379638672 0 Z"
-        joinStyle: 0
-        fillColor: "#1e1e1e"
-        antialiasing: true
+    Image {
+        id: directions_Border1
+        x: 6
+        y: 2
+        source: "assets/directions_Border.png"
+        fillMode: Image.PreserveAspectFit
     }
 
     ArcItem {
@@ -143,14 +134,15 @@ Rectangle {
         fillColor: "#646464"
         antialiasing: true
     }
+
 }
 
 /*##^##
 Designer {
-    D{i:0;uuid:"0aeb89ab-9008-5d29-9462-f1fa213d9c04"}D{i:1;uuid:"a231058d-e905-5c7c-9bd4-3798ab5a83f3"}
-D{i:2;uuid:"aaa8c3ed-eff8-5987-b702-24fbd33bd576"}D{i:3;uuid:"db4232b5-e1fd-5983-ac3c-4980014cd47c"}
-D{i:4;uuid:"2fcb7cce-15b9-58ba-a53e-3f37bd4a2831"}D{i:5;uuid:"e5e0a9af-58eb-58cf-bd00-bb2a51699bbe"}
-D{i:6;uuid:"14ba35cc-7d50-5042-beb7-876fdcfbe138"}D{i:7;uuid:"d92673f1-c8a2-5760-bbe0-b868924f3919"}
+    D{i:0;uuid:"0aeb89ab-9008-5d29-9462-f1fa213d9c04"}D{i:2;uuid:"aaa8c3ed-eff8-5987-b702-24fbd33bd576"}
+D{i:3;uuid:"db4232b5-e1fd-5983-ac3c-4980014cd47c"}D{i:4;uuid:"2fcb7cce-15b9-58ba-a53e-3f37bd4a2831"}
+D{i:5;uuid:"e5e0a9af-58eb-58cf-bd00-bb2a51699bbe"}D{i:6;uuid:"14ba35cc-7d50-5042-beb7-876fdcfbe138"}
+D{i:7;uuid:"d92673f1-c8a2-5760-bbe0-b868924f3919"}
 }
 ##^##*/
 
