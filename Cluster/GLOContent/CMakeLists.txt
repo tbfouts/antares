@@ -107,11 +107,3 @@ qt6_add_qml_module(GLOContent
 )
 
 
-qt6_add_resources(GLOContent GLOContentBigResource
-    BIG_RESOURCES
-    PREFIX "/qt/qml/GLOContent"
-    VERSION 1.0
-    FILES 
-        "images/the_sky_is_on_fire_4k.hdr"
-)
-

@@ -44,7 +44,6 @@ Rectangle {
         rpmGauge_ValueInnerShadowColor: Themes.themeColor2
         speedGauge_ShadowColor: Themes.themeColor2
         rpmGauge_ShadowColor: Themes.themeColor2
-       // adasCompVisible: false
     }
 
     IncomingCallIP {
@@ -71,18 +70,6 @@ Rectangle {
         height: 437
     }
 
-
-
-
-    // AdasComp {
-    //     id: adasComp
-    //     y: 64
-    //     width: 480
-    //     visible: false
-    //     anchors.horizontalCenter: parent.horizontalCenter
-    //     adasON: VehicleData.driveMode == "ADAS"
-    //     adasOFF: true
-    // }
 
     Item {
         id: __materialLibrary__
