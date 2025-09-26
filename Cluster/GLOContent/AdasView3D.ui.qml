@@ -15,6 +15,7 @@ View3D {
     environment: extendedSceneEnvironment
 
 
+
     
     ExtendedSceneEnvironment {
         id: extendedSceneEnvironment
@@ -83,12 +84,12 @@ View3D {
         PerspectiveCamera {
             id: sceneCamera
             x: -0
-            y: 929.089
+            y: 1039.61
             eulerRotation.y: 0.00001
             eulerRotation.z: 0.00001
             eulerRotation.x: -58
             fieldOfView: 30
-            z: 567.54797
+            z: 613.42877
         }
         
         Lights {
@@ -139,21 +140,21 @@ View3D {
         
         Model {
             id: lanePlane
-            x: 0
-            y: -213.564
+            x: -0.001
+            y: -230.521
             visible: true
             source: "#Rectangle"
             eulerRotation.z: -90
             eulerRotation.y: 0.00002
             eulerRotation.x: -70
-            z: -36.61407
+            z: -1197.22327
             materials: laneLines
             receivesReflections: true
             castsReflections: false
             receivesShadows: false
             castsShadows: false
-            scale.y: 4.75
-            scale.x: 20
+            scale.y: 2
+            scale.x: 16
         }
         
 

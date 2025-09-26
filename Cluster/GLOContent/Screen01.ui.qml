@@ -18,6 +18,8 @@ import QtQuick3D.AssetUtils
 import QtQuick.Timeline 1.0
 import VehicleData 1.0
 import "IPIncCall"
+import "../advancedADAS"
+import "../advancedTPMS"
 
 
 Rectangle {
@@ -29,6 +31,8 @@ Rectangle {
     GLOlayout {
         id: gLOlayout
         anchors.fill: parent
+        veclowBeamsVisible: VehicleData.lights
+        adasDRVVisible: VehicleData.adasON
         recBkgrdRecBkgrdVisible: true
         state: "BOOST"
         bkgrdRectangleSmallVisible: true
@@ -40,7 +44,7 @@ Rectangle {
         rpmGauge_ValueInnerShadowColor: Themes.themeColor2
         speedGauge_ShadowColor: Themes.themeColor2
         rpmGauge_ShadowColor: Themes.themeColor2
-        adasCompVisible: false
+       // adasCompVisible: false
     }
 
     IncomingCallIP {
@@ -57,20 +61,28 @@ Rectangle {
         height: 720
         visible: true
         anchors.horizontalCenter: parent.horizontalCenter
+
+    }
+
+    TpmsComp {
+        x: 553
+        y: 117
+        width: 694
+        height: 437
     }
 
 
 
 
-    AdasComp {
-        id: adasComp
-        y: 64
-        width: 480
-        visible: false
-        anchors.horizontalCenter: parent.horizontalCenter
-        adasON: VehicleData.driveMode == "ADAS"
-        adasOFF: true
-    }
+    // AdasComp {
+    //     id: adasComp
+    //     y: 64
+    //     width: 480
+    //     visible: false
+    //     anchors.horizontalCenter: parent.horizontalCenter
+    //     adasON: VehicleData.driveMode == "ADAS"
+    //     adasOFF: true
+    // }
 
     Item {
         id: __materialLibrary__
@@ -89,10 +101,11 @@ Rectangle {
             Texture {
                 id: vecLaneLines
                 source: "GLOfigma/assets/vecLaneLines.png"
-                positionV: -110
+                scaleV: 1
+                positionV: -10
                 tilingModeHorizontal: Texture.Repeat
                 tilingModeVertical: Texture.Repeat
-                scaleU: 1.2
+                scaleU: 1.5
                 rotationUV: 90
             }
         }
@@ -128,17 +141,6 @@ Rectangle {
             }
         }
 
-
-        PrincipledMaterial {
-            id: headlampReflection
-            attenuationColor: "#363636"
-            metalness: 0.09332
-            transmissionFactor: 0.47422
-            lighting: PrincipledMaterial.FragmentLighting
-            roughness: 1
-            baseColor: "#000000"
-            objectName: "Headlamp Reflection"
-        }
 
 
         Texture {
@@ -187,6 +189,6 @@ Rectangle {
 /*##^##
 Designer {
     D{i:0;matPrevEnvDoc:"SkyBox";matPrevEnvValueDoc:"preview_studio";matPrevModelDoc:"#Sphere"}
-D{i:3;cameraSpeed3d:25;cameraSpeed3dMultiplier:1}
+D{i:3;cameraSpeed3d:25;cameraSpeed3dMultiplier:1}D{i:7}
 }
 ##^##*/
