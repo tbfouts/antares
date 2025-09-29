@@ -7,6 +7,12 @@ Rectangle {
     width: 145
     height: 80
     color: "transparent"
+    property alias adasLtLeveC_ShapePath_0FillColor: adasLtLeveC_ShapePath_0.fillColor
+    property alias adasLtLeveB_ShapePath_0FillColor: adasLtLeveB_ShapePath_0.fillColor
+    property alias adasLtLeveA_ShapePath_0FillColor: adasLtLeveA_ShapePath_0.fillColor
+    property alias adasLtLeveCOpacity: adasLtLeveC.opacity
+    property alias adasLtLeveBOpacity: adasLtLeveB.opacity
+    property alias adasLtLeveAOpacity: adasLtLeveA.opacity
     rotation: 60.711
 
     Shape {

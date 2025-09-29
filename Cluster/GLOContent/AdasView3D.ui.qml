@@ -202,8 +202,11 @@ View3D {
 
             PropertyChanges {
                 target: lanePlane
+                x: -0
+                y: -2.207
                 opacity: 1
-                scale.y: 6
+                z: -277.53656
+                scale.y: 3.4
                 eulerRotation.x: -90
                 eulerRotation.z: 0
                 eulerRotation.y: -89.99995

@@ -2,15 +2,15 @@
 ### Do not change
 
 add_subdirectory(GLOContent)
+add_subdirectory(VehicleData)
 add_subdirectory(Generated)
 add_subdirectory(GLO)
-add_subdirectory(VehicleData)
 add_subdirectory(App)
 add_subdirectory(Dependencies)
 
 target_link_libraries(${CMAKE_PROJECT_NAME} PRIVATE
     GLOContentplugin
+    VehicleDataplugin
     Generated_QtQuick3D_GenericCarModelplugin
     Generated_QtQuick3D_Lightsplugin
-    GLOplugin
-    VehicleDataplugin)
+    GLOplugin)

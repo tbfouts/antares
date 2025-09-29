@@ -53,12 +53,10 @@ Rectangle {
     }
 
 
-
     AdasView3D {
         y: 0
         width: 1933
         height: 720
-        visible: true
         anchors.horizontalCenter: parent.horizontalCenter
 
     }
@@ -69,7 +67,6 @@ Rectangle {
         width: 694
         height: 437
     }
-
 
     Item {
         id: __materialLibrary__
@@ -97,10 +94,8 @@ Rectangle {
             }
         }
 
-
         PrincipledMaterial {
             id: adasControl
-            baseColorMap: adasComp
             occlusionChannel: Material.R
             objectName: "laneLines"
             metalness: 0
@@ -128,16 +123,12 @@ Rectangle {
             }
         }
 
-
-
         Texture {
             id: basicLights3_4K
             source: "images/BasicLights3_4K.hdr"
         }
 
     }
-
-
 
     Timeline {
         id: timeline
@@ -170,12 +161,11 @@ Rectangle {
         }
     }
 
-
 }
 
 /*##^##
 Designer {
     D{i:0;matPrevEnvDoc:"SkyBox";matPrevEnvValueDoc:"preview_studio";matPrevModelDoc:"#Sphere"}
-D{i:3;cameraSpeed3d:25;cameraSpeed3dMultiplier:1}D{i:7}
+D{i:3;cameraSpeed3d:25;cameraSpeed3dMultiplier:1}
 }
 ##^##*/

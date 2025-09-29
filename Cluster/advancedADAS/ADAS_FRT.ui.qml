@@ -7,6 +7,12 @@ Rectangle {
     width: 117
     height: 41
     color: "transparent"
+    property alias adasFRLeveAOpacity: adasFRLeveA.opacity
+    property alias adasFRLeveBOpacity: adasFRLeveB.opacity
+    property alias adasFRLeveCOpacity: adasFRLeveC.opacity
+    property alias adasFRLeveA_ShapePath_0FillColor: adasFRLeveA_ShapePath_0.fillColor
+    property alias adasFRLeveB_ShapePath_0FillColor: adasFRLeveB_ShapePath_0.fillColor
+    property alias adasFRLeveC_ShapePath_0FillColor: adasFRLeveC_ShapePath_0.fillColor
 
     Shape {
         id: adasFRLeveC
