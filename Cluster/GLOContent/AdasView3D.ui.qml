@@ -142,7 +142,6 @@ View3D {
             id: lanePlane
             x: -0.001
             y: -230.521
-            visible: true
             source: "#Rectangle"
             eulerRotation.z: -90
             eulerRotation.y: 0.00002
@@ -204,7 +203,7 @@ View3D {
                 target: lanePlane
                 x: -0
                 y: -2.207
-                opacity: 1
+                opacity: VehicleData.speed
                 z: -277.53656
                 scale.y: 3.4
                 eulerRotation.x: -90
@@ -313,7 +312,7 @@ View3D {
                     PropertyAnimation {
                         target: lanePlane
                         property: "opacity"
-                        duration: 1099
+                        duration: 96
                     }
                 }
 

@@ -23,7 +23,7 @@ import "../advancedTPMS"
 
 
 Rectangle {
-    id: rectangle
+    id: antaresIP
     width: Constants.width
     height: Constants.height
     color: "#000000"
