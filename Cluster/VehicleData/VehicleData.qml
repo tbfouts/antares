@@ -12,8 +12,8 @@ Item {
     property string demoMode: "manual"
     property bool simulationRunning: false
     property int speed: 0
-    property int fuel: 0
-    property int battery: 0
+    property int fuel: 100
+    property int battery: 100
     property int adasRot: 0
     property bool lights: false
     property bool adas: false
