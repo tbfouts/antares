@@ -10,7 +10,7 @@ View3D {
     id: view3D
     width: 580
     height: 720
-    state: "adasOFF"
+    state: "adasON"
     camera: sceneCamera
     environment: extendedSceneEnvironment
 
@@ -172,7 +172,7 @@ View3D {
     states: [
         State {
             name: "adasOFF"
-            when: VehicleData.adasOFF
+            when: !VehicleData.adas
 
             PropertyChanges {
                 target: lanePlane
@@ -192,7 +192,7 @@ View3D {
         },
         State {
             name: "adasON"
-            when: VehicleData.adasON
+            when: VehicleData.adas
 
             PropertyChanges {
                 target: sceneCamera

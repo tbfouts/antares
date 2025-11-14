@@ -174,11 +174,11 @@ Rectangle {
     states: [
         State {
             name: "tmpsON"
-            when: VehicleData.adasOFF
+            when: !VehicleData.adas
         },
         State {
             name: "tpmsOFF"
-            when: VehicleData.adasON
+            when: VehicleData.adas
 
             PropertyChanges {
                 target: txtPSI_RF

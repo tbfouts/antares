@@ -63,7 +63,7 @@ Rectangle {
 
             Texture {
                 id: vecLaneLines
-                source: "GLOfigma/assets/vecLaneLines.png"
+                source: "ClusterFigma/assets/vecLaneLines.png"
                 objectName: "vecLaneLines"
                 scaleV: 1
                 positionV: -10
@@ -138,7 +138,7 @@ Rectangle {
         id: adasDRV
         x: 535
         y: 41
-        visible: false
+        visible: VehicleData.adas
     }
 
 

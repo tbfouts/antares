@@ -634,7 +634,7 @@ Rectangle {
     states: [
         State {
             name: "adasON"
-            when: VehicleData.adasON
+            when: VehicleData.adas
 
             PropertyChanges {
                 target: adasBorder
@@ -663,7 +663,7 @@ Rectangle {
         },
         State {
             name: "adasOFF"
-            when: VehicleData.adasOFF
+            when: !VehicleData.adas
 
             PropertyChanges {
                 target: adasBorder
