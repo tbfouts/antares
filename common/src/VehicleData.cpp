@@ -3,7 +3,7 @@
 
 VehicleData::VehicleData(QObject *parent)
     : VehicleDataInterface(parent)
-    , m_driveMode("SPORT")
+    , m_driveMode("ADAS")
     , m_units("Imperial")
     , m_demoMode("manual")
     , m_simulationRunning(false)
@@ -13,7 +13,7 @@ VehicleData::VehicleData(QObject *parent)
     , m_battery(100)
     , m_adasRot(0)
     , m_lights(false)
-    , m_adas(false)
+    , m_adas(true)
     , m_doorDrvr(false)
     , m_doorPsgr(false)
     , m_switchTurnL(false)
@@ -31,6 +31,7 @@ void VehicleData::setDriveMode(const QString &driveMode)
 {
     if (m_driveMode != driveMode) {
         m_driveMode = driveMode;
+        setAdas(driveMode.compare("ADAS") == 0);
         emit driveModeChanged();
     }
 }

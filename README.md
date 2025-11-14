@@ -9,6 +9,8 @@ Musically inspired, project Antares demonstrates the latest technologies from Qt
 
 ![IVI](screenshots/ivi.png)
 
+![IVI Xray](screenshots/ivi_xray.png)
+
 ## Vehicle Control WebSocket API Documentation
 
 ### Connection Details

@@ -130,7 +130,7 @@ Window {
         title: "Antares Controls"
         width: 1000
         height: 400
-        visible: false
+        visible: true
         x: mainScreen.x + 1180
         y: mainScreen.y + 1320
 
