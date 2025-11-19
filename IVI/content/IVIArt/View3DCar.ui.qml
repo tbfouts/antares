@@ -14,70 +14,46 @@ View3D {
     property alias doorL: genericCarModel.doorsOpenLeft
     property alias doorR: genericCarModel.doorsOpenRight
         state: "base"
-        environment: xsceneEnvironment
+        environment: sceneEnvironment
         camera: perspectiveCamera
         property alias lightsVisible: lights.visible
 
+        SceneEnvironment {
+            id: sceneEnvironment
+            probeExposure: 0.75
+            lightProbe: konzerthaus_4k
+            backgroundMode: SceneEnvironment.Transparent
+            antialiasingMode: SceneEnvironment.MSAA
+            antialiasingQuality: SceneEnvironment.VeryHigh
+        }
 
-        ExtendedSceneEnvironment {
-            id: xsceneEnvironment
-            depthOfFieldFocusRange: 120
-            glowLevel: ExtendedSceneEnvironment.GlowLevel.Five
-            probeOrientation.y: 0
-                    depthOfFieldBlurAmount: 15
-                    depthOfFieldFocusDistance: 500
-                    depthOfFieldEnabled: false
-                    adjustmentContrast: 1
-                    adjustmentBrightness: 1
-                    colorAdjustmentsEnabled: false
-                    ditheringEnabled: false
-                    sharpnessAmount: 0
-                    whitePoint: 1
-                    probeExposure: 2
-                    probeHorizon: 0.5
-                    lightProbe: konzerthaus_4k
-                    aoDither: false
-                    aoSampleRate: 4
-                    aoSoftness: 0
-                    lutEnabled: false
-                    exposure: 1.38999
-                    lensFlareBlurAmount: 50
-                    lensFlareDistortion: 5
-                    lensFlareStretchToAspect: 0.5
-                    lensFlareHaloWidth: 0.5
-                    lensFlareGhostDispersal: 0.5
-                    lensFlareBloomBias: 0.1
-                    lensFlareBloomScale: 20
-                    lensFlareEnabled: false
-                    vignetteEnabled: false
-                    glowBlendMode: ExtendedSceneEnvironment.GlowBlendMode.Screen
-                    glowHDRMinimumValue: 3
-                    glowHDRMaximumValue: 5
-                    glowHDRScale: 1
-                    glowBloom: 0
-                    glowIntensity: 0.001
-                    glowStrength: 1.9
-                    glowQualityHigh: true
-                    glowEnabled: true
-                    fxaaEnabled: true
-                    clearColor: "#191919"
-                    depthPrePassEnabled: true
-                    aoDistance: 0
-                    aoEnabled: false
-                    backgroundMode: SceneEnvironment.Transparent
-                    tonemapMode: SceneEnvironment.TonemapModeLinear
-                    temporalAAEnabled: false
-                    antialiasingMode: SceneEnvironment.SSAA
-                    antialiasingQuality: SceneEnvironment.Medium
+        SceneEnvironment {
+            id: sceneEnvironmentInt
+            probeExposure: 0.5
+            lightProbe: konzerthaus_4k
+            backgroundMode: SceneEnvironment.SkyBox
+            skyboxBlurAmount: 0.1
+            antialiasingMode: SceneEnvironment.MSAA
+            antialiasingQuality: SceneEnvironment.VeryHigh
         }
 
         Node {
             id: scene
 
+            DirectionalLight {
+                id: directionalLight
+                y: 500
+                ambientColor: Qt.rgba(0.5, 0.5, 0.5, 1.0)
+                brightness: 0.5
+                eulerRotation.x: -90
+            }
+
             GenericCarModel {
                 id: genericCarModel
                 opacity: 1
                 visible: true
+                headlightsVisible: true
+                taillightsVisible: true
                 glassTextured_materialRoughness: 0.5
                 glassTextured_materialOpacity: 0.5
                 glassTextured_materialMetalness: 0.5
@@ -90,7 +66,7 @@ View3D {
                 doorsOpenRight: false
                 wheelCaliper_materialBaseColor: Data.Themes.themeColor1
                 wheelRimColor_materialBaseColor: Data.Themes.themeColor2
-                carPaint_materialBaseColor: Data.Themes.themeColor1
+                carPaint_materialBaseColor: "#000000"
                 scale.z: 100
                 scale.y: 100
                 scale.x: 100
@@ -348,8 +324,8 @@ View3D {
             }
 
             PropertyChanges {
-                target: xsceneEnvironment
-                probeExposure: 6
+                target: sceneEnvironment
+                probeExposure: 2.0
             }
 
             PropertyChanges {
@@ -390,10 +366,8 @@ View3D {
             }
 
             PropertyChanges {
-                target: xsceneEnvironment
-                backgroundMode: SceneEnvironment.SkyBox
-                probeOrientation.y: 0
-                skyboxBlurAmount: 0.1
+                target: view3DCar
+                environment: sceneEnvironmentInt
             }
         }]
     transitions: [
@@ -421,6 +395,15 @@ View3D {
                         target: genericCarModel
                         property: "wheelCaliper_materialBaseColor"
                         duration: 150
+                    }
+                }
+
+                SequentialAnimation {
+                    PropertyAnimation {
+                        target: genericCarModel
+                        properties: "extSheetOpacity,optionalVizOpacity"
+                        duration: 1000
+                        easing.type: Easing.InOutCubic
                     }
                 }
             }
