@@ -22,6 +22,7 @@ Node {
     property alias glassTextured_materialOpacity: glassTextured_material.opacity
     property alias headlightsVisible: headlights.visible
     property alias taillightsVisible: taillights.visible
+    property alias optionalVizVisible: optionalViz.visible
     state: "closed"
     scale.z: 1
     scale.y: 1
@@ -53,6 +54,7 @@ Node {
 
             Model {
                 id: hood
+                x: 0
                 objectName: "Hood"
                 y: 0.7891814708709717
                 visible: true
@@ -65,7 +67,7 @@ Node {
                 castsReflections: true
                 receivesShadows: true
                 castsShadows: true
-                materials: [body_material,plasticBlack_material,chrome_material,glassLightsIllum_material,rubber_material]
+                materials: [body_material,plasticBlack_material,chrome_material,rubber_material]
             }
 
             Model {
@@ -434,6 +436,7 @@ Node {
             objectName: "EngineFront"
             x: -0.0008927002199925482
             y: 0.30949828028678894
+            visible: true
             z: 1.454201579093933
             scale.x: 0.001
             scale.y: 0.001
@@ -450,6 +453,7 @@ Node {
             id: interior
             objectName: "Interior"
             y: 0.7498878240585327
+            visible: true
             z: 0.1537650227546692
             scale.x: 0.001
             scale.y: 0.001
@@ -509,6 +513,7 @@ Node {
             objectName: "EngineRear"
             x: -8.61505850480171e-06
             y: 0.5748811364173889
+            visible: true
             z: -1.365947961807251
             scale.x: 0.001
             scale.y: 0.001

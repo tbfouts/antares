@@ -317,6 +317,7 @@ View3D {
 
             PropertyChanges {
                 target: genericCarModel
+                optionalVizVisible: false
                 taillightsVisible: false
                 headlightsVisible: false
                 optionalVizOpacity: 0.01
@@ -402,7 +403,7 @@ View3D {
                     PropertyAnimation {
                         target: genericCarModel
                         properties: "extSheetOpacity,optionalVizOpacity"
-                        duration: 1000
+                        duration: 400
                         easing.type: Easing.InOutCubic
                     }
                 }
@@ -561,6 +562,6 @@ View3D {
 /*##^##
 Designer {
     D{i:0;matPrevEnvDoc:"SkyBox";matPrevEnvValueDoc:"preview_studio";matPrevModelDoc:"#Sphere"}
-D{i:2;cameraSpeed3d:25;cameraSpeed3dMultiplier:1}D{i:49;transitionDuration:2000}
+D{i:3;cameraSpeed3d:25;cameraSpeed3dMultiplier:1}D{i:51;transitionDuration:2000}
 }
 ##^##*/
