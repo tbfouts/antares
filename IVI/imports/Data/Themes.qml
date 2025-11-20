@@ -5,6 +5,7 @@ import Data 1.0 as Data
 
 Item {
     id: themes
+    state: "luna"
 
     property string currentTheme: "luna"
 
@@ -21,7 +22,7 @@ Item {
 
     property int trackSpeed: 1200
 
-    property bool mediaPlaying: mediaPlayer.playing
+    property bool mediaPlaying: mediaPlayer.playbackState === MediaPlayer.PlayingState
     property bool mediaSoundMute: true
 
     Component.onCompleted: mediaPlayer.play()
@@ -30,7 +31,7 @@ Item {
 
     MediaPlayer {
         id: mediaPlayer
-        source: "../../sounds/" + themes.state + ".wav"
+        source: "qrc:/sounds/" + themes.state + ".wav"
         audioOutput: AudioOutput { muted: mediaSoundMute }
         loops: MediaPlayer.Infinite
         onSourceChanged:
@@ -38,11 +39,17 @@ Item {
             console.log("source: " + source)
             mediaPlayer.play()
         }
+        onPlaybackStateChanged: {
+            console.log("playbackState changed to: " + playbackState)
+        }
+        onErrorOccurred: {
+            console.log("MediaPlayer error: " + errorString)
+        }
     }
 
     function playPause()
     {
-        if(mediaPlayer.playing)
+        if(mediaPlayer.playbackState === MediaPlayer.PlayingState)
         {
             mediaPlayer.pause()
         }
