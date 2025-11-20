@@ -284,11 +284,6 @@ View3D {
                 frame: 737
             }
         }
-
-        KeyframeGroup {
-            target: cylinder
-            property: "scale"
-        }
     }
 
     states: [
