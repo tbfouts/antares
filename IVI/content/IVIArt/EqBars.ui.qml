@@ -215,7 +215,7 @@ Rectangle {
         animations: [
             TimelineAnimation {
                 id: eQAnimation
-                running: true
+                running: Data.Themes.mediaPlaying
                 loops: -1
                 duration: Data.Themes.trackSpeed
                 to: 1000

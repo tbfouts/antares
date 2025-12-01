@@ -22,7 +22,7 @@ Item {
 
     property int trackSpeed: 1200
 
-    property bool mediaPlaying: mediaPlayer.playbackState === MediaPlayer.PlayingState
+    property bool mediaPlaying: mediaPlayer.playing
     property bool mediaSoundMute: true
 
     Component.onCompleted: mediaPlayer.play()
@@ -41,6 +41,7 @@ Item {
         }
         onPlaybackStateChanged: {
             console.log("playbackState changed to: " + playbackState)
+            themes.mediaPlaying = (playbackState === MediaPlayer.PlayingState)
         }
         onErrorOccurred: {
             console.log("MediaPlayer error: " + errorString)

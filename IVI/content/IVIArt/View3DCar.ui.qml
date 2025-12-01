@@ -66,7 +66,7 @@ View3D {
                 doorsOpenRight: false
                 wheelCaliper_materialBaseColor: Data.Themes.themeColor1
                 wheelRimColor_materialBaseColor: Data.Themes.themeColor2
-                carPaint_materialBaseColor: "#000000"
+                carPaint_materialBaseColor: Data.Themes.themeColor1
                 scale.z: 100
                 scale.y: 100
                 scale.x: 100

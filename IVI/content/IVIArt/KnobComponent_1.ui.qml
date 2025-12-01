@@ -34,7 +34,7 @@ Rectangle {
         height: 399
         transformOrigin: Item.Center
         scale: 1
-        eQAnimationRunning: false
+        eQAnimationRunning: Data.Themes.mediaPlaying
         rotation: 180
         clip: true
     }
@@ -47,7 +47,7 @@ Rectangle {
         anchors.top: parent.top
         anchors.leftMargin: 224
         anchors.topMargin: 43
-        eQAnimationRunning: false
+        eQAnimationRunning: Data.Themes.mediaPlaying
         clip: true
     }
 
@@ -59,6 +59,7 @@ Rectangle {
         anchors.leftMargin: 185
         anchors.topMargin: 126
         source: "assets/knobVolumeBackground_1.png"
+        opacity: 0.3
     }
 
     ArcItem {
@@ -100,6 +101,7 @@ Rectangle {
             y: 32
             visible: true
             source: "assets/knobVolumeForeground_1.png"
+            opacity: 0.3
         }
 
         to: 130
@@ -113,13 +115,14 @@ Rectangle {
         visible: true
         source: "assets/knobHandle_1.png"
         rotation: dial.value - 15
+        opacity: 0.4
     }
 
     Text {
         id: txtDialValue
         width: 331
         height: 161
-        color: "#2e3c3c43"
+        color: Data.Themes.themeColor2
         text: Math.floor((dial.value + 130) / 2.6)
         anchors.left: parent.left
         anchors.top: parent.top
