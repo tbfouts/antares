@@ -113,6 +113,7 @@ Rectangle {
             id: btn3DViewInt
             autoExclusive: true
             txtViewText: "INT"
+            visible: false
 
             Connections {
                 target: btn3DViewInt

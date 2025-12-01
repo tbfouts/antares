@@ -44,7 +44,6 @@ qt6_add_qml_module(content
         images/floorOpacity.png
         images/BasicLights3_4K.hdr
         images/WheelBMP.jpg
-        images/konzerthaus_4k.hdr
         IVIArt/assets/etheral.png
         IVIArt/assets/txtRoute.png
         IVIArt/assets/desShadowVec.png

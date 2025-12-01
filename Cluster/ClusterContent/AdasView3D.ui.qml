@@ -15,35 +15,13 @@ View3D {
     environment: extendedSceneEnvironment
 
 
-    ExtendedSceneEnvironment {
+    SceneEnvironment {
         id: extendedSceneEnvironment
-        lightProbe: basicLights3_4K
-        probeOrientation.x: 60
-        tonemapMode: SceneEnvironment.TonemapModeLinear
-        probeHorizon: 0.1
-        glowUseBicubicUpscale: true
-        glowLevel: ExtendedSceneEnvironment.GlowLevel.One
-                   | ExtendedSceneEnvironment.GlowLevel.Two
-                   | ExtendedSceneEnvironment.GlowLevel.Three
-                   | ExtendedSceneEnvironment.GlowLevel.Four
-                   | ExtendedSceneEnvironment.GlowLevel.Six
-        glowBlendMode: ExtendedSceneEnvironment.GlowBlendMode.Additive
-        glowHDRMaximumValue: 79.64209
-        glowHDRScale: 2.40928
-        probeExposure: 40
-        glowHDRMinimumValue: 0
-        glowBloom: 0.38
-        glowQualityHigh: true
-        glowIntensity: 0.28793
-        glowStrength: 0.93527
-        ditheringEnabled: true
-        temporalAAStrength: 2
-        specularAAEnabled: false
-        temporalAAEnabled: false
-        fxaaEnabled: true
-        antialiasingQuality: SceneEnvironment.High
-        antialiasingMode: SceneEnvironment.MSAA
+        lightProbe: konzerthaus_4k
+        probeExposure: 0.75
         backgroundMode: SceneEnvironment.Transparent
+        antialiasingMode: SceneEnvironment.MSAA
+        antialiasingQuality: SceneEnvironment.VeryHigh
     }
 
 
@@ -51,17 +29,10 @@ View3D {
         id: scene
         DirectionalLight {
             id: directionalLight
-            x: -0
-            y: 454.668
-            visible: true
-            color: "#e6e6e6"
-            eulerRotation.z: 0.00003
-            scope: genericCarModel
-            eulerRotation.x: -60.00002
-            eulerRotation.y: 179.99997
-            ambientColor: "#666666"
-            brightness: 1
-            z: -790.60999
+            y: 500
+            ambientColor: Qt.rgba(0.5, 0.5, 0.5, 1.0)
+            brightness: 0.5
+            eulerRotation.x: -90
         }
 
         DirectionalLight {
@@ -164,9 +135,9 @@ View3D {
         id: __materialLibrary__
 
         Texture {
-            id: basicLights3_4K
-            source: "images/BasicLights3_4K.hdr"
-            objectName: "Basic Lights3 4K"
+            id: konzerthaus_4k
+            source: "qrc:/common/images/konzerthaus_4k.hdr"
+            objectName: "Konzerthaus 4k"
         }
     }
     states: [

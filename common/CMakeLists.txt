@@ -48,6 +48,13 @@ target_link_libraries(antares_common PUBLIC
 # Make the library exportable to QML
 target_compile_definitions(antares_common PRIVATE QT_QML_EXPORT)
 
+# Qt resource file for common assets
+qt_add_resources(antares_common "common_resources"
+    PREFIX "/common"
+    FILES
+        images/konzerthaus_4k.hdr
+)
+
 # Add installation rules if needed
 # install(TARGETS antares_common DESTINATION lib)
 # install(DIRECTORY src/ DESTINATION include FILES_MATCHING PATTERN "*.h")

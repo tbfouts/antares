@@ -28,6 +28,11 @@ qt6_add_qml_module(Cluster
     URI "Cluster"
     VERSION 1.0
     RESOURCE_PREFIX "/qt/qml"
+    QML_FILES
+        "Themes.qml"
+        "JsonData.qml"
+        "Constants.qml"
+        "DateTime.qml"
     RESOURCES
         "data.json"
 )

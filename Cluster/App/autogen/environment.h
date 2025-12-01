@@ -11,12 +11,11 @@
 Q_IMPORT_QML_PLUGIN(Generated_QtQuick3D_GenericCarModelPlugin)
 Q_IMPORT_QML_PLUGIN(Generated_QtQuick3D_LightsPlugin)
 Q_IMPORT_QML_PLUGIN(Generated_Bundles_MaterialsPlugin)
-Q_IMPORT_QML_PLUGIN(GLOContentPlugin)
-Q_IMPORT_QML_PLUGIN(VehicleDataPlugin)
 Q_IMPORT_QML_PLUGIN(ClusterContentPlugin)
+Q_IMPORT_QML_PLUGIN(VehicleDataPlugin)
 Q_IMPORT_QML_PLUGIN(ClusterPlugin)
 
-const char mainQmlFile[] = "qrc:/qt/qml/GLOContent/App.qml";
+const char mainQmlFile[] = "qrc:/qt/qml/ClusterContent/App.qml";
 
 #ifdef BUILD_QDS_COMPONENTS
 

@@ -20,6 +20,17 @@ Rectangle {
         onTextMessageReceived: {
             console.log("Received message from server:", message)
         }
+        onStatusChanged: {
+            console.log("WebSocket status:", status, "URL:", url)
+        }
+        onErrorStringChanged: {
+            console.log("WebSocket error:", errorString)
+        }
+    }
+
+    Component.onCompleted: {
+        console.log("Screen02 loaded with address:", address, "port:", portNumber)
+        console.log("WebSocket URL:", ws.url)
     }
 
     Slider {

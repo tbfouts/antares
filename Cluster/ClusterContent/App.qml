@@ -13,7 +13,7 @@ Window {
     height: mainScreen.height
 
     property string webSocketAddress: "127.0.0.1"
-    property string webSocketPort: "5555"
+    property string webSocketPort: "1234"
     property string currentTestName: ""
 
     visibility: Qt.platform.os === 'android' ? Window.FullScreen : Window.AutomaticVisibility

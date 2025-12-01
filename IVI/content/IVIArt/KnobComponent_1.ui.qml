@@ -59,7 +59,6 @@ Rectangle {
         anchors.leftMargin: 185
         anchors.topMargin: 126
         source: "assets/knobVolumeBackground_1.png"
-        opacity: 0.3
     }
 
     ArcItem {
@@ -101,7 +100,6 @@ Rectangle {
             y: 32
             visible: true
             source: "assets/knobVolumeForeground_1.png"
-            opacity: 0.3
         }
 
         to: 130
@@ -115,7 +113,6 @@ Rectangle {
         visible: true
         source: "assets/knobHandle_1.png"
         rotation: dial.value - 15
-        opacity: 0.4
     }
 
     Text {
