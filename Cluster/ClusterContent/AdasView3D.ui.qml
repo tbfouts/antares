@@ -136,7 +136,7 @@ View3D {
 
         Texture {
             id: konzerthaus_4k
-            source: "qrc:/common/images/konzerthaus_4k.hdr"
+            source: "images/konzerthaus_4k.hdr"
             objectName: "Konzerthaus 4k"
         }
     }

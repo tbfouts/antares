@@ -49,6 +49,8 @@ ui_*.h
 *.qmlc
 *.jsc
 *.qmlls.ini
+*.db-shm
+*.db-wal
 
 # Python cache files
 *.pyc

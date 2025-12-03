@@ -9,7 +9,7 @@ Project {
     targetDirectory: "/opt/Cluster"
     enableCMakeGeneration: true
     widgetApp: true
-    importPaths: [ "." ]
+    importPaths: [ ".", "../common/qml" ]
 
     qdsVersion: "4.5"
     quickVersion: "6.7"
@@ -42,7 +42,7 @@ Project {
     }
 
     QmlFiles {
-        directory: "VehicleData"
+        directory: "../common/qml/VehicleData"
     }
 
     QmlFiles {

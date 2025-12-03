@@ -2,16 +2,16 @@
 ### Do not change
 
 
-
 qt_add_library(Quick3DAssets_Lights STATIC)
 qt6_add_qml_module(Quick3DAssets_Lights
     URI "Quick3DAssets.Lights"
     VERSION 1.0
     RESOURCE_PREFIX "/qt/qml"
     QML_FILES
-        Lights.qml
+        "Lights.qml"
     RESOURCES
-        _importdata.json
-        meshes/lights_mesh.mesh
-
+        "_importdata.json"
+        "meshes/lights_mesh.mesh"
 )
+
+

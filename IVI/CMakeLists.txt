@@ -6,6 +6,12 @@ option(BUILD_QDS_COMPONENTS "Build design studio components" ON)
 project(IVIApp LANGUAGES CXX)
 
 set(CMAKE_AUTOMOC ON)
+set(CMAKE_INCLUDE_CURRENT_DIR ON)
+set(QT_QML_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/qml)
+set(QML_IMPORT_PATH ${QT_QML_OUTPUT_DIRECTORY}
+    CACHE STRING "Import paths for Qt Creator's code model"
+    FORCE
+)
 
 find_package(Qt6 6.2 REQUIRED COMPONENTS Core Gui Qml Quick Multimedia SerialBus)
 
@@ -16,9 +22,9 @@ if (Qt6_VERSION VERSION_GREATER_EQUAL 6.3)
     qt_standard_project_setup()
 endif()
 
-qt_add_executable(IVIApp src/main.cpp)
+qt_add_executable(${CMAKE_PROJECT_NAME} "src/main.cpp")
 
-qt_add_resources(IVIApp "configuration"
+qt_add_resources(${CMAKE_PROJECT_NAME} "configuration"
     PREFIX "/"
     FILES
         qtquickcontrols2.conf
@@ -36,71 +42,33 @@ qt_add_resources(IVIApp "configuration"
         sounds/velvet.wav
 )
 
-# Optional MQTT configuration
-set(DEVICE2_CONFIG ${CMAKE_CURRENT_SOURCE_DIR}/../aws-iot-setup/device2-config.json)
-set(DEVICE2_CERT ${CMAKE_CURRENT_SOURCE_DIR}/../aws-iot-setup/certs/device2-certificate.pem.crt)
-set(DEVICE2_KEY ${CMAKE_CURRENT_SOURCE_DIR}/../aws-iot-setup/certs/device2-private.pem.key)
-set(ROOT_CA ${CMAKE_CURRENT_SOURCE_DIR}/../aws-iot-setup/certs/AmazonRootCA1.pem)
-
-if(EXISTS ${DEVICE2_CONFIG} AND EXISTS ${DEVICE2_CERT} AND EXISTS ${DEVICE2_KEY} AND EXISTS ${ROOT_CA})
-    message(STATUS "IVI: MQTT certificates found, bundling into resources")
-    set_source_files_properties(${DEVICE2_CONFIG} PROPERTIES QT_RESOURCE_ALIAS device2-config.json)
-    set_source_files_properties(${DEVICE2_CERT} PROPERTIES QT_RESOURCE_ALIAS device2-certificate.pem.crt)
-    set_source_files_properties(${DEVICE2_KEY} PROPERTIES QT_RESOURCE_ALIAS device2-private.pem.key)
-    set_source_files_properties(${ROOT_CA} PROPERTIES QT_RESOURCE_ALIAS AmazonRootCA1.pem)
-
-    qt_add_resources(IVIApp "mqtt_config"
-        PREFIX "/config"
-        FILES
-            ${DEVICE2_CONFIG}
-            ${DEVICE2_CERT}
-            ${DEVICE2_KEY}
-            ${ROOT_CA}
-    )
-else()
-    message(WARNING "IVI: MQTT certificates not found at ${CMAKE_CURRENT_SOURCE_DIR}/../aws-iot-setup/")
-    message(WARNING "IVI: MQTT connectivity will be disabled. See aws-iot-setup/README.md")
-endif()
-
-target_link_libraries(IVIApp PRIVATE
-    Qt6::Core
-    Qt6::Gui
-    Qt6::Qml
-    Qt6::Quick
-    Qt6::Multimedia
-    Qt6::SerialBus
+target_link_libraries(${CMAKE_PROJECT_NAME} PRIVATE
+    Qt${QT_VERSION_MAJOR}::Core
+    Qt${QT_VERSION_MAJOR}::Gui
+    Qt${QT_VERSION_MAJOR}::Quick
+    Qt${QT_VERSION_MAJOR}::Qml
+    Qt${QT_VERSION_MAJOR}::Multimedia
+    Qt${QT_VERSION_MAJOR}::SerialBus
     antares_common
 )
 
-# Android OpenSSL configuration
-if(ANDROID)
-    include(/Users/taylorfouts/Library/Android/sdk/android_openssl/android_openssl.cmake)
-    add_android_openssl_libraries(IVIApp)
-endif()
-
-set(QT_QML_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/qml)
-set(QML_IMPORT_PATH ${QT_QML_OUTPUT_DIRECTORY}
-    CACHE STRING "Import paths for Qt Creator's code model"
-    FORCE
-)
-
 if (BUILD_QDS_COMPONENTS)
-    include(${CMAKE_CURRENT_SOURCE_DIR}/qmlcomponents)
+    include(${CMAKE_CURRENT_SOURCE_DIR}/qmlcomponents OPTIONAL)
 endif()
 
 include(${CMAKE_CURRENT_SOURCE_DIR}/qmlmodules)
 
+# Link VehicleData QML module from common
+target_link_libraries(${CMAKE_PROJECT_NAME} PRIVATE VehicleDataplugin)
+
 if (LINK_INSIGHT)
-    include(${CMAKE_CURRENT_SOURCE_DIR}/insight)
+    include(${CMAKE_CURRENT_SOURCE_DIR}/insight OPTIONAL)
 endif ()
 
 include(GNUInstallDirs)
-install(TARGETS IVIApp
-    BUNDLE DESTINATION .
-    LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
-    RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
+install(TARGETS ${CMAKE_PROJECT_NAME}
+  BUNDLE DESTINATION .
+  LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
+  RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
 )
 
-# make IDEs aware of the QML import path
-set(QML_IMPORT_PATH ${PROJECT_BINARY_DIR}/qml CACHE PATH
-    "Path to the custom QML components defined by the project")

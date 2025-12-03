@@ -2,68 +2,69 @@
 ### Do not change
 
 
-
 qt_add_library(Quick3DAssets_GenericCarModel STATIC)
 qt6_add_qml_module(Quick3DAssets_GenericCarModel
     URI "Quick3DAssets.GenericCarModel"
     VERSION 1.0
     RESOURCE_PREFIX "/qt/qml"
     QML_FILES
-        GenericCarModel.qml
+        "GenericCarModel.qml"
     RESOURCES
-        _importdata.json
-        maps/textureData23.png
-        maps/textureData5.png
-        maps/textureData.jpg
-        maps/textureData128.jpg
-        maps/textureData26.jpg
-        maps/textureData83.jpg
-        maps/textureData54.jpg
-        maps/textureData80.jpg
-        maps/textureData94.jpg
-        maps/textureData42.jpg
-        maps/textureData86.png
-        maps/textureData89.jpg
-        maps/textureData147.jpg
-        maps/textureData99.jpg
-        maps/textureData133.jpg
-        maps/textureData10.jpg
-        maps/textureData121.jpg
-        maps/textureData8.png
-        maps/textureData123.jpg
-        meshes/hoodEngineCover_mesh.mesh
-        meshes/engineRear_mesh.mesh
-        meshes/brakeCaliperRearRight_mesh.mesh
-        meshes/wheelRearLeft_mesh.mesh
-        meshes/wheelFrRight_mesh.mesh
-        meshes/hood_mesh.mesh
-        meshes/wheelRearRight_mesh.mesh
-        meshes/charger_mesh.mesh
-        meshes/brakeCaliperFrLeft_mesh.mesh
-        meshes/chargerPlug_mesh.mesh
-        meshes/doorRight_mesh.mesh
-        meshes/seats_mesh.mesh
-        meshes/mesh_016_mesh.mesh
-        meshes/engineFront_mesh.mesh
-        meshes/headlights_mesh.mesh
-        meshes/body_mesh.mesh
-        meshes/chargingCap_mesh.mesh
-        meshes/mesh_032_mesh.mesh
-        meshes/trunkLid_mesh.mesh
-        meshes/brakeDiskRearRight_mesh.mesh
-        meshes/dash_mesh.mesh
-        meshes/wheelFrLeft_mesh.mesh
-        meshes/brakeDiskFrLeft_mesh.mesh
-        meshes/doorLeft_mesh.mesh
-        meshes/steeringWheel_mesh.mesh
-        meshes/brakeCaliperFrRight_mesh.mesh
-        meshes/taillights_mesh.mesh
-        meshes/suspension_mesh.mesh
-        meshes/brakeDiskFrRight_mesh.mesh
-        meshes/mesh_014_mesh.mesh
-        meshes/brakeCaliperRearLeft_mesh.mesh
-        meshes/chargerPlatform_mesh.mesh
-        meshes/interior_mesh.mesh
-        meshes/trunkEngineCover_mesh.mesh
-
+        "_importdata.json"
+        "custom_material_default_shader.frag"
+        "maps/textureData.jpg"
+        "maps/textureData10.jpg"
+        "maps/textureData121.jpg"
+        "maps/textureData123.jpg"
+        "maps/textureData128.jpg"
+        "maps/textureData133.jpg"
+        "maps/textureData147.jpg"
+        "maps/textureData23.png"
+        "maps/textureData26.jpg"
+        "maps/textureData42.jpg"
+        "maps/textureData5.png"
+        "maps/textureData54.jpg"
+        "maps/textureData8.png"
+        "maps/textureData80.jpg"
+        "maps/textureData83.jpg"
+        "maps/textureData86.png"
+        "maps/textureData89.jpg"
+        "maps/textureData94.jpg"
+        "maps/textureData99.jpg"
+        "meshes/body_mesh.mesh"
+        "meshes/brakeCaliperFrLeft_mesh.mesh"
+        "meshes/brakeCaliperFrRight_mesh.mesh"
+        "meshes/brakeCaliperRearLeft_mesh.mesh"
+        "meshes/brakeCaliperRearRight_mesh.mesh"
+        "meshes/brakeDiskFrLeft_mesh.mesh"
+        "meshes/brakeDiskFrRight_mesh.mesh"
+        "meshes/brakeDiskRearRight_mesh.mesh"
+        "meshes/charger_mesh.mesh"
+        "meshes/chargerPlatform_mesh.mesh"
+        "meshes/chargerPlug_mesh.mesh"
+        "meshes/chargingCap_mesh.mesh"
+        "meshes/dash_mesh.mesh"
+        "meshes/doorLeft_mesh.mesh"
+        "meshes/doorRight_mesh.mesh"
+        "meshes/engineFront_mesh.mesh"
+        "meshes/engineRear_mesh.mesh"
+        "meshes/headlights_mesh.mesh"
+        "meshes/hood_mesh.mesh"
+        "meshes/hoodEngineCover_mesh.mesh"
+        "meshes/interior_mesh.mesh"
+        "meshes/mesh_014_mesh.mesh"
+        "meshes/mesh_016_mesh.mesh"
+        "meshes/mesh_032_mesh.mesh"
+        "meshes/seats_mesh.mesh"
+        "meshes/steeringWheel_mesh.mesh"
+        "meshes/suspension_mesh.mesh"
+        "meshes/taillights_mesh.mesh"
+        "meshes/trunkEngineCover_mesh.mesh"
+        "meshes/trunkLid_mesh.mesh"
+        "meshes/wheelFrLeft_mesh.mesh"
+        "meshes/wheelFrRight_mesh.mesh"
+        "meshes/wheelRearLeft_mesh.mesh"
+        "meshes/wheelRearRight_mesh.mesh"
 )
+
+
