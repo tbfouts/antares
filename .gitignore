@@ -63,3 +63,5 @@ py-venv*
 # Squish artifacts
 *failedImages*
 *attachment*
+# AWS IoT Credentials - DO NOT COMMIT
+aws-iot-setup/

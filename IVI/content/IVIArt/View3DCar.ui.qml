@@ -7,6 +7,7 @@ import Quick3DAssets.Lights
 import QtQuick3D.Helpers 6.5
 import Data 1.0 as Data
 import QtQuick.Timeline 1.0
+import VehicleData 1.0
 
 View3D {
     id: view3DCar
@@ -52,8 +53,8 @@ View3D {
                 id: genericCarModel
                 opacity: 1
                 visible: true
-                headlightsVisible: true
-                taillightsVisible: true
+                headlightsVisible: VehicleData.lights
+                taillightsVisible: VehicleData.lights
                 glassTextured_materialRoughness: 0.5
                 glassTextured_materialOpacity: 0.5
                 glassTextured_materialMetalness: 0.5
@@ -62,8 +63,8 @@ View3D {
                 wheelRearLeftEulerRotationx: camNull.eulerRotation.y
                 wheelFrRightEulerRotationx: camNull.eulerRotation.y
                 wheelFrLeftEulerRotationx: camNull.eulerRotation.y
-                doorsOpenLeft: false
-                doorsOpenRight: false
+                doorsOpenLeft: VehicleData.doorDrvr
+                doorsOpenRight: VehicleData.doorPsgr
                 wheelCaliper_materialBaseColor: Data.Themes.themeColor1
                 wheelRimColor_materialBaseColor: Data.Themes.themeColor2
                 carPaint_materialBaseColor: Data.Themes.themeColor1

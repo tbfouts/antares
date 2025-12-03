@@ -1,6 +1,7 @@
 import QtQuick
 import QtQuick.Controls
 import Data 1.0 as Data
+import VehicleData 1.0
 
 Item {
     id: listViewTracks
@@ -22,7 +23,10 @@ Item {
 
         Connections {
             target: artistTrack
-            onPressed: Data.Themes.currentTheme = "stardust"
+            onPressed: {
+                VehicleData.theme = "stardust"
+                Data.Themes.currentTheme = "stardust"
+            }
         }
     }
 
@@ -45,6 +49,7 @@ Item {
         Connections {
             target: artistTrack1
             onPressed: {
+                VehicleData.theme = "luna"
                 Data.Themes.currentTheme = "luna"
             }
         }
@@ -67,7 +72,10 @@ Item {
 
         Connections {
             target: artistTrack2
-            onPressed: Data.Themes.currentTheme = "electric"
+            onPressed: {
+                VehicleData.theme = "electric"
+                Data.Themes.currentTheme = "electric"
+            }
         }
     }
 
@@ -89,7 +97,10 @@ Item {
 
         Connections {
             target: artistTrack3
-            onPressed: Data.Themes.currentTheme = "pixel"
+            onPressed: {
+                VehicleData.theme = "pixel"
+                Data.Themes.currentTheme = "pixel"
+            }
         }
     }
 
@@ -110,7 +121,10 @@ Item {
 
         Connections {
             target: artistTrack4
-            onPressed: Data.Themes.currentTheme = "crystal"
+            onPressed: {
+                VehicleData.theme = "crystal"
+                Data.Themes.currentTheme = "crystal"
+            }
         }
     }
 
@@ -131,7 +145,10 @@ Item {
 
         Connections {
             target: artistTrack5
-            onPressed: Data.Themes.currentTheme = "sonic"
+            onPressed: {
+                VehicleData.theme = "sonic"
+                Data.Themes.currentTheme = "sonic"
+            }
         }
     }
 
@@ -152,7 +169,10 @@ Item {
 
         Connections {
             target: artistTrack6
-            onPressed: Data.Themes.currentTheme = "ethereal"
+            onPressed: {
+                VehicleData.theme = "ethereal"
+                Data.Themes.currentTheme = "ethereal"
+            }
         }
     }
 
@@ -173,7 +193,10 @@ Item {
 
         Connections {
             target: artistTrack7
-            onPressed: Data.Themes.currentTheme = "mind"
+            onPressed: {
+                VehicleData.theme = "mind"
+                Data.Themes.currentTheme = "mind"
+            }
         }
     }
 
@@ -194,7 +217,10 @@ Item {
 
         Connections {
             target: artistTrack8
-            onPressed: Data.Themes.currentTheme = "gravity"
+            onPressed: {
+                VehicleData.theme = "gravity"
+                Data.Themes.currentTheme = "gravity"
+            }
         }
     }
 
@@ -215,7 +241,10 @@ Item {
 
         Connections {
             target: artistTrack9
-            onPressed: Data.Themes.currentTheme = "zen"
+            onPressed: {
+                VehicleData.theme = "zen"
+                Data.Themes.currentTheme = "zen"
+            }
         }
     }
 
@@ -236,7 +265,10 @@ Item {
 
         Connections {
             target: artistTrack10
-            onPressed: Data.Themes.currentTheme = "ultraviolet"
+            onPressed: {
+                VehicleData.theme = "ultraviolet"
+                Data.Themes.currentTheme = "ultraviolet"
+            }
         }
     }
 
@@ -257,7 +289,10 @@ Item {
 
         Connections {
             target: artistTrack11
-            onPressed: Data.Themes.currentTheme = "velvet"
+            onPressed: {
+                VehicleData.theme = "velvet"
+                Data.Themes.currentTheme = "velvet"
+            }
         }
     }
 }

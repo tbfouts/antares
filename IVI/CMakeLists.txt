@@ -36,6 +36,32 @@ qt_add_resources(IVIApp "configuration"
         sounds/velvet.wav
 )
 
+# Optional MQTT configuration
+set(DEVICE2_CONFIG ${CMAKE_CURRENT_SOURCE_DIR}/../aws-iot-setup/device2-config.json)
+set(DEVICE2_CERT ${CMAKE_CURRENT_SOURCE_DIR}/../aws-iot-setup/certs/device2-certificate.pem.crt)
+set(DEVICE2_KEY ${CMAKE_CURRENT_SOURCE_DIR}/../aws-iot-setup/certs/device2-private.pem.key)
+set(ROOT_CA ${CMAKE_CURRENT_SOURCE_DIR}/../aws-iot-setup/certs/AmazonRootCA1.pem)
+
+if(EXISTS ${DEVICE2_CONFIG} AND EXISTS ${DEVICE2_CERT} AND EXISTS ${DEVICE2_KEY} AND EXISTS ${ROOT_CA})
+    message(STATUS "IVI: MQTT certificates found, bundling into resources")
+    set_source_files_properties(${DEVICE2_CONFIG} PROPERTIES QT_RESOURCE_ALIAS device2-config.json)
+    set_source_files_properties(${DEVICE2_CERT} PROPERTIES QT_RESOURCE_ALIAS device2-certificate.pem.crt)
+    set_source_files_properties(${DEVICE2_KEY} PROPERTIES QT_RESOURCE_ALIAS device2-private.pem.key)
+    set_source_files_properties(${ROOT_CA} PROPERTIES QT_RESOURCE_ALIAS AmazonRootCA1.pem)
+
+    qt_add_resources(IVIApp "mqtt_config"
+        PREFIX "/config"
+        FILES
+            ${DEVICE2_CONFIG}
+            ${DEVICE2_CERT}
+            ${DEVICE2_KEY}
+            ${ROOT_CA}
+    )
+else()
+    message(WARNING "IVI: MQTT certificates not found at ${CMAKE_CURRENT_SOURCE_DIR}/../aws-iot-setup/")
+    message(WARNING "IVI: MQTT connectivity will be disabled. See aws-iot-setup/README.md")
+endif()
+
 target_link_libraries(IVIApp PRIVATE
     Qt6::Core
     Qt6::Gui
@@ -45,6 +71,12 @@ target_link_libraries(IVIApp PRIVATE
     Qt6::SerialBus
     antares_common
 )
+
+# Android OpenSSL configuration
+if(ANDROID)
+    include(/Users/taylorfouts/Library/Android/sdk/android_openssl/android_openssl.cmake)
+    add_android_openssl_libraries(IVIApp)
+endif()
 
 set(QT_QML_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/qml)
 set(QML_IMPORT_PATH ${QT_QML_OUTPUT_DIRECTORY}

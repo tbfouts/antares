@@ -7,6 +7,7 @@
 #include "autogen/environment.h"
 #include "VehicleData.h"
 #include "VehicleCanInterface.h"
+#include "VehicleMqttInterface.h"
 
 int main(int argc, char *argv[])
 {
@@ -15,10 +16,19 @@ int main(int argc, char *argv[])
 
     VehicleData* vehData = new VehicleData();
     VehicleCANInterface* vehCanInterface = new VehicleCANInterface(vehData);
+    VehicleMqttInterface* vehMqttInterface = new VehicleMqttInterface(vehData);
 
     qmlRegisterSingletonInstance<VehicleCANInterface>("VehicleCANInterface", 1, 0, "VehicleCANInterface", vehCanInterface);
     qmlRegisterSingletonInstance<VehicleData>("VehicleData", 1, 0, "VehicleData", vehData);
+    qmlRegisterSingletonInstance<VehicleMqttInterface>("VehicleMqttInterface", 1, 0, "VehicleMqttInterface", vehMqttInterface);
     vehCanInterface->connectToCAN();
+
+    // Attempt MQTT connection - app will work fine even if this fails
+    if (vehMqttInterface->connectToMqtt(":/config/device1-config.json")) {
+        qInfo() << "Cluster: MQTT connected successfully";
+    } else {
+        qInfo() << "Cluster: Running without MQTT sync";
+    }
 
 
     QQmlApplicationEngine engine;

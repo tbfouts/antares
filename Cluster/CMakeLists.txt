@@ -40,6 +40,32 @@ qt_add_resources(${CMAKE_PROJECT_NAME} "configuration"
     PREFIX "/"
     FILES
 		qtquickcontrols2.conf)
+
+# Optional MQTT configuration
+set(DEVICE1_CONFIG ${CMAKE_CURRENT_SOURCE_DIR}/../aws-iot-setup/device1-config.json)
+set(DEVICE1_CERT ${CMAKE_CURRENT_SOURCE_DIR}/../aws-iot-setup/certs/device1-certificate.pem.crt)
+set(DEVICE1_KEY ${CMAKE_CURRENT_SOURCE_DIR}/../aws-iot-setup/certs/device1-private.pem.key)
+set(ROOT_CA ${CMAKE_CURRENT_SOURCE_DIR}/../aws-iot-setup/certs/AmazonRootCA1.pem)
+
+if(EXISTS ${DEVICE1_CONFIG} AND EXISTS ${DEVICE1_CERT} AND EXISTS ${DEVICE1_KEY} AND EXISTS ${ROOT_CA})
+    message(STATUS "Cluster: MQTT certificates found, bundling into resources")
+    set_source_files_properties(${DEVICE1_CONFIG} PROPERTIES QT_RESOURCE_ALIAS device1-config.json)
+    set_source_files_properties(${DEVICE1_CERT} PROPERTIES QT_RESOURCE_ALIAS device1-certificate.pem.crt)
+    set_source_files_properties(${DEVICE1_KEY} PROPERTIES QT_RESOURCE_ALIAS device1-private.pem.key)
+    set_source_files_properties(${ROOT_CA} PROPERTIES QT_RESOURCE_ALIAS AmazonRootCA1.pem)
+
+    qt_add_resources(${CMAKE_PROJECT_NAME} "mqtt_config"
+        PREFIX "/config"
+        FILES
+            ${DEVICE1_CONFIG}
+            ${DEVICE1_CERT}
+            ${DEVICE1_KEY}
+            ${ROOT_CA}
+    )
+else()
+    message(WARNING "Cluster: MQTT certificates not found at ${CMAKE_CURRENT_SOURCE_DIR}/../aws-iot-setup/")
+    message(WARNING "Cluster: MQTT connectivity will be disabled. See aws-iot-setup/README.md")
+endif()
 		
 target_link_libraries(${CMAKE_PROJECT_NAME} PRIVATE
     Qt6::Core
@@ -50,6 +76,12 @@ target_link_libraries(${CMAKE_PROJECT_NAME} PRIVATE
     Qt6::SerialBus
     antares_common
 )
+
+# Android OpenSSL configuration
+if(ANDROID)
+    include(/Users/taylorfouts/Library/Android/sdk/android_openssl/android_openssl.cmake)
+    add_android_openssl_libraries(${CMAKE_PROJECT_NAME})
+endif()
 
 # Add Squish to application target if found
 if(SquishQtBuiltinHook_FOUND)

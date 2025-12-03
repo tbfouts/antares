@@ -12,56 +12,56 @@ Item {
     property bool adasEnabled: false
     property string currentTheme: "luna"
 
-    onDoorLChanged: webSocketClient.sendTextMessage("doorLeft:" + doorL)
-    onDoorRChanged: webSocketClient.sendTextMessage("doorRight:" + doorR)
-    onLampsChanged: webSocketClient.sendTextMessage("lamps:" + lamps)
-    onCurrentThemeChanged: webSocketClient.sendTextMessage("theme:" + currentTheme)
-    onAdasEnabledChanged: webSocketClient.sendTextMessage("adasEnabled:" + adasEnabled)
+    // onDoorLChanged: webSocketClient.sendTextMessage("doorLeft:" + doorL)
+    // onDoorRChanged: webSocketClient.sendTextMessage("doorRight:" + doorR)
+    // onLampsChanged: webSocketClient.sendTextMessage("lamps:" + lamps)
+    // onCurrentThemeChanged: webSocketClient.sendTextMessage("theme:" + currentTheme)
+    // onAdasEnabledChanged: webSocketClient.sendTextMessage("adasEnabled:" + adasEnabled)
 
-    Component.onCompleted: {
-        connectSocket()
-    }
+    // Component.onCompleted: {
+    //     connectSocket()
+    // }
 
-    function connectSocket() {
-        webSocketClient.active = true
-    }
+    // function connectSocket() {
+    //     webSocketClient.active = true
+    // }
 
-    property WebSocket wsClient: WebSocket
-    {
-        id: webSocketClient
-        url: "ws://127.0.0.1:1234"
-        onTextMessageReceived: function(message) {
-            console.log(qsTr("IVI Client received theme message: %1").arg(message));
-        }
+    // property WebSocket wsClient: WebSocket
+    // {
+    //     id: webSocketClient
+    //     url: "ws://127.0.0.1:1234"
+    //     onTextMessageReceived: function(message) {
+    //         console.log(qsTr("IVI Client received theme message: %1").arg(message));
+    //     }
 
-        onStatusChanged: {
-            if (webSocketClient.status === WebSocket.Error) {
-                console.log("IVI WS Error: " + webSocketClient.errorString)
-                reconnectionTimer.start()
-            } else if (webSocketClient.status === WebSocket.Open) {
-                console.log("IVI WS Connection established")
-                webSocketClient.sendTextMessage("theme:" + currentTheme)
-                webSocketClient.sendTextMessage("doorRight:" + doorR)
-                webSocketClient.sendTextMessage("doorLeft:" + doorL)
-                webSocketClient.sendTextMessage("adasEnabled:" + adasEnabled)
-                webSocketClient.sendTextMessage("lamps:" + lamps)
-                reconnectionTimer.stop()
-            } else if (webSocketClient.status === WebSocket.Closed) {
-                reconnectionTimer.start()
-            }
-        }
+    //     onStatusChanged: {
+    //         if (webSocketClient.status === WebSocket.Error) {
+    //             console.log("IVI WS Error: " + webSocketClient.errorString)
+    //             reconnectionTimer.start()
+    //         } else if (webSocketClient.status === WebSocket.Open) {
+    //             console.log("IVI WS Connection established")
+    //             webSocketClient.sendTextMessage("theme:" + currentTheme)
+    //             webSocketClient.sendTextMessage("doorRight:" + doorR)
+    //             webSocketClient.sendTextMessage("doorLeft:" + doorL)
+    //             webSocketClient.sendTextMessage("adasEnabled:" + adasEnabled)
+    //             webSocketClient.sendTextMessage("lamps:" + lamps)
+    //             reconnectionTimer.stop()
+    //         } else if (webSocketClient.status === WebSocket.Closed) {
+    //             reconnectionTimer.start()
+    //         }
+    //     }
 
-        property Timer timer: Timer {
-            id: reconnectionTimer
-            interval: 5000 // 5 seconds
-            repeat: false
-            onTriggered: {
-                console.log("Attempting to reconnect...")
-                webSocketClient.active = false
-                webSocketClient.active = true
-            }
-        }
-    }
+    //     property Timer timer: Timer {
+    //         id: reconnectionTimer
+    //         interval: 5000 // 5 seconds
+    //         repeat: false
+    //         onTriggered: {
+    //             console.log("Attempting to reconnect...")
+    //             webSocketClient.active = false
+    //             webSocketClient.active = true
+    //         }
+    //     }
+    // }
 }
 
 

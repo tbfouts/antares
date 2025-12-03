@@ -23,6 +23,7 @@ class VehicleData : public VehicleDataInterface
     Q_PROPERTY(bool switchTurnL READ switchTurnL WRITE setSwitchTurnL NOTIFY switchTurnLChanged)
     Q_PROPERTY(bool switchTurnR READ switchTurnR WRITE setSwitchTurnR NOTIFY switchTurnRChanged)
     Q_PROPERTY(bool qsrIcons READ qsrIcons WRITE setQsrIcons NOTIFY qsrIconsChanged)
+    Q_PROPERTY(QString theme READ theme WRITE setTheme NOTIFY themeChanged)
 
 public:
     explicit VehicleData(QObject *parent = nullptr);
@@ -75,6 +76,9 @@ public:
     bool qsrIcons() const override;
     void setQsrIcons(bool qsrIconsEnabled) override;
 
+    QString theme() const override;
+    void setTheme(const QString &theme) override;
+
 private:
     QString m_driveMode;
     QString m_units;
@@ -92,6 +96,7 @@ private:
     bool m_switchTurnL;
     bool m_switchTurnR;
     bool m_qsricons;
+    QString m_theme;
 };
 
 #endif // VEHICLEDATA_H

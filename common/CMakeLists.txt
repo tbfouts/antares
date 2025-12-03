@@ -15,7 +15,7 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 option(ENABLE_VULKAN "Enable Vulkan support" OFF)
 
 # Find required Qt packages
-find_package(Qt6 REQUIRED COMPONENTS Core Qml SerialBus)
+find_package(Qt6 REQUIRED COMPONENTS Core Qml SerialBus Mqtt Network)
 
 # Vulkan is not required for the common library
 set(CMAKE_POLICY_DEFAULT_CMP0074 NEW) # Use <PackageName>_ROOT variables
@@ -30,6 +30,10 @@ add_library(antares_common STATIC
     src/VehicleData.cpp
     src/VehicleCanInterface.h
     src/VehicleCanInterface.cpp
+    src/MqttClient.h
+    src/MqttClient.cpp
+    src/VehicleMqttInterface.h
+    src/VehicleMqttInterface.cpp
 )
 
 target_include_directories(antares_common PUBLIC 
@@ -40,6 +44,8 @@ target_link_libraries(antares_common PUBLIC
     Qt6::Core
     Qt6::Qml
     Qt6::SerialBus
+    Qt6::Mqtt
+    Qt6::Network
 )
 
 # Instead of creating a QML module, just make the library available for QML registration

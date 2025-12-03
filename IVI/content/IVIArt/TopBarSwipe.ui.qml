@@ -2,6 +2,7 @@ import QtQuick
 import QtQuick.Controls
 import QtQuick.Studio.Components 1.0
 import Data 1.0 as Data
+import VehicleData 1.0
 
 Rectangle {
     id: topBarSwipe
@@ -90,10 +91,8 @@ Rectangle {
         Connections {
             target: btn3DViewLamps
             onPressed: {
-                if (Data.Values.lamps === true)
-                    Data.Values.lamps = false
-                else if (Data.Values.lamps === false)
-                    Data.Values.lamps = true
+                VehicleData.lights = !VehicleData.lights
+                Data.Values.lamps = VehicleData.lights
             }
         }
     }
@@ -108,10 +107,8 @@ Rectangle {
         Connections {
             target: btn3DViewDRVR
             onPressed: {
-                if (Data.Values.doorL === true)
-                    Data.Values.doorL = false
-                else if (Data.Values.doorL === false)
-                    Data.Values.doorL = true
+                VehicleData.doorDrvr = !VehicleData.doorDrvr
+                Data.Values.doorL = VehicleData.doorDrvr
             }
         }
     }
@@ -126,10 +123,8 @@ Rectangle {
         Connections {
             target: btn3DViewPSGR
             onPressed: {
-                if (Data.Values.doorR === true)
-                    Data.Values.doorR = false
-                else if (Data.Values.doorR === false)
-                    Data.Values.doorR = true
+                VehicleData.doorPsgr = !VehicleData.doorPsgr
+                Data.Values.doorR = VehicleData.doorPsgr
             }
         }
     }
@@ -139,15 +134,15 @@ Rectangle {
         x: 498
         y: 12
         txtViewText: "ADAS"
+        checked: true
 
         Connections {
             target: btn3ADASview
             onPressed: {
-                Data.Values.adasEnabled = !Data.Values.adasEnabled
+                VehicleData.adas = !VehicleData.adas
+                Data.Values.adasEnabled = VehicleData.adas
             }
         }
-
-        checked: false
     }
 
     Image {

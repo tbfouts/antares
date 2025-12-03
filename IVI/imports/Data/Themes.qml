@@ -2,6 +2,7 @@ pragma Singleton
 import QtQuick 2.12
 import QtMultimedia
 import Data 1.0 as Data
+import VehicleData 1.0
 
 Item {
     id: themes
@@ -27,7 +28,10 @@ Item {
 
     Component.onCompleted: mediaPlayer.play()
 
-    onStateChanged: Data.Values.currentTheme = state
+    onStateChanged: {
+        Data.Values.currentTheme = state
+        VehicleData.theme = state
+    }
 
     MediaPlayer {
         id: mediaPlayer
