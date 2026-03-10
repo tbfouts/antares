@@ -57,10 +57,7 @@ Rectangle {
         Connections {
             target: maDebugView
             onPressed: {
-                if (carView3D.debugViewVisible === true)
-                    carView3D.debugViewVisible = false
-                else if (carView3D.debugViewVisible === false)
-                    carView3D.debugViewVisible = true
+                Data.Values.debugViewVisible = !Data.Values.debugViewVisible
             }
         }
     }

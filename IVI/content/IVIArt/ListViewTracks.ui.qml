@@ -8,290 +8,41 @@ Item {
     width: 730
     height: 500
 
-    ArtistTrack {
-        id: artistTrack
-        width: 734
-        height: 53
-        anchors.left: parent.left
-        anchors.top: parent.top
-        anchors.leftMargin: -2
-        anchors.topMargin: 5
-        autoExclusive: true
-        theme: "stardust"
-
-        clip: false
-
-        Connections {
-            target: artistTrack
-            onPressed: {
-                VehicleData.theme = "stardust"
-                Data.Themes.currentTheme = "stardust"
-            }
-        }
+    ListModel {
+        id: tracksModel
+        ListElement { trackTheme: "stardust";    artistInfo: "Stardust Mirage - \"Celestial Echoes\"";          duration: "3:22" }
+        ListElement { trackTheme: "luna";        artistInfo: "Luna Nova - \"Midnight Serenade\"";               duration: "2:56" }
+        ListElement { trackTheme: "electric";    artistInfo: "Electric Dreamscape - \"Neon Reverie\"";          duration: "3:11" }
+        ListElement { trackTheme: "pixel";       artistInfo: "Pixel Pulse - \"Digital Dreams\"";                duration: "4:06" }
+        ListElement { trackTheme: "crystal";     artistInfo: "Crystal Cascade - \"Iridescent Illusion\"";      duration: "3:45" }
+        ListElement { trackTheme: "sonic";       artistInfo: "Sonic Prism - \"Aurora Beats\"";                 duration: "3:48" }
+        ListElement { trackTheme: "ethereal";    artistInfo: "Ethereal Essence - \"Whispers of the Wind\"";    duration: "4:38" }
+        ListElement { trackTheme: "mind";        artistInfo: "Psychedelic Pulsar - \"Mind Warp\"";             duration: "5:12" }
+        ListElement { trackTheme: "gravity";     artistInfo: "Gravity Groove - \"Gravitational Waves\"";       duration: "2:07" }
+        ListElement { trackTheme: "zen";         artistInfo: "Zen Zephyr - \"Tranquil Torrent\"";              duration: "8:08" }
+        ListElement { trackTheme: "ultraviolet"; artistInfo: "Ultraviolet Utopia - \"Vivid Vision\"";          duration: "3:42" }
+        ListElement { trackTheme: "velvet";      artistInfo: "Velvet Voyager - \"Velvet Vortex\"";             duration: "4:01" }
     }
 
-    ArtistTrack {
-        id: artistTrack1
-        width: 734
-        height: 53
-        anchors.left: parent.left
-        anchors.top: parent.top
-        anchors.leftMargin: -2
-        anchors.topMargin: 62
-        checked: true
-        autoExclusive: true
-        theme: "luna"
+    ListView {
+        id: trackList
+        anchors.fill: parent
+        model: tracksModel
+        clip: true
+        interactive: false
 
-        artistInfoText: "Luna Nova - \"Midnight Serenade\""
-        elementText: "2:56"
-        clip: false
+        delegate: ArtistTrack {
+            width: 734
+            height: 53
+            autoExclusive: true
+            theme: model.trackTheme
+            artistInfoText: model.artistInfo
+            elementText: model.duration
+            checked: Data.Themes.state === model.trackTheme
 
-        Connections {
-            target: artistTrack1
             onPressed: {
-                VehicleData.theme = "luna"
-                Data.Themes.currentTheme = "luna"
-            }
-        }
-    }
-
-    ArtistTrack {
-        id: artistTrack2
-        width: 734
-        height: 53
-        anchors.left: parent.left
-        anchors.top: parent.top
-        anchors.leftMargin: -2
-        anchors.topMargin: 119
-        autoExclusive: true
-        theme: "electric"
-
-        artistInfoText: "Electric Dreamscape - \"Neon Reverie\""
-        elementText: "3:11"
-        clip: false
-
-        Connections {
-            target: artistTrack2
-            onPressed: {
-                VehicleData.theme = "electric"
-                Data.Themes.currentTheme = "electric"
-            }
-        }
-    }
-
-    ArtistTrack {
-        id: artistTrack3
-        width: 734
-        height: 53
-        anchors.left: parent.left
-        anchors.top: parent.top
-        anchors.leftMargin: -2
-        anchors.topMargin: 176
-        checked: false
-        autoExclusive: true
-        theme: "pixel"
-
-        artistInfoText: "Pixel Pulse - \"Digital Dreams\""
-        elementText: "4:06"
-        clip: false
-
-        Connections {
-            target: artistTrack3
-            onPressed: {
-                VehicleData.theme = "pixel"
-                Data.Themes.currentTheme = "pixel"
-            }
-        }
-    }
-
-    ArtistTrack {
-        id: artistTrack4
-        width: 734
-        height: 53
-        anchors.left: parent.left
-        anchors.top: parent.top
-        anchors.leftMargin: -2
-        anchors.topMargin: 233
-        autoExclusive: true
-        theme: "crystal"
-
-        artistInfoText: "Crystal Cascade - \"Iridescent Illusion\""
-        elementText: "3:45"
-        clip: false
-
-        Connections {
-            target: artistTrack4
-            onPressed: {
-                VehicleData.theme = "crystal"
-                Data.Themes.currentTheme = "crystal"
-            }
-        }
-    }
-
-    ArtistTrack {
-        id: artistTrack5
-        width: 734
-        height: 53
-        anchors.left: parent.left
-        anchors.top: parent.top
-        anchors.leftMargin: -2
-        anchors.topMargin: 290
-        checked: false
-        autoExclusive: true
-        artistInfoText: "Sonic Prism - \"Aurora Beats\""
-        elementText: "3:48"
-        clip: false
-        theme: "sonic"
-
-        Connections {
-            target: artistTrack5
-            onPressed: {
-                VehicleData.theme = "sonic"
-                Data.Themes.currentTheme = "sonic"
-            }
-        }
-    }
-
-    ArtistTrack {
-        id: artistTrack6
-        width: 734
-        height: 53
-        anchors.left: parent.left
-        anchors.top: parent.top
-        anchors.leftMargin: -2
-        anchors.topMargin: 347
-        autoExclusive: true
-        theme: "ethereal"
-
-        artistInfoText: "Ethereal Essence - \"Whispers of the Wind\""
-        elementText: "4:38"
-        clip: false
-
-        Connections {
-            target: artistTrack6
-            onPressed: {
-                VehicleData.theme = "ethereal"
-                Data.Themes.currentTheme = "ethereal"
-            }
-        }
-    }
-
-    ArtistTrack {
-        id: artistTrack7
-        width: 734
-        height: 53
-        anchors.left: parent.left
-        anchors.top: parent.top
-        anchors.leftMargin: -2
-        anchors.topMargin: 404
-        autoExclusive: true
-        theme: "mind"
-
-        artistInfoText: "Psychedelic Pulsar - \"Mind Warp\""
-        elementText: "5:12"
-        clip: false
-
-        Connections {
-            target: artistTrack7
-            onPressed: {
-                VehicleData.theme = "mind"
-                Data.Themes.currentTheme = "mind"
-            }
-        }
-    }
-
-    ArtistTrack {
-        id: artistTrack8
-        width: 734
-        height: 53
-        anchors.left: parent.left
-        anchors.top: parent.top
-        anchors.leftMargin: -2
-        anchors.topMargin: 461
-        autoExclusive: true
-        theme: "gravity"
-
-        artistInfoText: "Gravity Groove - \"Gravitational Waves\""
-        elementText: "2:07"
-        clip: false
-
-        Connections {
-            target: artistTrack8
-            onPressed: {
-                VehicleData.theme = "gravity"
-                Data.Themes.currentTheme = "gravity"
-            }
-        }
-    }
-
-    ArtistTrack {
-        id: artistTrack9
-        width: 734
-        height: 53
-        anchors.left: parent.left
-        anchors.top: parent.top
-        anchors.leftMargin: -2
-        anchors.topMargin: 518
-        autoExclusive: true
-        theme: "zen"
-
-        artistInfoText: "Zen Zephyr - \"Tranquil Torrent\""
-        elementText: "8:08"
-        clip: false
-
-        Connections {
-            target: artistTrack9
-            onPressed: {
-                VehicleData.theme = "zen"
-                Data.Themes.currentTheme = "zen"
-            }
-        }
-    }
-
-    ArtistTrack {
-        id: artistTrack10
-        width: 734
-        height: 53
-        anchors.left: parent.left
-        anchors.top: parent.top
-        anchors.leftMargin: -2
-        anchors.topMargin: 575
-        autoExclusive: true
-        theme: "ultraviolet"
-
-        artistInfoText: "Ultraviolet Utopia - \"Vivid Vision\""
-        elementText: "3:42"
-        clip: false
-
-        Connections {
-            target: artistTrack10
-            onPressed: {
-                VehicleData.theme = "ultraviolet"
-                Data.Themes.currentTheme = "ultraviolet"
-            }
-        }
-    }
-
-    ArtistTrack {
-        id: artistTrack11
-        width: 734
-        height: 53
-        anchors.left: parent.left
-        anchors.top: parent.top
-        anchors.leftMargin: -2
-        anchors.topMargin: 632
-        autoExclusive: true
-        theme: "velvet"
-
-        artistInfoText: "Velvet Voyager - \"Velvet Vortex\""
-        elementText: "4:01"
-        clip: false
-
-        Connections {
-            target: artistTrack11
-            onPressed: {
-                VehicleData.theme = "velvet"
-                Data.Themes.currentTheme = "velvet"
+                VehicleData.theme = model.trackTheme
+                Data.Themes.currentTheme = model.trackTheme
             }
         }
     }
@@ -299,13 +50,6 @@ Item {
 
 /*##^##
 Designer {
-    D{i:0;uuid:"4097ad32-4a74-5a77-98d4-d7c2a59b6af1"}D{i:1;uuid:"586f7f72-2b3e-5c9d-9cc6-50f54eaffe07"}
-D{i:3;uuid:"ba548428-bc0f-529a-b618-1e365049077b"}D{i:5;uuid:"75a697d9-a07f-5c36-8378-728f9b34be10"}
-D{i:7;uuid:"41e30e71-c6cb-5016-a71a-12fc276a3f4c"}D{i:9;uuid:"c46eb60d-0016-5ed0-bd38-a1f2368db0da"}
-D{i:11;uuid:"ce3f7a38-b5cc-591f-8be7-80989322183f"}D{i:13;uuid:"25246540-cef5-5d1e-91cd-202363d587b9"}
-D{i:15;uuid:"7241f5c5-deb9-5a0a-8750-47e414fec19d"}D{i:17;uuid:"6dff30a3-1957-5db4-83a7-e2605c1220f8"}
-D{i:19;uuid:"9ce2f49c-fb56-569a-b971-1eba55f704ea"}D{i:21;uuid:"c91bd3ae-1957-5c02-987f-db2896a7a0c5"}
-D{i:23;uuid:"dc957274-beab-58d3-8557-6c30c5ac7820"}
+    D{i:0;uuid:"4097ad32-4a74-5a77-98d4-d7c2a59b6af1"}
 }
 ##^##*/
-

@@ -11,6 +11,7 @@ Item {
     property bool lamps: true
     property bool adasEnabled: false
     property string currentTheme: "luna"
+    property bool debugViewVisible: false
 
     // onDoorLChanged: webSocketClient.sendTextMessage("doorLeft:" + doorL)
     // onDoorRChanged: webSocketClient.sendTextMessage("doorRight:" + doorR)

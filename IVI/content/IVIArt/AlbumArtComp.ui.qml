@@ -15,6 +15,8 @@ Rectangle {
         anchors.verticalCenter: parent.verticalCenter
         source: "assets/stardustMirage.png"
         anchors.horizontalCenter: parent.horizontalCenter
+        sourceSize.width: 302
+        sourceSize.height: 302
     }
 }
 

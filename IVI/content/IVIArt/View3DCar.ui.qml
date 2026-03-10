@@ -19,13 +19,23 @@ View3D {
         camera: perspectiveCamera
         property alias lightsVisible: lights.visible
 
+        // TemporalAA is preferred for desktop visual quality. On embedded TBDR
+        // targets (Mali, Adreno, PowerVR) use MSAA Medium instead — MSAA resolves
+        // on-chip in the tile buffer at near-zero DRAM cost, while TemporalAA
+        // keeps the renderer always-dirty (m_requestedFramesCount = 1), pinning
+        // Dynamic uniform buffers in MTLStorageModeShared and adding continuous
+        // off-chip DRAM reads for the history buffer.
+        // Measured impact on this car model (macOS/Metal):
+        //   TemporalAA: ~208MB MALLOC_LARGE (shared uniform buffers stay resident)
+        //   MSAA Medium: ~91MB MALLOC_LARGE (renderer can idle between frames)
+        // Qt 6.10 removed SceneEnvironment.TemporalAA enum; use the split API below.
         SceneEnvironment {
             id: sceneEnvironment
             probeExposure: 0.75
             lightProbe: konzerthaus_4k
             backgroundMode: SceneEnvironment.Transparent
-            antialiasingMode: SceneEnvironment.MSAA
-            antialiasingQuality: SceneEnvironment.VeryHigh
+            antialiasingMode: SceneEnvironment.NoAA
+            temporalAAEnabled: true
         }
 
         SceneEnvironment {
@@ -34,8 +44,8 @@ View3D {
             lightProbe: konzerthaus_4k
             backgroundMode: SceneEnvironment.SkyBox
             skyboxBlurAmount: 0.1
-            antialiasingMode: SceneEnvironment.MSAA
-            antialiasingQuality: SceneEnvironment.VeryHigh
+            antialiasingMode: SceneEnvironment.NoAA
+            temporalAAEnabled: true
         }
 
         Node {
@@ -214,6 +224,8 @@ View3D {
         Texture {
             id: konzerthaus_4k
             source: "../images/konzerthaus_4k.hdr"
+            generateMipmaps: true
+            mipFilter: Texture.Linear
             objectName: "Konzerthaus 4k"
         }
 
@@ -247,7 +259,7 @@ View3D {
             TimelineAnimation {
                 id: animBars
                 duration: Data.Themes.trackSpeed
-                running: true
+                running: cylinder.visible
                 loops: -1
                 to: 1000
                 from: 0
@@ -316,8 +328,8 @@ View3D {
                 optionalVizVisible: false
                 taillightsVisible: false
                 headlightsVisible: false
-                optionalVizOpacity: 0.01
-                extSheetOpacity: 0.02
+                optionalVizOpacity: 0.05
+                extSheetOpacity: 0.08
             }
 
             PropertyChanges {
@@ -399,8 +411,7 @@ View3D {
                     PropertyAnimation {
                         target: genericCarModel
                         properties: "extSheetOpacity,optionalVizOpacity"
-                        duration: 400
-                        easing.type: Easing.InOutCubic
+                        duration: 0
                     }
                 }
             }
@@ -451,50 +462,6 @@ View3D {
                         target: perspectiveCamera
                         property: "fieldOfView"
                         duration: 761
-                    }
-                }
-            }
-
-            ParallelAnimation {
-                SequentialAnimation {
-                    PauseAnimation {
-                        duration: 50
-                    }
-                }
-
-                SequentialAnimation {
-                    PauseAnimation {
-                        duration: 50
-                    }
-                }
-
-                SequentialAnimation {
-                    PauseAnimation {
-                        duration: 50
-                    }
-                }
-
-                SequentialAnimation {
-                    PauseAnimation {
-                        duration: 50
-                    }
-                }
-
-                SequentialAnimation {
-                    PauseAnimation {
-                        duration: 50
-                    }
-                }
-
-                SequentialAnimation {
-                    PauseAnimation {
-                        duration: 50
-                    }
-                }
-
-                SequentialAnimation {
-                    PauseAnimation {
-                        duration: 50
                     }
                 }
             }

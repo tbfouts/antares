@@ -7,7 +7,6 @@ Rectangle {
     width: 1920
     height: 1080
     color: Data.Themes.backgroundColor
-
     KnobComponent_1 {
         id: knobComponent
         width: 1148
@@ -16,8 +15,6 @@ Rectangle {
         anchors.top: parent.top
         anchors.leftMargin: 808
         anchors.topMargin: 34
-        eqBarsTopEQAnimationRunning: true
-        eqBarsBottomEQAnimationRunning: true
         dialValue: -101
     }
 
