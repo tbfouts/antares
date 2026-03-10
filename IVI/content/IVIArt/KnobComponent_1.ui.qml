@@ -14,18 +14,6 @@ Rectangle {
     property alias eqBarsTopEQAnimationRunning: eqBarsTop.eQAnimationRunning
     property alias txtDialValueText: txtDialValue.text
 
-    Image {
-        id: eqBarBlur
-        x: 72
-        y: -14
-        width: 998
-        height: 1053
-        opacity: 0.556
-        visible: false
-        source: "assets/eqBarBlur.png"
-        fillMode: Image.PreserveAspectFit
-    }
-
     EqBars {
         id: eqBarsBottom
         x: 224

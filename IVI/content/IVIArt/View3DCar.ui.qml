@@ -19,6 +19,16 @@ View3D {
         camera: perspectiveCamera
         property alias lightsVisible: lights.visible
 
+        // TemporalAA is preferred for desktop visual quality. On embedded TBDR
+        // targets (Mali, Adreno, PowerVR) use MSAA Medium instead — MSAA resolves
+        // on-chip in the tile buffer at near-zero DRAM cost, while TemporalAA
+        // keeps the renderer always-dirty (m_requestedFramesCount = 1), pinning
+        // Dynamic uniform buffers in MTLStorageModeShared and adding continuous
+        // off-chip DRAM reads for the history buffer.
+        // Measured impact on this car model (macOS/Metal):
+        //   TemporalAA: ~208MB MALLOC_LARGE (shared uniform buffers stay resident)
+        //   MSAA Medium: ~91MB MALLOC_LARGE (renderer can idle between frames)
+        // Qt 6.10 removed SceneEnvironment.TemporalAA enum; use the split API below.
         SceneEnvironment {
             id: sceneEnvironment
             probeExposure: 0.75
@@ -249,7 +259,7 @@ View3D {
             TimelineAnimation {
                 id: animBars
                 duration: Data.Themes.trackSpeed
-                running: true
+                running: cylinder.visible
                 loops: -1
                 to: 1000
                 from: 0

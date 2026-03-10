@@ -49,6 +49,7 @@ Rectangle {
         Loader {
             id: navLoader
             active: false
+            asynchronous: true
             width: 1920
             height: 1080
             source: "IVIArt/NavView.ui.qml"
