@@ -26,8 +26,6 @@ Item {
     property bool mediaPlaying: mediaPlayer.playing
     property bool mediaSoundMute: true
 
-    Component.onCompleted: mediaPlayer.play()
-
     onStateChanged: {
         Data.Values.currentTheme = state
         VehicleData.theme = state
@@ -35,13 +33,15 @@ Item {
 
     MediaPlayer {
         id: mediaPlayer
+        property bool userStartedPlayback: false
         source: "qrc:/sounds/" + themes.state + ".wav"
         audioOutput: AudioOutput { muted: mediaSoundMute }
         loops: MediaPlayer.Infinite
         onSourceChanged:
         {
             console.log("source: " + source)
-            mediaPlayer.play()
+            if (userStartedPlayback)
+                mediaPlayer.play()
         }
         onPlaybackStateChanged: {
             console.log("playbackState changed to: " + playbackState)
@@ -60,6 +60,7 @@ Item {
         }
         else
         {
+            mediaPlayer.userStartedPlayback = true
             mediaPlayer.play()
         }
     }

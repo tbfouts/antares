@@ -28,6 +28,18 @@ qt_add_resources(${CMAKE_PROJECT_NAME} "configuration"
     PREFIX "/"
     FILES
         qtquickcontrols2.conf
+        sounds/electric.wav
+        sounds/luna.wav
+        sounds/stardust.wav
+        sounds/pixel.wav
+        sounds/crystal.wav
+        sounds/sonic.wav
+        sounds/ethereal.wav
+        sounds/mind.wav
+        sounds/gravity.wav
+        sounds/zen.wav
+        sounds/ultraviolet.wav
+        sounds/velvet.wav
 )
 
 target_link_libraries(${CMAKE_PROJECT_NAME} PRIVATE
