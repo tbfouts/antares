@@ -24,7 +24,8 @@ View3D {
             probeExposure: 0.75
             lightProbe: konzerthaus_4k
             backgroundMode: SceneEnvironment.Transparent
-            antialiasingMode: SceneEnvironment.TemporalAA
+            antialiasingMode: SceneEnvironment.MSAA
+            antialiasingQuality: SceneEnvironment.Medium
         }
 
         SceneEnvironment {
@@ -33,7 +34,8 @@ View3D {
             lightProbe: konzerthaus_4k
             backgroundMode: SceneEnvironment.SkyBox
             skyboxBlurAmount: 0.1
-            antialiasingMode: SceneEnvironment.TemporalAA
+            antialiasingMode: SceneEnvironment.MSAA
+            antialiasingQuality: SceneEnvironment.Medium
         }
 
         Node {

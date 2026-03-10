@@ -36,6 +36,7 @@ Rectangle {
         Loader {
             id: carLoader
             active: false
+            asynchronous: true
             width: 1920
             height: 1080
             source: "IVIArt/CarView3D.ui.qml"
@@ -52,6 +53,14 @@ Rectangle {
             height: 1080
             source: "IVIArt/NavView.ui.qml"
         }
+    }
+
+    Timer {
+        id: carPreloadTimer
+        interval: 1500
+        running: true
+        repeat: false
+        onTriggered: carLoader.active = true
     }
 
     TopBarSwipe {
