@@ -20,6 +20,8 @@ Rectangle {
         y: 0
         opacity: 1
         source: "assets/mapWBorder_merged_child.png"
+        sourceSize.width: 1920
+        sourceSize.height: 1080
     }
 
 
@@ -35,6 +37,8 @@ Rectangle {
         anchors.topMargin: 856
         anchors.bottomMargin: 109
         source: "assets/arrowShadowVec.png"
+        sourceSize.width: 179
+        sourceSize.height: 115
     }
 
     EqBars {
@@ -140,6 +144,8 @@ Rectangle {
         anchors.topMargin: 133
         anchors.bottomMargin: 833
         source: "assets/desShadowVec.png"
+        sourceSize.width: 179
+        sourceSize.height: 114
     }
 
 

@@ -24,8 +24,7 @@ View3D {
             probeExposure: 0.75
             lightProbe: konzerthaus_4k
             backgroundMode: SceneEnvironment.Transparent
-            antialiasingMode: SceneEnvironment.MSAA
-            antialiasingQuality: SceneEnvironment.VeryHigh
+            antialiasingMode: SceneEnvironment.TemporalAA
         }
 
         SceneEnvironment {
@@ -34,8 +33,7 @@ View3D {
             lightProbe: konzerthaus_4k
             backgroundMode: SceneEnvironment.SkyBox
             skyboxBlurAmount: 0.1
-            antialiasingMode: SceneEnvironment.MSAA
-            antialiasingQuality: SceneEnvironment.VeryHigh
+            antialiasingMode: SceneEnvironment.TemporalAA
         }
 
         Node {
@@ -214,6 +212,8 @@ View3D {
         Texture {
             id: konzerthaus_4k
             source: "../images/konzerthaus_4k.hdr"
+            generateMipmaps: true
+            mipFilter: Texture.Linear
             objectName: "Konzerthaus 4k"
         }
 
@@ -316,8 +316,8 @@ View3D {
                 optionalVizVisible: false
                 taillightsVisible: false
                 headlightsVisible: false
-                optionalVizOpacity: 0.01
-                extSheetOpacity: 0.02
+                optionalVizOpacity: 0.05
+                extSheetOpacity: 0.08
             }
 
             PropertyChanges {
@@ -399,8 +399,7 @@ View3D {
                     PropertyAnimation {
                         target: genericCarModel
                         properties: "extSheetOpacity,optionalVizOpacity"
-                        duration: 400
-                        easing.type: Easing.InOutCubic
+                        duration: 0
                     }
                 }
             }
@@ -451,50 +450,6 @@ View3D {
                         target: perspectiveCamera
                         property: "fieldOfView"
                         duration: 761
-                    }
-                }
-            }
-
-            ParallelAnimation {
-                SequentialAnimation {
-                    PauseAnimation {
-                        duration: 50
-                    }
-                }
-
-                SequentialAnimation {
-                    PauseAnimation {
-                        duration: 50
-                    }
-                }
-
-                SequentialAnimation {
-                    PauseAnimation {
-                        duration: 50
-                    }
-                }
-
-                SequentialAnimation {
-                    PauseAnimation {
-                        duration: 50
-                    }
-                }
-
-                SequentialAnimation {
-                    PauseAnimation {
-                        duration: 50
-                    }
-                }
-
-                SequentialAnimation {
-                    PauseAnimation {
-                        duration: 50
-                    }
-                }
-
-                SequentialAnimation {
-                    PauseAnimation {
-                        duration: 50
                     }
                 }
             }

@@ -14,17 +14,12 @@ Rectangle {
     width: 1920
     height: 1080
     color: Data.Themes.backgroundColor
-    property alias carDoorR: view3DCar.doorR
-    property alias carDoorL: view3DCar.doorL
-    property alias debugViewVisible: debugView.visible
     clip: true
     state: "front"
     property alias view3D: view3DCar
 
     View3DCar {
         id: view3DCar
-        doorL: false
-        doorR: false
         lightsVisible: true
     }
 
@@ -62,7 +57,7 @@ Rectangle {
         id: debugView
         x: 139
         y: 72
-        visible: false
+        visible: Data.Values.debugViewVisible
         source: view3DCar
     }
 

@@ -19,7 +19,7 @@ Item {
     property string trackArtist: "Luna Nova"
     property string trackTitle: "Midnight Serenade"
 
-    property variant songs: ["stardust", "luna", "electric", "pixel", "crystal", "sonic", "ethereal", "mind", "gravity", "zen", "ultraviolet", "velvet"]
+    property var songs: ["stardust", "luna", "electric", "pixel", "crystal", "sonic", "ethereal", "mind", "gravity", "zen", "ultraviolet", "velvet"]
 
     property int trackSpeed: 1200
 
@@ -282,19 +282,18 @@ Item {
         }
     ]
 
-    SequentialAnimation {
-            id: trackProgress
-            running: true
-            paused: false
-            loops: Animation.Infinite
-            PropertyAnimation {
-                property: "animRunning"
-                duration: 50000
-                target: trackProgress
-                from: 0
-                to: 323
-                easing.type: Easing.InOutQuad;
-            }
+    property real trackProgressValue: 0
+
+    NumberAnimation {
+        id: trackProgress
+        target: themes
+        property: "trackProgressValue"
+        running: themes.mediaPlaying
+        loops: Animation.Infinite
+        from: 0
+        to: 1.0
+        duration: 50000
+        easing.type: Easing.Linear
     }
     transitions: [
         Transition {
