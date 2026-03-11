@@ -128,12 +128,14 @@ deploy_application() {
         cd /opt/antares
         sudo chown -R user:user /opt/antares
         chmod +x ClusterApp deploy.sh
-        cd /opt/antares
-        chmod +x ClusterApp deploy.sh
-        
-        # Set environment for GPU acceleration
-        # export QT_QPA_PLATFORM=eglfs
-        # export QT_QPA_EGLFS_INTEGRATION=eglfs_kms
+
+        # Grant DRM/GPU device access for Qt EGLFS backend
+        sudo usermod -aG video,render user 2>/dev/null || true
+        if [ -d /dev/dri ]; then
+            sudo chmod 666 /dev/dri/card* /dev/dri/render* 2>/dev/null || true
+            echo "DRM devices:"
+            ls -la /dev/dri/
+        fi
         
         echo "Application deployed successfully"
         echo "To run the cluster app: ./ClusterApp"
