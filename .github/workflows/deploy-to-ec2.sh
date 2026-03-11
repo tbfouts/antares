@@ -139,11 +139,19 @@ deploy_application() {
         echo "To run the cluster app: ./ClusterApp"
         echo "Or use the deployment script: ./deploy.sh"
         
-        # Start the application using deploy.sh script
-        echo "Starting cluster application via deploy.sh..."
-        timeout 120 ./deploy.sh > cluster.log 2>&1 || echo "Application completed or timed out after 2 minutes"
-        
-        echo "Cluster application execution completed"
+        # Start the application in the background so Squish tests can interact with it
+        echo "Starting cluster application via deploy.sh (background)..."
+        nohup ./deploy.sh > cluster.log 2>&1 &
+        APP_PID=$!
+        echo "Application started in background (PID: $APP_PID)"
+        echo "$APP_PID" > /opt/antares/app.pid
+        sleep 5
+        if kill -0 $APP_PID 2>/dev/null; then
+            echo "Application is running"
+        else
+            echo "WARNING: Application may have exited early, check cluster.log"
+        fi
+
         echo "Cluster log: /opt/antares/cluster.log"
         echo "Build info: /opt/antares/build_info.txt"
     '

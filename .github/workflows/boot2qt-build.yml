@@ -6,6 +6,15 @@ on:
   pull_request:
     branches: [ main ]
   workflow_dispatch:
+    inputs:
+      keep_ec2:
+        description: 'Keep EC2 instance running after workflow completes'
+        required: false
+        default: 'true'
+        type: choice
+        options:
+          - 'true'
+          - 'false'
 
 permissions:
   contents: write
@@ -105,93 +114,183 @@ jobs:
           # Run deployment
           ./.github/workflows/deploy-to-ec2.sh
       
-      - name: Wait and collect cluster logs
+      - name: Copy Squish test suite to EC2
         if: success()
+        env:
+          EC2_PRIVATE_KEY: ${{ secrets.EC2_PRIVATE_KEY }}
+          PUBLIC_IP: ${{ env.PUBLIC_IP }}
+        run: |
+          KEY_FILE="/tmp/deployment-key.pem"
+          rm -f "$KEY_FILE"
+          echo "$EC2_PRIVATE_KEY" > "$KEY_FILE"
+          chmod 400 "$KEY_FILE"
+
+          echo "Copying Squish test suite to EC2..."
+          scp -o StrictHostKeyChecking=no -i "$KEY_FILE" -r \
+            Cluster/test/suite_antares-basic \
+            user@"$PUBLIC_IP":/opt/antares/
+
+          echo "Test suite copied successfully"
+
+      - name: Run Squish tests on EC2
+        if: success()
+        env:
+          EC2_PRIVATE_KEY: ${{ secrets.EC2_PRIVATE_KEY }}
+          PUBLIC_IP: ${{ env.PUBLIC_IP }}
+          SQUISH_LICENSE_KEY: ${{ secrets.SQUISH_LICENSE_KEY }}
+        run: |
+          KEY_FILE="/tmp/deployment-key.pem"
+
+          echo "Running Squish tests on EC2..."
+          ssh -o StrictHostKeyChecking=no -o ServerAliveInterval=30 -i "$KEY_FILE" user@"$PUBLIC_IP" bash -s "$SQUISH_LICENSE_KEY" << 'REMOTE_SCRIPT'
+          set -e
+          SQUISH_LICENSE_KEY_ARG="$1"
+
+          SQUISH_DIR=$(ls -d /opt/Squish* 2>/dev/null | head -1)
+          if [ -z "$SQUISH_DIR" ]; then
+            echo "ERROR: Squish not found under /opt/"
+            ls /opt/
+            exit 1
+          fi
+          SQUISH_BIN="$SQUISH_DIR/bin"
+          echo "Using Squish at: $SQUISH_DIR"
+
+          # Configure Squish license
+          mkdir -p ~/.squish
+          if [ -n "$SQUISH_LICENSE_KEY_ARG" ]; then
+            echo "$SQUISH_LICENSE_KEY_ARG" > ~/.squish/license
+            echo "Squish license configured"
+          fi
+
+          # Register the AUT
+          "$SQUISH_BIN/squishserver" --config addAUT ClusterApp /opt/antares
+
+          # Start the Squish server in background
+          "$SQUISH_BIN/squishserver" --verbose &
+          SQUISH_SERVER_PID=$!
+          sleep 3
+          echo "Squish server started (PID: $SQUISH_SERVER_PID)"
+
+          # Run the test suite with XML report output
+          echo "Executing test suite: suite_antares-basic"
+          "$SQUISH_BIN/squishrunner" \
+            --testsuite /opt/antares/suite_antares-basic \
+            --reportgen xml3,/opt/antares/squish_results.xml \
+            --reportgen stdout \
+            --exitCodeOnFail 0 \
+            || true
+
+          echo "Squish tests completed"
+
+          # Stop Squish server
+          "$SQUISH_BIN/squishserver" --stop || kill $SQUISH_SERVER_PID 2>/dev/null || true
+
+          # Show results summary
+          if [ -f /opt/antares/squish_results.xml ]; then
+            echo "Results file size: $(wc -c < /opt/antares/squish_results.xml) bytes"
+          else
+            echo "WARNING: No results XML generated"
+          fi
+          REMOTE_SCRIPT
+
+          echo "Squish test execution completed"
+
+      - name: Collect Squish results and cluster logs
+        if: success() || failure()
         env:
           EC2_PRIVATE_KEY: ${{ secrets.EC2_PRIVATE_KEY }}
           PUBLIC_IP: ${{ env.PUBLIC_IP }}
           INSTANCE_ID: ${{ env.INSTANCE_ID }}
         run: |
-          echo "Waiting 2 minutes for testing, then collecting cluster logs..."
-          echo "Debug: PUBLIC_IP=$PUBLIC_IP INSTANCE_ID=$INSTANCE_ID"
-          sleep 1000  # Wait 2 minutes
-          
-          # Recreate SSH key file
           KEY_FILE="/tmp/deployment-key.pem"
-          rm -f "$KEY_FILE"  # Remove existing file if it exists
+          rm -f "$KEY_FILE"
           echo "$EC2_PRIVATE_KEY" > "$KEY_FILE"
           chmod 400 "$KEY_FILE"
-          
-          # Download cluster logs from EC2 instance
+
           if [ -n "$PUBLIC_IP" ]; then
-            echo "Downloading cluster logs from EC2 instance..."
-            scp -o StrictHostKeyChecking=no -i "$KEY_FILE" user@"$PUBLIC_IP":/opt/antares/cluster.log ./cluster.log || echo "No cluster.log found"
-            
-            # Check if file was downloaded
-            if [ -f "cluster.log" ]; then
-              echo "cluster.log downloaded successfully ($(wc -l < cluster.log) lines)"
+            echo "Downloading Squish results and cluster logs..."
+            scp -o StrictHostKeyChecking=no -i "$KEY_FILE" \
+              user@"$PUBLIC_IP":/opt/antares/squish_results.xml ./squish_results.xml 2>/dev/null || echo "No squish_results.xml found"
+            scp -o StrictHostKeyChecking=no -i "$KEY_FILE" \
+              user@"$PUBLIC_IP":/opt/antares/cluster.log ./cluster.log 2>/dev/null || echo "No cluster.log found"
+
+            if [ -f "squish_results.xml" ]; then
+              echo "squish_results.xml downloaded ($(wc -c < squish_results.xml) bytes)"
             else
-              echo "cluster.log not found, creating empty file for analysis step"
+              echo "<SquishReport>No results collected</SquishReport>" > squish_results.xml
+            fi
+
+            if [ -f "cluster.log" ]; then
+              echo "cluster.log downloaded ($(wc -l < cluster.log) lines)"
+            else
               echo "No cluster log available" > cluster.log
             fi
           else
-            echo "PUBLIC_IP not available, creating empty log file"
+            echo "PUBLIC_IP not available"
+            echo "<SquishReport>No PUBLIC_IP available</SquishReport>" > squish_results.xml
             echo "No PUBLIC_IP available" > cluster.log
           fi
       
-      - name: Analyze cluster logs with Claude Code
-        if: success()
+      - name: Analyze Squish results with Claude Code
+        if: always() && (success() || failure())
         env:
           ANTHROPIC_API_KEY: ${{ secrets.CLAUDE_API_KEY }}
           GH_TOKEN: ${{ github.token }}
-          EC2_KEY_NAME: ${{ secrets.EC2_KEY_NAME }}
-          EC2_PRIVATE_KEY: ${{ secrets.EC2_PRIVATE_KEY }}
         run: |
-          if [ -f "cluster.log" ]; then
-            echo "Installing Claude Code CLI for cluster log analysis..."
-            curl -fsSL https://claude.ai/install.sh | bash
-            echo "$HOME/.claude/bin" >> $GITHUB_PATH
-            
-            # Create cluster analysis prompt
-            cat > cluster_analysis_prompt.md << 'EOF'
-          # EC2 Cluster Deployment Analysis
-          
-          Please analyze the cluster deployment logs from our EC2 instance:
-          
-          **Deployment Details:**
-          - Instance Type: g5g.xlarge (GPU-enabled ARM64)
-          - Platform: Boot2Qt 6.8.3
-          - Application: Antares Cluster App
-          - Runtime: 2 minutes
-          
-          **Your Task:**
-          1. Examine the cluster logs in `cluster.log`
-          2. Identify any errors, warnings, or performance issues
-          3. Assess if the application started correctly
-          4. Report on GPU acceleration status and Qt platform integration
-          5. Suggest improvements for deployment or runtime configuration
-          
-          **Key Areas to Check:**
-          - Application startup and initialization
-          - Qt platform (eglfs) and GPU integration
-          - Any runtime errors or crashes
-          - Performance metrics if available
-          - Resource usage indicators
-          
-          Please provide a concise summary of the deployment health and any recommendations.
-          EOF
-          
-            # Run Claude Code analysis
-            echo "$(cat cluster_analysis_prompt.md)" | claude --dangerously-skip-permissions
-            
-            # Clean up
-            rm -f cluster_analysis_prompt.md
-          else
-            echo "No cluster.log file found for analysis"
+          if [ ! -f "squish_results.xml" ] && [ ! -f "cluster.log" ]; then
+            echo "No test results or logs to analyze"
+            exit 0
           fi
+
+          echo "Installing Claude Code CLI..."
+          curl -fsSL https://claude.ai/install.sh | bash
+          echo "$HOME/.claude/bin" >> $GITHUB_PATH
+
+          # Configure git for branch/PR creation
+          git config user.name "claude-code[bot]"
+          git config user.email "claude-code[bot]@users.noreply.github.com"
+
+          cat > squish_analysis_prompt.md << 'PROMPT_EOF'
+          # Squish Test Results Analysis
+
+          Analyze the Squish GUI test results and cluster deployment logs from our
+          EC2 Boot2Qt instance.
+
+          **Context:**
+          - Application: Antares ClusterApp (automotive instrument cluster)
+          - Platform: Boot2Qt 6.8.3 on g5g.xlarge (GPU ARM64)
+          - Test Suite: suite_antares-basic (speed, themes, telltales, ADAS, doors, units)
+          - Squish results XML: `squish_results.xml`
+          - Application logs: `cluster.log`
+
+          **Your Task:**
+          1. Parse `squish_results.xml` and summarize pass/fail counts per test case
+          2. For any FAILED or ERROR tests, identify the root cause from the XML details
+          3. Cross-reference failures with `cluster.log` for runtime errors
+          4. If there are test failures that appear to be caused by application bugs
+             (not test infrastructure issues):
+             - Examine the relevant QML/C++ source files in the repository
+             - Create a fix branch, commit the fix, and open a draft PR
+             - Branch name: fix/squish-failures-${{ github.run_number }}
+             - The PR body must include the full test results summary
+          5. If all tests pass, just create a summary comment on the workflow run
+
+          **Important:**
+          - Use `git checkout -b fix/squish-failures-${{ github.run_number }}` for the branch
+          - After fixing, commit and push, then use `gh pr create --draft`
+          - If failures are infrastructure-only (Squish connection, license, timeout),
+            do NOT create a fix PR -- create a GitHub issue instead
+          - Always include the test results table in your PR body or issue
+
+          Start by reading squish_results.xml and cluster.log.
+          PROMPT_EOF
+
+          echo "$(cat squish_analysis_prompt.md)" | claude --dangerously-skip-permissions
+
+          rm -f squish_analysis_prompt.md
       
       - name: Cleanup EC2 instance
-        if: always()
+        if: always() && github.event.inputs.keep_ec2 != 'true'
         run: |
           if [ -n "$INSTANCE_ID" ]; then
             echo "Terminating EC2 instance: $INSTANCE_ID"
@@ -200,6 +299,14 @@ jobs:
           else
             echo "No instance ID found to terminate"
           fi
+
+      - name: Report EC2 instance kept alive
+        if: always() && github.event.inputs.keep_ec2 == 'true'
+        run: |
+          echo "EC2 instance kept running per workflow input"
+          echo "Instance ID: $INSTANCE_ID"
+          echo "Public IP: $PUBLIC_IP"
+          echo "SSH: ssh -i <key> user@$PUBLIC_IP"
       
       
       - name: Checkout repository for Claude Code analysis
