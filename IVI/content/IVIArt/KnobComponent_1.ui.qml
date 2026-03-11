@@ -14,18 +14,6 @@ Rectangle {
     property alias eqBarsTopEQAnimationRunning: eqBarsTop.eQAnimationRunning
     property alias txtDialValueText: txtDialValue.text
 
-    Image {
-        id: eqBarBlur
-        x: 72
-        y: -14
-        width: 998
-        height: 1053
-        opacity: 0.556
-        visible: false
-        source: "assets/eqBarBlur.png"
-        fillMode: Image.PreserveAspectFit
-    }
-
     EqBars {
         id: eqBarsBottom
         x: 224
@@ -34,7 +22,7 @@ Rectangle {
         height: 399
         transformOrigin: Item.Center
         scale: 1
-        eQAnimationRunning: false
+        eQAnimationRunning: Data.Themes.mediaPlaying
         rotation: 180
         clip: true
     }
@@ -47,7 +35,7 @@ Rectangle {
         anchors.top: parent.top
         anchors.leftMargin: 224
         anchors.topMargin: 43
-        eQAnimationRunning: false
+        eQAnimationRunning: Data.Themes.mediaPlaying
         clip: true
     }
 
@@ -119,7 +107,7 @@ Rectangle {
         id: txtDialValue
         width: 331
         height: 161
-        color: "#2e3c3c43"
+        color: Data.Themes.themeColor2
         text: Math.floor((dial.value + 130) / 2.6)
         anchors.left: parent.left
         anchors.top: parent.top

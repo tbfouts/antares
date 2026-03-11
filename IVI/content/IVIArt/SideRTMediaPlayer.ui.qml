@@ -17,6 +17,8 @@ Rectangle {
         anchors.bottom: parent.bottom
         anchors.leftMargin: -119
         source: "assets/sideRTMediaPlayer1.png"
+        sourceSize.width: 683
+        sourceSize.height: 1020
     }
 
     MiniPlayer {

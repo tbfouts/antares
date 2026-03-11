@@ -20,6 +20,17 @@ Rectangle {
         onTextMessageReceived: {
             console.log("Received message from server:", message)
         }
+        onStatusChanged: {
+            console.log("WebSocket status:", status, "URL:", url)
+        }
+        onErrorStringChanged: {
+            console.log("WebSocket error:", errorString)
+        }
+    }
+
+    Component.onCompleted: {
+        console.log("Screen02 loaded with address:", address, "port:", portNumber)
+        console.log("WebSocket URL:", ws.url)
     }
 
     Slider {
@@ -121,6 +132,7 @@ Rectangle {
         text: qsTr("ADAS")
         font.family: "Oxanium"
         font.pointSize: 20
+        checked: VehicleData.adas
 
         onToggled: ws.sendTextMessage("adasEnabled:" + (checked ? "true" : "false"))
     }
@@ -359,7 +371,7 @@ Rectangle {
            id: adasText
            x: -3
            y: -6
-           opacity: VehicleData.driveMode == "ADAS" ? 0.8 : 0
+           opacity: switchAdas.checked ? 0.8 : 0
            source: "GLOfigma/assets/adasText.png"
            fillMode: Image.PreserveAspectFit
        }

@@ -1,2 +1,0 @@
-module VehicleData
-singleton VehicleData 1.0 VehicleData.qml

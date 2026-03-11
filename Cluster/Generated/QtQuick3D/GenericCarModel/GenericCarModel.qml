@@ -395,13 +395,16 @@ Node {
 
         PrincipledMaterial {
             id: body_material
-            clearcoatRoughnessAmount: 0.09662
-            clearcoatAmount: 0.89982
-            metalness: 0.29858
+            clearcoatFresnelPower: 1
+            clearcoatRoughnessAmount: 0.029999999329447746
+            clearcoatAmount: 0
+            metalness: 0.8
             objectName: "body"
             baseColor: "#b10000"
-            roughness: 0.40178
-                }
+            roughness: 0.13
+            cullMode: Material.BackFaceCulling
+            alphaMode: PrincipledMaterial.Opaque
+        }
 
 
         PrincipledMaterial {

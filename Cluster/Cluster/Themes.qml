@@ -2,11 +2,20 @@ pragma Singleton
 import QtQuick 2.12
 import QtMultimedia
 import Cluster 1.0
+import VehicleData 1.0
 
 Item {
     id: themes
 
-    property string currentTheme: "stardust"
+    property string currentTheme: "luna"
+
+    // Sync with VehicleData
+    Connections {
+        target: VehicleData
+        function onThemeChanged() {
+            themes.currentTheme = VehicleData.theme
+        }
+    }
 
     property color themeColor1: "#ACE1CC"
     property color themeColor2: "#1D406C"

@@ -2,85 +2,91 @@
 ### Do not change
 
 
-
 qt_add_library(content STATIC)
 qt6_add_qml_module(content
     URI "content"
     VERSION 1.0
     RESOURCE_PREFIX "/qt/qml"
     QML_FILES
-        Screen01.ui.qml
-        App.qml
-        IVIArt/BtnNavView.ui.qml
-        IVIArt/MapNavigation.ui.qml
-        IVIArt/SideRTMediaPlayer.ui.qml
-        IVIArt/GpsMapView.ui.qml
-        IVIArt/KnobComponent_1.ui.qml
-        IVIArt/CarView3D.ui.qml
-        IVIArt/MiniPlayer.ui.qml
-        IVIArt/BtnSound.ui.qml
-        IVIArt/TopBarSwipe.ui.qml
-        IVIArt/BtnVehicleView.ui.qml
-        IVIArt/TrackBar.ui.qml
-        IVIArt/BtnPrev.ui.qml
-        IVIArt/ScrollListPanel.ui.qml
-        IVIArt/ArtistTrack.ui.qml
-        IVIArt/BottomBarSwipe.ui.qml
-        IVIArt/Btn3DView.ui.qml
-        IVIArt/RoutePerformance.ui.qml
-        IVIArt/MediaPlayerWindow.ui.qml
-        IVIArt/BtnPlayMedia.ui.qml
-        IVIArt/EqBars.ui.qml
-        IVIArt/AlbumArtComp.ui.qml
-        IVIArt/BtnMediaView.ui.qml
-        IVIArt/MediaPlayerLayout.ui.qml
-        IVIArt/MedaiPlayer.ui.qml
-        IVIArt/SideLTMediaPlayer.ui.qml
-        IVIArt/View3DCar.ui.qml
-        IVIArt/ListViewTracks.ui.qml
-        IVIArt/NavView.ui.qml
-        IVIArt/BtnNext.ui.qml
+        "App.qml"
+        "Screen01.ui.qml"
+        "IVIArt/AlbumArtComp.ui.qml"
+        "IVIArt/ArtistTrack.ui.qml"
+        "IVIArt/BottomBarSwipe.ui.qml"
+        "IVIArt/Btn3DView.ui.qml"
+        "IVIArt/BtnMediaView.ui.qml"
+        "IVIArt/BtnNavView.ui.qml"
+        "IVIArt/BtnNext.ui.qml"
+        "IVIArt/BtnPlayMedia.ui.qml"
+        "IVIArt/BtnPrev.ui.qml"
+        "IVIArt/BtnSound.ui.qml"
+        "IVIArt/BtnVehicleView.ui.qml"
+        "IVIArt/CarView3D.ui.qml"
+        "IVIArt/EqBars.ui.qml"
+        "IVIArt/GpsMapView.ui.qml"
+        "IVIArt/KnobComponent_1.ui.qml"
+        "IVIArt/ListViewTracks.ui.qml"
+        "IVIArt/MapNavigation.ui.qml"
+        "IVIArt/MedaiPlayer.ui.qml"
+        "IVIArt/MediaPlayerLayout.ui.qml"
+        "IVIArt/MediaPlayerWindow.ui.qml"
+        "IVIArt/MiniPlayer.ui.qml"
+        "IVIArt/NavView.ui.qml"
+        "IVIArt/RoutePerformance.ui.qml"
+        "IVIArt/ScrollListPanel.ui.qml"
+        "IVIArt/SideLTMediaPlayer.ui.qml"
+        "IVIArt/SideRTMediaPlayer.ui.qml"
+        "IVIArt/TopBarSwipe.ui.qml"
+        "IVIArt/TrackBar.ui.qml"
+        "IVIArt/View3DCar.ui.qml"
     RESOURCES
-        images/floorOpacity.png
-        images/BasicLights3_4K.hdr
-        images/WheelBMP.jpg
-        IVIArt/assets/etheral.png
-        IVIArt/assets/txtRoute.png
-        IVIArt/assets/desShadowVec.png
-        IVIArt/assets/velvetVoyager.png
-        IVIArt/assets/nowPlayingBackground.png
-        IVIArt/assets/map_436_62_436_62_1.png
-        IVIArt/assets/crystalCascade.png
-        IVIArt/assets/zenZephyr.png
-        IVIArt/assets/sideLTMediaPlayer1.png
-        IVIArt/assets/ultravioletUtopia.png
-        IVIArt/assets/sideRTMediaPlayer1.png
-        IVIArt/assets/vecRoadBlur.png
-        IVIArt/assets/knobVolumeBackground_1.png
-        IVIArt/assets/pixelPulse.png
-        IVIArt/assets/destVec.png
-        IVIArt/assets/knobHandle_1.png
-        IVIArt/assets/soundBkgrd_state_Mute.png
-        IVIArt/assets/soundBkgrd_state_On.png
-        IVIArt/assets/mindWarp.png
-        IVIArt/assets/stardustMirage.png
-        IVIArt/assets/lunaNova.png
-        IVIArt/assets/gravityGroove.png
-        IVIArt/assets/soundOFF_state_Mute.png
-        IVIArt/assets/soundON_state_On.png
-        IVIArt/assets/mapWBorder_merged_child.png
-        IVIArt/assets/arrowShadowVec.png
-        IVIArt/assets/electricDreamscape.png
-        IVIArt/assets/lamps.png
-        IVIArt/assets/carDoorL.png
-        IVIArt/assets/carDoorR.png
-        IVIArt/assets/btnAdas.png
-        IVIArt/assets/sonicPrism.png
-        IVIArt/assets/timeAddPanels.png
-        IVIArt/assets/knobVolumeForeground_1.png
-        IVIArt/assets/eqBarBlur.png
-        fonts/Oxanium-Light.ttf
-        fonts/Oxanium-Bold.ttf
-        fonts/Oxanium-SemiBold.ttf
-
+        "images/BasicLights3_4K.hdr"
+        "images/floorOpacity.png"
+        "images/WheelBMP.jpg"
+        "IVIArt/assets/arrowShadowVec.png"
+        "IVIArt/assets/btnAdas.png"
+        "IVIArt/assets/carDoorL.png"
+        "IVIArt/assets/carDoorR.png"
+        "IVIArt/assets/crystalCascade.png"
+        "IVIArt/assets/desShadowVec.png"
+        "IVIArt/assets/destVec.png"
+        "IVIArt/assets/electricDreamscape.png"
+        "IVIArt/assets/eqBarBlur.png"
+        "IVIArt/assets/etheral.png"
+        "IVIArt/assets/gravityGroove.png"
+        "IVIArt/assets/knobHandle_1.png"
+        "IVIArt/assets/knobVolumeBackground_1.png"
+        "IVIArt/assets/knobVolumeForeground_1.png"
+        "IVIArt/assets/lamps.png"
+        "IVIArt/assets/lunaNova.png"
+        "IVIArt/assets/map_436_62_436_62_1.png"
+        "IVIArt/assets/mapWBorder_merged_child.png"
+        "IVIArt/assets/mindWarp.png"
+        "IVIArt/assets/nowPlayingBackground.png"
+        "IVIArt/assets/pixelPulse.png"
+        "IVIArt/assets/sideLTMediaPlayer1.png"
+        "IVIArt/assets/sideRTMediaPlayer1.png"
+        "IVIArt/assets/sonicPrism.png"
+        "IVIArt/assets/soundBkgrd_state_Mute.png"
+        "IVIArt/assets/soundBkgrd_state_On.png"
+        "IVIArt/assets/soundOFF_state_Mute.png"
+        "IVIArt/assets/soundON_state_On.png"
+        "IVIArt/assets/stardustMirage.png"
+        "IVIArt/assets/timeAddPanels.png"
+        "IVIArt/assets/txtRoute.png"
+        "IVIArt/assets/ultravioletUtopia.png"
+        "IVIArt/assets/vecRoadBlur.png"
+        "IVIArt/assets/velvetVoyager.png"
+        "IVIArt/assets/zenZephyr.png"
 )
+
+
+qt6_add_resources(content contentBigResource
+    BIG_RESOURCES
+    PREFIX "/qt/qml/content"
+    VERSION 1.0
+    FILES 
+        "images/konzerthaus_4k.hdr"
+        "images/the_sky_is_on_fire_4k.hdr"
+)
+

@@ -3,7 +3,7 @@
 
 VehicleData::VehicleData(QObject *parent)
     : VehicleDataInterface(parent)
-    , m_driveMode("SPORT")
+    , m_driveMode("ADAS")
     , m_units("Imperial")
     , m_demoMode("manual")
     , m_simulationRunning(false)
@@ -12,13 +12,14 @@ VehicleData::VehicleData(QObject *parent)
     , m_gear(true)
     , m_battery(100)
     , m_adasRot(0)
-    , m_lights(false)
-    , m_adas(false)
+    , m_lights(true)
+    , m_adas(true)
     , m_doorDrvr(false)
     , m_doorPsgr(false)
     , m_switchTurnL(false)
     , m_switchTurnR(false)
     , m_qsricons(false)
+    , m_theme("luna")
 {
 }
 
@@ -31,6 +32,7 @@ void VehicleData::setDriveMode(const QString &driveMode)
 {
     if (m_driveMode != driveMode) {
         m_driveMode = driveMode;
+        setAdas(driveMode.compare("ADAS") == 0);
         emit driveModeChanged();
     }
 }
@@ -162,8 +164,12 @@ bool VehicleData::doorDrvr() const
 void VehicleData::setDoorDrvr(bool doorDrvr)
 {
     if (m_doorDrvr != doorDrvr) {
+        qDebug() << "VehicleData::setDoorDrvr changing from" << m_doorDrvr << "to" << doorDrvr;
         m_doorDrvr = doorDrvr;
         emit doorDrvrChanged();
+        qDebug() << "VehicleData::doorDrvrChanged() signal emitted";
+    } else {
+        qDebug() << "VehicleData::setDoorDrvr - value unchanged:" << doorDrvr;
     }
 }
 
@@ -232,5 +238,18 @@ void VehicleData::setQsrIcons(bool qsrIconsEnabled)
         qDebug() << "setting qsricons: " << qsrIconsEnabled;
         m_qsricons = qsrIconsEnabled;
         emit qsrIconsChanged();
+    }
+}
+
+QString VehicleData::theme() const
+{
+    return m_theme;
+}
+
+void VehicleData::setTheme(const QString &theme)
+{
+    if (m_theme != theme) {
+        m_theme = theme;
+        emit themeChanged();
     }
 }

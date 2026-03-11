@@ -2,9 +2,11 @@ pragma Singleton
 import QtQuick 2.12
 import QtMultimedia
 import Data 1.0 as Data
+import VehicleData 1.0
 
 Item {
     id: themes
+    state: "luna"
 
     property string currentTheme: "luna"
 
@@ -17,37 +19,48 @@ Item {
     property string trackArtist: "Luna Nova"
     property string trackTitle: "Midnight Serenade"
 
-    property variant songs: ["stardust", "luna", "electric", "pixel", "crystal", "sonic", "ethereal", "mind", "gravity", "zen", "ultraviolet", "velvet"]
+    property var songs: ["stardust", "luna", "electric", "pixel", "crystal", "sonic", "ethereal", "mind", "gravity", "zen", "ultraviolet", "velvet"]
 
     property int trackSpeed: 1200
 
     property bool mediaPlaying: mediaPlayer.playing
     property bool mediaSoundMute: true
 
-    Component.onCompleted: mediaPlayer.play()
-
-    onStateChanged: Data.Values.currentTheme = state
+    onStateChanged: {
+        Data.Values.currentTheme = state
+        VehicleData.theme = state
+    }
 
     MediaPlayer {
         id: mediaPlayer
-        source: "../../sounds/" + themes.state + ".wav"
+        property bool userStartedPlayback: false
+        source: "qrc:/sounds/" + themes.state + ".wav"
         audioOutput: AudioOutput { muted: mediaSoundMute }
         loops: MediaPlayer.Infinite
         onSourceChanged:
         {
             console.log("source: " + source)
-            mediaPlayer.play()
+            if (userStartedPlayback)
+                mediaPlayer.play()
+        }
+        onPlaybackStateChanged: {
+            console.log("playbackState changed to: " + playbackState)
+            themes.mediaPlaying = (playbackState === MediaPlayer.PlayingState)
+        }
+        onErrorOccurred: {
+            console.log("MediaPlayer error: " + errorString)
         }
     }
 
     function playPause()
     {
-        if(mediaPlayer.playing)
+        if(mediaPlayer.playbackState === MediaPlayer.PlayingState)
         {
             mediaPlayer.pause()
         }
         else
         {
+            mediaPlayer.userStartedPlayback = true
             mediaPlayer.play()
         }
     }
@@ -270,19 +283,18 @@ Item {
         }
     ]
 
-    SequentialAnimation {
-            id: trackProgress
-            running: true
-            paused: false
-            loops: Animation.Infinite
-            PropertyAnimation {
-                property: "animRunning"
-                duration: 50000
-                target: trackProgress
-                from: 0
-                to: 323
-                easing.type: Easing.InOutQuad;
-            }
+    property real trackProgressValue: 0
+
+    NumberAnimation {
+        id: trackProgress
+        target: themes
+        property: "trackProgressValue"
+        running: themes.mediaPlaying
+        loops: Animation.Infinite
+        from: 0
+        to: 1.0
+        duration: 50000
+        easing.type: Easing.Linear
     }
     transitions: [
         Transition {

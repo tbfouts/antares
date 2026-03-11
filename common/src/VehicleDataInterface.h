@@ -236,6 +236,18 @@ public:
      */
     virtual void setQsrIcons(bool qsrIconsEnabled) = 0;
 
+    /**
+     * @brief Get the current theme.
+     * @return The current theme as a QString.
+     */
+    virtual QString theme() const = 0;
+
+    /**
+     * @brief Set the theme.
+     * @param theme The theme to set.
+     */
+    virtual void setTheme(const QString &theme) = 0;
+
 signals:
     /**
      * @brief Signal emitted when the drive mode changes.
@@ -316,6 +328,11 @@ signals:
      * @brief Signal emitted when the QSR icons state changes.
      */
     void qsrIconsChanged();
+
+    /**
+     * @brief Signal emitted when the theme changes.
+     */
+    void themeChanged();
 };
 
 #endif // VEHICLEDATAINTERFACE_H

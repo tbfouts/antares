@@ -7,6 +7,7 @@ import Quick3DAssets.Lights
 import QtQuick3D.Helpers 6.5
 import Data 1.0 as Data
 import QtQuick.Timeline 1.0
+import VehicleData 1.0
 
 View3D {
     id: view3DCar
@@ -14,70 +15,56 @@ View3D {
     property alias doorL: genericCarModel.doorsOpenLeft
     property alias doorR: genericCarModel.doorsOpenRight
         state: "base"
-        environment: xsceneEnvironment
+        environment: sceneEnvironment
         camera: perspectiveCamera
         property alias lightsVisible: lights.visible
 
+        // TemporalAA is preferred for desktop visual quality. On embedded TBDR
+        // targets (Mali, Adreno, PowerVR) use MSAA Medium instead — MSAA resolves
+        // on-chip in the tile buffer at near-zero DRAM cost, while TemporalAA
+        // keeps the renderer always-dirty (m_requestedFramesCount = 1), pinning
+        // Dynamic uniform buffers in MTLStorageModeShared and adding continuous
+        // off-chip DRAM reads for the history buffer.
+        // Measured impact on this car model (macOS/Metal):
+        //   TemporalAA: ~208MB MALLOC_LARGE (shared uniform buffers stay resident)
+        //   MSAA Medium: ~91MB MALLOC_LARGE (renderer can idle between frames)
+        // Qt 6.10 removed SceneEnvironment.TemporalAA enum; use the split API below.
+        SceneEnvironment {
+            id: sceneEnvironment
+            probeExposure: 0.75
+            lightProbe: konzerthaus_4k
+            backgroundMode: SceneEnvironment.Transparent
+            antialiasingMode: SceneEnvironment.NoAA
+            temporalAAEnabled: true
+        }
 
-        ExtendedSceneEnvironment {
-            id: xsceneEnvironment
-            depthOfFieldFocusRange: 120
-            glowLevel: ExtendedSceneEnvironment.GlowLevel.Five
-            probeOrientation.y: 0
-                    depthOfFieldBlurAmount: 15
-                    depthOfFieldFocusDistance: 500
-                    depthOfFieldEnabled: false
-                    adjustmentContrast: 1
-                    adjustmentBrightness: 1
-                    colorAdjustmentsEnabled: false
-                    ditheringEnabled: false
-                    sharpnessAmount: 0
-                    whitePoint: 1
-                    probeExposure: 2
-                    probeHorizon: 0.5
-                    lightProbe: konzerthaus_4k
-                    aoDither: false
-                    aoSampleRate: 4
-                    aoSoftness: 0
-                    lutEnabled: false
-                    exposure: 1.38999
-                    lensFlareBlurAmount: 50
-                    lensFlareDistortion: 5
-                    lensFlareStretchToAspect: 0.5
-                    lensFlareHaloWidth: 0.5
-                    lensFlareGhostDispersal: 0.5
-                    lensFlareBloomBias: 0.1
-                    lensFlareBloomScale: 20
-                    lensFlareEnabled: false
-                    vignetteEnabled: false
-                    glowBlendMode: ExtendedSceneEnvironment.GlowBlendMode.Screen
-                    glowHDRMinimumValue: 3
-                    glowHDRMaximumValue: 5
-                    glowHDRScale: 1
-                    glowBloom: 0
-                    glowIntensity: 0.001
-                    glowStrength: 1.9
-                    glowQualityHigh: true
-                    glowEnabled: true
-                    fxaaEnabled: true
-                    clearColor: "#191919"
-                    depthPrePassEnabled: true
-                    aoDistance: 0
-                    aoEnabled: false
-                    backgroundMode: SceneEnvironment.Transparent
-                    tonemapMode: SceneEnvironment.TonemapModeLinear
-                    temporalAAEnabled: false
-                    antialiasingMode: SceneEnvironment.SSAA
-                    antialiasingQuality: SceneEnvironment.Medium
+        SceneEnvironment {
+            id: sceneEnvironmentInt
+            probeExposure: 0.5
+            lightProbe: konzerthaus_4k
+            backgroundMode: SceneEnvironment.SkyBox
+            skyboxBlurAmount: 0.1
+            antialiasingMode: SceneEnvironment.NoAA
+            temporalAAEnabled: true
         }
 
         Node {
             id: scene
 
+            DirectionalLight {
+                id: directionalLight
+                y: 500
+                ambientColor: Qt.rgba(0.5, 0.5, 0.5, 1.0)
+                brightness: 0.5
+                eulerRotation.x: -90
+            }
+
             GenericCarModel {
                 id: genericCarModel
                 opacity: 1
                 visible: true
+                headlightsVisible: VehicleData.lights
+                taillightsVisible: VehicleData.lights
                 glassTextured_materialRoughness: 0.5
                 glassTextured_materialOpacity: 0.5
                 glassTextured_materialMetalness: 0.5
@@ -86,8 +73,8 @@ View3D {
                 wheelRearLeftEulerRotationx: camNull.eulerRotation.y
                 wheelFrRightEulerRotationx: camNull.eulerRotation.y
                 wheelFrLeftEulerRotationx: camNull.eulerRotation.y
-                doorsOpenLeft: false
-                doorsOpenRight: false
+                doorsOpenLeft: VehicleData.doorDrvr
+                doorsOpenRight: VehicleData.doorPsgr
                 wheelCaliper_materialBaseColor: Data.Themes.themeColor1
                 wheelRimColor_materialBaseColor: Data.Themes.themeColor2
                 carPaint_materialBaseColor: Data.Themes.themeColor1
@@ -237,6 +224,8 @@ View3D {
         Texture {
             id: konzerthaus_4k
             source: "../images/konzerthaus_4k.hdr"
+            generateMipmaps: true
+            mipFilter: Texture.Linear
             objectName: "Konzerthaus 4k"
         }
 
@@ -270,7 +259,7 @@ View3D {
             TimelineAnimation {
                 id: animBars
                 duration: Data.Themes.trackSpeed
-                running: true
+                running: cylinder.visible
                 loops: -1
                 to: 1000
                 from: 0
@@ -308,11 +297,6 @@ View3D {
                 frame: 737
             }
         }
-
-        KeyframeGroup {
-            target: cylinder
-            property: "scale"
-        }
     }
 
     states: [
@@ -341,15 +325,16 @@ View3D {
 
             PropertyChanges {
                 target: genericCarModel
+                optionalVizVisible: false
                 taillightsVisible: false
                 headlightsVisible: false
-                optionalVizOpacity: 0.01
-                extSheetOpacity: 0.02
+                optionalVizOpacity: 0.05
+                extSheetOpacity: 0.08
             }
 
             PropertyChanges {
-                target: xsceneEnvironment
-                probeExposure: 6
+                target: sceneEnvironment
+                probeExposure: 2.0
             }
 
             PropertyChanges {
@@ -390,10 +375,8 @@ View3D {
             }
 
             PropertyChanges {
-                target: xsceneEnvironment
-                backgroundMode: SceneEnvironment.SkyBox
-                probeOrientation.y: 0
-                skyboxBlurAmount: 0.1
+                target: view3DCar
+                environment: sceneEnvironmentInt
             }
         }]
     transitions: [
@@ -421,6 +404,14 @@ View3D {
                         target: genericCarModel
                         property: "wheelCaliper_materialBaseColor"
                         duration: 150
+                    }
+                }
+
+                SequentialAnimation {
+                    PropertyAnimation {
+                        target: genericCarModel
+                        properties: "extSheetOpacity,optionalVizOpacity"
+                        duration: 0
                     }
                 }
             }
@@ -471,50 +462,6 @@ View3D {
                         target: perspectiveCamera
                         property: "fieldOfView"
                         duration: 761
-                    }
-                }
-            }
-
-            ParallelAnimation {
-                SequentialAnimation {
-                    PauseAnimation {
-                        duration: 50
-                    }
-                }
-
-                SequentialAnimation {
-                    PauseAnimation {
-                        duration: 50
-                    }
-                }
-
-                SequentialAnimation {
-                    PauseAnimation {
-                        duration: 50
-                    }
-                }
-
-                SequentialAnimation {
-                    PauseAnimation {
-                        duration: 50
-                    }
-                }
-
-                SequentialAnimation {
-                    PauseAnimation {
-                        duration: 50
-                    }
-                }
-
-                SequentialAnimation {
-                    PauseAnimation {
-                        duration: 50
-                    }
-                }
-
-                SequentialAnimation {
-                    PauseAnimation {
-                        duration: 50
                     }
                 }
             }
@@ -578,6 +525,6 @@ View3D {
 /*##^##
 Designer {
     D{i:0;matPrevEnvDoc:"SkyBox";matPrevEnvValueDoc:"preview_studio";matPrevModelDoc:"#Sphere"}
-D{i:2;cameraSpeed3d:25;cameraSpeed3dMultiplier:1}D{i:49;transitionDuration:2000}
+D{i:3;cameraSpeed3d:25;cameraSpeed3dMultiplier:1}D{i:51;transitionDuration:2000}
 }
 ##^##*/
