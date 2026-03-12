@@ -20,4 +20,12 @@ qt6_add_qml_module(VehicleData
         ${CMAKE_CURRENT_SOURCE_DIR}/../../src/VehicleData.cpp
 )
 
+target_include_directories(VehicleData PRIVATE
+    ${CMAKE_CURRENT_SOURCE_DIR}/../../src
+)
+target_link_libraries(VehicleData PRIVATE
+    Qt6::Core
+    Qt6::Qml
+)
+
 
