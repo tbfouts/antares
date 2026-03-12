@@ -26,8 +26,6 @@ endif()
 
 add_library(antares_common STATIC
     src/VehicleDataInterface.h
-    src/VehicleData.h
-    src/VehicleData.cpp
     src/VehicleCanInterface.h
     src/VehicleCanInterface.cpp
     src/MqttClient.h
