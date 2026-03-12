@@ -58,8 +58,6 @@ endif()
 
 include(${CMAKE_CURRENT_SOURCE_DIR}/qmlmodules)
 
-# Link VehicleData QML module from common
-target_link_libraries(${CMAKE_PROJECT_NAME} PRIVATE VehicleDataplugin)
 
 if (LINK_INSIGHT)
     include(${CMAKE_CURRENT_SOURCE_DIR}/insight OPTIONAL)

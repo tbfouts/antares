@@ -90,8 +90,6 @@ endif()
 
 include(qds)
 
-# Link VehicleData QML module from common
-target_link_libraries(${CMAKE_PROJECT_NAME} PRIVATE VehicleDataplugin)
 
 if (BUILD_QDS_COMPONENTS)
     include(qmlcomponents OPTIONAL)
