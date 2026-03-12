@@ -222,8 +222,39 @@ jobs:
       - name: Install Squish Python dependencies
         if: success()
         run: |
-          # squishrunner uses system Python to execute test scripts
-          pip install websockets
+          # Squish bundles its own Python — install websockets there
+          SQUISH_PYTHON="$SQUISH_DIR/bin/dummyapp"
+          # Try standard Squish Python binary names
+          for name in squishpython python3 python; do
+            if [ -x "$SQUISH_DIR/bin/$name" ]; then
+              SQUISH_PYTHON="$SQUISH_DIR/bin/$name"
+              break
+            fi
+          done
+
+          # If no Python binary in bin/, find the actual interpreter
+          if [ ! -x "$SQUISH_PYTHON" ]; then
+            SQUISH_PYTHON=$(find "$SQUISH_DIR" -name "python3*" -type f -executable ! -name "*config*" | head -n 1)
+          fi
+
+          if [ -z "$SQUISH_PYTHON" ] || [ ! -x "$SQUISH_PYTHON" ]; then
+            echo "WARNING: No Squish Python found, falling back to system pip"
+            echo "Squish Python dir contents:"
+            find "$SQUISH_DIR" -path "*/python*" -type f | head -20
+            pip install websockets
+          else
+            echo "Squish Python: $SQUISH_PYTHON"
+            "$SQUISH_PYTHON" -m pip install websockets || {
+              # If pip isn't available in Squish Python, install to its site-packages manually
+              echo "pip not available in Squish Python, using system pip with --target"
+              SITE_PACKAGES=$("$SQUISH_PYTHON" -c "import site; print(site.getsitepackages()[0])" 2>/dev/null || echo "")
+              if [ -z "$SITE_PACKAGES" ]; then
+                SITE_PACKAGES=$(find "$SQUISH_DIR" -path "*/site-packages" -type d | head -n 1)
+              fi
+              echo "Installing to: $SITE_PACKAGES"
+              pip install --target "$SITE_PACKAGES" websockets
+            }
+          fi
 
       - name: Run Squish tests from host
         if: success()
