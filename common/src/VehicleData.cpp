@@ -1,5 +1,24 @@
 #include "VehicleData.h"
 #include <QDebug>
+#include <QQmlEngine>
+
+VehicleData *VehicleData::s_instance = nullptr;
+
+VehicleData *VehicleData::instance()
+{
+    if (!s_instance)
+        s_instance = new VehicleData();
+    return s_instance;
+}
+
+VehicleData *VehicleData::create(QQmlEngine *qmlEngine, QJSEngine *jsEngine)
+{
+    Q_UNUSED(jsEngine)
+    auto *inst = instance();
+    // Tell the QML engine not to take ownership — we manage the lifetime in main()
+    QJSEngine::setObjectOwnership(inst, QJSEngine::CppOwnership);
+    return inst;
+}
 
 VehicleData::VehicleData(QObject *parent)
     : VehicleDataInterface(parent)

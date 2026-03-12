@@ -15,6 +15,9 @@ qt6_add_qml_module(VehicleData
     RESOURCE_PREFIX "/qt/qml"
     QML_FILES
         "VehicleData.qml"
+    SOURCES
+        ${CMAKE_CURRENT_SOURCE_DIR}/../../src/VehicleData.h
+        ${CMAKE_CURRENT_SOURCE_DIR}/../../src/VehicleData.cpp
 )
 
 

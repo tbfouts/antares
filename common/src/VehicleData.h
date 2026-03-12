@@ -1,12 +1,24 @@
 #ifndef VEHICLEDATA_H
 #define VEHICLEDATA_H
 
+#include <QtQml/qqmlregistration.h>
 #include "VehicleDataInterface.h"
 
 class VehicleData : public VehicleDataInterface
 {
     Q_OBJECT
+    QML_ELEMENT
+    QML_SINGLETON
 
+    // Singleton instance access for QML engine and C++ wiring
+public:
+    static VehicleData *instance();
+    static VehicleData *create(QQmlEngine *qmlEngine, QJSEngine *jsEngine);
+
+private:
+    static VehicleData *s_instance;
+
+public:
     Q_PROPERTY(QString driveMode READ driveMode WRITE setDriveMode NOTIFY driveModeChanged)
     Q_PROPERTY(QString units READ units WRITE setUnits NOTIFY unitsChanged)
     Q_PROPERTY(QString demoMode READ demoMode WRITE setDemoMode NOTIFY demoModeChanged)

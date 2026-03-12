@@ -3,7 +3,6 @@
 
 #include <QGuiApplication>
 #include <QQmlApplicationEngine>
-#include <QQmlContext>
 
 #include "autogen/environment.h"
 #include "VehicleData.h"
@@ -15,13 +14,12 @@ int main(int argc, char *argv[])
     set_qt_environment();
     QGuiApplication app(argc, argv);
 
-    VehicleData* vehData = new VehicleData();
+    // VehicleData is registered as QML_SINGLETON via declarative macros in VehicleData.h.
+    // The QML engine calls VehicleData::create() which returns the singleton instance.
+    VehicleData* vehData = VehicleData::instance();
     VehicleCANInterface* vehCanInterface = new VehicleCANInterface(vehData);
     VehicleMqttInterface* vehMqttInterface = new VehicleMqttInterface(vehData);
 
-    // Register interfaces under their own URI namespaces (VehicleData is already
-    // registered via the static QML plugin from common/qml/VehicleData, so we expose
-    // the C++ instance as a context property to avoid duplicate namespace registration)
     qmlRegisterSingletonInstance<VehicleCANInterface>("VehicleCANInterface", 1, 0, "VehicleCANInterface", vehCanInterface);
     qmlRegisterSingletonInstance<VehicleMqttInterface>("VehicleMqttInterface", 1, 0, "VehicleMqttInterface", vehMqttInterface);
     vehCanInterface->connectToCAN();
@@ -34,7 +32,6 @@ int main(int argc, char *argv[])
     }
 
     QQmlApplicationEngine engine;
-    engine.rootContext()->setContextProperty("VehicleData", vehData);
     const QUrl url(mainQmlFile);
     QObject::connect(
                 &engine, &QQmlApplicationEngine::objectCreated, &app,
