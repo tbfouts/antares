@@ -98,19 +98,20 @@ jobs:
           # Run deployment
           ./.github/workflows/deploy-to-ec2.sh
       
-      - name: Install Squish runner on GitHub runner
+      - name: Restore Squish cache
         if: success()
+        id: squish-cache
+        uses: actions/cache@v4
+        with:
+          path: ~/squish
+          key: squish-runner-9.2.0-qt68x-linux64
+
+      - name: Install Squish runner on GitHub runner
+        if: success() && steps.squish-cache.outputs.cache-hit != 'true'
         env:
           SQUISH_PACKAGE_S3: ${{ secrets.SQUISH_PACKAGE_S3 }}
         run: |
           SQUISH_INSTALL_DIR="$HOME/squish"
-
-          # Check if already installed from a previous step/cache
-          if [ -x "$SQUISH_INSTALL_DIR/bin/squishrunner" ]; then
-            echo "squishrunner already installed at: $SQUISH_INSTALL_DIR/bin/squishrunner"
-            echo "SQUISH_DIR=$SQUISH_INSTALL_DIR" >> $GITHUB_ENV
-            exit 0
-          fi
 
           if [ -z "$SQUISH_PACKAGE_S3" ]; then
             echo "=========================================================="
@@ -127,7 +128,7 @@ jobs:
           sudo apt-get update -qq
           sudo apt-get install -y -qq libxcb-icccm4 libxcb-image0 libxcb-keysyms1 \
             libxcb-render-util0 libxcb-shape0 libxcb-xinerama0 libxcb-xkb1 \
-            libxkbcommon-x11-0 xvfb >/dev/null 2>&1
+            libxkbcommon-x11-0 >/dev/null 2>&1
 
           echo "Downloading Squish from S3: $SQUISH_PACKAGE_S3"
           SQUISH_PKG="/tmp/squish-installer"
@@ -136,8 +137,9 @@ jobs:
 
           echo "Installing Squish to $SQUISH_INSTALL_DIR..."
           mkdir -p "$SQUISH_INSTALL_DIR"
-          xvfb-run "$SQUISH_PKG" installdir="$SQUISH_INSTALL_DIR" < /dev/null \
-            || "$SQUISH_PKG" installdir="$SQUISH_INSTALL_DIR" < /dev/null \
+          # Qt IFW installer — run unattended with --platform minimal
+          "$SQUISH_PKG" --platform minimal --root "$SQUISH_INSTALL_DIR" \
+            --accept-licenses --confirm-command install < /dev/null \
             || { echo "ERROR: Squish installer failed"; exit 1; }
 
           rm -f "$SQUISH_PKG"
@@ -150,7 +152,13 @@ jobs:
 
           echo "Squish installed: $SQUISH_INSTALL_DIR/bin/squishrunner"
           "$SQUISH_INSTALL_DIR/bin/squishrunner" --version || true
-          echo "SQUISH_DIR=$SQUISH_INSTALL_DIR" >> $GITHUB_ENV
+
+      - name: Set Squish env
+        if: success()
+        run: |
+          echo "SQUISH_DIR=$HOME/squish" >> $GITHUB_ENV
+          echo "Squish runner: $HOME/squish/bin/squishrunner"
+          "$HOME/squish/bin/squishrunner" --version || true
 
       - name: Start squishserver on EC2
         if: success()
