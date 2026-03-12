@@ -222,14 +222,8 @@ jobs:
       - name: Install Squish Python dependencies
         if: success()
         run: |
-          # Install websockets into Squish's bundled Python for test data injection
-          SQUISH_PYTHON="$SQUISH_DIR/bin/squishpython"
-          if [ ! -x "$SQUISH_PYTHON" ]; then
-            # Fallback: find any python in the Squish install
-            SQUISH_PYTHON=$(find "$SQUISH_DIR" -name "python*" -type f -executable | head -n 1)
-          fi
-          echo "Squish Python: $SQUISH_PYTHON"
-          "$SQUISH_PYTHON" -m pip install websockets
+          # squishrunner uses system Python to execute test scripts
+          pip install websockets
 
       - name: Run Squish tests from host
         if: success()
