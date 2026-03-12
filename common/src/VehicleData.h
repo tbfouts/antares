@@ -2,6 +2,7 @@
 #define VEHICLEDATA_H
 
 #include <QtQml/qqmlregistration.h>
+#include <QtQml/qqmlengine.h>
 #include "VehicleDataInterface.h"
 
 class VehicleData : public VehicleDataInterface
