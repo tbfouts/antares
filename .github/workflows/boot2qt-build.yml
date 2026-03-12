@@ -124,6 +124,12 @@ jobs:
             exit 1
           fi
 
+          # Installer binary is linked against X11 libs even in unattended mode
+          sudo apt-get update -qq
+          sudo apt-get install -y -qq libxcb-icccm4 libxcb-image0 libxcb-keysyms1 \
+            libxcb-render-util0 libxcb-shape0 libxcb-xinerama0 libxcb-xkb1 \
+            libxkbcommon-x11-0 >/dev/null 2>&1
+
           echo "Downloading Squish from S3: $SQUISH_PACKAGE_S3"
           SQUISH_PKG="/tmp/squish-installer"
           aws s3 cp "$SQUISH_PACKAGE_S3" "$SQUISH_PKG"
@@ -131,7 +137,7 @@ jobs:
 
           echo "Installing Squish to $SQUISH_INSTALL_DIR..."
           mkdir -p "$SQUISH_INSTALL_DIR"
-          # Squish .run uses Qt IFW — unattended=1 for headless CI (no GUI, no X11 deps needed)
+          # Squish .run uses Qt IFW — unattended=1 for headless CI
           "$SQUISH_PKG" unattended=1 targetdir="$SQUISH_INSTALL_DIR" ide=0 doc=0 examples=0 \
             || { echo "ERROR: Squish installer failed"; exit 1; }
 
