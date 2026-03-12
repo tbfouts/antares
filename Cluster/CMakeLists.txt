@@ -90,8 +90,12 @@ endif()
 
 include(qds)
 
-# Link VehicleData QML module from common
-target_link_libraries(${CMAKE_PROJECT_NAME} PRIVATE VehicleDataplugin)
+# NOTE: VehicleDataplugin is intentionally NOT linked here.
+# The C++ qmlRegisterSingletonInstance call in main.cpp already registers the
+# "VehicleData" URI with the real VehicleData class.  Linking VehicleDataplugin
+# would also register the same URI (for Design Studio mock use only), causing:
+#   "Namespace 'VehicleData' has already been used for type registration"
+# See common/qml/VehicleData/VehicleData.qml for the Design Studio disclaimer.
 
 if (BUILD_QDS_COMPONENTS)
     include(qmlcomponents OPTIONAL)
