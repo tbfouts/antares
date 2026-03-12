@@ -286,7 +286,14 @@ jobs:
           else
             echo "No PUBLIC_IP available" > cluster.log
           fi
-      
+
+          # Print cluster.log to console for visibility
+          echo "=========================================="
+          echo "cluster.log contents:"
+          echo "=========================================="
+          cat cluster.log
+          echo "=========================================="
+
       - name: Analyze Squish results with Claude Code
         if: always() && (success() || failure())
         env:
