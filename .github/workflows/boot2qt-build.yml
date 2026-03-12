@@ -114,108 +114,55 @@ jobs:
           # Run deployment
           ./.github/workflows/deploy-to-ec2.sh
       
-      - name: Copy Squish test suite to EC2
+      - name: Install Squish runner on GitHub runner
         if: success()
         env:
-          EC2_PRIVATE_KEY: ${{ secrets.EC2_PRIVATE_KEY }}
-          PUBLIC_IP: ${{ env.PUBLIC_IP }}
-        run: |
-          KEY_FILE="/tmp/deployment-key.pem"
-          rm -f "$KEY_FILE"
-          echo "$EC2_PRIVATE_KEY" > "$KEY_FILE"
-          chmod 400 "$KEY_FILE"
-
-          echo "Copying Squish test suite to EC2..."
-          scp -o StrictHostKeyChecking=no -i "$KEY_FILE" -r \
-            Cluster/test/suite_antares-basic \
-            user@"$PUBLIC_IP":/opt/antares/
-
-          echo "Test suite copied successfully"
-
-      - name: Install Squish runner on EC2
-        if: success()
-        env:
-          EC2_PRIVATE_KEY: ${{ secrets.EC2_PRIVATE_KEY }}
-          PUBLIC_IP: ${{ env.PUBLIC_IP }}
           SQUISH_PACKAGE_S3: ${{ secrets.SQUISH_PACKAGE_S3 }}
         run: |
-          KEY_FILE="/tmp/deployment-key.pem"
+          SQUISH_INSTALL_DIR="$HOME/squish"
 
-          echo "Checking for squishrunner on EC2..."
-          RUNNER_EXISTS=$(ssh -o StrictHostKeyChecking=no -i "$KEY_FILE" user@"$PUBLIC_IP" \
-            'find /opt/squish-full /opt/[Ss]quish* -name "squishrunner" -type f 2>/dev/null | head -n 1')
-
-          if [ -n "$RUNNER_EXISTS" ]; then
-            echo "squishrunner already available at: $RUNNER_EXISTS"
+          # Check if already installed from a previous step/cache
+          if [ -x "$SQUISH_INSTALL_DIR/bin/squishrunner" ]; then
+            echo "squishrunner already installed at: $SQUISH_INSTALL_DIR/bin/squishrunner"
+            echo "SQUISH_DIR=$SQUISH_INSTALL_DIR" >> $GITHUB_ENV
             exit 0
           fi
 
-          echo "squishrunner not found in embedded Squish install."
-          echo "The Boot2Qt AMI only includes Squish server components (squishserver, startaut)."
-          echo "A full Squish for Qt package is needed for squishrunner."
-
           if [ -z "$SQUISH_PACKAGE_S3" ]; then
-            echo ""
             echo "=========================================================="
             echo "ACTION REQUIRED: Set the SQUISH_PACKAGE_S3 secret"
             echo "=========================================================="
             echo ""
-            echo "Upload the Squish for Qt Linux ARM64 package (.tar.gz or .run) to S3 and"
-            echo "set the SQUISH_PACKAGE_S3 repository secret to the S3 URI, e.g.:"
-            echo "  s3://your-bucket/squish/squish-2024.1.2-qt69x-linux-arm64.tar.gz"
-            echo ""
-            echo "Download Squish from: https://squish-downloads.qt.io/"
-            echo "Select: Squish for Qt > Linux > ARM64"
-            echo ""
+            echo "Upload the Squish for Qt Linux x64 package to S3 and set"
+            echo "the SQUISH_PACKAGE_S3 repository secret to the S3 URI, e.g.:"
+            echo "  s3://antares-squish-packages/squish-9.2.0-qt68x-linux64.run"
             exit 1
           fi
 
-          echo "Downloading Squish package from S3: $SQUISH_PACKAGE_S3"
-          SQUISH_PKG="/tmp/squish-package"
+          echo "Downloading Squish from S3: $SQUISH_PACKAGE_S3"
+          SQUISH_PKG="/tmp/squish-installer"
           aws s3 cp "$SQUISH_PACKAGE_S3" "$SQUISH_PKG"
+          chmod +x "$SQUISH_PKG"
 
-          echo "Uploading Squish package to EC2..."
-          scp -o StrictHostKeyChecking=no -i "$KEY_FILE" "$SQUISH_PKG" user@"$PUBLIC_IP":/tmp/squish-package
-
-          echo "Installing Squish on EC2..."
-          ssh -o StrictHostKeyChecking=no -i "$KEY_FILE" user@"$PUBLIC_IP" << 'INSTALL_SCRIPT'
-          set -e
-          SQUISH_INSTALL_DIR="/opt/squish-full"
-          PKG="/tmp/squish-package"
-
-          sudo mkdir -p "$SQUISH_INSTALL_DIR"
-          chmod +x "$PKG" 2>/dev/null || true
-
-          # Try .run installer first, then tar.gz extraction
-          if file "$PKG" 2>/dev/null | grep -qi "executable\|script"; then
-            echo "Installing via .run installer..."
-            sudo "$PKG" installdir="$SQUISH_INSTALL_DIR" < /dev/null \
-              || sudo sh "$PKG" installdir="$SQUISH_INSTALL_DIR" < /dev/null \
-              || { echo "ERROR: .run installer failed"; exit 1; }
-          else
-            echo "Extracting tar.gz archive..."
-            sudo tar -xzf "$PKG" -C "$SQUISH_INSTALL_DIR" --strip-components=1 \
-              || { echo "ERROR: tar extraction failed"; exit 1; }
-          fi
-
-          # Verify squishrunner exists
-          RUNNER=$(find "$SQUISH_INSTALL_DIR" -name "squishrunner" -type f 2>/dev/null | head -n 1)
-          if [ -z "$RUNNER" ]; then
-            echo "ERROR: squishrunner not found after installation"
-            echo "Installed files:"
-            find "$SQUISH_INSTALL_DIR" -type f -executable | head -n 30
-            exit 1
-          fi
-
-          echo "Squish installed successfully at: $SQUISH_INSTALL_DIR"
-          echo "squishrunner: $RUNNER"
-          rm -f "$PKG"
-          INSTALL_SCRIPT
+          echo "Installing Squish to $SQUISH_INSTALL_DIR..."
+          mkdir -p "$SQUISH_INSTALL_DIR"
+          "$SQUISH_PKG" installdir="$SQUISH_INSTALL_DIR" < /dev/null \
+            || sh "$SQUISH_PKG" installdir="$SQUISH_INSTALL_DIR" < /dev/null \
+            || { echo "ERROR: Squish installer failed"; exit 1; }
 
           rm -f "$SQUISH_PKG"
-          echo "Squish installation complete"
 
-      - name: Run Squish tests on EC2
+          if [ ! -x "$SQUISH_INSTALL_DIR/bin/squishrunner" ]; then
+            echo "ERROR: squishrunner not found after installation"
+            find "$SQUISH_INSTALL_DIR" -type f -executable | head -n 20
+            exit 1
+          fi
+
+          echo "Squish installed: $SQUISH_INSTALL_DIR/bin/squishrunner"
+          "$SQUISH_INSTALL_DIR/bin/squishrunner" --version || true
+          echo "SQUISH_DIR=$SQUISH_INSTALL_DIR" >> $GITHUB_ENV
+
+      - name: Start squishserver on EC2
         if: success()
         env:
           EC2_PRIVATE_KEY: ${{ secrets.EC2_PRIVATE_KEY }}
@@ -224,34 +171,20 @@ jobs:
         run: |
           KEY_FILE="/tmp/deployment-key.pem"
 
-          echo "Running Squish tests on EC2..."
-          ssh -o StrictHostKeyChecking=no -o ServerAliveInterval=30 -o ConnectTimeout=10 \
-            -i "$KEY_FILE" user@"$PUBLIC_IP" bash -s "$SQUISH_LICENSE_KEY" << 'REMOTE_SCRIPT'
+          echo "Configuring squishserver on EC2 target..."
+          ssh -o StrictHostKeyChecking=no -o ServerAliveInterval=30 -i "$KEY_FILE" \
+            user@"$PUBLIC_IP" bash -s "$SQUISH_LICENSE_KEY" << 'REMOTE_SCRIPT'
           set -e
           SQUISH_LICENSE_KEY_ARG="$1"
 
           # Find squishserver from the embedded install
           SQUISH_SERVER=$(find /opt/[Ss]quish* -name "squishserver" -type f 2>/dev/null | head -n 1)
           if [ -z "$SQUISH_SERVER" ]; then
-            echo "ERROR: squishserver not found"
+            echo "ERROR: squishserver not found on target"
+            ls /opt/
             exit 1
           fi
-
-          # Find squishrunner — check full install first, then embedded
-          SQUISH_RUNNER=$(find /opt/squish-full -name "squishrunner" -type f 2>/dev/null | head -n 1)
-          if [ -z "$SQUISH_RUNNER" ]; then
-            SQUISH_RUNNER=$(find /opt/[Ss]quish* -name "squishrunner" -type f 2>/dev/null | head -n 1)
-          fi
-
-          if [ -z "$SQUISH_RUNNER" ]; then
-            echo "ERROR: squishrunner not found on this instance."
-            echo "The Boot2Qt AMI only has embedded server components."
-            echo "Set the SQUISH_PACKAGE_S3 secret to install the full Squish package."
-            exit 1
-          fi
-
           echo "squishserver: $SQUISH_SERVER"
-          echo "squishrunner: $SQUISH_RUNNER"
 
           # Configure Squish license
           mkdir -p ~/.squish
@@ -262,15 +195,18 @@ jobs:
             echo "WARNING: No Squish license key provided"
           fi
 
-          # Kill any existing ClusterApp before Squish starts a new one
+          # Kill any existing ClusterApp — Squish will manage AUT lifecycle
           killall ClusterApp 2>/dev/null || true
+
+          # Stop any existing squishserver
+          "$SQUISH_SERVER" --stop 2>/dev/null || true
           sleep 1
 
-          # Register the AUT with squishserver
+          # Register the AUT
           "$SQUISH_SERVER" --config addAUT ClusterApp /opt/antares
 
-          # Start the Squish server in background
-          "$SQUISH_SERVER" --verbose &
+          # Start squishserver listening on all interfaces for remote squishrunner
+          "$SQUISH_SERVER" --verbose --host 0.0.0.0 &
           SQUISH_SERVER_PID=$!
           sleep 3
 
@@ -278,43 +214,55 @@ jobs:
             echo "ERROR: squishserver failed to start"
             exit 1
           fi
-          echo "Squish server started (PID: $SQUISH_SERVER_PID)"
+          echo "squishserver running (PID: $SQUISH_SERVER_PID) on port 4322"
+          REMOTE_SCRIPT
 
-          # Run the test suite
+          echo "squishserver ready on EC2"
+
+      - name: Run Squish tests from host
+        if: success()
+        env:
+          SQUISH_LICENSE_KEY: ${{ secrets.SQUISH_LICENSE_KEY }}
+          PUBLIC_IP: ${{ env.PUBLIC_IP }}
+        run: |
+          SQUISH_RUNNER="$SQUISH_DIR/bin/squishrunner"
+
+          # Configure license on the runner as well
+          mkdir -p ~/.squish
+          if [ -n "$SQUISH_LICENSE_KEY" ]; then
+            echo "$SQUISH_LICENSE_KEY" > ~/.squish/license
+          fi
+
           echo "=========================================="
           echo "Executing test suite: suite_antares-basic"
+          echo "Host:   $(hostname) (squishrunner)"
+          echo "Target: $PUBLIC_IP (squishserver:4322)"
           echo "=========================================="
+
           TEST_EXIT=0
           "$SQUISH_RUNNER" \
-            --testsuite /opt/antares/suite_antares-basic \
-            --reportgen xml3,/opt/antares/squish_results.xml \
+            --host "$PUBLIC_IP" \
+            --port 4322 \
+            --testsuite Cluster/test/suite_antares-basic \
+            --reportgen xml3,squish_results.xml \
             --reportgen stdout \
             --exitCodeOnFail 0 \
             || TEST_EXIT=$?
 
           echo "Squish tests completed (exit code: $TEST_EXIT)"
 
-          # Stop Squish server
-          "$SQUISH_SERVER" --stop 2>/dev/null || kill $SQUISH_SERVER_PID 2>/dev/null || true
-          sleep 1
-
-          # Show results summary
-          if [ -f /opt/antares/squish_results.xml ]; then
-            echo "Results file size: $(wc -c < /opt/antares/squish_results.xml) bytes"
-            # Quick pass/fail count
-            PASSES=$(grep -c '<test.*result="PASS"' /opt/antares/squish_results.xml 2>/dev/null || echo "0")
-            FAILS=$(grep -c '<test.*result="FAIL"' /opt/antares/squish_results.xml 2>/dev/null || echo "0")
-            ERRORS=$(grep -c '<test.*result="ERROR"' /opt/antares/squish_results.xml 2>/dev/null || echo "0")
+          if [ -f squish_results.xml ]; then
+            echo "Results file size: $(wc -c < squish_results.xml) bytes"
+            PASSES=$(grep -c '<test.*result="PASS"' squish_results.xml 2>/dev/null || echo "0")
+            FAILS=$(grep -c '<test.*result="FAIL"' squish_results.xml 2>/dev/null || echo "0")
+            ERRORS=$(grep -c '<test.*result="ERROR"' squish_results.xml 2>/dev/null || echo "0")
             echo "Results: $PASSES passed, $FAILS failed, $ERRORS errors"
           else
-            echo "ERROR: No squish_results.xml generated — tests may not have executed"
+            echo "ERROR: No squish_results.xml generated"
             exit 1
           fi
 
           exit $TEST_EXIT
-          REMOTE_SCRIPT
-
-          echo "Squish test execution completed"
 
       - name: Collect Squish results and cluster logs
         if: success() || failure()
@@ -328,18 +276,17 @@ jobs:
           echo "$EC2_PRIVATE_KEY" > "$KEY_FILE"
           chmod 400 "$KEY_FILE"
 
+          # squish_results.xml is already local (generated by squishrunner on this runner)
+          if [ -f "squish_results.xml" ]; then
+            echo "squish_results.xml present ($(wc -c < squish_results.xml) bytes)"
+          else
+            echo "<SquishReport>No results collected</SquishReport>" > squish_results.xml
+          fi
+
+          # Download cluster.log from EC2
           if [ -n "$PUBLIC_IP" ]; then
-            echo "Downloading Squish results and cluster logs..."
-            scp -o StrictHostKeyChecking=no -i "$KEY_FILE" \
-              user@"$PUBLIC_IP":/opt/antares/squish_results.xml ./squish_results.xml 2>/dev/null || echo "No squish_results.xml found"
             scp -o StrictHostKeyChecking=no -i "$KEY_FILE" \
               user@"$PUBLIC_IP":/opt/antares/cluster.log ./cluster.log 2>/dev/null || echo "No cluster.log found"
-
-            if [ -f "squish_results.xml" ]; then
-              echo "squish_results.xml downloaded ($(wc -c < squish_results.xml) bytes)"
-            else
-              echo "<SquishReport>No results collected</SquishReport>" > squish_results.xml
-            fi
 
             if [ -f "cluster.log" ]; then
               echo "cluster.log downloaded ($(wc -l < cluster.log) lines)"
@@ -347,8 +294,6 @@ jobs:
               echo "No cluster log available" > cluster.log
             fi
           else
-            echo "PUBLIC_IP not available"
-            echo "<SquishReport>No PUBLIC_IP available</SquishReport>" > squish_results.xml
             echo "No PUBLIC_IP available" > cluster.log
           fi
       
