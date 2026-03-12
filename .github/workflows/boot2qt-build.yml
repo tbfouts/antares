@@ -146,7 +146,7 @@ jobs:
           set -e
           SQUISH_LICENSE_KEY_ARG="$1"
 
-          SQUISH_DIR=$(ls -d /opt/Squish* 2>/dev/null | head -n 1)
+          SQUISH_DIR=$(ls -d /opt/[Ss]quish* 2>/dev/null | head -n 1)
           if [ -z "$SQUISH_DIR" ]; then
             echo "ERROR: Squish not found under /opt/"
             ls /opt/

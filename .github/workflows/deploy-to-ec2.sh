@@ -48,10 +48,35 @@ create_security_group() {
     fi
 }
 
+# Function to find an existing running instance by project tag
+find_existing_instance() {
+    echo "Checking for existing antares deployment instance..."
+    EXISTING=$(aws ec2 describe-instances \
+        --region "$REGION" \
+        --filters \
+            "Name=tag:Name,Values=antares-boot2qt-deployment" \
+            "Name=instance-state-name,Values=running" \
+        --query 'Reservations[0].Instances[0].[InstanceId,PublicIpAddress]' \
+        --output text 2>/dev/null)
+
+    EXISTING_ID=$(echo "$EXISTING" | awk '{print $1}')
+    EXISTING_IP=$(echo "$EXISTING" | awk '{print $2}')
+
+    if [ -n "$EXISTING_ID" ] && [ "$EXISTING_ID" != "None" ] && [ "$EXISTING_ID" != "null" ]; then
+        echo "Found existing instance: $EXISTING_ID at $EXISTING_IP"
+        INSTANCE_ID="$EXISTING_ID"
+        PUBLIC_IP="$EXISTING_IP"
+        echo "INSTANCE_ID=$INSTANCE_ID" >> $GITHUB_ENV
+        echo "PUBLIC_IP=$PUBLIC_IP" >> $GITHUB_ENV
+        return 0
+    fi
+    return 1
+}
+
 # Function to launch EC2 instance
 launch_instance() {
-    echo "Launching EC2 instance..."
-    
+    echo "Launching new EC2 instance..."
+
     # Build launch command
     LAUNCH_CMD="aws ec2 run-instances \
         --image-id $AMI_ID \
@@ -60,26 +85,26 @@ launch_instance() {
         --security-group-ids $SECURITY_GROUP_ID \
         --region $REGION \
         --tag-specifications 'ResourceType=instance,Tags=[{Key=Name,Value=antares-boot2qt-deployment},{Key=Project,Value=antares},{Key=Environment,Value=staging}]'"
-    
+
     # Add subnet if specified
     if [ -n "$SUBNET_ID" ]; then
         LAUNCH_CMD="$LAUNCH_CMD --subnet-id $SUBNET_ID"
     fi
-    
+
     # Launch instance
     INSTANCE_ID=$(eval $LAUNCH_CMD --query 'Instances[0].InstanceId' --output text)
     echo "Instance launched: $INSTANCE_ID"
-    
+
     # Wait for instance to be running
     echo "Waiting for instance to be running..."
     aws ec2 wait instance-running --instance-ids "$INSTANCE_ID" --region "$REGION"
-    
+
     # Get public IP
     PUBLIC_IP=$(aws ec2 describe-instances \
         --instance-ids "$INSTANCE_ID" \
         --region "$REGION" \
         --query 'Reservations[0].Instances[0].PublicIpAddress' --output text)
-    
+
     echo "Instance is running at: $PUBLIC_IP"
     echo "INSTANCE_ID=$INSTANCE_ID" >> $GITHUB_ENV
     echo "PUBLIC_IP=$PUBLIC_IP" >> $GITHUB_ENV
@@ -124,6 +149,14 @@ deploy_application() {
     
     # Move files to final location and set permissions
     ssh -o StrictHostKeyChecking=no -i "$KEY_FILE" user@"$PUBLIC_IP" '
+        # Stop any previously running ClusterApp
+        if [ -f /opt/antares/app.pid ]; then
+            OLD_PID=$(cat /opt/antares/app.pid)
+            kill $OLD_PID 2>/dev/null && echo "Stopped previous ClusterApp (PID: $OLD_PID)" || true
+            rm -f /opt/antares/app.pid
+        fi
+        killall ClusterApp 2>/dev/null || true
+
         sudo mv /tmp/* /opt/antares/
         cd /opt/antares
         sudo chown -R user:user /opt/antares
@@ -189,9 +222,11 @@ main() {
         exit 1
     fi
     
-    # Execute deployment steps
+    # Execute deployment steps — reuse existing instance if available
     create_security_group
-    launch_instance
+    if ! find_existing_instance; then
+        launch_instance
+    fi
     wait_for_ssh
     deploy_application
     
