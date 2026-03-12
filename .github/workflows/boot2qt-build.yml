@@ -152,8 +152,21 @@ jobs:
             ls /opt/
             exit 1
           fi
-          SQUISH_BIN="$SQUISH_DIR/bin"
           echo "Using Squish at: $SQUISH_DIR"
+          echo "Squish directory contents:"
+          ls -la "$SQUISH_DIR/bin/" 2>/dev/null || ls -la "$SQUISH_DIR/" || true
+
+          # Find squishserver and squishrunner binaries
+          SQUISH_SERVER=$(find "$SQUISH_DIR" -name "squishserver" -type f 2>/dev/null | head -n 1)
+          SQUISH_RUNNER=$(find "$SQUISH_DIR" -name "squishrunner" -type f 2>/dev/null | head -n 1)
+
+          if [ -z "$SQUISH_SERVER" ]; then
+            echo "ERROR: squishserver binary not found in $SQUISH_DIR"
+            find "$SQUISH_DIR" -type f -executable | head -n 20
+            exit 1
+          fi
+          echo "squishserver: $SQUISH_SERVER"
+          echo "squishrunner: ${SQUISH_RUNNER:-NOT FOUND}"
 
           # Configure Squish license
           mkdir -p ~/.squish
@@ -163,27 +176,35 @@ jobs:
           fi
 
           # Register the AUT
-          "$SQUISH_BIN/squishserver" --config addAUT ClusterApp /opt/antares
+          "$SQUISH_SERVER" --config addAUT ClusterApp /opt/antares
 
           # Start the Squish server in background
-          "$SQUISH_BIN/squishserver" --verbose &
+          "$SQUISH_SERVER" --verbose &
           SQUISH_SERVER_PID=$!
           sleep 3
           echo "Squish server started (PID: $SQUISH_SERVER_PID)"
 
           # Run the test suite with XML report output
           echo "Executing test suite: suite_antares-basic"
-          "$SQUISH_BIN/squishrunner" \
-            --testsuite /opt/antares/suite_antares-basic \
-            --reportgen xml3,/opt/antares/squish_results.xml \
-            --reportgen stdout \
-            --exitCodeOnFail 0 \
-            || true
+          if [ -n "$SQUISH_RUNNER" ]; then
+            "$SQUISH_RUNNER" \
+              --testsuite /opt/antares/suite_antares-basic \
+              --reportgen xml3,/opt/antares/squish_results.xml \
+              --reportgen stdout \
+              --exitCodeOnFail 0 \
+              || true
+          else
+            # Squish 8.x: use squishserver --testsuite directly
+            "$SQUISH_SERVER" --testsuite /opt/antares/suite_antares-basic \
+              --reportgen xml3,/opt/antares/squish_results.xml \
+              --reportgen stdout \
+              || true
+          fi
 
           echo "Squish tests completed"
 
           # Stop Squish server
-          "$SQUISH_BIN/squishserver" --stop || kill $SQUISH_SERVER_PID 2>/dev/null || true
+          "$SQUISH_SERVER" --stop || kill $SQUISH_SERVER_PID 2>/dev/null || true
 
           # Show results summary
           if [ -f /opt/antares/squish_results.xml ]; then
