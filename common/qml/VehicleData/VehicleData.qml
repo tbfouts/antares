@@ -143,4 +143,12 @@ Item {
      * @note Controls visibility of quick status icons in the UI
      */
     property bool qsrIcons: false
+
+    /**
+     * @brief Current theme identifier
+     * @type {string}
+     * @default "luna"
+     * @note Used to sync theme selection across components
+     */
+    property string theme: "luna"
 }

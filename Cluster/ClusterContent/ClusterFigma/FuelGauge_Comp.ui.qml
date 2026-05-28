@@ -27,6 +27,7 @@ Rectangle {
 
     Rectangle {
         id: veFuelGaugeBar
+        objectName: "veFuelGaugeBar"
         width: 0
         color: "#67b800"
         radius: 1
@@ -109,6 +110,7 @@ Rectangle {
 
     Text {
         id: txtFuelRem
+        objectName: "txtFuelRem"
         x: veFuelGaugeBar.width + 100
         y: 27
         width: 50

@@ -14,6 +14,7 @@ Rectangle {
 
     SafeImage {
         id: turnLeftIcon
+        objectName: "turnLeftIcon"
         width: 50
         height: 50
         opacity: 0
@@ -25,6 +26,7 @@ Rectangle {
 
     SafeImage {
         id: turnRightIcon
+        objectName: "turnRightIcon"
         width: 50
         height: 50
         opacity: 0
