@@ -14,7 +14,46 @@ permissions:
   actions: write
 
 jobs:
+  qml-tests:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+
+      - name: Install Qt 6.9.3
+        uses: jurplel/install-qt-action@v4
+        with:
+          version: '6.9.3'
+          modules: 'qtmultimedia qtserialbus qtquick3d qtshadertools'
+
+      - name: Install dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y libgl-dev libvulkan-dev
+
+      - name: Configure
+        run: |
+          qt-cmake -B build -S Cluster -DCMAKE_BUILD_TYPE=RelWithDebInfo
+
+      - name: Build
+        run: |
+          cmake --build build --parallel
+
+      - name: Run QML tests
+        run: |
+          QT_QPA_PLATFORM=offscreen ./build/tests/tst_qmltests -o build/tests/reports/junit/results.xml,junitxml
+
+      - name: Upload test results
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: qml-test-results
+          path: build/tests/reports/junit/results.xml
+
   trigger-codebuild:
+    needs: qml-tests
     runs-on: ubuntu-latest
     steps:
       - name: Configure AWS credentials
