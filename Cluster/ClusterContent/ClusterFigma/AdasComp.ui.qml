@@ -18,6 +18,7 @@ Rectangle {
 
     Image {
         id: adasHaloVec
+        objectName: "adasHaloVec"
         anchors.left: parent.left
         anchors.top: parent.top
         anchors.leftMargin: 17
@@ -27,6 +28,7 @@ Rectangle {
 
     Text {
         id: txtADASEng
+        objectName: "txtADASEng"
         width: 256
         height: 31
         color: "#818181"

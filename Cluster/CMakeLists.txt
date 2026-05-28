@@ -26,7 +26,8 @@ set(QML_IMPORT_PATH ${QT_QML_OUTPUT_DIRECTORY}
     FORCE
 )
 
-find_package(Qt6 6.2 REQUIRED COMPONENTS Core Gui Qml Quick Multimedia SerialBus)
+find_package(Qt6 6.2 REQUIRED COMPONENTS Core Gui Qml Quick Multimedia SerialBus QuickTest)
+enable_testing()
 
 # Include common library
 add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/../common ${CMAKE_BINARY_DIR}/common)
@@ -100,6 +101,8 @@ endif()
 if (LINK_INSIGHT)
     include(insight OPTIONAL)
 endif ()
+
+add_subdirectory(tests)
 
 include(GNUInstallDirs)
 install(TARGETS ${CMAKE_PROJECT_NAME}

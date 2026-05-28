@@ -67,7 +67,7 @@ Item {
                 albumArt: "assets/stardustMirage.png"
                 trackArtist: "Stardust Mirage"
                 trackTitle: "Celestial Echoes"
-                trackspeed: 600
+                trackSpeed: 600
             }
         },
 

@@ -16,6 +16,7 @@ Rectangle {
 
     Text {
         id: txtGearD
+        objectName: "txtGearD"
         y: 79
         width: 39
         height: 72
@@ -31,6 +32,7 @@ Rectangle {
 
     Text {
         id: txtGearR
+        objectName: "txtGearR"
         x: 6
         y: 43
         color: "#464646"
@@ -45,6 +47,7 @@ Rectangle {
 
     Text {
         id: txtGearP
+        objectName: "txtGearP"
         x: 6
         y: 0
         color: "#464646"

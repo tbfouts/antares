@@ -55,6 +55,7 @@ Rectangle {
 
     Rectangle {
         id: barFillingBattery
+        objectName: "barFillingBattery"
         color: "#67b800"
         radius: 1
         anchors.right: parent.right
@@ -99,6 +100,7 @@ Rectangle {
 
     Text {
         id: textBatteryRem
+        objectName: "textBatteryRem"
         x: barFillingBattery.x - 55
         y: 27
         width: 50
