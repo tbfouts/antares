@@ -44,6 +44,16 @@ if [ -f "$TOOLCHAIN_ENV_SCRIPT" ]; then
   source "$TOOLCHAIN_ENV_SCRIPT"
   export OECORE_CMAKE_TOOLCHAIN_FILE="$CMAKE_TOOLCHAIN_FILE"
   
+  # Run QML unit tests using host Qt before cross-compiling
+  echo "=== Running QML Unit Tests ==="
+  cd $CODEBUILD_SRC_DIR/Cluster
+  mkdir -p build-host && cd build-host
+  $QT_DIR/gcc_64/bin/qt-cmake .. -DCMAKE_BUILD_TYPE=RelWithDebInfo
+  cmake --build . --target tst_qmltests --parallel 6
+  QT_QPA_PLATFORM=offscreen ./tests/tst_qmltests
+  echo "=== QML Tests Passed ==="
+  cd $CODEBUILD_SRC_DIR
+
   echo "Building Cluster Application for Boot to Qt (includes common library automatically)..."
   cd $CODEBUILD_SRC_DIR/Cluster
   mkdir build-boot2qt && cd build-boot2qt
