@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<VerificationPoint type="Screenshot" version="4">
+    <Description/>
+    <Verification object="antares_Cluster_obdCheckLampIcon_SafeImage" options="12" type="PNG">
+        iVBORw0KGgoAAAANSUhEUgAAACgAAAAoCAMAAAC7IEhfAAAAQlBMVEUeHh4sLBw5Oho6OhpHSBhVVhZkZRVxcxN+gBF+gRGMjg+Mjw+anQ2nqgunqwu0uAm0uQnDxwjR1Qbf4wTs8QL6/wDeovusAAAACXBIWXMAAAsTAAALEwEAmpwYAAABGElEQVQ4jdWU4ZKDIAyEoYCcx/Ushbz/q94mVicotP3Z2xm1E77GDSYY879kg5Ibc5dKWn4IhoajME4ZE7QQLfycXhmNRPEV8yYYiggVVflxH1XzSwdd23UrG+ZDyERZ6QQWmo2Z1xw6fgIlsL62tPEqPr9gN1sFYut8C64+5ZEUeKwtPXwic6Vqx+BmC1eSlM/BWrBuJeVzcPUpKaW62gfZZ1684ZRm+w49cBe/ERlzLm+BY4+fBvKcHFvbczA5bjHS3YOxsg1YHhse+ZZVP6LTmrnfvgz+gLgsWQd5BOrUgDcHMJ7HAkNN3xrk7rmvCVslNrqfP3vjXo+cMVN7AHEN8NM7sS5Fgz+owTnb4WB0TrvmPvKp+gMBxCFzE2U+0AAAAABJRU5ErkJggg==
+        <Mask/>
+    </Verification>
+</VerificationPoint>

@@ -5,7 +5,7 @@ from websockets.sync.client import connect
 
 class ws:
     def __init__(self):
-        port = 5555
+        port = 1234
         host = "localhost"
         connection_string = f"ws://{host}:{port}"
         self.connection = connect(connection_string)

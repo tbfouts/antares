@@ -12,8 +12,13 @@ def main():
 
     snooze(3)
 
+    # property based verification
     test.compare(waitForObject(names.antares_Cluster_qsrWarnings_ui).visible, True)
     
+    # Screenshot verification of telltale presence
+    test.vp("VP2")
+    test.vp("VP3")
+
     datainterface.send("qsrIcons", False)
             
 def waitUntilObjectReady( obj ):

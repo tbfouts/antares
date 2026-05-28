@@ -43,7 +43,7 @@ Rectangle {
     AdasView3D {
         id: view3D
         visible: true
-        anchors.fill: parent
+        anchors.centerIn: parent
         state: "adasON"
     }
 

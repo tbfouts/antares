@@ -42,5 +42,5 @@ def main():
     
 def waitUntilObjectReady( obj ):
     highlightObject(obj, 1000)
-    snooze(1)
+    snooze(.5)
     

@@ -59,6 +59,8 @@ __pycache__/
 
 Cluster-Release/
 Cluster-Debug/
+ClusterApp-Debug/
+**/build_macos/
 py-venv/
 py-venv*
 

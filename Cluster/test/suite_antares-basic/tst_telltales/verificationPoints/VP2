@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<VerificationPoint type="Screenshot" version="4">
+    <Description/>
+    <Verification object="antares_Cluster_brakeWarningIcon_SafeImage" options="12" type="PNG">
+        iVBORw0KGgoAAAANSUhEUgAAACgAAAAoCAMAAAC7IEhfAAAARVBMVEUeHh4sHBw6GhpIGBhWFhZlFRVyExNzExOAERGBERGODw+PDw+cDQ2dDQ2qCwurCwu4CQm5CQnHCAjVBgbjBATxAgL/AADkorafAAAACXBIWXMAAAsTAAALEwEAmpwYAAABg0lEQVQ4jd1UQZLDIAwDQsp2WdoUiP//1LVsaEiGmd7LhWDLQjIQY756LCGEdfmE8nknGfsWZunoZF4rDaMq1Ma14xxRQmRDOqfgfUgZ3w/UJ6IuhHm42IHu8RbnniBlZOBJQz+cV1w9eZAII3mj2NZY8l7FNkDVD1tYCU877QgEKWDalkagOQbybkxUSl440O7OXIHGCRlTZrHMCu9NxwXYyJ7gYsgK433jMxD6JHKHJ2sWoZ0AtYsW6YISpZ0BV7FTqRgROnT/AtRTy8xG9BK1Zg40Igr598dnoDLaEXgIFh84NtGJdh0abcnuvfDSyML3YoNr9TYb2g847o3Kc2BubU6Nm9f+2O6Q6MSC0OqJ+4HSD0VbO2B43SSeD5UeV0DHL8Gq1wNWMr5QdOv79Q7cSGq6riz0rOPq/Kah0GUxJS5t7M+ut/NB4hNPp4WTPtcoL7T58H972yIdd5qfhjRk0fdfcq7yv6hStI4t7gcdhl9FjZfkefiYS611S36a/pLxD/r7Iot50zs4AAAAAElFTkSuQmCC
+        <Mask/>
+    </Verification>
+</VerificationPoint>

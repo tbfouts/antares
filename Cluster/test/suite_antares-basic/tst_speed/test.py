@@ -47,7 +47,7 @@ def main():
             test.compare(border_width, 0, f"Speed {speed} mph should not show border")
             
     datainterface.send("speed", 0)
-        
+
 def waitUntilObjectReady( obj ):
     highlightObject(obj, 750)
 

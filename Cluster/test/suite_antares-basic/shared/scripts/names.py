@@ -36,3 +36,5 @@ txtFuelRem = {"container": antares_Cluster_QQuickWindowQmlImpl, "id": "txtFuelRe
 veFuelGaugeBar = {"container": antares_Cluster_QQuickWindowQmlImpl, "id": "veFuelGaugeBar", "type": "Rectangle", "unnamed": 1, "visible": True}
 textBatteryRem = {"container": antares_Cluster_QQuickWindowQmlImpl, "id": "textBatteryRem", "type": "Text", "unnamed": 1, "visible": True}
 barFillingBattery = {"container": antares_Cluster_QQuickWindowQmlImpl, "id": "barFillingBattery", "type": "Rectangle", "unnamed": 1, "visible": True}
+antares_Cluster_brakeWarningIcon_SafeImage = {"container": antares_Cluster_QQuickWindowQmlImpl, "id": "brakeWarningIcon", "type": "SafeImage", "unnamed": 1, "visible": True}
+antares_Cluster_obdCheckLampIcon_SafeImage = {"container": antares_Cluster_QQuickWindowQmlImpl, "id": "obdCheckLampIcon", "type": "SafeImage", "unnamed": 1, "visible": True}
