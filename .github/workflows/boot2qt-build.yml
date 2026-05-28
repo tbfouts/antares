@@ -26,7 +26,7 @@ jobs:
         uses: jurplel/install-qt-action@v4
         with:
           version: '6.9.3'
-          modules: 'qtmultimedia qtserialbus qtquick3d qtshadertools'
+          modules: 'qtmultimedia qtserialbus qtserialport qtquick3d qtshadertools'
 
       - name: Install dependencies
         run: |
